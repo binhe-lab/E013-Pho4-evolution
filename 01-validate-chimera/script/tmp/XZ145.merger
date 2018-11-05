@@ -1,0 +1,116 @@
+########################################
+# Program: merger
+# Rundate: Sun  7 Oct 2018 13:28:26
+# Commandline: merger
+#    [-asequence] ./tmp/fwd.fa
+#    [-bsequence] ./tmp/rev.fa
+#    -outseq ./tmp/XZ145.fa
+#    -outfile ./tmp/XZ145.merger
+# Align_format: simple
+# Report_file: ./tmp/XZ145.merger
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: XZ145-p355
+# 2: XZ145-p032
+# Matrix: EDNAFULL
+# Gap_penalty: 50.0
+# Extend_penalty: 5.0
+#
+# Length: 923
+# Identity:     309/923 (33.5%)
+# Similarity:   309/923 (33.5%)
+# Gaps:         602/923 (65.2%)
+# Score: 1517.0
+# 
+#
+#=======================================
+
+XZ145-p355         1 --------------------------------------------------      0
+                                                                       
+XZ145-p032         1 gatgannnaaggagacagaacaagagtagcagaaagtcatgggtttacag     50
+
+XZ145-p355         1 -------------------------gggaacatgaagatgcgattgatgg     25
+                                              |||||||||||||||||||||||||
+XZ145-p032        51 cacgatgagaaagaagatgaacatagggaacatgaagatgcgattgatgg    100
+
+XZ145-p355        26 tggggccnntctgaacatgcacctttacaatattaatgatacattaaatg     75
+                     |||||||  |||||||||||||||||||||||||||||||||||||||||
+XZ145-p032       101 tggggccagtctgaacatgcacctttacaatattaatgatacattaaatg    150
+
+XZ145-p355        76 gtgtttctactgataacggtcatttcgacatggttgatttacatttcggg    125
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ145-p032       151 gtgtttctactgataacggtcatttcgacatggttgatttacatttcggg    200
+
+XZ145-p355       126 cccacattgactacagatgacgacccaaccaaaatggccgaactacagca    175
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ145-p032       201 cccacattgactacagatgacgacccaaccaaaatggccgaactacagca    250
+
+XZ145-p355       176 taccacgatacatcatggccatctagacgtcaatggaaaccgcagtgata    225
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ145-p032       251 taccacgatacatcatggccatctagacgtcaatggaaaccgcagtgata    300
+
+XZ145-p355       226 gtttattctcgccattcgattctccattagtacatgacactccatcattg    275
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ145-p032       301 gtttattctcgccattcgattctccattagtacatgacactccatcattg    350
+
+XZ145-p355       276 gaggctaggaatagtatacaacttacaaatgagggttccacatcagctct    325
+                     |||||||||||||||||||||||||||||.||||||.|........    
+XZ145-p032       351 gaggctaggaatagtatacaacttacaaangagggtccnnnnnnnt----    396
+
+XZ145-p355       326 tacaacaccatttctgagcggcaagaaccactatgacgaccacgggaact    375
+                                                                       
+XZ145-p032       397 --------------------------------------------------    396
+
+XZ145-p355       376 ctataaattcccagagctttaactaccataacagaaactcaagtctctcc    425
+                                                                       
+XZ145-p032       397 --------------------------------------------------    396
+
+XZ145-p355       426 aaagttagtggtaaattctccccaatatcgtcaccagcactgacttctac    475
+                                                                       
+XZ145-p032       397 --------------------------------------------------    396
+
+XZ145-p355       476 taatcaggaacagcaacactggaacacatcctctagaagggcttcaaaca    525
+                                                                       
+XZ145-p032       397 --------------------------------------------------    396
+
+XZ145-p355       526 gttcctctagatcaaaaagagtgctaccgagtggtaattcatctgtttct    575
+                                                                       
+XZ145-p032       397 --------------------------------------------------    396
+
+XZ145-p355       576 tctacttcaaacaaggttataaagaatagtccgtacatgaacgccagttc    625
+                                                                       
+XZ145-p032       397 --------------------------------------------------    396
+
+XZ145-p355       626 tagganattacaaaagaccatangtaatgggaactcaaagagggatgagt    675
+                                                                       
+XZ145-p032       397 --------------------------------------------------    396
+
+XZ145-p355       676 ggnacgaattcatgttctctttancgganagtagttnagctaatgactta    725
+                                                                       
+XZ145-p032       397 --------------------------------------------------    396
+
+XZ145-p355       726 acanctggaaatgangnaaacatggatattanctngccagcgggannctc    775
+                                                                       
+XZ145-p032       397 --------------------------------------------------    396
+
+XZ145-p355       776 acccactaaagagtacaatancnnccctanggnaatattaccntctcntg    825
+                                                                       
+XZ145-p032       397 --------------------------------------------------    396
+
+XZ145-p355       826 nnnctgaaacgannntanggaaa    848
+                                            
+XZ145-p032       397 -----------------------    396
+
+
+#---------------------------------------
+#
+# Conflicts:      XZ145-p355      XZ145-p032
+#              position base   position base Using
+#                   312  'T'        387  'c'   'T'
+#                   321  'G'        396  't'   'G'
+# 
+#
+#---------------------------------------

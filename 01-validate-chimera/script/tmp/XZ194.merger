@@ -1,0 +1,173 @@
+########################################
+# Program: merger
+# Rundate: Sun  7 Oct 2018 13:28:27
+# Commandline: merger
+#    [-asequence] ./tmp/fwd.fa
+#    [-bsequence] ./tmp/rev.fa
+#    -outseq ./tmp/XZ194.fa
+#    -outfile ./tmp/XZ194.merger
+# Align_format: simple
+# Report_file: ./tmp/XZ194.merger
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: XZ194-p355
+# 2: XZ194-p077
+# Matrix: EDNAFULL
+# Gap_penalty: 50.0
+# Extend_penalty: 5.0
+#
+# Length: 1638
+# Identity:       5/1638 ( 0.3%)
+# Similarity:     5/1638 ( 0.3%)
+# Gaps:        1625/1638 (99.2%)
+# Score: 3.0
+# 
+#
+#=======================================
+
+XZ194-p355         1 --------------------------------------------------      0
+                                                                       
+XZ194-p077         1 aaggncnntgctngaanagcntgagcagtncnnnaaaggnnnnggttnnt     50
+
+XZ194-p355         1 --------------------------------------------------      0
+                                                                       
+XZ194-p077        51 nnattaacatgtctnagggtgaagaattgttcactggtgttgttccaatc    100
+
+XZ194-p355         1 --------------------------------------------------      0
+                                                                       
+XZ194-p077       101 ttggttgaattggacggtgacgttaacggtcacaagttctctgtnnntgg    150
+
+XZ194-p355         1 --------------------------------------------------      0
+                                                                       
+XZ194-p077       151 tgaagnngaaggtgacgctacttacggtaagttgactttgaagttcatnt    200
+
+XZ194-p355         1 --------------------------------------------------      0
+                                                                       
+XZ194-p077       201 gtactactggtaagttgccagttccatggccaactttggttantactttg    250
+
+XZ194-p355         1 --------------------------------------------------      0
+                                                                       
+XZ194-p077       251 ggttacggtttgatgtgtttcgctagatacccagaccacatgaagcaaca    300
+
+XZ194-p355         1 --------------------------------------------------      0
+                                                                       
+XZ194-p077       301 cgacttcttcaagtctgctatgccagaaggttacgttcaagaaagaacta    350
+
+XZ194-p355         1 --------------------------------------------------      0
+                                                                       
+XZ194-p077       351 tcttcttcaaggacgacggtaactacaagactagagctgaagttaagttc    400
+
+XZ194-p355         1 --------------------------------------------------      0
+                                                                       
+XZ194-p077       401 gaaggtgacactttggttaacagaatcgaattgaagggtatcgacttcaa    450
+
+XZ194-p355         1 --------------------------------------------------      0
+                                                                       
+XZ194-p077       451 ggaagacggtaacatcttgggtcacaagttggaatacaactacaactctc    500
+
+XZ194-p355         1 --------------------------------------------------      0
+                                                                       
+XZ194-p077       501 acaacgtttacatcatggctgacaagcaaaagaacggtatcaaggttaac    550
+
+XZ194-p355         1 --------------------------------------------------      0
+                                                                       
+XZ194-p077       551 ttcaagatcagacacaacatcgaagacggttctgttcaattggctgacca    600
+
+XZ194-p355         1 --------------------------------------------------      0
+                                                                       
+XZ194-p077       601 ctaccaacaaaacactccaatcggtgacggtccagttttgttgccagaca    650
+
+XZ194-p355         1 --------------------------------------------------      0
+                                                                       
+XZ194-p077       651 accactacttgtcttaccaatctaagttgtctaaggacccaaacgaaaag    700
+
+XZ194-p355         1 --------------------------------------------------      0
+                                                                       
+XZ194-p077       701 agagaccacatggttttgttggaattcgttactgctgctggtatcactca    750
+
+XZ194-p355         1 ------gggnanatgaagangcgattgatggtggggccagtctnaacatg     44
+                           ||. . |...|.|                               
+XZ194-p077       751 cggtanggacgaanntana-------------------------------    769
+
+XZ194-p355        45 cacctttacaatattaatgatacattaaatggtgtttctactgataacgg     94
+                                                                       
+XZ194-p077       770 --------------------------------------------------    769
+
+XZ194-p355        95 tcatttcgacatggttgatttacatttcgggcccacattgactacagatg    144
+                                                                       
+XZ194-p077       770 --------------------------------------------------    769
+
+XZ194-p355       145 acgacccaaccaaaatggccgaactacagcataccacgatacatcatggc    194
+                                                                       
+XZ194-p077       770 --------------------------------------------------    769
+
+XZ194-p355       195 catctagacgtcaatggaaaccgcagtgatagtttattctcgccattcga    244
+                                                                       
+XZ194-p077       770 --------------------------------------------------    769
+
+XZ194-p355       245 ttctccattagtacatgacactccatcattggaggctaggaatagtatac    294
+                                                                       
+XZ194-p077       770 --------------------------------------------------    769
+
+XZ194-p355       295 aacttacaaatgagggttccacatcagctcttacaacaccatttctgagc    344
+                                                                       
+XZ194-p077       770 --------------------------------------------------    769
+
+XZ194-p355       345 ggcaagaaccactatgacgaccacgggaactctataaattcccagagctt    394
+                                                                       
+XZ194-p077       770 --------------------------------------------------    769
+
+XZ194-p355       395 taactaccataacagaaactcaagtctctccaaagttagtggtaaattct    444
+                                                                       
+XZ194-p077       770 --------------------------------------------------    769
+
+XZ194-p355       445 ccccaatatcgtcaccgaacttggtcgctactgctacttccaccacatcc    494
+                                                                       
+XZ194-p077       770 --------------------------------------------------    769
+
+XZ194-p355       495 gctaacaaagtcactaaaaacaagagtaatagtagtccgtatttgaacaa    544
+                                                                       
+XZ194-p077       770 --------------------------------------------------    769
+
+XZ194-p355       545 gcgcagaggtaaacccgggccggattcggccacttcgctgttcgaattgc    594
+                                                                       
+XZ194-p077       770 --------------------------------------------------    769
+
+XZ194-p355       595 ccgacagcgttatcccaactccgaaaccgaaaccgaaaccaaagcaatat    644
+                                                                       
+XZ194-p077       770 --------------------------------------------------    769
+
+XZ194-p355       645 ccgaaagttattctgccgtcgaacagcacaagacgcgtatcaatggaaac    694
+                                                                       
+XZ194-p077       770 --------------------------------------------------    769
+
+XZ194-p355       695 ggataactatgagagggccagcttgctagaggactcacaaccagacgaga    744
+                                                                       
+XZ194-p077       770 --------------------------------------------------    769
+
+XZ194-p355       745 cacagaacaataacccacagaacaataatccacatagcantggctctagt    794
+                                                                       
+XZ194-p077       770 --------------------------------------------------    769
+
+XZ194-p355       795 atcagtcctgttggcaaaaacgactcgnngangctagccngtggntcacc    844
+                                                                       
+XZ194-p077       770 --------------------------------------------------    769
+
+XZ194-p355       845 tgtgntgaanccccnaanttcnngttctaatattttgc    882
+                                                           
+XZ194-p077       770 --------------------------------------    769
+
+
+#---------------------------------------
+#
+# Conflicts:      XZ194-p355      XZ194-p077
+#              position base   position base Using
+#                     3  'g'        759  'A'   'A'
+#                     5  'a'        761  'G'   'G'
+#                    10  'A'        766  't'   'A'
+# 
+#
+#---------------------------------------

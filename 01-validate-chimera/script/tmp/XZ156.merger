@@ -1,0 +1,169 @@
+########################################
+# Program: merger
+# Rundate: Sun  7 Oct 2018 13:28:26
+# Commandline: merger
+#    [-asequence] ./tmp/fwd.fa
+#    [-bsequence] ./tmp/rev.fa
+#    -outseq ./tmp/XZ156.fa
+#    -outfile ./tmp/XZ156.merger
+# Align_format: simple
+# Report_file: ./tmp/XZ156.merger
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: XZ156-p355
+# 2: XZ156-p077
+# Matrix: EDNAFULL
+# Gap_penalty: 50.0
+# Extend_penalty: 5.0
+#
+# Length: 1578
+# Identity:     215/1578 (13.6%)
+# Similarity:   215/1578 (13.6%)
+# Gaps:        1330/1578 (84.3%)
+# Score: 859.0
+# 
+#
+#=======================================
+
+XZ156-p355         1 gnnngannntagaggnatggacaagctgtatgagacgccnatagacatgc     50
+                                                                       
+XZ156-p077         1 --------------------------------------------------      0
+
+XZ156-p355        51 anactacantctttgaccnnntagataactatctgcatatggtgaacagc    100
+                                                                       
+XZ156-p077         1 --------------------------------------------------      0
+
+XZ156-p355       101 ggattacagcacgatgagaaagaagatgaacatagggaacatgaagatgc    150
+                                                                       
+XZ156-p077         1 --------------------------------------------------      0
+
+XZ156-p355       151 gattgatggtggggccagtctgaacatgcacctttacaatattaatgata    200
+                                                                       
+XZ156-p077         1 --------------------------------------------------      0
+
+XZ156-p355       201 cattaaatggtgtttctactgataacggtcatttcgacatggttgattta    250
+                                                                       
+XZ156-p077         1 --------------------------------------------------      0
+
+XZ156-p355       251 catttcgggcccacattgactacagatgacgacccaaccaaaatggccga    300
+                                                                       
+XZ156-p077         1 --------------------------------------------------      0
+
+XZ156-p355       301 actacagcataccacgatacatcatggccatctagacgtcaatggaaacc    350
+                                                                       
+XZ156-p077         1 --------------------------------------------------      0
+
+XZ156-p355       351 gcagtgatagtttattctcgccattcgattctccattagtacatgacact    400
+                                                                       
+XZ156-p077         1 --------------------------------------------------      0
+
+XZ156-p355       401 ccatcattggaggctaggaatagtatacaacttacaaatgagggttccac    450
+                                                                       
+XZ156-p077         1 --------------------------------------------------      0
+
+XZ156-p355       451 atcagctcttacaacaccatttctgagcggcaagaaccactatgacgacc    500
+                                                                       
+XZ156-p077         1 --------------------------------------------------      0
+
+XZ156-p355       501 acgggaactctataaattcccagagctttaactaccataacagaaactca    550
+                                                                       
+XZ156-p077         1 --------------------------------------------------      0
+
+XZ156-p355       551 agtctctccaaagttagtggtaaattctccccaatatcgtcaccagcact    600
+                                                                       
+XZ156-p077         1 --------------------------------------------------      0
+
+XZ156-p355       601 gacttctactaatcaggaacagcaacactggaacacatcctctagaaggg    650
+                                                                       
+XZ156-p077         1 --------------------------------------------------      0
+
+XZ156-p355       651 cttcaaacagttcctctagatcaaaaagagtgctaccgagtggtaattca    700
+                                      |||||||||||||||||||||||||||||||||
+XZ156-p077         1 -----------------agatcaaaaagagtgctaccgagtggtaattca     33
+
+XZ156-p355       701 tctgtttcttctacttcaaacaaggttataaagaatagtccgtacatgaa    750
+                     ||| .||.||.||.||.|||.||||||||||||||||||.|.||||||||
+XZ156-p077        34 tct-nttnttntanttnaaanaaggttataaagaatagtncntacatgaa     82
+
+XZ156-p355       751 cgccagttctagganantacaaaagancataagtaatgggaactcaanga    800
+                     ||||||||.||||| | ||||||||| |||||||||||||||||||| ||
+XZ156-p077        83 cgccagttntaggagattacaaaagaccataagtaatgggaactcaaaga    132
+
+XZ156-p355       801 nggatgagtgggacgaattcatgttctctttaccgganagtantttagct    850
+                      |||||||||||||||||||||||||||||||||||| |||| |||||||
+XZ156-p077       133 gggatgagtgggacgaattcatgttctctttaccggagagtagtttagct    182
+
+XZ156-p355       851 antgactt-annnctggaaatgang-aannntngntattanctngncnnn    898
+                     | |||||| |   |||||||||| | ||   | | ||||| || | |   
+XZ156-p077       183 aatgacttaacaactggaaatgatgaaaacatggatattagcttgccagc    232
+
+XZ156-p355       899 ggganactcacccactaa--------------------------------    916
+                     |||| |||||||||||||                                
+XZ156-p077       233 gggacactcacccactaaagagtacaatagctaccntaaggtaatattac    282
+
+XZ156-p355       917 --------------------------------------------------    916
+                                                                       
+XZ156-p077       283 catctcatgcagctgaaaacgagagtatggaaacggataactatgagagg    332
+
+XZ156-p355       917 --------------------------------------------------    916
+                                                                       
+XZ156-p077       333 gccagcttgctagaggactcacaaccagacgagacacagaacaataaccc    382
+
+XZ156-p355       917 --------------------------------------------------    916
+                                                                       
+XZ156-p077       383 acagaacaataatccacatagcaatggctctagtatcagtcctgttggca    432
+
+XZ156-p355       917 --------------------------------------------------    916
+                                                                       
+XZ156-p077       433 aaaacgactcggtgatgctagccagtggctcacctgtgttgaaaccccaa    482
+
+XZ156-p355       917 --------------------------------------------------    916
+                                                                       
+XZ156-p077       483 aattcaagttctaatattttgcagacaccttactcatctaaaagagtttt    532
+
+XZ156-p355       917 --------------------------------------------------    916
+                                                                       
+XZ156-p077       533 caagtcgccagcggatatttcaagcactgaacaaactgcagacgaggctt    582
+
+XZ156-p355       917 --------------------------------------------------    916
+                                                                       
+XZ156-p077       583 ccaacgatgcaagtaatgatgctaagtcgaaggacaagaaacaaaggaaa    632
+
+XZ156-p355       917 --------------------------------------------------    916
+                                                                       
+XZ156-p077       633 ccttcatccagtggacccaataagctaaagagaactaatactggtggcag    682
+
+XZ156-p355       917 --------------------------------------------------    916
+                                                                       
+XZ156-p077       683 catcgggagagtacgatcagacagtgccagccaaaacagcgatgacaagc    732
+
+XZ156-p355       917 --------------------------------------------------    916
+                                                                       
+XZ156-p077       733 gcgaatcacacaagcatgcagagcaagcacggcgtaatcgattagcggtc    782
+
+XZ156-p355       917 --------------------------------------------------    916
+                                                                       
+XZ156-p077       783 gcgctgcacgaactggcgtctttaatccccgcggagtggaaacagcaana    832
+
+XZ156-p355       917 --------------------------------------------------    916
+                                                                       
+XZ156-p077       833 ngtgtcggccgcgccgnccaaagcgaccnccgtggaggcggcctgccggt    882
+
+XZ156-p355       917 ----------------------------    916
+                                                 
+XZ156-p077       883 acatccgtcacctacagcagaanngagc    910
+
+
+#---------------------------------------
+#
+# Conflicts:      XZ156-p355      XZ156-p077
+#              position base   position base Using
+#                   704  'G'         37  '.'   'G'
+#                   859  '.'        191  'A'   'A'
+#                   875  '.'        208  'A'   'A'
+# 
+#
+#---------------------------------------

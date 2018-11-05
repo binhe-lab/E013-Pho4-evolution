@@ -1,0 +1,190 @@
+########################################
+# Program: merger
+# Rundate: Sun  7 Oct 2018 13:28:28
+# Commandline: merger
+#    [-asequence] ./tmp/fwd.fa
+#    [-bsequence] ./tmp/rev.fa
+#    -outseq ./tmp/XZ202.fa
+#    -outfile ./tmp/XZ202.merger
+# Align_format: simple
+# Report_file: ./tmp/XZ202.merger
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: XZ202-p355
+# 2: XZ202-p077
+# Matrix: EDNAFULL
+# Gap_penalty: 50.0
+# Extend_penalty: 5.0
+#
+# Length: 1856
+# Identity:       1/1856 ( 0.1%)
+# Similarity:     1/1856 ( 0.1%)
+# Gaps:        1855/1856 (99.9%)
+# Score: 5.0
+# 
+#
+#=======================================
+
+XZ202-p355         1 gnnnntananganntggacnagctgtatgagacgccgataganngcagac     50
+                                                                       
+XZ202-p077         1 --------------------------------------------------      0
+
+XZ202-p355        51 tacaatctttgaccaagtagataactatctgcatatggtgaacagcggat    100
+                                                                       
+XZ202-p077         1 --------------------------------------------------      0
+
+XZ202-p355       101 tacagcacgatgagaaagaagatttcaacgagcaaaacgacgagctgaac    150
+                                                                       
+XZ202-p077         1 --------------------------------------------------      0
+
+XZ202-p355       151 agtcaagagaaccacaacagcagtgagaatgggaacgagaatgaaaatga    200
+                                                                       
+XZ202-p077         1 --------------------------------------------------      0
+
+XZ202-p355       201 acaagacagtctcgcgttggacgacctagaccgcgcctttgagctggtgg    250
+                                                                       
+XZ202-p077         1 --------------------------------------------------      0
+
+XZ202-p355       251 aaggtatggatatggactggatgatgccctcgcatgcgcaccactcccca    300
+                                                                       
+XZ202-p077         1 --------------------------------------------------      0
+
+XZ202-p355       301 gctacaactgctacaatcaagccgcggctattatattcgccgctaataca    350
+                                                                       
+XZ202-p077         1 --------------------------------------------------      0
+
+XZ202-p355       351 cacgcaaagtgcggttcccgtaaccatttcgccgaacttggtcgctactg    400
+                                                                       
+XZ202-p077         1 --------------------------------------------------      0
+
+XZ202-p355       401 ctacttccaccacatccgctaacaaagtcactaaaaacaagagtaatagt    450
+                                                                       
+XZ202-p077         1 --------------------------------------------------      0
+
+XZ202-p355       451 agtccgtatttgaacaagcgcagaggtaaacccgggccggattcggccac    500
+                                                                       
+XZ202-p077         1 --------------------------------------------------      0
+
+XZ202-p355       501 ttcgctgttcgaattgcccgacagcgttatcccaactccgaaaccgaaac    550
+                                                                       
+XZ202-p077         1 --------------------------------------------------      0
+
+XZ202-p355       551 cgaaaccaaagcaatatccgaaagttattctgccgtcgaacagcacaaga    600
+                                                                       
+XZ202-p077         1 --------------------------------------------------      0
+
+XZ202-p355       601 cgcgtatcaatggaaacggataactatgagagggccagcttgctagagga    650
+                                                                       
+XZ202-p077         1 --------------------------------------------------      0
+
+XZ202-p355       651 ctcacaaccagacgagacacagaacaataacccacagaacaataatccac    700
+                                                                       
+XZ202-p077         1 --------------------------------------------------      0
+
+XZ202-p355       701 atagcaatggctctagtatcagtcctgttggcaaaaacgactcggtgatg    750
+                                                                       
+XZ202-p077         1 --------------------------------------------------      0
+
+XZ202-p355       751 ctagccagtggctcacctgtgttgaaaccccaaaattcaagttctaatat    800
+                                                                       
+XZ202-p077         1 --------------------------------------------------      0
+
+XZ202-p355       801 tttgcanannccttactcatctaaaagagttttcaagtcgccagcggana    850
+                                                                       
+XZ202-p077         1 --------------------------------------------------      0
+
+XZ202-p355       851 tttcaagcactgaacaaactgcanacnaggcttccnacgatgcnagtaat    900
+                                                                       
+XZ202-p077         1 --------------------------------------------------      0
+
+XZ202-p355       901 gatgctaagtcgangnananaacaangnannnttcatcc-----------    939
+                                                           |           
+XZ202-p077         1 --------------------------------------cnagcgcgantc     12
+
+XZ202-p355       940 --------------------------------------------------    939
+                                                                       
+XZ202-p077        13 ncnnnngcatgcagagcnagcncggcgtnatcgattagcggtcgcgctgc     62
+
+XZ202-p355       940 --------------------------------------------------    939
+                                                                       
+XZ202-p077        63 acgaactggcgtctttaatccccgcggagtggaaacagcaaaatgtntcg    112
+
+XZ202-p355       940 --------------------------------------------------    939
+                                                                       
+XZ202-p077       113 gccgcgccntccaaagcgaccnccgtggaggcggcctgccggtacatccn    162
+
+XZ202-p355       940 --------------------------------------------------    939
+                                                                       
+XZ202-p077       163 tcacntacagcagaacgtgagcacgggttctggttctttaattaacatgt    212
+
+XZ202-p355       940 --------------------------------------------------    939
+                                                                       
+XZ202-p077       213 ctaagggtgaagaattgttcactggtgttgttccaatcttggttgaattg    262
+
+XZ202-p355       940 --------------------------------------------------    939
+                                                                       
+XZ202-p077       263 gacggtgacgttaacggtcacaagttctctgtttctggtgaaggtgaagg    312
+
+XZ202-p355       940 --------------------------------------------------    939
+                                                                       
+XZ202-p077       313 tgacgctacttacggtaagttgactttgaagttcatctgtactactggta    362
+
+XZ202-p355       940 --------------------------------------------------    939
+                                                                       
+XZ202-p077       363 agttgccagttccatggccaactttggttactactttgggttacggtttg    412
+
+XZ202-p355       940 --------------------------------------------------    939
+                                                                       
+XZ202-p077       413 atgtgtttcgctagatacccagaccacatgaagcaacacgacttcttcaa    462
+
+XZ202-p355       940 --------------------------------------------------    939
+                                                                       
+XZ202-p077       463 gtctgctatgccagaaggttacgttcaagaaagaactatcttcttcaagg    512
+
+XZ202-p355       940 --------------------------------------------------    939
+                                                                       
+XZ202-p077       513 acgacggtaactacaagactagagctgaagttaagttcgaaggtgacact    562
+
+XZ202-p355       940 --------------------------------------------------    939
+                                                                       
+XZ202-p077       563 ttggttaacagaatcgaattgaagggtatcgacttcaaggaagacggtaa    612
+
+XZ202-p355       940 --------------------------------------------------    939
+                                                                       
+XZ202-p077       613 catcttgggtcacaagttggaatacaactacaactctcacaacgtttaca    662
+
+XZ202-p355       940 --------------------------------------------------    939
+                                                                       
+XZ202-p077       663 tcatggctgacaagcaaaagaacggtatcaaggttaacttcaagatcaga    712
+
+XZ202-p355       940 --------------------------------------------------    939
+                                                                       
+XZ202-p077       713 cacaacatcgaagacggttctgttcaattggctgaccactaccaacaaaa    762
+
+XZ202-p355       940 --------------------------------------------------    939
+                                                                       
+XZ202-p077       763 cactccaatcggtgacggtccagttttgttgccagacaaccactacttgt    812
+
+XZ202-p355       940 --------------------------------------------------    939
+                                                                       
+XZ202-p077       813 cttaccaatctaagttgtctaaggacccaaacgaaaagagagaccacatg    862
+
+XZ202-p355       940 --------------------------------------------------    939
+                                                                       
+XZ202-p077       863 gttttgttggaattcgttactgctgctggtatcactcacggtangnanga    912
+
+XZ202-p355       940 ------    939
+                           
+XZ202-p077       913 nnnnnc    918
+
+
+#---------------------------------------
+#
+# Conflicts:      XZ202-p355      XZ202-p077
+#              position base   position base Using
+# 
+#
+#---------------------------------------

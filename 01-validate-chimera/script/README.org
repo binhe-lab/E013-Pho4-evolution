@@ -1,0 +1,28 @@
+#+title: notes for scripts
+#+author: Bin He
+
+* <2018-10-07 Sun> assemble-seq.sh
+- Goal
+  Automate the process of trimming, reverse complementing and merging Sanger sequencing results
+- Notes
+  1. There is a program already written for this purpose [[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5066597/][link]]
+  2. I can't use it directly, so I opted to write my own
+- Requirement
+  1. Install EMBOSS
+     #+BEGIN_SRC bash
+     brew tap brewsci/bio
+     brew install EMBOSS
+     #+END_SRC
+  2. Install bioawk (used to parse fasta files)
+     #+BEGIN_SRC bash
+     git clone git://github.com/lh3/bioawk.git 
+     cd bioawk 
+     make 
+     cp bioawk ~/bin/
+     #+END_SRC
+- Script :: assemble-seq.sh
+  a. extract all sequence names into a text file =strain_names.txt= using grep
+  b. for each sequence name, use bioawk to extract the forward (p355) and the reverse (p400, p077 or p032) sequences
+     + if the strain has been sequenced with p400, first merge p355 with p400 and output that as the new fwd.fa
+     + for all strains, take the fwd.fa (either the p355 or the p355-p400 merged) and merge it with rev.fa (p077 or p032)
+  c. concatenate all merged sequences to =../output/2018-10-07-assembled-seq.fa=

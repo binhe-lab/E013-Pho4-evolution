@@ -1,0 +1,141 @@
+########################################
+# Program: merger
+# Rundate: Sun  7 Oct 2018 13:28:28
+# Commandline: merger
+#    [-asequence] ./tmp/fwd.fa
+#    [-bsequence] ./tmp/rev.fa
+#    -outseq ./tmp/fwd.fa
+#    -outfile ./tmp/XZ203-p400.merger
+# Align_format: simple
+# Report_file: ./tmp/XZ203-p400.merger
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: XZ203-p355
+# 2: XZ203-p400
+# Matrix: EDNAFULL
+# Gap_penalty: 50.0
+# Extend_penalty: 5.0
+#
+# Length: 1208
+# Identity:     433/1208 (35.8%)
+# Similarity:   433/1208 (35.8%)
+# Gaps:         732/1208 (60.6%)
+# Score: 2022.0
+# 
+#
+#=======================================
+
+XZ203-p355         1 annngannggaganntgtatgagacgccnatagannnnagactacaatct     50
+                                                                       
+XZ203-p400         1 --------------------------------------------------      0
+
+XZ203-p355        51 ttgaccaagtagataactatctgcatatggtgaacagcggattacagcac    100
+                                                                       
+XZ203-p400         1 --------------------------------------------------      0
+
+XZ203-p355       101 gatgagaaagaagatttcaacgagcaaaacgacgagctgaacagtcaaga    150
+                                                                       
+XZ203-p400         1 --------------------------------------------------      0
+
+XZ203-p355       151 gaaccacaacagcagtgagaatgggaacgagaatgaaaatgaacaagaca    200
+                                                                       
+XZ203-p400         1 --------------------------------------------------      0
+
+XZ203-p355       201 gtctcgcgttggacgacctagaccgcgcctttgagctggtggaaggtatg    250
+                                                                       
+XZ203-p400         1 --------------------------------------------------      0
+
+XZ203-p355       251 gatatggactggatgatgccctcgcatgcgcaccactccccagctacaac    300
+                                                                       
+XZ203-p400         1 --------------------------------------------------      0
+
+XZ203-p355       301 tgctacaatcaagccgcggctattatattcgccgctaatacacacgcaaa    350
+                                                                       
+XZ203-p400         1 --------------------------------------------------      0
+
+XZ203-p355       351 gtgcggttcccgtaaccatttcgccgaacttggtcgctactgctacttcc    400
+                                                    |||.|.|.|.|||||||.|
+XZ203-p400         1 -------------------------------ggtngntncngctacttnc     19
+
+XZ203-p355       401 --accacatccgctaacaaagtcactaaaaacaagagtaatagtagtccg    448
+                       .|..|..|||.|||||||||||.|||||.||||||||||||||||||.
+XZ203-p400        20 caccnncnnccgntaacaaagtcantaaaancaagagtaatagtagtccn     69
+
+XZ203-p355       449 tatttgaacaagcgcagaggtaaacccgggccggattcggccacttcgct    498
+                     ||||||||||||||||||||||||||.||..||||||.||||||||||||
+XZ203-p400        70 tatttgaacaagcgcagaggtaaaccnggnncggattnggccacttcgct    119
+
+XZ203-p355       499 gttcgaattgcccgacagcgttatcccaactccgaaaccgaaaccgaaac    548
+                     |||.||||||||.|||||||||.||||||.|.||||.|||||.|.|||||
+XZ203-p400       120 gttngaattgccngacagcgttntcccaantncgaanccgaancngaaac    169
+
+XZ203-p355       549 caaagcaatatccgaaagttattctgccgtcnaacagcacaagacgcgta    598
+                     |||||||||.||||||||||||||||||||| ||||||||||||||||||
+XZ203-p400       170 caaagcaatntccgaaagttattctgccgtcgaacagcacaagacgcgta    219
+
+XZ203-p355       599 tcaatggaaacggataactatgagagggccagcttgctagaggactcaca    648
+                     |||||||||||||||||.||||||||||||||..||||||||||||||||
+XZ203-p400       220 tcaatggaaacggataantatgagagggccagnntgctagaggactcaca    269
+
+XZ203-p355       649 accagacgagacacagaacaataacccacagaacaataatccacatagca    698
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ203-p400       270 accagacgagacacagaacaataacccacagaacaataatccacatagca    319
+
+XZ203-p355       699 ntggctctagtatcagtcctgntggcaaaaacgactcggtgatgctagcc    748
+                      |||||||||||||||||||| ||||||||||||||||||||||||||||
+XZ203-p400       320 atggctctagtatcagtcctgttggcaaaaacgactcggtgatgctagcc    369
+
+XZ203-p355       749 agtggctcacctgtgttgaaaccccaaaattcnagttctaatattttgca    798
+                     |||||||||||||||||||||||||||||||| |||||||||||||||||
+XZ203-p400       370 agtggctcacctgtgttgaaaccccaaaattcaagttctaatattttgca    419
+
+XZ203-p355       799 nannccttactcatctaaaanagttttcaagtcgccagcgnanatttcnn    848
+                      |  |||||||||||||||| ||||||||||||||||||| | |||||  
+XZ203-p400       420 gacaccttactcatctaaaagagttttcaagtcgccagcggatatttcaa    469
+
+XZ203-p355       849 gcactgnac-----------------------------------------    857
+                     |||||| ||                                         
+XZ203-p400       470 gcactgaacaaactgcagacgaggcttccaacgatgcaagtaatgatgct    519
+
+XZ203-p355       858 --------------------------------------------------    857
+                                                                       
+XZ203-p400       520 aagtcgaaggacaagaaacaaaggaaaccttcatccagtggacccaataa    569
+
+XZ203-p355       858 --------------------------------------------------    857
+                                                                       
+XZ203-p400       570 gctaaagagaactaatactggtggcagcctgagtaagcgacggtcatcgg    619
+
+XZ203-p355       858 --------------------------------------------------    857
+                                                                       
+XZ203-p400       620 gcgcgctcgtggacgatgacaagcgcgaatcacacaagcatgcagagcaa    669
+
+XZ203-p355       858 --------------------------------------------------    857
+                                                                       
+XZ203-p400       670 gcacggcgtaatcgattagcggtcgcgctgcacgaactggcgtctttaat    719
+
+XZ203-p355       858 --------------------------------------------------    857
+                                                                       
+XZ203-p400       720 ccccgcggagtggaaacagcaaaatgtgtcggccgcgccgtccaaagcga    769
+
+XZ203-p355       858 --------------------------------------------------    857
+                                                                       
+XZ203-p400       770 ccaccgtggaggcggcctgccggtacatccntcacctacagcagaacgng    819
+
+XZ203-p355       858 --------    857
+                             
+XZ203-p400       820 agcacggg    827
+
+
+#---------------------------------------
+#
+# Conflicts:      XZ203-p355      XZ203-p400
+#              position base   position base Using
+#                   401  '.'         20  'c'   '.'
+#                   401  '.'         21  'a'   '.'
+#                   401  'A'         22  'c'   'A'
+# 
+#
+#---------------------------------------

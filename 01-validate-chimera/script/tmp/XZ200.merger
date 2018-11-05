@@ -1,0 +1,210 @@
+########################################
+# Program: merger
+# Rundate: Sun  7 Oct 2018 13:28:28
+# Commandline: merger
+#    [-asequence] ./tmp/fwd.fa
+#    [-bsequence] ./tmp/rev.fa
+#    -outseq ./tmp/XZ200.fa
+#    -outfile ./tmp/XZ200.merger
+# Align_format: simple
+# Report_file: ./tmp/XZ200.merger
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: XZ200-p355
+# 2: XZ200-p077
+# Matrix: EDNAFULL
+# Gap_penalty: 50.0
+# Extend_penalty: 5.0
+#
+# Length: 2139
+# Identity:     175/2139 ( 8.2%)
+# Similarity:   175/2139 ( 8.2%)
+# Gaps:        1941/2139 (90.7%)
+# Score: 829.0
+# 
+#
+#=======================================
+
+XZ200-p355         1 anannnnnggagagntntatgagacgccgataganngcagactacaatct     50
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355        51 ttgaccaagtagataactatctgcatatggtgaacagcggattacagcac    100
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355       101 gatgagaaagaagatgaacatagggaacatgaagatgcgattgatggtgg    150
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355       151 ggccagtctgaacatgcacctttacaatattaatgatacattaaatggtg    200
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355       201 tttctactgataacggtcatttcgacatggttgatttacatttcgggccc    250
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355       251 acattgactacagatgacgacccaaccaaaatggccgaactacagcatac    300
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355       301 cacgatacatcatggccatctagacgtcaatggaaaccgcagtgatagtt    350
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355       351 tattctcgccattcgattctccattagtacatgacactccatcattggag    400
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355       401 gctaggaatagtatacaacttacaaatgagggttccacatcagctcttac    450
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355       451 aacaccatttctgagcggcaagaaccactatgacgaccacgggaactcta    500
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355       501 taaattcccagagctttaactaccataacagaaactcaagtctctccaaa    550
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355       551 gttagtggtaaattctccccaatatcgtcaccgaacttggtcgctactgc    600
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355       601 tacttccaccacatccgctaacaaagtcactaaaaacaagagtaatagta    650
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355       651 gtccgtatttgaacaagcgcagaggtaaacccgggccggattcggccact    700
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355       701 tcgctgttcgaattgcccgacagcgttatcccaactccgaaaccgaaacc    750
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355       751 gaaaccaaagcaatatccgaaagttattctgccgtcgaacagcacaagac    800
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355       801 gcgtatcaatggaaacggataactatgagagggccagcttgctagaggac    850
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355       851 tcacaaccagacgagacacagaacaataacccacagaacaataatccaca    900
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355       901 tagcaatggctctagtatcagtcctgttggcaaaaacgactcggtgatgc    950
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355       951 tagccagtggctcacctgtgttgaaaccccaaaattcaagttctaatatt   1000
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355      1001 ttgcagacaccttactcatctaaaagagttttcaagtcgccagcggatat   1050
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355      1051 ttcaagcactgaacaaactgcagacgaggcttccaacgatgcaagtaatg   1100
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355      1101 atgctaagtcgaaggacaagaaacaaaggaaaccttcatccagtggaccc   1150
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355      1151 aataagctaaagagaactaatactggtggcagcctgagtaagcgacggtc   1200
+                                                                       
+XZ200-p077         1 --------------------------------------------------      0
+
+XZ200-p355      1201 atcgggcgcgctcgtggacgatgacaagcgcgaatcacacaagcatgcag   1250
+                                  ||||||||||.|.|||.||||||.|....|||....|
+XZ200-p077         1 -------------gtggacgatgncnagcncgaatcncnnnngcannnng     37
+
+XZ200-p355      1251 agcaagcacggcgtaatcgattagcggtcgcgctgcacgaactggcgtct   1300
+                     ||.||||.||||||||||||||||||||||||||||||||||||||.|||
+XZ200-p077        38 agnaagcncggcgtaatcgattagcggtcgcgctgcacgaactggcntct     87
+
+XZ200-p355      1301 ttaatccccgcggagtggaaacagcaaaatgtgtcggccgcgccgtccaa   1350
+                     ||||.||||||||||.||||||||||||||||||||||||||||||||||
+XZ200-p077        88 ttaanccccgcggagnggaaacagcaaaatgtgtcggccgcgccgtccaa    137
+
+XZ200-p355      1351 agcgaccaccgtggaggcggcctgccggtacatccgtcacctacagcaga   1400
+                     |||||||||||||||||||||..||||||||||||.|||..|||||||||
+XZ200-p077       138 agcgaccaccgtggaggcggcnngccggtacatccntcanntacagcaga    187
+
+XZ200-p355      1401 acgngagcacg---------------------------------------   1411
+                     ||| |||||||                                       
+XZ200-p077       188 acgtgagcacgggttctggttctttaattaacatgtctaagggtgaagaa    237
+
+XZ200-p355      1412 --------------------------------------------------   1411
+                                                                       
+XZ200-p077       238 ttgttcactggtgttgttccaatcttggttgaattggacggtgacgttaa    287
+
+XZ200-p355      1412 --------------------------------------------------   1411
+                                                                       
+XZ200-p077       288 cggtcacaagttctctgtttctggtgaaggtgaaggtgacgctacttacg    337
+
+XZ200-p355      1412 --------------------------------------------------   1411
+                                                                       
+XZ200-p077       338 gtaagttgactttgaagttcatctgtactactggtaagttgccagttcca    387
+
+XZ200-p355      1412 --------------------------------------------------   1411
+                                                                       
+XZ200-p077       388 tggccaactttggttactactttgggttacggtttgatgtgtttcgctag    437
+
+XZ200-p355      1412 --------------------------------------------------   1411
+                                                                       
+XZ200-p077       438 atacccagaccacatgaagcaacacgacttcttcaagtctgctatgccag    487
+
+XZ200-p355      1412 --------------------------------------------------   1411
+                                                                       
+XZ200-p077       488 aaggttacgttcaagaaagaactatcttcttcaaggacgacggtaactac    537
+
+XZ200-p355      1412 --------------------------------------------------   1411
+                                                                       
+XZ200-p077       538 aagactagagctgaagttaagttcgaaggtgacactttggttaacagaat    587
+
+XZ200-p355      1412 --------------------------------------------------   1411
+                                                                       
+XZ200-p077       588 cgaattgaagggtatcgacttcaaggaagacggtaacatcttgggtcaca    637
+
+XZ200-p355      1412 --------------------------------------------------   1411
+                                                                       
+XZ200-p077       638 agttggaatacaactacaactctcacaacgtttacatcatggctgacaag    687
+
+XZ200-p355      1412 --------------------------------------------------   1411
+                                                                       
+XZ200-p077       688 caaaagaacggtatcaaggttaacttcaagatcagacacaacatcgaaga    737
+
+XZ200-p355      1412 --------------------------------------------------   1411
+                                                                       
+XZ200-p077       738 cggttctgttcaattggctgaccactaccaacaaaacactccaatcggtg    787
+
+XZ200-p355      1412 --------------------------------------------------   1411
+                                                                       
+XZ200-p077       788 acggtccagttttgttgccagacaaccactacttgtcttaccaatctaag    837
+
+XZ200-p355      1412 --------------------------------------------------   1411
+                                                                       
+XZ200-p077       838 ttgtctaaggacccaaacgaaaagagagaccacatggttttgttggaant    887
+
+XZ200-p355      1412 ---------------------------------------   1411
+                                                            
+XZ200-p077       888 cgttactgctgctggtntcactcacggtannnnnnnnng    926
+
+
+#---------------------------------------
+#
+# Conflicts:      XZ200-p355      XZ200-p077
+#              position base   position base Using
+# 
+#
+#---------------------------------------

@@ -1,0 +1,122 @@
+########################################
+# Program: merger
+# Rundate: Sun  7 Oct 2018 13:28:27
+# Commandline: merger
+#    [-asequence] ./tmp/fwd.fa
+#    [-bsequence] ./tmp/rev.fa
+#    -outseq ./tmp/XZ195.fa
+#    -outfile ./tmp/XZ195.merger
+# Align_format: simple
+# Report_file: ./tmp/XZ195.merger
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: XZ195-p355
+# 2: XZ195-p077
+# Matrix: EDNAFULL
+# Gap_penalty: 50.0
+# Extend_penalty: 5.0
+#
+# Length: 1002
+# Identity:       2/1002 ( 0.2%)
+# Similarity:     2/1002 ( 0.2%)
+# Gaps:         999/1002 (99.7%)
+# Score: 8.0
+# 
+#
+#=======================================
+
+XZ195-p355         1 --------------------------------------------------      0
+                                                                       
+XZ195-p077         1 tnnggttncnnctntgnnntacggtttgangtntttcgctagatacccag     50
+
+XZ195-p355         1 --------------------------------------------------      0
+                                                                       
+XZ195-p077        51 accacatgaagcancanganntnttcaagtcngntatgccagaaggttnc    100
+
+XZ195-p355         1 --------------------------------------------------      0
+                                                                       
+XZ195-p077       101 nttcaagaaaganntatnttcttcaaggangacggtaactacaagantag    150
+
+XZ195-p355         1 --------------------------------------------------      0
+                                                                       
+XZ195-p077       151 agntgaagttaagttcgaaggtgacactttggttaacagaatcgaattga    200
+
+XZ195-p355         1 --------------------------------------------------      0
+                                                                       
+XZ195-p077       201 agggtatcgacttcaaggaagacggtaacatcntgggtcacaagttggaa    250
+
+XZ195-p355         1 --------------------------------------------------      0
+                                                                       
+XZ195-p077       251 tacaactacaactntcacaacgtttacatcatggctgacaagcaaaagaa    300
+
+XZ195-p355         1 --------------------------------------------------      0
+                                                                       
+XZ195-p077       301 cggtatcaaggttaacttcaagatcagacacaacatcgaagacggttctg    350
+
+XZ195-p355         1 --------------------------------------------------      0
+                                                                       
+XZ195-p077       351 ttcaattggctgaccactaccaacaaaacactccaatcggtgacggtcca    400
+
+XZ195-p355         1 --------------------------------------------------      0
+                                                                       
+XZ195-p077       401 gttttgttgccagacaaccactacttgtcttaccaatntaagttgtctaa    450
+
+XZ195-p355         1 --------------------------------------------------      0
+                                                                       
+XZ195-p077       451 ggacccaaacgaaaagagagaccacatggttttgttggaattcnttactg    500
+
+XZ195-p355         1 ---------------------angatgnnatngatggnggggccagtctn     29
+                                          | |                          
+XZ195-p077       501 ctgnnnntancacntcacggtatg--------------------------    524
+
+XZ195-p355        30 nacatgcacctttacaatattaatgatacattaaatggtgtttctactga     79
+                                                                       
+XZ195-p077       525 --------------------------------------------------    524
+
+XZ195-p355        80 taacggtcatttcgacatggttgatttacatttcgggcccacattgacta    129
+                                                                       
+XZ195-p077       525 --------------------------------------------------    524
+
+XZ195-p355       130 cagatgacgacccaaccaaaatggccgaactacagcatancacnatacat    179
+                                                                       
+XZ195-p077       525 --------------------------------------------------    524
+
+XZ195-p355       180 catggccatctagacgtcaatggaaaccgcagtgatnntttattcncncc    229
+                                                                       
+XZ195-p077       525 --------------------------------------------------    524
+
+XZ195-p355       230 attcgattctccattantacntgacactccatcattggaggcnangaata    279
+                                                                       
+XZ195-p077       525 --------------------------------------------------    524
+
+XZ195-p355       280 nnatacnacttacaaatgagggttccncatcagctcttacancaccnttt    329
+                                                                       
+XZ195-p077       525 --------------------------------------------------    524
+
+XZ195-p355       330 ctgancggcaanaaccantatgacnaccncggnanctctntaaattccna    379
+                                                                       
+XZ195-p077       525 --------------------------------------------------    524
+
+XZ195-p355       380 nagctnnanntancntancnnnaactcaantctntnnnnnctnagngntn    429
+                                                                       
+XZ195-p077       525 --------------------------------------------------    524
+
+XZ195-p355       430 natnctccccantatcnncnnngaacttggtcnnnantgcaancntccac    479
+                                                                       
+XZ195-p077       525 --------------------------------------------------    524
+
+XZ195-p355       480 ca    481
+                       
+XZ195-p077       525 --    524
+
+
+#---------------------------------------
+#
+# Conflicts:      XZ195-p355      XZ195-p077
+#              position base   position base Using
+# 
+#
+#---------------------------------------
