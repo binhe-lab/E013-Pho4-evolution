@@ -1,0 +1,89 @@
+LOCUS       Final_-_CgPHO4_DBD,_codo 369 bp ds-DNA     linear       07-NOV-2018
+DEFINITION  .
+KEYWORDS    "Project:E013.4" "Pair with" "Template" "PCR product length"       
+FEATURES             Location/Qualifiers
+     misc_feature    complement(1..30)
+                     /label="pET-11a 362-391 (reverse complement)"
+                     /ApEinfo_revcolor=#f58a5e
+                     /ApEinfo_fwdcolor=#f58a5e
+     misc_feature    31..33
+                     /label="Start"
+                     /ApEinfo_revcolor=#ffef86
+                     /ApEinfo_fwdcolor=#ffef86
+     misc_feature    88..252
+                     /label="bHLH"
+                     /ApEinfo_revcolor=#b1ff67
+                     /ApEinfo_fwdcolor=#b1ff67
+     misc_feature    310..318
+                     /label="linker"
+                     /ApEinfo_revcolor=#b7e6d7
+                     /ApEinfo_fwdcolor=#b7e6d7
+     misc_feature    280..288
+                     /label="linker"
+                     /ApEinfo_revcolor=#75c6a9
+                     /ApEinfo_fwdcolor=#75c6a9
+     misc_feature    289..309
+                     /label="TEV"
+                     /ApEinfo_revcolor=#9eafd2
+                     /ApEinfo_fwdcolor=#9eafd2
+     misc_feature    337..339
+                     /label="Stop"
+                     /ApEinfo_revcolor=#ffef86
+                     /ApEinfo_fwdcolor=#ffef86
+     misc_feature    complement(340..369)
+                     /label="pET-11a 290-319 (reverse complement)"
+                     /ApEinfo_revcolor=#f58a5e
+                     /ApEinfo_fwdcolor=#f58a5e
+     misc_feature    319..336
+                     /label="6xHIS"
+                     /ApEinfo_revcolor=#c6c9d1
+                     /ApEinfo_fwdcolor=#c6c9d1
+ORIGIN
+        1 TTTTGTTTAA CTTTAAGAAG GAGATATACA ATGAGCATAG GGCGTGTACG CAGTGATAGT
+       61 GCGTCCCAGA ACTCCGATTA CGTGCAGCGC AAGAAGGAGG TCCATAAGTA TGCAGAGCAG
+      121 GAACGGAGAA ACCGCCTTAA CAATGCATTA TCGGACCTTA ACTCTTTATT ACCCCAAGAC
+      181 TGGAAGGACG CAGTGACGGT GCCTTCCAAA GCCATCACTG CTGAATTGGC TTGTAAATAT
+      241 ATTCGTACAT TGTTAGAGGA ACTGGAACAA TACAAAAAAG GTTCATCAGA AAACTTATAC
+      301 TTTCAATCCG GGTCGTCACA TCACCATCAT CATCACTAAC GGCTGCTAAC AAAGCCCGAA
+      361 AGGAAGCTG
+//
+LOCUS       Final_-_ScPHO4_DBD,_codo 354 bp ds-DNA     linear       06-NOV-2018
+DEFINITION  .
+KEYWORDS    "Project:E013.4" "Pair with" "Template" "PCR product length"       
+FEATURES             Location/Qualifiers
+     misc_feature          265..273
+                           /label="linker"
+                           /ApEinfo_revcolor=#75c6a9
+                           /ApEinfo_fwdcolor=#75c6a9
+     affinity tag          304..321
+                           /label="6xHIS"
+                           /ApEinfo_revcolor=#c6c9d1
+                           /ApEinfo_fwdcolor=#c6c9d1
+     misc_feature          complement(1..30)
+                           /label="pET-11a 362-391 (reverse complement)"
+                           /ApEinfo_revcolor=#f58a5e
+                           /ApEinfo_fwdcolor=#f58a5e
+     misc_feature          complement(325..354)
+                           /label="pET-11a 290-319 (reverse complement)"
+                           /ApEinfo_revcolor=#f58a5e
+                           /ApEinfo_fwdcolor=#f58a5e
+     DNA binding domain    79..246
+                           /label="bHLH"
+                           /ApEinfo_revcolor=#b1ff67
+                           /ApEinfo_fwdcolor=#b1ff67
+     Protease cleavage tag 274..294
+                           /label="TEV"
+                           /ApEinfo_revcolor=#9eafd2
+                           /ApEinfo_fwdcolor=#9eafd2
+     misc_feature          295..303
+                           /label="linker"
+                           /ApEinfo_revcolor=#b1ff67
+                           /ApEinfo_fwdcolor=#b1ff67
+ORIGIN
+        1 TTTTGTTTAA CTTTAAGAAG GAGATATACA ATGTCGTTAA GTAAACGCCG CAGCAGTGGT
+       61 GCTTTAGTTG ATGATGACAA ACGTGAGAGT CATAAACATG CAGAACAAGC CCGTCGCAAC
+      121 CGCTTAGCCG TTGCTTTGCA TGAATTGGCA TCATTAATCC CGGCAGAGTG GAAGCAGCAG
+      181 AACGTGTCGG CTGCCCCTTC CAAGGCCACG ACAGTTGAGG CGGCGTGTCG TTACATTCGT
+      241 CATTTGCAAC AGAACGTGTC AACGGGCTCG TCAGAGAACC TGTATTTTCA GAGTGGGTCT
+      301 AGTCACCACC ATCACCATCA CTAACGGCTG CTAACAAAGC CCGAAAGGAA GCTG
+//
