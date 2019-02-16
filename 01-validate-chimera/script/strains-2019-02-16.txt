@@ -1,0 +1,6 @@
+../data/sequencing/2019-02-16-Carl-EB2129-colony-pcr-screen.fa
+../output/2019-02-16-Carl-EB2129-assembled.fa
+CS-c1
+CS-c2
+CS-c4
+CS-c6
