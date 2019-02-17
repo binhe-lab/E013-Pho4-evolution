@@ -1,6 +1,10 @@
 #+title: notes for scripts
 #+author: Bin He
 
+* <2019-02-17 Sun> assemble Carl's sequence, generalize the script
+To make the script applicable for similar analysis, I generalized it a bit by putting the input and output file names as the first two lines of the strain names file. This allows me to use the same script, with parameters in a separate file. The new script is called assembl-seq-2019-02-16.sh
+** TODO Take raw sequences and strandedness as input 
+this script still has the post-fixes of the sequence names fixed. Ideally, the script should be able to work on any arbitrary post-fixes, whose values and strandedness can be supplied either at the command line or as part of the input file.
 * <2018-10-07 Sun> assemble-seq.sh
 - Goal
   Automate the process of trimming, reverse complementing and merging Sanger sequencing results
