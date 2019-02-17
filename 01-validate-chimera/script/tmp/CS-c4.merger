@@ -1,0 +1,232 @@
+########################################
+# Program: merger
+# Rundate: Sun 17 Feb 2019 11:20:53
+# Commandline: merger
+#    [-asequence] ./tmp/fwd.fa
+#    [-bsequence] ./tmp/rev.fa
+#    -outseq ./tmp/CS-c4.fa
+#    -outfile ./tmp/CS-c4.merger
+# Align_format: simple
+# Report_file: ./tmp/CS-c4.merger
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: CS-c4-p355
+# 2: CS-c4-p400
+# Matrix: EDNAFULL
+# Gap_penalty: 50.0
+# Extend_penalty: 5.0
+#
+# Length: 1606
+# Identity:     321/1606 (20.0%)
+# Similarity:   321/1606 (20.0%)
+# Gaps:         810/1606 (50.4%)
+# Score: 135.0
+# 
+#
+#=======================================
+
+CS-c4-p355         1 nnnnnnnnnnnngnnngannntagaggnatggacaagctgtatgagacgc     50
+                                                                       
+CS-c4-p400         1 --------------------------------------------------      0
+
+CS-c4-p355        51 cnatagacatgcanactacantctttgaccnnntagataactatctgcat    100
+                                                                       
+CS-c4-p400         1 --------------------------------------------------      0
+
+CS-c4-p355       101 atggtgaacagcggattacagcacgatgagaaagaagatgaacataggga    150
+                                                                       
+CS-c4-p400         1 --------------------------------------------------      0
+
+CS-c4-p355       151 acatgaagatgcgattgatggtggggccagtctgaacatgcacctttaca    200
+                                                                       
+CS-c4-p400         1 --------------------------------------------------      0
+
+CS-c4-p355       201 atattaatgatacattaaatggtgtttctactgataacggtcatttcgac    250
+                                                                       
+CS-c4-p400         1 --------------------------------------------------      0
+
+CS-c4-p355       251 atggttgatttacatttcgggcccacattgactacagatgacgacccaac    300
+                                                                       
+CS-c4-p400         1 --------------------------------------------------      0
+
+CS-c4-p355       301 caaaatggccgaactacagcataccacgatacatcatggccatctagacg    350
+                                                                       
+CS-c4-p400         1 --------------------------------------------------      0
+
+CS-c4-p355       351 tcaatggaaaccgcagtgatagtttattctcgccattcgattctccatta    400
+                                                             ......|...
+CS-c4-p400         1 ----------------------------------------cngnnnanng     10
+
+CS-c4-p355       401 gtacatgacactccatcattggaggctaggaatagtatacaacttacaaa    450
+                     .........|................|.......................
+CS-c4-p400        11 annnnnnntatnnnnnnnnnnnnnnntnnnnnnnnnnnnnnnnnnngnnn     60
+
+CS-c4-p355       451 tgagggttccacatcagctcttacaacaccatttctgagcggcaagaacc    500
+                     ...............|...........|..................|...
+CS-c4-p400        61 gnnnnnnnnnntncaannnnnnnnntnannnnnnnnnnnnnttnnnanng    110
+
+CS-c4-p355       501 actatgacgaccacgggaactctataaattcccagagctttaactaccat    550
+                     ...............................||.......|.|.|.|||.
+CS-c4-p400       111 nnnnnnnnnnnnnnnnnnnnnannnnnnnntccnngngnntnantnccan    160
+
+CS-c4-p355       551 aacagaaactcaagtctctccaaagttagtggtaaattctccccaatatc    600
+                     ......||.|.|   .............|...|.|.|...|||.......
+CS-c4-p400       161 nnnnnnaantna---nnnnnnnnnnnnngnnntnantntncccnnnnnnn    207
+
+CS-c4-p355       601 gtcaccagcactgacttctactaatcaggaacagcaacactggaacacat    650
+                     ||...||||..|| ..|.|..|..||||||..||...|.|.|.....|..
+CS-c4-p400       208 gtnnncagcnntg-nntntnntnntcaggannagnnncncngnnnnncnn    256
+
+CS-c4-p355       651 cctctagaagggcttcaaacagttcctctagatcaaaaagagtgctaccg    700
+                     ..|..||||.||||.|.||||.|||.|..|||||||||||||||||||||
+CS-c4-p400       257 nntnnagaanggctncnaacanttcntnnagatcaaaaagagtgctaccg    306
+
+CS-c4-p355       701 agtggtaattcatctgtttcttctacttcaaacaaggttataaagaatag    750
+                     ||||||||||||||| .||.||.||.||.|||.|||||||||||||||||
+CS-c4-p400       307 agtggtaattcatct-nttnttntanttnaaanaaggttataaagaatag    355
+
+CS-c4-p355       751 tccgtacatgaacgccagttctagganantacaaaagancataagtaatg    800
+                     |.|.||||||||||||||||.||||| | ||||||||| |||||||||||
+CS-c4-p400       356 tncntacatgaacgccagttntaggagattacaaaagaccataagtaatg    405
+
+CS-c4-p355       801 ggaactcaanganggatgagtgggacgaattcatgttctctttaccggan    850
+                     ||||||||| || |||||||||||||||||||||||||||||||||||| 
+CS-c4-p400       406 ggaactcaaagagggatgagtgggacgaattcatgttctctttaccggag    455
+
+CS-c4-p355       851 agtantttagctantgactt-annnctggaaatgang-aannntngntat    898
+                     |||| |||||||| |||||| |   |||||||||| | ||   | | |||
+CS-c4-p400       456 agtagtttagctaatgacttaacaactggaaatgatgaaaacatggatat    505
+
+CS-c4-p355       899 tanctngncnnnggganactcacccactaa--nagtananagctaccct-    945
+                     || || | |   |||| |||||||||||||   .... | |||||||.| 
+CS-c4-p400       506 tagcttgccagcgggacactcacccactaaagagtacaatagctaccnta    555
+
+CS-c4-p355       946 -nnnnannntannntnncntgcagctg-naannnnagtnnnnaannnnna    993
+                          |   ||   |  | ||||||||  ||    |||    ||     .
+CS-c4-p400       556 aggtaatattaccatctcatgcagctgaaaacgagagtatggaaacggat    605
+
+CS-c4-p355       994 ntnnnnnnnnnnnctngctnnnnnntnnnnnnnannnnnnnnnannnnnn   1043
+                      .           |. |||      .       .         |      
+CS-c4-p400       606 aactatgagagggccagcttgctagaggactcacaaccagacgagacaca    655
+
+CS-c4-p355      1044 nnnnnnnannnnnnngcangnnctannntcnnncnnnnnnaannantnnn   1093
+                            |       |.| .  ...   ..   |      ..  . .   
+CS-c4-p400       656 gaacaataacccacagaacaataatccacatagcaatggctctagtatca    705
+
+CS-c4-p355      1094 nnngcnancnnnnnnnnnnnnnntnnnnnnnnnnnnnnnnnnntnnnnnn   1143
+                        .. . .              .                   .      
+CS-c4-p400       706 gtcctgttggcaaaaacgactcggtgatgctagccagtggctcacctgtg    755
+
+CS-c4-p355      1144 nnnnnnnnnnnanttnnnnnnnnnnccnnnnnnnnntnnnnnnnnnnn--   1191
+                                | .|          ..         .             
+CS-c4-p400       756 ttgaaaccccaaaattcaagttctaatattttgcagacaccttactcatc    805
+
+CS-c4-p355      1192 --------------------------------------------------   1191
+                                                                       
+CS-c4-p400       806 taaaagagttttcaagtcgccagcggatatttcaagcactgaacaaactg    855
+
+CS-c4-p355      1192 --------------------------------------------------   1191
+                                                                       
+CS-c4-p400       856 cagacgaggcttccaacgatgcaagtaatgatgctaagtcgaaggacaag    905
+
+CS-c4-p355      1192 --------------------------------------------------   1191
+                                                                       
+CS-c4-p400       906 aaacaaaggaaaccttcatccagtggacccaataagctaaagagaactaa    955
+
+CS-c4-p355      1192 --------------------------------------------------   1191
+                                                                       
+CS-c4-p400       956 tactggtggcagcatcgggagagtacgatcagacagtgccagccaaaaca   1005
+
+CS-c4-p355      1192 --------------------------------------------------   1191
+                                                                       
+CS-c4-p400      1006 gcgatgacaagcgcgaatcacacaagcatgcagagcaagcacggcgtaat   1055
+
+CS-c4-p355      1192 --------------------------------------------------   1191
+                                                                       
+CS-c4-p400      1056 cgattagcggtcgcgctgcacgaactggcgtctttaatccccgcggagtg   1105
+
+CS-c4-p355      1192 --------------------------------------------------   1191
+                                                                       
+CS-c4-p400      1106 gaaacagcaanangtgtcggccgcgccgnccaaagcgaccnccgtggagg   1155
+
+CS-c4-p355      1192 --------------------------------------------------   1191
+                                                                       
+CS-c4-p400      1156 cggcctgccggtacatccgtcacctacagcagaanngagcnnnnnnnnnn   1205
+
+CS-c4-p355      1192 ------   1191
+                           
+CS-c4-p400      1206 nnnnnn   1211
+
+
+#---------------------------------------
+#
+# Conflicts:      CS-c4-p355      CS-c4-p400
+#              position base   position base Using
+#                   391  'T'          1  'c'   'T'
+#                   393  'C'          3  'g'   'C'
+#                   400  'A'         10  'g'   'A'
+#                   401  'G'         11  'a'   'G'
+#                   409  'C'         19  't'   'C'
+#                   411  'C'         21  't'   'C'
+#                   447  'C'         57  'g'   'C'
+#                   451  'T'         61  'g'   'T'
+#                   462  'C'         72  't'   'C'
+#                   464  'T'         74  'c'   'T'
+#                   465  'C'         75  'a'   'C'
+#                   476  'A'         86  't'   'A'
+#                   492  'G'        102  't'   'G'
+#                   493  'C'        103  't'   'C'
+#                   500  'C'        110  'g'   'C'
+#                   522  'C'        132  'a'   'C'
+#                   531  'C'        141  't'   'C'
+#                   536  'A'        146  'g'   'A'
+#                   538  'C'        148  'g'   'C'
+#                   563  'A'        173  '.'   'A'
+#                   564  'G'        173  '.'   'G'
+#                   565  'T'        173  '.'   'T'
+#                   589  'C'        196  't'   'C'
+#                   614  'A'        221  '.'   'A'
+#                   716  'G'        322  '.'   'G'
+#                   871  '.'        476  'A'   'A'
+#                   887  '.'        493  'A'   'A'
+#                   929  '.'        536  'A'   'A'
+#                   929  '.'        537  'G'   'G'
+#                   930  'a'        539  'G'   'G'
+#                   931  'g'        540  'T'   'T'
+#                   932  't'        541  'A'   'A'
+#                   933  'a'        542  'C'   'C'
+#                   946  '.'        555  'A'   'A'
+#                   946  '.'        556  'A'   'A'
+#                   972  '.'        583  'A'   'A'
+#                   993  'a'        605  'T'   'T'
+#                   995  't'        607  'A'   'A'
+#                  1008  't'        620  'C'   'C'
+#                  1019  't'        631  'A'   'A'
+#                  1027  'a'        639  'C'   'C'
+#                  1060  'c'        672  'A'   'A'
+#                  1063  'g'        675  'A'   'A'
+#                  1066  'c'        678  'A'   'A'
+#                  1067  't'        679  'A'   'A'
+#                  1068  'a'        680  'T'   'T'
+#                  1072  't'        684  'C'   'C'
+#                  1073  'c'        685  'A'   'A'
+#                  1084  'a'        696  'T'   'T'
+#                  1085  'a'        697  'C'   'C'
+#                  1088  'a'        700  'G'   'G'
+#                  1090  't'        702  'A'   'A'
+#                  1097  'g'        709  'C'   'C'
+#                  1098  'c'        710  'T'   'T'
+#                  1100  'a'        712  'T'   'T'
+#                  1102  'c'        714  'G'   'G'
+#                  1117  't'        729  'G'   'G'
+#                  1137  't'        749  'A'   'A'
+#                  1157  't'        769  'A'   'A'
+#                  1169  'c'        781  'A'   'A'
+#                  1170  'c'        782  'T'   'T'
+#                  1180  't'        792  'A'   'A'
+# 
+#
+#---------------------------------------
