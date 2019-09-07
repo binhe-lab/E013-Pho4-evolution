@@ -1,0 +1,138 @@
+########################################
+# Program: merger
+# Rundate: Fri  6 Sep 2019 18:43:48
+# Commandline: merger
+#    -asequence EB2178-M13F.fa
+#    -bsequence EB2178-M13R.fa
+#    -outfile EB2178-merge.log
+#    -outseq EB1278-merge.fa
+# Align_format: simple
+# Report_file: EB2178-merge.log
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: EB2178-M13F
+# 2: EB2178-M13F
+# Matrix: EDNAFULL
+# Gap_penalty: 50.0
+# Extend_penalty: 5.0
+#
+# Length: 1242
+# Identity:    1242/1242 (100.0%)
+# Similarity:   965/1242 (77.7%)
+# Gaps:           0/1242 ( 0.0%)
+# Score: 4548.0
+# 
+#
+#=======================================
+
+EB2178-M13F        1 nnnnnnnnnnnnnnnnggnnnannnnngctcggangaggcaagctaaaca     50
+                                     ||   |     ||||||| |||||||||||||||
+EB2178-M13F        1 nnnnnnnnnnnnnnnnggnnnannnnngctcggangaggcaagctaaaca     50
+
+EB2178-M13F       51 gatctatattaccctgttatccctagcggatctgccggtagaggtgtggt    100
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+EB2178-M13F       51 gatctatattaccctgttatccctagcggatctgccggtagaggtgtggt    100
+
+EB2178-M13F      101 caataagagcgacctcatactatacctgagaaagcaacctgacctacagg    150
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+EB2178-M13F      101 caataagagcgacctcatactatacctgagaaagcaacctgacctacagg    150
+
+EB2178-M13F      151 aaagagttactcaagaataagaattttcgttttaaaacctaagagtcact    200
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+EB2178-M13F      151 aaagagttactcaagaataagaattttcgttttaaaacctaagagtcact    200
+
+EB2178-M13F      201 ttaaaatttgtatacacttattttttttataacttatttaataataaaaa    250
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+EB2178-M13F      201 ttaaaatttgtatacacttattttttttataacttatttaataataaaaa    250
+
+EB2178-M13F      251 tcataaatcataagaaattcgcttatttagaagtggcgcgccttacttgt    300
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+EB2178-M13F      251 tcataaatcataagaaattcgcttatttagaagtggcgcgccttacttgt    300
+
+EB2178-M13F      301 acagctcgtccatgccgccggtggagtggcggccctcggcgcgttcgtac    350
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+EB2178-M13F      301 acagctcgtccatgccgccggtggagtggcggccctcggcgcgttcgtac    350
+
+EB2178-M13F      351 tgttccacgatggtgtagtcctcgttgtgggaggtgatgtccaacttgat    400
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+EB2178-M13F      351 tgttccacgatggtgtagtcctcgttgtgggaggtgatgtccaacttgat    400
+
+EB2178-M13F      401 gttgacgttgtaggcgccgggcagctgcacgggcttcttggccttgtagg    450
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+EB2178-M13F      401 gttgacgttgtaggcgccgggcagctgcacgggcttcttggccttgtagg    450
+
+EB2178-M13F      451 tggtcttgacctcagcgtcgtagtggccgccgtccttcagcttcagcctc    500
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+EB2178-M13F      451 tggtcttgacctcagcgtcgtagtggccgccgtccttcagcttcagcctc    500
+
+EB2178-M13F      501 tgcttgatctcgcccttcagggcgccgtcctcggggtacatccgctcgga    550
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+EB2178-M13F      501 tgcttgatctcgcccttcagggcgccgtcctcggggtacatccgctcgga    550
+
+EB2178-M13F      551 ngaggcctcccagcccatggtcttcttctgcattacggggccgtcngang    600
+                      |||||||||||||||||||||||||||||||||||||||||||| || |
+EB2178-M13F      551 ngaggcctcccagcccatggtcttcttctgcattacggggccgtcngang    600
+
+EB2178-M13F      601 ggaagttggtgccgcgcagcttcaccttgtagatgaactcgccgtcctgc    650
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+EB2178-M13F      601 ggaagttggtgccgcgcagcttcaccttgtagatgaactcgccgtcctgc    650
+
+EB2178-M13F      651 anggaggagtcctgggtcacggtcaccacgccgccgtcctcgaagttcat    700
+                     | ||||||||||||||||||||||||||||||||||||||||||||||||
+EB2178-M13F      651 anggaggagtcctgggtcacggtcaccacgccgccgtcctcgaagttcat    700
+
+EB2178-M13F      701 cacgcgctcccacttgaagccctcngggaangacagcttcaagtagtcgg    750
+                     |||||||||||||||||||||||| ||||| |||||||||||||||||||
+EB2178-M13F      701 cacgcgctcccacttgaagccctcngggaangacagcttcaagtagtcgg    750
+
+EB2178-M13F      751 ggatgtcggcggggtgcttcacgtnnncttggagccgtacatgaactgag    800
+                     ||||||||||||||||||||||||   |||||||||||||||||||||||
+EB2178-M13F      751 ggatgtcggcggggtgcttcacgtnnncttggagccgtacatgaactgag    800
+
+EB2178-M13F      801 gggacaggatgtcccngcgaaggnnnggggccacccttggncncttcnnc    850
+                     ||||||||||||||| |||||||   |||||||||||||| | ||||  |
+EB2178-M13F      801 gggacaggatgtcccngcgaaggnnnggggccacccttggncncttcnnc    850
+
+EB2178-M13F      851 ttggcggnctggngccctcnnagggcggccctcnccctcnccctcnatct    900
+                     ||||||| |||| ||||||  |||||||||||| ||||| ||||| ||||
+EB2178-M13F      851 ttggcggnctggngccctcnnagggcggccctcnccctcnccctcnatct    900
+
+EB2178-M13F      901 cnaactcntggnngttcangnnnccctncntnngcnccttgaancgcatg    950
+                     | ||||| |||  ||||| |   |||| | |  || ||||||| ||||||
+EB2178-M13F      901 cnaactcntggnngttcangnnnccctncntnngcnccttgaancgcatg    950
+
+EB2178-M13F      951 aacnccnngatganggnnatgnnanccnncnnnncctngctcnccnnnnn   1000
+                     ||| ||  ||||| ||  |||  | ||  |    ||| |||| ||     
+EB2178-M13F      951 aacnccnngatganggnnatgnnanccnncnnnncctngctcnccnnnnn   1000
+
+EB2178-M13F     1001 ntnaanantnnnntttttnntnnnnannnaaannnnnnnncacgtcngng   1050
+                      | || | |    |||||  |    |   |||        |||||| | |
+EB2178-M13F     1001 ntnaanantnnnntttttnntnnnnannnaaannnnnnnncacgtcngng   1050
+
+EB2178-M13F     1051 nnggnngactannnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnctnnnn   1100
+                       ||  |||||                                 ||    
+EB2178-M13F     1051 nnggnngactannnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnctnnnn   1100
+
+EB2178-M13F     1101 nnnnnnnntcngnnnnnnnnnnttcnnnnnntncnnntnntnnnnnnnnn   1150
+                             || |          |||      | |   |  |         
+EB2178-M13F     1101 nnnnnnnntcngnnnnnnnnnnttcnnnnnntncnnntnntnnnnnnnnn   1150
+
+EB2178-M13F     1151 tcnnnnnnnntnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn   1200
+                     ||        |                                       
+EB2178-M13F     1151 tcnnnnnnnntnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn   1200
+
+EB2178-M13F     1201 nnnnnnnnnnnnnnnnnnnnngnnnnaaannnntnnnnnnnn   1242
+                                          |    |||    |        
+EB2178-M13F     1201 nnnnnnnnnnnnnnnnnnnnngnnnnaaannnntnnnnnnnn   1242
+
+
+#---------------------------------------
+#
+# Conflicts:     EB2178-M13F     EB2178-M13F
+#              position base   position base Using
+# 
+#
+#---------------------------------------
