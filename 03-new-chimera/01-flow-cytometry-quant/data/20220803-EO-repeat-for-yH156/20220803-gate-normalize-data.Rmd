@@ -1,0 +1,210 @@
+---
+title: "Collect flow data for chimeric constructs in new background with standardized protocol"
+author: Bin He
+date: "3 aout 2022 (updated `r format(Sys.time(), '%m/%d/%y')`)"
+output:
+  html_notebook:
+    toc: true
+    toc_depth: 4
+    code_folding: hide
+---
+
+```{r setup, message=FALSE}
+require(tidyverse)
+require(flowCore)
+require(flowClust)
+require(openCyto)
+require(ggcyto)
+require(cowplot)
+```
+
+# Analysis
+
+## Import data and edit the meta data
+
+import the data from the RDSS (just once) and then write it to the local disk
+```{r eval=FALSE, include=FALSE}
+data.path = "/Volumes/rdss_bhe2/Project/E013-Pho4p-evolution/flow-cytometry/data/20220803-EO-region-4.2-repeat/"
+fs <- read.flowSet(path = data.path, pattern = "Group", # exclude the manual wells
+                   transformation = FALSE,  # the original values are already linearized. 
+                   emptyValue = FALSE,  alter.names = TRUE,   # change parameter names to R format
+                   column.pattern = ".H|FSC|SSC") # only load the height variables for the fluorescent parameters
+oriNames <- sampleNames(fs)
+```
+
+Simplify the sample names
+
+```{r}
+# import the longest substring function from the PTXQC package (https://rdrr.io/cran/PTXQC/man/LCSn.html)
+source("../../script/20220326-simplify-names-subroutine.R")
+shortNames <- simplifyNames(oriNames) %>% 
+  gsub(".fcs","",.)
+sampleNames(fs) <- shortNames
+```
+
+Metadata
+
+```{r}
+sample <- read.csv("20220803-sample-list.csv") %>% 
+  column_to_rownames(var = "file")
+pData(fs) <- sample
+```
+
+## Gating
+
+Next we use a series of plots to guide our gating strategy for identifying the population we want to work with. \### Remove outliers We first gate on FSC.H and SSC.H to remove outliers (events that are too big or too small). The Attune instrument we use can record six decades (10^0-10^6), with the first two decades mostly occupied by electronic noise.
+
+Let's first define a gate and visualize it in a plot before adding it to a GatingSet.
+
+```{r fig.width=12, fig.height=12}
+outlier.gate <- rectangleGate(filterId = "-outlier", "FSC.H" = c(1.2e5, 1e6), "SSC.H" = c(1e2, 1e6))
+ggcyto(fs, aes(x = FSC.H, y = SSC.H), subset = "root") +
+  geom_hex(bins = 64) + geom_gate(outlier.gate) + facet_wrap(~name, ncol = 9) + theme_bw()
+```
+
+Add this gate to the GatingSet
+
+```{r}
+gs <- GatingSet(fs) # create a GatingSet
+gs_pop_add(gs, outlier.gate, parent = "root")
+recompute(gs)
+```
+
+### PHO5-mCherry induction
+
+When I plotted the singlet events on GFP-RFP 2d space, I noticed a few samples that show more than one population of cells, where the main population appeared to be "induced" while one or more subpopulations are less or not induced. While the biological reasons behind require further investigation and may be very interesting (heterogeneity), for this analysis we will use flowClust to identify the main population and move forward.
+
+```{r fig.height=12,fig.width=12}
+ggcyto(gs, aes(x = BL1.H, y = YL2.H), subset = "-outlier") + geom_hex(bins = 64) +
+  facet_wrap(~name, ncol = 9) + scale_x_logicle() + scale_y_logicle() + theme_bw()
+```
+
+> Be careful when working with the GatingSet and GatingHierarchy objects -- these are strictly reference classes, meaning that most of the operations work by pointers and the operations will change the underlying data. For example, the first line of the code below (commented out) obtains a pointer to the underlying data rather than making a copy of that data. any operations on it will change the original data as a result.
+
+```{r}
+#ex <- gs_pop_get_data(gs, "singlet")[[1]]
+ex <- fs[["NA-156-2"]]
+#lgcl <- estimateLogicle(ex, channels = c("BL1.H", "YL2.H"))
+lgcl <- logicleTransform("induction")
+# set cluster gate parameters
+k = 1; q = 0.9
+# end setting
+ex <- transform(ex, lgBL1.H = lgcl(`BL1.H`), lgYL2.H = lgcl(`YL2.H`))
+fluo.gate <- gate_flowclust_2d(ex, "lgBL1.H", "lgYL2.H", K = k, quantile = q)
+ggcyto(ex, aes(x = lgBL1.H, y = lgYL2.H)) + geom_hex(bins = 64) + geom_gate(fluo.gate) + geom_stats()# + scale_x_logicle() + scale_y_logicle()
+```
+
+Even though flowClust is supposed to perform its own transformation (modified Box-Cox), empirically I found the clustering seem to work better on logicle transformed data for the two fluorescent channels. Therefore I'm transforming the underlying data of the GatingSet. Note that it seems to be difficult to "create new parameters" to store the transformed data, while keeping the original data intact. Instead, the transformation functions constructed using the constructor `logicle_trans()` stores the inverse transformation functions, which can be used to perform the inverse transformation when needed. Followed the manual for GatingSet [here](https://www.bioconductor.org/packages/devel/bioc/vignettes/flowWorkspace/inst/doc/flowWorkspace-Introduction.html#03_GatingHierarchy)
+
+```{r}
+lgcl <- logicle_trans()
+transList <- transformerList(c(lgBL1.H = "BL1.H", lgclYL2.H = "YL2.H"), lgcl)
+transform(gs, transList)
+```
+
+> to obtain the original data, use `gs_pop_get_data(gs[[1]], inverse.transform = TRUE)`
+
+Now we can do the flowClust gating
+
+```{r message=FALSE}
+dat <- gs_pop_get_data(gs, "-outlier") # get parent data
+inductionGate <- fsApply(dat, function(fr)
+  openCyto::gate_flowclust_2d(fr, "BL1.H", "YL2.H", K = k, quantile = q)
+)
+gs_pop_add(gs, inductionGate, parent = "-outlier", name = "induction")
+recompute(gs)
+```
+
+```{r, fig.width=12, fig.height=12}
+ggcyto(gs, aes(x = BL1.H, y = YL2.H), subset = "-outlier") + geom_hex(bins = 64) + geom_gate("induction") + geom_stats() + 
+  facet_wrap(~name, ncol = 9) + theme_bw()
+```
+
+Several samples didn't work well with the clustering algorithm. Here we will use a 2 cluster gating strategy to select the expressing population.
+```{r, message=FALSE}
+list.redo <- c("188-555-3", "188-555-6", "241-555-1")
+newGate <- lapply(list.redo, function(x){
+  gate_flowclust_2d(dat[[x]], "BL1.H", "YL2.H", K = 2, quantile = 0.9, target = c(3,4))
+})
+names(newGate) <- list.redo
+ggcyto(gs[list.redo], aes(x = BL1.H, y = YL2.H), subset = "-outlier") + geom_hex(bins = 64) +
+  geom_gate(newGate) + theme_bw() #+ geom_stats()
+```
+
+update the inductionGate object
+```{r}
+gs_pop_set_gate(gs[list.redo], "induction", newGate)
+recompute(gs[list.redo], "induction")
+```
+
+Check the results
+```{r fig.width=12, fig.height=12}
+ggcyto(gs, aes(x = BL1.H, y = YL2.H), subset = "-outlier") +
+  geom_hex(bins = 64) + geom_gate("induction") + geom_stats() +
+  facet_wrap(~name, ncol = 9) + theme_bw()
+```
+
+## Normalization
+
+Brian Metzger and colleagues proposed a simple correction in their 2015 paper. The intuition behind this method is that FSC is proportional to the max 2d projection (area) of a cell, and thus FSC\^(3/2) should be roughly proportional to the volume. By contrast, the fluorescent channels should be the cumulative intensity from the whole cell. Therefore dividing FP intensity by FSC\^(3/2) should effectively remove the variation due to cell size difference. He did say that the Wittkopp lab later switched to a different method based on PCA and rotations. After reading those papers, I thought the simpler one will suffice for us.
+
+Test normalization formula
+
+```{r}
+# get population data
+fs.out <- gs_pop_get_data(gs, y = "induction", inverse.transform = TRUE) # get the inverse transformed data
+# come up with an approximate FSC.H value for an average event to be used a scalar for the next step
+mfsc <- 5e5 # based on the mode of the median of FSC.H from all samples
+# fs.out is of the cytoframe class, which is a reference class. need to convert to flowframe for transformation
+# https://www.bioconductor.org/packages/devel/bioc/vignettes/flowWorkspace/inst/doc/flowWorkspace-Introduction.html
+exponent <- 1.5
+# ex <- cytoframe_to_flowFrame(fs.out[["A9"]]) %>%
+#   transform(nFSC = FSC.H/mfsc) %>% 
+#   transform(nGFP = BL1.H/nFSC^(exponent), nRFP = YL2.H/nFSC^(exponent))
+
+ex <- cytoset_to_flowSet(fs.out) %>% 
+  transform(nFSC = FSC.H/mfsc) %>% 
+  transform(nGFP = BL1.H/nFSC^(exponent), nRFP = YL2.H/nFSC^(exponent))
+```
+
+
+plot the examples
+```{r fig.width=12, fig.height=12}
+ggplot(ex, aes(x = nFSC, y = nRFP/1e3)) + geom_hex(bins = 64) + scale_y_log10() + stat_smooth(method = "lm") +
+  scale_fill_gradientn(colours = rev(RColorBrewer::brewer.pal(11, "Spectral"))) + facet_wrap(~name, scales = "free_y") +
+  theme_bw()
+```
+
+```{r}
+# calculate ratio
+norm.data <- fsApply(fs.out, function(cf) {
+  cf <- cbind(cf, 
+              nRFP = cf[,"YL2.H"] / (cf[, "FSC.H"]/mfsc)^(exponent), 
+              nGFP = cf[,"BL1.H"] / (cf[, "FSC.H"]/mfsc)^(exponent))
+  apply(cf[, c("FSC.H", "BL1.H", "YL2.H", "nGFP", "nRFP")], 2, median)
+  }, use.exprs = TRUE) %>% 
+  as_tibble(rownames = "name")  %>% 
+  mutate(across(BL1.H:nRFP, ~ round(.x, 1)))
+```
+
+# Output
+
+The goal is to export the gated events and calculate the RFP/GFP and take the median, which will be used in downstream analyses.
+
+Get the population stats
+
+```{r}
+stats <- gs_pop_get_stats(gs) %>% 
+  as_tibble() %>% 
+  mutate(pop = gsub(".*/", "", pop), pop = gsub("-outlier", "cells", pop)) %>% 
+  pivot_wider(names_from = pop, names_prefix = "n_", values_from = count)
+```
+
+Export the data
+
+```{r}
+# pull all info together in a single tibble
+final <- left_join(as_tibble(pData(fs)), stats, by = c("name" = "sample")) %>% 
+  left_join(norm.data, by = "name")
+write_tsv(final, "20220803-gated-median-out.txt")
+```

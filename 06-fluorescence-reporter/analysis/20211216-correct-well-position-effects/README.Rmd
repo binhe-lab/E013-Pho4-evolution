@@ -1,0 +1,268 @@
+---
+title: "Correct for well position effects in flow cytometry"
+output:
+  html_notebook:
+    toc: true
+    toc_depth: 4
+    code_folding: hide
+---
+
+```{r setup}
+require(tidyverse)
+require(cowplot)
+```
+
+# Experimental Goal
+
+Wittkopp lab has shown (Metzger 2015) that the position of the well in the 96-well plate can influence the fluorescence readings. To test this and correct for any effect if there is, I did the following experiment:
+
+This is a repeat of the 12/16 experiment
+
+# Experimental Materials and Methods
+
+Jia's B18 strain, with ScPho4-mNeon on a pRS316 plasmid in _PHO2_ background with an integrated _PHO5pr_-mCherry reporter in the _ura3_ locus. yH156 is the negative control on the same genetic background but without either the mNeon or the mCherry.
+
+_Plate design_
+
+See `../../data/20211216-sample-list.csv`
+
+_Approach_
+
+1. Cells were streaked from the freezer on 12/13 and single colonies were used to inoculate liquid culture on 12/15.
+1. After 6 hours of growth, the culture start to get cloudy, at which point I diluted the cultre 1:5 and aliquoted them into the 96-well plate according to the design above.
+1. After ~20 hrs of growth at 30C with 500rpm shaking on a plate shaker (no glass beads were added, which is different from the Wittkopp lab protocol), the plate is observed for growth in the positive wells and absence of growth in the control wells.
+1. To calibrate the Attune NxT, two samples, G12 (positive) and H12 (negative) were first run as tube samples.
+1. To allow comparisons between days, a Sphero Rainbow 8-peaks calibration beads were run according to the manufacturer's recommendation (1 drop in 500 uL 1x PBS). I decided to use peak 5 among the 8 peaks for the calibration.
+    - A tight histogram gate was drawn on both the GFP and the RFP channel and the intention was that in each of the following run, the beads will be run first and the voltage will be adjusted on both BL1 and YL2 channels if needed to ensure that peak 5 falls within the tight gate.
+    - I did this on 12/17 and no adjustment was needed.
+1. The plate was run using the autosampler, and data were exported.
+
+# Analysis Goal and Data Preprocessing
+The following is a brief description of how I gated and normalized the raw FCS files. See the additional R notebooks in this folder.
+    
+> Briefly, a rectangular gate was applied to remove outliers; no further gating is required to distinguish single cells from doublets; flowClust 2d clustering was used to isolate a homogenous population of cells based on the dual fluorescent plot. Gated data were extracted and both the GFP and the RFP channel raw values were normalized by $(FSC.H/5e5)^{3/2}$. The rationale of this is that FSC.H is approximately proportional to the area of the cell while the fluorescent channel readings measure the emission from the entire cell volume. Assuming a perfect sphere, $area^{3/2}$ is roughly volume.
+
+The goal in the current analysis is to determine if the position in the 96-well plate would affect the fluorescence readings.
+
+# Analysis
+
+## 0. Load data
+```{r}
+df1 <- read_tsv("20211216-gated-median-out.txt", col_types = cols())
+df2 <- read_tsv("20211217-gated-median-out.txt", col_types = cols())
+df <- bind_rows(`12/16`=df1, `12/17`=df2, .id = "date") %>% 
+  mutate(col = factor(col, levels = 1:12)) %>% 
+  filter(sample != "Neg")
+```
+
+## 1. Negative strain yH156
+The negative strain is in each 2x3 block. First check how background fluorescence values are influenced by the well positions.
+```{r, fig.width=10}
+sp <- "yH156"
+pFSC <- list(
+  geom_tile(aes(fill = FSC.H)),
+  scale_y_discrete(limits = rev),
+  geom_text(aes(label = round(FSC.H/1000,0))),
+  scale_fill_fermenter(palette = "Greys", direction = 1),
+  theme_cowplot(),
+  theme(legend.position = "none")
+)
+pGFP <- list(
+  geom_tile(aes(fill = BL1.H)),
+  geom_text(aes(label =  round(BL1.H,0))),
+  scale_y_discrete(limits = rev),
+  scale_fill_fermenter(palette = "Greens", direction = 1),
+  theme_cowplot(),
+  theme(legend.position = "none")
+)
+pRFP <- list(
+  geom_tile(aes(fill = YL2.H)),
+  geom_text(aes(label =  round(YL2.H,0))),
+  scale_y_discrete(limits = rev),
+  scale_fill_fermenter(palette = "Reds", direction = 1),
+  theme_cowplot(),
+  theme(legend.position = "none")
+)
+# 12/16
+p1 <- df %>%
+  filter(sample == sp, date == "12/16") %>% 
+  ggplot(aes(x = col, y = row)) + pFSC + ggtitle("12/16 FSC.H")
+p2 <- df %>%
+  filter(sample == sp, date == "12/16") %>% 
+  ggplot(aes(x = col, y = row)) + pGFP + ggtitle("BL1.H")
+p3 <- df %>%
+  filter(sample == sp, date == "12/16") %>% 
+  ggplot(aes(x = col, y = row)) + pRFP + ggtitle("YL2.H")
+
+# 12/17
+p4 <- df %>% 
+  filter(sample == sp, date == "12/17") %>% 
+  ggplot(aes(x = col, y = row)) + pFSC + ggtitle("12/17 FSC.H")
+p5 <- df %>% 
+  filter(sample == sp, date == "12/17") %>% 
+  ggplot(aes(x = col, y = row)) + pGFP + ggtitle("BL1.H")
+p6 <- df %>% 
+  filter(sample == sp, date == "12/17") %>% 
+  ggplot(aes(x = col, y = row)) + pRFP + ggtitle("YL2.H")
+
+# plot
+plot_grid(p1,p2,p3,p4,p5,p6,nrow = 2)
+```
+
+**_Discussion_**
+
+1. Large differences in all channels, including FSC.H, between the two days
+1. The lower right triangle show higher readings overall
+1. Correlation between the two fluorescent channels and with the FSC (not shown)
+```{r}
+df %>% filter(sample == "yH156") %>% 
+  ggplot(aes(x = BL1.H, y = YL2.H)) + geom_point() + facet_wrap(~date, scale = "free") + theme_cowplot()
+```
+If we use the cell size normalized GFP and RFP readings, we saw a different picture
+```{r, fig.width=8}
+sp <- "yH156"
+pGFP <- list(
+  geom_tile(aes(fill = nGFP)),
+  geom_text(aes(label =  round(nGFP,0))),
+  scale_y_discrete(limits = rev),
+  scale_fill_fermenter(palette = "Greens", direction = 1),
+  theme_cowplot(),
+  theme(legend.position = "none")
+)
+pRFP <- list(
+  geom_tile(aes(fill = nRFP)),
+  geom_text(aes(label =  round(nRFP,0))),
+  scale_y_discrete(limits = rev),
+  scale_fill_fermenter(palette = "Reds", direction = 1),
+  theme_cowplot(),
+  theme(legend.position = "none")
+)
+# 12/16
+p1 <- df %>%
+  filter(sample == sp, date == "12/16") %>% 
+  ggplot(aes(x = col, y = row)) + pGFP + ggtitle("12/16 nGFP")
+p2 <- df %>%
+  filter(sample == sp, date == "12/16") %>% 
+  ggplot(aes(x = col, y = row)) + pRFP + ggtitle("nRFP")
+
+# 12/17
+p3 <- df %>% 
+  filter(sample == sp, date == "12/17") %>% 
+  ggplot(aes(x = col, y = row)) + pGFP + ggtitle("12/17 nGFP")
+p4 <- df %>% 
+  filter(sample == sp, date == "12/17") %>% 
+  ggplot(aes(x = col, y = row)) + pRFP + ggtitle("nRFP")
+
+# plot
+plot_grid(p1,p2,p3,p4,nrow = 2)
+```
+**_Discussion_**
+
+1. Large differences in the normalized fluorescence levels between the two days
+1. The normalized RFP on 12/17 still showed higher values towards the lower right corner, but the other three plots no longer show such a correlation.
+1. Correlation between the two fluorescent channels is gone after normalization by cell size
+```{r}
+df %>% filter(sample == "yH156") %>% 
+  ggplot(aes(x = nGFP, y = nRFP)) + geom_point() + facet_wrap(~date, scale = "free") + theme_cowplot()
+```
+
+Coefficient of variation:
+```{r}
+df %>% filter(sample == 'yH156') %>% 
+  group_by(date) %>% 
+  summarize(across(BL1.H:nRFP, ~ sd(.x)/mean(.x)))
+```
+
+- CV is generally <10% for the background fluorescence across the plate
+- The cell size-normalized values (nGFP, nRFP) are less variable than the non normalized version.
+
+## 2. Positive strain B18
+First subtract the background fluoresence.
+
+In searching for a method to do this, I found a convenient function called `column_to_rownames()`, which can turn the output of the `summarize()` into a data frame with rownames, and when further converted into a matrix, can then be used to extract a row as a vector by indexing. However, I ended up not using this as I found a different method as shown below.
+```{r}
+bg <- df %>% 
+  filter(sample == "yH156") %>% 
+  group_by(date) %>% 
+  summarize(across(BL1.H:nRFP, median))
+
+df.n <- df %>% 
+  filter(sample == "B18") %>% 
+  left_join(bg, by = "date", suffix = c("", ".bg")) %>% # merge the background values into the tibble
+  mutate(BL1.n = BL1.H - BL1.H.bg,
+         YL2.n = YL2.H - YL2.H.bg,
+         nGFP.n = nGFP - nGFP.bg,
+         nRFP.n = nRFP - nRFP.bg) %>% 
+  select(date:FSC.H, BL1.n:nRFP.n) %>% 
+  mutate(across(BL1.n:nRFP.n, ~round(.x,1)))
+  #column_to_rownames("date") %>% 
+  #as.matrix()
+```
+
+
+Plot the background subtracted fluorescent intensity values without cell size normalization
+```{r, fig.width=10}
+pGFP <- list(
+  geom_tile(aes(fill = BL1.n)),
+  scale_y_discrete(limits = rev),
+  scale_fill_fermenter(palette = "Greens", direction = 1, na.value = "gray50"),
+  theme_cowplot()
+)
+pRFP <- list(
+  geom_tile(aes(fill = YL2.n)),
+  scale_y_discrete(limits = rev),
+  scale_fill_fermenter(palette = "Reds", direction = 1, na.value = "gray50"),
+  theme_cowplot()
+)
+# 12/16
+p1 <- df.n %>%
+  filter(date == "12/16") %>% 
+  ggplot(aes(x = col, y = row)) + pGFP + ggtitle("12/16")
+p2 <- df.n %>%
+  filter(date == "12/16") %>% 
+  ggplot(aes(x = col, y = row)) + pRFP + ggtitle("")
+
+# 12/17
+p3 <- df.n %>% 
+  filter(date == "12/17") %>% 
+  ggplot(aes(x = col, y = row)) + pGFP + ggtitle("12/17")
+p4 <- df.n %>% 
+  filter(date == "12/17") %>% 
+  ggplot(aes(x = col, y = row)) + pRFP + ggtitle("")
+
+# plot
+plot_grid(p1,p2,p3,p4,nrow = 2)
+```
+And after cell size normalization
+```{r, fig.width=10}
+pGFP <- list(
+  geom_tile(aes(fill = nGFP.n)),
+  scale_y_discrete(limits = rev),
+  scale_fill_fermenter(palette = "Greens", direction = 1, na.value = "gray50"),
+  theme_cowplot()
+)
+pRFP <- list(
+  geom_tile(aes(fill = nRFP.n)),
+  scale_y_discrete(limits = rev),
+  scale_fill_fermenter(palette = "Reds", direction = 1, na.value = "gray50"),
+  theme_cowplot()
+)
+# 12/16
+p1 <- df.n %>%
+  filter(date == "12/16") %>% 
+  ggplot(aes(x = col, y = row)) + pGFP + ggtitle("12/16")
+p2 <- df.n %>%
+  filter(date == "12/16") %>% 
+  ggplot(aes(x = col, y = row)) + pRFP + ggtitle("")
+
+# 12/17
+p3 <- df.n %>% 
+  filter(date == "12/17") %>% 
+  ggplot(aes(x = col, y = row)) + pGFP + ggtitle("12/17")
+p4 <- df.n %>% 
+  filter(date == "12/17") %>% 
+  ggplot(aes(x = col, y = row)) + pRFP + ggtitle("")
+
+# plot
+plot_grid(p1,p2,p3,p4,nrow = 2)
+```

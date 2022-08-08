@@ -1,0 +1,1367 @@
+CLUSTAL W(1.81) multiple sequence alignment
+
+
+Sklu|SAKL0F07392g/1-1446 ---ATGTCCCATCCATCAGATTCACATGGGCTACCGAGTCAT------------------
+Scer|YFR034C/1-936       ------------ATGGGCCGTACAACTTCTGAGGGAATACAC------------------
+Spar|spar434-g18.1/1-942 ------------ATGGGCCGTACAACTTCTGAGGGAATACAC------------------
+Smik|smik267-g18.1/1-963 ------------ATGGGCCATACAACTTCTGAGGAAATACAC------------------
+Cgla|CAGL0D05170g/1-1599 ------------ATGGGTGAACAGGTAGAGGATATGGACAAG------------------
+Scas|Scas565.10d/1-1173  ------------ATGACGCAAGAATTTGCTGATAATACTAAT------------------
+Kwal|Kwal55.20403/1-1437 ------------ATGAACGATAACGGCTCTTTCGACTCGAAA------------------
+Klac|KLLA0D16115g/1-2067 ------------ATGTCTGATGACTATTTGCATGGAGTCAGT------------------
+Agos|ADL123C/1-1188      ---------------ATGAGAACAACGGGATGGAATGACACG------------------
+Clus|CLUG03383/1-1173    ------------ATGTCATCAATGGACGACTGGTCATCATAC------------------
+Dhan|DEHA2C07656g/1-1494 ---------------ATGGAAACGACAGATTGGTCGAACACA------------------
+Cgui|PGUG05400.1/1-1296  ------------------ATGGACCACGACTGGGCTCTATCT------------------
+Ctro|CTRG03846.3/1-1308  ATGAATTTATTTATTCCTGAAGTATTAGATTTCGATGCTGAT------------------
+Calb|orf19.1253/1-1977   ---------------ATGGACCAGCAAGTTTGGAACCCTATA------------------
+Cpar|CPAG05310/1-1914    ---------------ATGGAGTCACAGACTTGGAATACTTCA------------------
+Lelo|LELG05661/1-2715    ---------------ATGGAACTGCACGCTTGGAACTCAACTTTTTCACCAGATAATCAA
+Ylip|YALI0F05126g/1-2148 ATGTCCGAATTGGAACACCCCGATTACGCCAACCAGATGGCG------------------
+Anid|AN8271/1-2121       ------ATGGAACAAGATCCCTCAATGTCCTGGTCGGACATG------------------
+Ncra|NCU09315/1-2154     ------------------------------------------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 ------------------------------------------------------------
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------------------------------------------------------
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   ------------------------------------------------------------
+Cpar|CPAG05310/1-1914    ------------------------------------------------------------
+Lelo|LELG05661/1-2715    CAAATTCAGCAGCTTCCACCTCACCTCCAAATTCAAAGTCAGGCTAATGACATTAACATT
+Ylip|YALI0F05126g/1-2148 ------------------------------------------------------------
+Anid|AN8271/1-2121       ------------------------------------------------------------
+Ncra|NCU09315/1-2154     ------------------------------------------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 ------------------------------------------------------------
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------------------------------------------------------
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   ------------------------------------------------------------
+Cpar|CPAG05310/1-1914    ------------------------------------------------------------
+Lelo|LELG05661/1-2715    AATACTGGACAGGTGCTGGGAAAATCGCCATTTTTTCCTGAAATAGAGACCCAATCGATA
+Ylip|YALI0F05126g/1-2148 ------------------------------------------------------------
+Anid|AN8271/1-2121       ------------------------------------------------------------
+Ncra|NCU09315/1-2154     ------------------------------------------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 ------------------------------------------------------------
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------------------------------------------------------
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   ---------------------TTTTCACCAAGCGGGACAACACCAGGAAAGTCTCCTTCT
+Cpar|CPAG05310/1-1914    ---------------TACACGACGGACAGTCAAATAAATGGCCAATTGGCAGGCAATACT
+Lelo|LELG05661/1-2715    AACTCGGCTCATCACAGTGTTCACTCTGCATCTAATCACTCCACGCCAGCCGCTCAAATT
+Ylip|YALI0F05126g/1-2148 ------------------------------------------------------------
+Anid|AN8271/1-2121       ------------------------------------------------------------
+Ncra|NCU09315/1-2154     ------------------------------------------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 ------------------------------------------------------------
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------------------------------------------------------
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   TACTACAATGAGTTGGCTCCTCAATCACAGAGTCACATATCTAATCAAGATCCGCAACTC
+Cpar|CPAG05310/1-1914    CCTGGCAAGTCCCCCTACTATGTTGAATTGGAGCATGCAACATCAAACTCGACTCAGTCA
+Lelo|LELG05661/1-2715    ACCAACAACAACAACAACAACAATATTGTCAACAATAGCGGCAACAGCAATGGGAATTAT
+Ylip|YALI0F05126g/1-2148 ------------------------------------------------------GAAATG
+Anid|AN8271/1-2121       ------------------------------------------------------------
+Ncra|NCU09315/1-2154     ------------------------------------------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 ---------CCTGCTGAGCATTCACGGTCCCATCATCATTCGAACTATAACGGAAACCAT
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ---GTTTATTCACCAGGAGTGAAGGGCGAAACAAGTCCGTATTTCCACGATTTGGAACAT
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   CCATTACAGACTCAACACCACCAACTATTTCATATAGATGGTGGCTCCAATCATTCAACC
+Cpar|CPAG05310/1-1914    CAGCATACAACGCCGCATCTCAATAATAATTCAAATTACTCAACACCAGGTGACCAAAGT
+Lelo|LELG05661/1-2715    TTAAATGCCAACTTGCAATTCACTCCACAACAGCAACAACAGCAACAGCAGCAACAGCAG
+Ylip|YALI0F05126g/1-2148 AACTCGTTTCTCAACCTGCACACCAACAGCCCCGACCATCACCAGCTCGGCGACGCCTCG
+Anid|AN8271/1-2121       ------------------------------------------------------------
+Ncra|NCU09315/1-2154     ------------------------------------------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------AACATC
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------CCGTCT
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 GATTTGAATATGGACGATGGTAATGACTCCAGAAATGAAAGTCAAAACGGTGATACCGGT
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------TCCCCTCGCGTGCGGCTG
+Dhan|DEHA2C07656g/1-1494 GATACAGCTGGCGGACATGGTGTTAATGGTGCACAACAAGCATCGAACCAGACAACGAAT
+Cgui|PGUG05400.1/1-1296  ---CCGTCCAAGCAGTCGTCACTGTACCTTCATGAAGTAGGTGGCGAGCCTGGATATCCA
+Ctro|CTRG03846.3/1-1308  ------------------------------------------CCAAACCACATTTCGAGT
+Calb|orf19.1253/1-1977   CCGTCAGGTAATATTCAACTACCATCGTCGTCTCAACAAAACACGCCACATATTGTTTCT
+Cpar|CPAG05310/1-1914    AGTATGAAAAGAAACACTCCAGGGCCAAATCAAATGGGTACTCCTCTTCATTTCCAATCA
+Lelo|LELG05661/1-2715    CAACAGCAGCAACAGCAACAACAACAGGTAGGAGCTGGTGGTCAGATACTGCTGGTAGGA
+Ylip|YALI0F05126g/1-2148 GCGGCCCTCAAACGCCAGACCCACAGTTACCCGAACTCGGTGTCGCCCTCGTCGCCCTCC
+Anid|AN8271/1-2121       ------------------------------------------------------------
+Ncra|NCU09315/1-2154     ------------------------------------------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ACATCAGAAACCATCGGTTTGAACTCATCGAAGAGCATATTGGAGCAGGTA---------
+Scer|YFR034C/1-936       ---GGTTTTGTGGACGATCTAGAGCCCAAGAGCAGCATTCTTGATAAAGTC---------
+Spar|spar434-g18.1/1-942 ---GGTTTCGTGGACGACCTAGAGCCCAAGAGCAGCATCCTTGATAAAGTC---------
+Smik|smik267-g18.1/1-963 GTTTTCATGGACGAACTGGAG---CCCAAGAGCAGTATACTTGACAAAGTG---------
+Cgla|CAGL0D05170g/1-1599 ---CTGTATGAGACGCCGATAGACATGCAGACTACAATCTTTGACCAAGTA---------
+Scas|Scas565.10d/1-1173  CTTTTCTATCCACCTTTAAATAACTCTGATAATAGTATTTTGGATAAGTTC---------
+Kwal|Kwal55.20403/1-1437 ---------------------------------AGCATACTGGACCAGGTG---------
+Klac|KLLA0D16115g/1-2067 AATAATGGTCCCGGGACAGTTGGTCCCAGTTCAGCTATTTTGGATCAAGTC---------
+Agos|ADL123C/1-1188      ---------------GCAGGAGGCGAGGGACGGACCATCCTAGAACAGGTC---------
+Clus|CLUG03383/1-1173    CCCCCGAAGCCCAGCCCAGCTTTCGCCGACCCGTTTTTGCTCGACCAGCTC---------
+Dhan|DEHA2C07656g/1-1494 CAGACAACGCCTAATTTTACAGAACAAGATCAATATTTGCTAAACCAAATC---------
+Cgui|PGUG05400.1/1-1296  ACACATCATGATGGTTTTGGAGACCAGGACCCTTACTTGTTACACCAGTTG---------
+Ctro|CTRG03846.3/1-1308  GCTTTTCCACCTGAATTACCAACAAATCAAACTCCTAGTTTATTAGCTGTT---------
+Calb|orf19.1253/1-1977   AATACTCCCACTGCTTTTGCAGACAGTGATCAGGTGTTCTTACAACATATG---------
+Cpar|CPAG05310/1-1914    ACCACGCCATCAAATTTCACTGAATCAGAGCAGTTATTTTTGCAAGAACTA---------
+Lelo|LELG05661/1-2715    TCTAACCCTGGTACCTACAGTGAATCAGAACAACTATTTTTACAACAACTC---------
+Ylip|YALI0F05126g/1-2148 GTGCACTCCATGTCCCTGGTAGGAACCCCCAAGATGAACTACGACGACATGGCTTTCCAG
+Anid|AN8271/1-2121       ------CCTCCACCCGGCGAAGACGACTTCAGCAATTTCCTCGAATTCGGG---------
+Ncra|NCU09315/1-2154     ---------------------------ATGTCCATGATCCTATCGCCCGTA---------
+                                                             :   :                   
+
+
+Sklu|SAKL0F07392g/1-1446 ---GACGACTATCTCAACGATGATGCT---------------------------------
+Scer|YFR034C/1-936       ---GGAGACTTTATCACCGTAAACACG---------------------------------
+Spar|spar434-g18.1/1-942 ---GGGGACTTTATCACCGTAAACACG---------------------------------
+Smik|smik267-g18.1/1-963 ---GGAGACTTTATCACCGTAAACACG---------------------------------
+Cgla|CAGL0D05170g/1-1599 ---GATAACTATCTGCATATGGTGAAC---------------------------------
+Scas|Scas565.10d/1-1173  ---AAAAGACAGAATCCCAATGAAAAT---------------------------------
+Kwal|Kwal55.20403/1-1437 ---GACCGGTACCTGAGTGACCAGGGC---------------------------------
+Klac|KLLA0D16115g/1-2067 ---GATGAGTATTTGCACTCGCATCGC---------------------------------
+Agos|ADL123C/1-1188      ---GGAGAGTATCTGAGCGAGCAGGGG---------------------------------
+Clus|CLUG03383/1-1173    ---GACCACAACTTGGTCTCCCAGGAG---------------------------------
+Dhan|DEHA2C07656g/1-1494 ---GAACACAACTTGTATGAAGCCGCG---------------------------------
+Cgui|PGUG05400.1/1-1296  ---GATAACAATATTTTTGATGGATCT---------------------------------
+Ctro|CTRG03846.3/1-1308  ---AATAAACTA------------------------------------------------
+Calb|orf19.1253/1-1977   ---GAAATGTATGACAACCAACAACAC---------------------------------
+Cpar|CPAG05310/1-1914    ---GAGGAGAATATGTATGAACACCAA---------------------------------
+Lelo|LELG05661/1-2715    ---GAGCAGAATCTTTACGATCATGAGCTGCTGTATAATATACATGACGGTGGTAATGGT
+Ylip|YALI0F05126g/1-2148 AAGGGACAGCAAACACAAAACCAACAG---------------------------------
+Anid|AN8271/1-2121       ---TTCCCGGATTTGGAGGGGCAGCAC---------------------------------
+Ncra|NCU09315/1-2154     ---GACCATGCCATGCTCCGACATGGG---------------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 ------------------------------------------------------------
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------------------------------------------------------
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   ------------------------------------------------------------
+Cpar|CPAG05310/1-1914    ------------------------------------------------------------
+Lelo|LELG05661/1-2715    AGCGTAGGACCAAGTCAAGGAAGTACTCCCTTTCATTTAGATGCAATTCTGCATCAACAG
+Ylip|YALI0F05126g/1-2148 ------------------------------------------------------------
+Anid|AN8271/1-2121       ------------------------------------------------------------
+Ncra|NCU09315/1-2154     ------------------------------------------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 ------------------------------------------------------------
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------------------------------------------------------
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   ------------------------------------------------------------
+Cpar|CPAG05310/1-1914    ------------------------------------------------------------
+Lelo|LELG05661/1-2715    CATCCTCTACAACTTCAACTGCAACAACATCGAGTACAACAGCAACAGCAGCAGCAACAA
+Ylip|YALI0F05126g/1-2148 ------------------------------------------------------------
+Anid|AN8271/1-2121       ------------------------------------------------------------
+Ncra|NCU09315/1-2154     ------------------------------------------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 ------------------------------------------------------------
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------------------------------------------------------
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   ------------------------------------------------------------
+Cpar|CPAG05310/1-1914    ------------------------------------------------------------
+Lelo|LELG05661/1-2715    CAACAGCAACAACAGCAGCAGCAGCAGCAGCAGCAGTCATTAACAACAGCAGCAGATCAA
+Ylip|YALI0F05126g/1-2148 ------------------------------------------------------------
+Anid|AN8271/1-2121       ------------------------------------------------------------
+Ncra|NCU09315/1-2154     ------------------------------------------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------CCT---------------------------------------
+Scer|YFR034C/1-936       ------------------AAA---------------------------------------
+Spar|spar434-g18.1/1-942 ------------------AAA---------------------------------------
+Smik|smik267-g18.1/1-963 ------------------AAA---------------------------------------
+Cgla|CAGL0D05170g/1-1599 ------------------AGCGGATTACAGCACGATGAGAAAGAAGATGAACATAGG---
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------GTG---------------------------------------
+Klac|KLLA0D16115g/1-2067 ------------------CATGAGAGGGACGACGTTAAACACGAAGATCAAGCTGACGAA
+Agos|ADL123C/1-1188      ------------------CGC---------------------------------------
+Clus|CLUG03383/1-1173    ------------------AAC------------ATTTCGGGAAACGGCACGCATTTGGGC
+Dhan|DEHA2C07656g/1-1494 ------------------TCGAATGGGACACCTGGTAGTTCAAATGGTAGTCGTTTGAAC
+Cgui|PGUG05400.1/1-1296  ------------------TCGTCGACTCCTCATCACGTCGATAGTAATTATGGCACGCCA
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   ------------------ACTAACCAGTCTGCAGGCAATACTCCGGGACCAATATCATTC
+Cpar|CPAG05310/1-1914    ------------------CTGGTTCAGCAACAAATTCGGTCGCAAAGTCGACTTGGTGGA
+Lelo|LELG05661/1-2715    CATCTTCTTCTTCATCAGCAACAACGAGAGGTGTACCGCCCACAACAATTTACACGACAT
+Ylip|YALI0F05126g/1-2148 ------------------CAGGGCCAGACCCAGGGCCAAGGTCAGCAGCAGCAGCAGCAG
+Anid|AN8271/1-2121       ------------------GGACCGACAGATCATTTTCCTTCGCGCTCCGTCGCTCAAGCT
+Ncra|NCU09315/1-2154     ------------------GTGCAACAGCAACAGCACCACCAGCAACAGCAACACCAGCAA
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 GGGTTTGTGAATTCTAGGAGGAGTACGCCCTGGGTTATGGATTCGCATCATTATGTGACT
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    GGCCATATCTCGACCCTCGGCACTGGCACGCTC---------------------------
+Dhan|DEHA2C07656g/1-1494 AGAGCACAAAATACGCGTGTTGATGGTGGC------------------------------
+Cgui|PGUG05400.1/1-1296  GTGACAGCAGGTGCGTCCACAGGCTCGAACTCTCGCATAGACACCACG------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   CATAATCATAATCCTAATTTACAACAAGCATCCCAACAGCCACATCAGCACATATCCCCA
+Cpar|CPAG05310/1-1914    CACGATCAAGGGCAACAGGGGCCTCTGCCAGGTAACTTCCGTTTGGATGCCATAGCGACG
+Lelo|LELG05661/1-2715    GAGATTCTATCAAAAAAAAGCACACCATTTAAGGAAATAGATTATTCAAGAGAAGGAAGT
+Ylip|YALI0F05126g/1-2148 CATCATCAACATCAGCAACAGGGCCACCCACAACACCAAAACCAACACCAATCACATCAC
+Anid|AN8271/1-2121       GCTGCGATGGCCACTTCGACGGCTCCTCCCCAGCAACAGCAGGTGGTATGCATGAATTCT
+Ncra|NCU09315/1-2154     CATCAGATGCCCACCATTACCACGACTGCGCCATATCAAAACGCCCCGACGGCCTTGATA
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 GAAGATATCGATATGGATTTGGAC------------------------------------
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------------------------------------------------------
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   CATTTGAACAACCTACAACAACATAGTCAACAGCCATACCAACATCAACATTCTCATTCA
+Cpar|CPAG05310/1-1914    CACCAACCCATGGACAACCAAATGAATTTCGACCAAGAAGCGCAGGAAGCTTCATTTCAC
+Lelo|LELG05661/1-2715    AAACTGAACCACAGTACACCAAGCGAAATTTCATACAATCAACATCAACACCTGCAAGAA
+Ylip|YALI0F05126g/1-2148 AACGGGACCGGG------------------------------------------------
+Anid|AN8271/1-2121       GACGGGGTCTCC------------------------------------------------
+Ncra|NCU09315/1-2154     ------------------------------------------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 ------------------------------------------------------------
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------------------------------------------------------
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   CGCTCACATATAGACTCT------------------------------------------
+Cpar|CPAG05310/1-1914    CGTCACAATTCTACTCACCCGGGACATCAGCATACTGTATCTAATATGTCTACACCCAAT
+Lelo|LELG05661/1-2715    TACCTGCAACAACGTCCACTTTCCCAACAAGCTCACCATCTGCAAGGTAATCTGCAATTT
+Ylip|YALI0F05126g/1-2148 ------------------------------------------------------------
+Anid|AN8271/1-2121       ------------------------------------------------------------
+Ncra|NCU09315/1-2154     ------------------------------------------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 ------------------------------------------------------------
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------------------------------------------------------
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   ---------------------GAAGCACCATCTGCAAATGACACCCCAACTTCTTCTGGT
+Cpar|CPAG05310/1-1914    GGTGGTGTTCCGGTTTTACACTCTAGTGTACCACCACAACCACAGTCACAACTGCAACTG
+Lelo|LELG05661/1-2715    CAACCCGATCCCAGTTCATTGCAACAACAACAACAACAACAACCACAACAACAACAACAT
+Ylip|YALI0F05126g/1-2148 ------------------------------------------------------------
+Anid|AN8271/1-2121       ------------------------------------------------------------
+Ncra|NCU09315/1-2154     ------------------------------------------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------CACAAC
+Scer|YFR034C/1-936       ------------------------------------------------------CGGCAT
+Spar|spar434-g18.1/1-942 ------------------------------------------------------CGGCAT
+Smik|smik267-g18.1/1-963 ------------------------------------------------------CGGCAT
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------GAACAT
+Scas|Scas565.10d/1-1173  ------------------------------------------------------GAAACG
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------CGGCAG
+Klac|KLLA0D16115g/1-2067 ---------------------------CATTTATCACATGCGCTCTTGAACGGAGATCGT
+Agos|ADL123C/1-1188      ------------------------------------------------------CGGCCA
+Clus|CLUG03383/1-1173    ------------------------------------------------------GATGCC
+Dhan|DEHA2C07656g/1-1494 ------------------------------------------------CCTGGGAAATAT
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------CCAGGA
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------AAGCAA
+Calb|orf19.1253/1-1977   GCCTTGGGCATGGCCCCACAACCACCACTCCTTTCATCAACAACCAACCCTCAATCTTTT
+Cpar|CPAG05310/1-1914    CAACAACATCACCACCCTCATCAATCACAGCAACCACCGCCACCGCCACAACATCAATTT
+Lelo|LELG05661/1-2715    TATCATCAAAACCAGCACCTCCCCCTCCAACAACATCAACAACAACAACCGCAGCCATAT
+Ylip|YALI0F05126g/1-2148 ---------------------------CAACACAACAATCCCCACAACGGCGGCCGGTTT
+Anid|AN8271/1-2121       ------------------------------------------------------GATCAA
+Ncra|NCU09315/1-2154     ------------------------------------------------------CAGCCA
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 GACCATCGCAACGACAGTACCATTCTTACCGAACACGACCAC------------------
+Scer|YFR034C/1-936       GATGGGCGC---------------------------------------------------
+Spar|spar434-g18.1/1-942 GATGAGCGC---------------------------------------------------
+Smik|smik267-g18.1/1-963 GATGAGCGCGAGGAC---------------------------------------------
+Cgla|CAGL0D05170g/1-1599 GAAGATGCGATTGAT------------------------------------------GGT
+Scas|Scas565.10d/1-1173  TCATATAGCCTAGAACCC------------------------------------------
+Kwal|Kwal55.20403/1-1437 GGCGAGGGGTCCACG---------------------------------------------
+Klac|KLLA0D16115g/1-2067 ACTGGTGGTGCTAGTAATAGTGGTAACCAGGTTCCGACTGGTACAAACCTGGGCGCAGGG
+Agos|ADL123C/1-1188      GGGGGCTCTACGGCG---------------------------------------------
+Clus|CLUG03383/1-1173    GACTTCAACTTGGACGCCATGGAATTTGTCGTGGACGAC---------------------
+Dhan|DEHA2C07656g/1-1494 GAGTTTGGGCTTGATAACTTGAATTTCGTATTACCAGAGGATATTTCG------------
+Cgui|PGUG05400.1/1-1296  GCATTTTCCATGGAGAGTTCCATGTTCATTCTTCCTGAAGGAGTGCCCATTGAT------
+Ctro|CTRG03846.3/1-1308  GACGAGCAATTACAA---------------------------------------------
+Calb|orf19.1253/1-1977   GATCTCGGGTTAGACACAATAGGTTTTATTATTCCTGAAGAGTTGAATTTTGAT------
+Cpar|CPAG05310/1-1914    GAATTTGGACTTGACAATTTAAATTTCATGATCCCCGAAGAATTGAATTTTGAC------
+Lelo|LELG05661/1-2715    GAATTTTCATTGGACAATTTAAATTTTCTTATTCCCGAGGATTTCAACTTTGACGAGACC
+Ylip|YALI0F05126g/1-2148 GAAGACTACTCCTTCTGGAACGACTTTATCGACGATGACCGCAACTCGCCGGCCGCAACC
+Anid|AN8271/1-2121       TCGCAATCGTACAACCGCATGCCGGGCGATTTCCCCGTCGAGCTCCCTGGCCAGGGGCAA
+Ncra|NCU09315/1-2154     TCTACACCCTCAGAGGCCATCGTCAACACCATCGATGCCCAAATCCAGTTCCTCCAGCAG
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ---TCGCATTGGGCTTCTGAAAATTTACAGCTCGACTTGGATGACCTAAGCCACTCTTTG
+Scer|YFR034C/1-936       ------------------------------GAGGACTTCAACGAGCAAAACGACGAGCTG
+Spar|spar434-g18.1/1-942 ------------------------------GAGGACTTGAATGGACAAAACGACGAACTA
+Smik|smik267-g18.1/1-963 ---------TTGAATGATCAAAAC------GACATAATAAACAGCCTGAATAACCGAAGC
+Cgla|CAGL0D05170g/1-1599 GGGGCCAGTCTGAACATGCACCTT------TACAATATTAATGATACATTAAATGGTGTT
+Scas|Scas565.10d/1-1173  ------------------------------GAAGATTTGGCACAACAGGAAAATACATTA
+Kwal|Kwal55.20403/1-1437 ---CCGCATTTCCAGGATTTGGAG------TTCCAAATGCATCCCGGCACGCAGCGCGAC
+Klac|KLLA0D16115g/1-2067 GATGAAGCTCCTCATCACCACGATTCTGCATCTTTTTTGGATCAGGATTCGCTGAGCCCG
+Agos|ADL123C/1-1188      ------------------------------GGCGAGTGGGACGAGGCG------------
+Clus|CLUG03383/1-1173    ---------TTGGCTCCGACGTCC------AAGGCGTTCCCGCCCCTGAACTTCCCG---
+Dhan|DEHA2C07656g/1-1494 ---------TACGAACAGCAGTCG------ACGGCGTACCCGCCATCAGCTTCTAGCTTA
+Cgui|PGUG05400.1/1-1296  ---GATGAACACCAACCACAATCC------ACCGCATATCCTCCCACCGGCGGCATT---
+Ctro|CTRG03846.3/1-1308  ---------TTACATCAACAACAG------CAAACACCACCACAACAACAGCAACAGACA
+Calb|orf19.1253/1-1977   ---ACTGATCCAAATCACATATCC------TCTGCATTTCCGCCGCAATTGCCTGCT---
+Cpar|CPAG05310/1-1914    ---ACTGAACCTGGCCATGTTTCG------TCAGCATTTCCTCCCAAGGTCCCCACG---
+Lelo|LELG05661/1-2715    CACAACGAAACGACTTCTTCGTCG------TCCGCCTTTCCTCCCAATGTGCCCACT---
+Ylip|YALI0F05126g/1-2148 ACCACCCATAACTCCCACGTTAGCCCAACAACCACACTGCCGTCACAGGCCAAGCCCCAG
+Anid|AN8271/1-2121       CAGGGAATGCTACACAATTCGTCC------TACTCCAATGGCCCAATGACACCGGCATTT
+Ncra|NCU09315/1-2154     CAGAAGTTGCATGCTCAGCACCAG------CAACTGCAAGAGCAACAGGCCGCCTTCTTC
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 CTTAAAAACGATAACAGTCTTCGATCCGGTGAGCATTTC---------------------
+Scer|YFR034C/1-936       AACAGTCAAGAGAACCACAACAGCAGTGAGAAT---------------------------
+Spar|spar434-g18.1/1-942 AACAATCAAGAGAATCGGAACGGCAGCGAGAAT---------------------------
+Smik|smik267-g18.1/1-963 GGAAGTGAG---------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 TCTACTGATAACGGTCATTTCGACATGGTTGAT---------------------------
+Scas|Scas565.10d/1-1173  TTTCAAAGGCTACCATCAGCAGATGTATCTTCATATCATGGACCA---------------
+Kwal|Kwal55.20403/1-1437 TCGCACCAACACCAGTCTCTCCAGCAGCATCCT---------------------------
+Klac|KLLA0D16115g/1-2067 ATTGGGCTTTCGGGACCTTCTCCATCGCATTTT---------------------------
+Agos|ADL123C/1-1188      ---GAGCAGACCGAGCATGAGCGCGAGCGGCGA---------------------------
+Clus|CLUG03383/1-1173    ---CAAAACACTCCTGCGCTCGGACCGCGTGCGCCG------------------------
+Dhan|DEHA2C07656g/1-1494 AACAACAACACACCTCATATGCTTGCTACGAATGTGAAAAGACTGACTAAA---------
+Cgui|PGUG05400.1/1-1296  ------AAAACCCCCGGGCTTTTAGCTAACAAGCATCTTGCCCACGACTCG---------
+Ctro|CTRG03846.3/1-1308  GTATCGCAACAACGTCGTCGCAATCCTCGAAGTCACGGA---------------------
+Calb|orf19.1253/1-1977   ---GACCAGACTCCAAGTTTATTAGCAGTTGATAAATTGAAACAGTTACAACAACAACAA
+Cpar|CPAG05310/1-1914    ---GAACAAACTCCTAGCTTGTTAGCCATAAATGCCATGAAAAAGGAAGAG---------
+Lelo|LELG05661/1-2715    ---GAACAAACGCCGGCTCTTTTAGCTATAAACCAGATACGAAAAGCTGAGATGGCTTCT
+Ylip|YALI0F05126g/1-2148 ACCCACCGGTCGCCAGCAAACCTGACTCCTCCAGGCCAGCCG------------------
+Anid|AN8271/1-2121       TATGCCCAGAAGCCCCAGATGTTTCACTCCTCT---------------------------
+Ncra|NCU09315/1-2154     GCTTCTCAACAGAACCACATAGTTCCTCCTACA---------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 ------------------------------------------------------------
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ---------TCGGTAGAAAACCCGACG---------------------------------
+Cgui|PGUG05400.1/1-1296  ---------CAAAAG---------------------------------------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   CAGCAACAACAGAGACAACAAGACCCTTTAAGT---------------------------
+Cpar|CPAG05310/1-1914    ---------CAGCGTAGGAATGCA------------------------------------
+Lelo|LELG05661/1-2715    GGTATTCATGGACATGAGCAAGGTCACACTGGCCAAAGCCAAAGCCAAAGCCGAAATCAA
+Ylip|YALI0F05126g/1-2148 ------------------------------------------------------------
+Anid|AN8271/1-2121       ------------------------------------------------------------
+Ncra|NCU09315/1-2154     ------------------------------------------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------CAGCTAGACCTGGAAATGCTAGATGGCCACCAGCACGAACACCAACGCCATGAA
+Scer|YFR034C/1-936       ---------------------------------GGGAACGAGAATGAAAATGAACAAGAC
+Spar|spar434-g18.1/1-942 ---------------------------------GGGAACGAGAATGAGAATGAACAAGAT
+Smik|smik267-g18.1/1-963 ------AACCAAAGTAGAAACGAAATTGAGAATGAGAATGAGAATGATGGTGAACAAGAT
+Cgla|CAGL0D05170g/1-1599 ------TTACATTTCGGGCCCACATTGACTACAGATGACGACCCAACCAAAATGGCCGAA
+Scas|Scas565.10d/1-1173  ------AAATCACATTCAGCTCACACTCTTGTGAACGATAAGGAAATAATAAATCAAGAA
+Kwal|Kwal55.20403/1-1437 ------GGGTCGTCTCTGTCGTTGGATTTGCACGACCTGGACTCGCTGCACAAACCGCAG
+Klac|KLLA0D16115g/1-2067 ------CAGCTGGATTTCTCTTTGATTGAGGATGAACACCACGAGCATCAACAAAACAGT
+Agos|ADL123C/1-1188      ------------------------GATAAGGGCGATCAGATGGCGGGTCCCGGGAGCCAC
+Clus|CLUG03383/1-1173    ------TCTTTCCAGTCGCCCATTTTGCCGGGCCAAAACGAGAAGCTGTACAACAAGGAA
+Dhan|DEHA2C07656g/1-1494 ------ATGTTCATGTCACCGGTCCTTCCAGGGCAAAATGATAAATCATACAACAACCAG
+Cgui|PGUG05400.1/1-1296  ------GCATTTGTTTCGCCTATTCTTCCCGGCCAAAATGAAAAATCTTATAATGACCAG
+Ctro|CTRG03846.3/1-1308  ------TCTTCTGCTAGTCCAATACTATGTGGACAAAATGATAAGTCTTATAACCCACAA
+Calb|orf19.1253/1-1977   ------GAACTTTCATCGCCAGTGCTACCTGGACAAAACGATCAATCATATAATCCACAT
+Cpar|CPAG05310/1-1914    ------GAATTTTCTTCACCTATACTACCGGGCCAAAATGAGAAACTGTACAACAAACAC
+Lelo|LELG05661/1-2715    AGCCATGAATTTGAATCTCCTGTCCTACCCGGGCAGAATGAGAAGCTGTTCAATCATCAA
+Ylip|YALI0F05126g/1-2148 ------CCACAAAAGTACAGTGGTAATGGGGGAAACAACGGCTCCAACGGAAACAATGCG
+Anid|AN8271/1-2121       ------CAACAGCAGCAACCGGTACAGCCGCAATCCTCGCAACCTTATAATCCACAGGGT
+Ncra|NCU09315/1-2154     ------CCTCAGAGCCTGGAACTCACTGCTGGATCTAGTCAGAATTACTATGCCCAGTCG
+                                                                    .                
+
+
+Sklu|SAKL0F07392g/1-1446 CATGGCGACCAAAACCATGAGCAGCTACATCGG---------GAATACAGTGGTAAGCGT
+Scer|YFR034C/1-936       AGT------CTCGCGTTGGACGACCTAGACCGC---------------------------
+Spar|spar434-g18.1/1-942 AGT------CTCGCATTGGACGATCTTGACCGT---------------------------
+Smik|smik267-g18.1/1-963 GAG------CTTGCATTGGATGACCTGGACCGC---------------------------
+Cgla|CAGL0D05170g/1-1599 ---------CTACAGCATACCACGATACATCAT---------------------------
+Scas|Scas565.10d/1-1173  CAA------AATTATTTTGAGATAATGAACCCC---------------------------
+Kwal|Kwal55.20403/1-1437 GGGCTACAGCTCGATCTCGACGTGCACGCACAA---------------------------
+Klac|KLLA0D16115g/1-2067 CACCATCACAGCCAACAACAACAACACCATGGC---------------------CATCAG
+Agos|ADL123C/1-1188      TTC------CTGGATTTCTCGCTGCTGGACGAG---------------------------
+Clus|CLUG03383/1-1173    CAC------TTGTACCACACACAGCGACGCCGC---------------------------
+Dhan|DEHA2C07656g/1-1494 CAT------TTATATCATAAATACCAGAAGCAT---------------------------
+Cgui|PGUG05400.1/1-1296  CAT------TACTACCATACCCACCGGTCCGGA---------------------------
+Ctro|CTRG03846.3/1-1308  CAT------TATTATCATAGACAATCATCAAGT---------------------GGTAAA
+Calb|orf19.1253/1-1977   CAT------TACTATCATCGACAGAGTTCAAGC------------------------AAT
+Cpar|CPAG05310/1-1914    CAT------CTTTACCATAGGCAAAATTCACTG---------------------------
+Lelo|LELG05661/1-2715    CAT------TTGTATCACAAACAAACTTCTGAA---------------------------
+Ylip|YALI0F05126g/1-2148 AGA------TACCCGTTTGAAATGAAGGTACCT---------GGAATCACCCCTAACGAG
+Anid|AN8271/1-2121       CAG------ATGATGATTCCACCTACGCCAAACAGTATAGAACTTCACGGTAATGCAGCA
+Ncra|NCU09315/1-2154     ACA------CTATCTGATCAACACCACTCCGGG---------------------------
+                                         :                                           
+
+
+Sklu|SAKL0F07392g/1-1446 CACGAGGAGTTGCAACAGCAACAGCAACAGCAACAGCAACAGCAGCATCAGCAGCATGTG
+Scer|YFR034C/1-936       ------------------GCCTTTGAGCTGGTGGAAGGTATGGATATGGACTGGATGATG
+Spar|spar434-g18.1/1-942 ------------------GCTTTTGAGCTGGTGGAAGGTATAGACATGGACTGGATGATG
+Smik|smik267-g18.1/1-963 ------------------GCGTTTGAGCTGGTCGAAGGAATGGACATGGACTGGATGATA
+Cgla|CAGL0D05170g/1-1599 ------------------GGCCATCTAGACGTCAATGGAAACCGCAGTGATAGTTTATTC
+Scas|Scas565.10d/1-1173  ---------------------TCGACGTCCGTTTCCAAATCAAATGCTGGTGGAAGTGTC
+Kwal|Kwal55.20403/1-1437 ---------ACGCAGGGGGCGGCGCCCGCGTCGGGCCAATCCGCATCCCACTCGCACGTT
+Klac|KLLA0D16115g/1-2067 AGCAGCCACCATGCGCATTCTTCAGTAGGGCCCGAGGATTCCAATGGTAGTGAACACGTA
+Agos|ADL123C/1-1188      ---------------------------GGAAACGAGGTGGGCGACAAGGAGCGGCTGCGG
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------TCTGATGATACTCAGTCATATGCACATCAGCCACATAACCAACACGTC
+Cgui|PGUG05400.1/1-1296  ------------------GGAGACACCCCACAACAGCACCAACCTCCCAGCCAGCATGTG
+Ctro|CTRG03846.3/1-1308  ATATTTACTGTAAATCCTAATGAGAATAACAACAGCAATAGTAATAATACGACTACGGTT
+Calb|orf19.1253/1-1977   AGTGTTTTTGTCGCCGGCAAAAATACTGGTTCATCCGTTTCAGCACCCTCACAGCACGTA
+Cpar|CPAG05310/1-1914    GGAAAAGTGTATTCAGTGAATCATGATGATAGTGATCAACAACCACAACCGCAACATGTG
+Lelo|LELG05661/1-2715    ------AATAGAGTATTTACGACAATACGCAACTCTATACTGGATCCACCACAACATGTA
+Ylip|YALI0F05126g/1-2148 ATCTTCCACTCGCCGCTGTCGGAGCCCATGGACCCCCAGAACCAGAACCTGGCCAACGTC
+Anid|AN8271/1-2121       CCCTATCCTCAGCGGGTTGGAGACAATTCGGAAATGTACGATCGATATACTCGAATGATG
+Ncra|NCU09315/1-2154     CCACAGAAACAGCAGCAGCCGCAACAGGCCATCGACTACAGATATACAAGGATCAAAGAC
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 AGGCCAGATATGTTGTTTTCTCCTATGGTCTCTCCCATGGTTGCTCCACAATACTCT---
+Scer|YFR034C/1-936       CCCTCGCATGCGCACCACTCCCCAGCTACAACTGCTACAATCAAGCCGCGG---------
+Spar|spar434-g18.1/1-942 CCGTCACATGCACACCACTCCCCGGCTACTACTGCTACAATCAAGCCGCGG---------
+Smik|smik267-g18.1/1-963 TCTTCACACGCGCACCATTCGCCGGCGAACACCACTACAATCAAGCCGCGG---------
+Cgla|CAGL0D05170g/1-1599 TCGCCATTCGATTCTCCATTAGTACATGACACTCCATCATTGGAGGCTAGGAATAGTATA
+Scas|Scas565.10d/1-1173  TCTGAAAGCCCGTTG------CAAGTCCATGAACATAGCATTGAAAGTATG---------
+Kwal|Kwal55.20403/1-1437 CGCCCAGAAATGGTCTTCTCGCCCGTGATTTCGCCCATGGTGGGCCCACAGAAT------
+Klac|KLLA0D16115g/1-2067 AGACCAGATATGGTTTTCTCGCCTATGGTTTCACCCATGGTGATGCCTACCAACAGT---
+Agos|ADL123C/1-1188      CAGAGGGCCGCGGTGTTTTCTCCTGTGATGTCGCCGATGCTGCACATATATGGCTCC---
+Clus|CLUG03383/1-1173    GACAAGCATGCACAAAATACGCCTTTGCAGCTGCCAGCTATGACGCCGGGCGATCTGCAG
+Dhan|DEHA2C07656g/1-1494 AGGCCTGATGCGGTTTTCACGCCCTTGGAATCGCCAGCCGTCACCCCACGGGAACAA---
+Cgui|PGUG05400.1/1-1296  CGTCCCGATGCCGTGTTCACGCCGTTGGTTTCTCCGGCAGTGACCCCCCACGACTCC---
+Ctro|CTRG03846.3/1-1308  AGACCCGATGCCGTTTTCACTCCGTTGGTTAGTCCCGCTGTTACTCCATTAGAGAGA---
+Calb|orf19.1253/1-1977   AGACCCGATGCTGTCTTTACCCCCTTAGTTTCGCCCGTCGTTGCCCCTTTAGATACAAAT
+Cpar|CPAG05310/1-1914    CGTCCAGATGCTGTATTCACTCCCTTGGTCAGTCCAGCAGTGACACCATTGGATAAA---
+Lelo|LELG05661/1-2715    CGGCCTGAAGCAGTGTTTACACCACTCGTGAGTCCAGCCATCACGCCATTAGAAAGA---
+Ylip|YALI0F05126g/1-2148 TACGACGATGGATCTTTCACGCCGCTGGTATCCCCAGCAGTATCGTCCTTTGATCCT---
+Anid|AN8271/1-2121       GAGGAACAGGTATGTCTCCAATACATTACCCAGCCGGTAAATCAGACTTGCGCCGCT---
+Ncra|NCU09315/1-2154     CAGCATGATGTAGGTCTACAAACGTCTGCTCCGTCCAAGTCAAGAAAAAAAAATATCACT
+                                                           .                         
+
+
+Sklu|SAKL0F07392g/1-1446 ---------------------------GCTCAAAACACCCCGTTCATGAACCCGGGTTTG
+Scer|YFR034C/1-936       ---------------------------CTATTATATTCGCCGCTAATACACACGCAAAGT
+Spar|spar434-g18.1/1-942 ---------------------------CTATTATACTCGCCACTAATTCACACTCAAAAT
+Smik|smik267-g18.1/1-963 ---------------------------TTATTATATTCGCCGCTAATTCACACACAAAAT
+Cgla|CAGL0D05170g/1-1599 CAACTTACAAATGAGGGTTCCACATCAGCTCTTACAACACCATTTCTGAGCGGCAAGAAC
+Scas|Scas565.10d/1-1173  ---------------------------CATGACTATTCGCCTATGTTTGCTAAC------
+Kwal|Kwal55.20403/1-1437 ---------------------------CCGTCACACACGCCCTTTTTGCGCACA------
+Klac|KLLA0D16115g/1-2067 ---------------------------TTGCACAACACGCCTTTCATGGGACCTTCAGGG
+Agos|ADL123C/1-1188      ---------------------------GTGTCGAACACGCCGCTGCTGACTGCTGACAAG
+Clus|CLUG03383/1-1173    GTG------------------------GGCGCTGCTCGGCCCCAATTTGTGGCCCCTGCG
+Dhan|DEHA2C07656g/1-1494 ---------------------------CAAGTAAATTCGAATAGTTATCCCTAC------
+Cgui|PGUG05400.1/1-1296  ---------------------------CAAGTCAACGTAAATAAA---------------
+Ctro|CTRG03846.3/1-1308  ---------------------------GGAAATTCAGGGAATGCATTTTCTCCT------
+Calb|orf19.1253/1-1977   GGCAAGGCTGATAAGGAAAATGGTAATAATAGTGGTGGTCACAACAATCTGCACAGTAGC
+Cpar|CPAG05310/1-1914    ---------------------------GGTGCCAACGGACCTTCCTTCAATCAGAAGCAG
+Lelo|LELG05661/1-2715    ---------------------------GCAGCTACGGGG---------------------
+Ylip|YALI0F05126g/1-2148 ---------------------------CCCATGAGTGGCCACTCGCTCAATTTCGCC---
+Anid|AN8271/1-2121       ---------------------------AATGCGTCCACCGTTCTCTTCTAGGCTCTTTAT
+Ncra|NCU09315/1-2154     AAC------------------------CAACCATGGCAGATGTCCTTCACCCCGTTGGTA
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 CCTACCTCT------------GCCACTTCTAATACACCTTATCATAGTGCAAATAACAGA
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 CACTATGACGACCACGGGAACTCTATAAATTCCCAGAGCTTTAACTACCATAACAGAAAC
+Scas|Scas565.10d/1-1173  ------------------------------AATATCCCTATAACTAACAATACTGCCGAT
+Kwal|Kwal55.20403/1-1437 ------------------------------CAAGGTCCGGGCTCCGGCGGCGGCCCCAGA
+Klac|KLLA0D16115g/1-2067 GTGCCTTACGGT---------AACGTGCAAAACACGCCGTTTATGCCCGAAAATTCTTCT
+Agos|ADL123C/1-1188      GCGCAC---------------GCGAGCCAGAACACACCGCACCTCCAGGGCGCGGGGGCC
+Clus|CLUG03383/1-1173    GCC---------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------------------------AACCCACCAGTACAAGCATCT---------
+Cgui|PGUG05400.1/1-1296  ------------------------------GCGGCACCGGTCCAGACCAGT---------
+Ctro|CTRG03846.3/1-1308  ------------------------------CAGGCTCCAATACAGATTTCG---------
+Calb|orf19.1253/1-1977   TCATTCTCCCCT------------------CAACCTGCTGTACAGATTTCT---------
+Cpar|CPAG05310/1-1914    CAGCAACAACAACAGCAACATCATCATCATCAGTCGCCGGCAAATATCAAT---------
+Lelo|LELG05661/1-2715    ------------------------------CAAGCACCTGCGCATATTAAT---------
+Ylip|YALI0F05126g/1-2148 ------------------------------ATGCCGAATGCCTTCCTGTCC---------
+Anid|AN8271/1-2121       ACTCCT------------------------------------------------------
+Ncra|NCU09315/1-2154     TCA---------------------------------------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 AAAAGTTCT------------------------------------------TTTTCGCCA
+Scer|YFR034C/1-936       ---------------------------------------------------GCGGTTCCC
+Spar|spar434-g18.1/1-942 ---------------------------------------------------GCAGTGCCT
+Smik|smik267-g18.1/1-963 ---------------------------------------------------GCAATGCCT
+Cgla|CAGL0D05170g/1-1599 TCAAGTCTCTCCAAAGTTAGTGGTAAA------------------------TTCTCCCCA
+Scas|Scas565.10d/1-1173  TTTGAACTCAATTCGTTC---------------------------------ATGGAAGAG
+Kwal|Kwal55.20403/1-1437 CCTGCG---------------------------------------------TTTTCGCCC
+Klac|KLLA0D16115g/1-2067 TCTTCGATGCCCTCGTCGACCACACAAGAACATGGCCCACATACTTCGAAGTTCTCACCC
+Agos|ADL123C/1-1188      GGGAGCGCGCTCCAGGGCCAGGGC---------------------------ATGTCTCCG
+Clus|CLUG03383/1-1173    ---------------------------------------------------TTTGAACCC
+Dhan|DEHA2C07656g/1-1494 ---------------------------------------------------TTTGAACCG
+Cgui|PGUG05400.1/1-1296  ---------------------------------------------------TTCGAGCCT
+Ctro|CTRG03846.3/1-1308  ---------------------------------------------------TTTGAACCA
+Calb|orf19.1253/1-1977   ---------------------------------------------------TTCGAACCA
+Cpar|CPAG05310/1-1914    ---------------------------------------------------TTTGAACCC
+Lelo|LELG05661/1-2715    ---------------------------------------------------TTCGAGCCA
+Ylip|YALI0F05126g/1-2148 ---------------------------------------------------CTGGAGCCC
+Anid|AN8271/1-2121       ---------------------------------------------------CTTGTTTCC
+Ncra|NCU09315/1-2154     ---------------------------------------------------CCGGCTGTG
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 CTCTCA---TCACCTGCCTTGACTGCAATCGACCAGGCACAATCC---------------
+Scer|YFR034C/1-936       GTAACCATTTCGCCGAACTTGGTCGCTACT------------------------------
+Spar|spar434-g18.1/1-942 GTAACTATTTCGCCTAACTTGGTTGCAACT------------------------------
+Smik|smik267-g18.1/1-963 GTAACTATTTCGCCTAACTTGGTCGCAGCC------------------------------
+Cgla|CAGL0D05170g/1-1599 ATATCG---TCACCAGCACTGACTTCTACT------------------------------
+Scas|Scas565.10d/1-1173  ATTTCCAAATCTCAATCGACAGAGTCAAATAATCTAGAATATGGG---------------
+Kwal|Kwal55.20403/1-1437 TTGACA---TCGCCCTCGATCGACGCACTGGAAAACCCGTCA------------------
+Klac|KLLA0D16115g/1-2067 TTGACT---TCGCCTGCATTGAATGCAATCGAACAACAGCATCTACAACAACGTCACCAG
+Agos|ADL123C/1-1188      CTGACG---ACCCCCGCGCTCGGGGCAGGGGCAGCCACTGTGCCG---------------
+Clus|CLUG03383/1-1173    TTGACT---CTGCCGGCGCTTGATGCTGCC------------------------------
+Dhan|DEHA2C07656g/1-1494 TTGACT---TCTCCGGCTTTAGCTGCGCAA---CAGGCA---------------------
+Cgui|PGUG05400.1/1-1296  TTGACG---TCTCCAGCGCTCAATGCTCGGCCCGATATC---------------------
+Ctro|CTRG03846.3/1-1308  TTAACA---AGTCCTGTCTTAAAAGCTGAACCACTGACATTGGCAGGTAGTTCAAATGTT
+Calb|orf19.1253/1-1977   TTGACG---TCGCCTGCATTGAATGCCGAGCCATCTACAATAAAATCTAAAGGTGGGAAG
+Cpar|CPAG05310/1-1914    TTGACT---TCGCCAGCATTGAATGCACAACAATCATCG---------------------
+Lelo|LELG05661/1-2715    TTGACA---TCTCCAGCATTGAATGCCCAACAACCATCTTCTTCTTCTACTTCTTCTTCA
+Ylip|YALI0F05126g/1-2148 TCAGATGGACACCCTGGTGTCATGATGCAGCAGCAGCAACAGCAGTATGACGATAAGAAG
+Anid|AN8271/1-2121       CCGGCG---ATGACTCCCTTAGAATCACAGTTCAGACAGCCGGAATACACGATCCCTGGA
+Ncra|NCU09315/1-2154     ACCCCG---CTGGAGACCCATTTTCCCATCGATACTCCGTTTGCCGTCCCTGGAGCGTAC
+                             .        .                                              
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 CAGCAACAACAA------------------------------------------------
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------------------------------------------------------
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  TCCTCTTCTTCTGCTTCGGCGACTGAT---------------------------------
+Calb|orf19.1253/1-1977   AAAAATCACAAGGAAACTGAC---------------------------------------
+Cpar|CPAG05310/1-1914    ------------------------------------------------------------
+Lelo|LELG05661/1-2715    ACAGCAATAACAACAACAACAACAACAACAACAAACCCCAATACCAATAGTGTTGGTAAT
+Ylip|YALI0F05126g/1-2148 GGCGGATCGGCATCTGCACCCTCTTCGGCA------------------------------
+Anid|AN8271/1-2121       GAGTATTTCAGTCCGCTTAGCTCGCCGGCGATT---------GAG---------------
+Ncra|NCU09315/1-2154     TTCAGCCCCCTTACCTCGCCAGCCTTGCACGCGCAAAATGAC------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 AGCAATTTCACCTTATCAGAGACGAATGCATCTTCCAAAAAAAACTCTAGTTCAACGAGA
+Scer|YFR034C/1-936       ---------------GCTACTTCCACCACATCCGCTAACAAAGTCACTAAAAACAAGAGT
+Spar|spar434-g18.1/1-942 ACTACTTCTACAACATCCACTTCTTCAACATCCGCTAATAAAGTCACCAAAAACAAGATG
+Smik|smik267-g18.1/1-963 ---GCCACTTCTACCGTATCTACCTCAATATCCGCCAACAAAGTCACCAAGAACAAGAGT
+Cgla|CAGL0D05170g/1-1599 AATCAGGAACAGCAACACTGGAACACATCCTCTAGAAGGGCTTCAAACAGTTCCTCTAGA
+Scas|Scas565.10d/1-1173  AGCAGTTTTAGAAAGAGTGCATCCTCCATTTCATCTAATAAAGATTTTAAGAGACCCAGT
+Kwal|Kwal55.20403/1-1437 AACTCATCGCGCCAGCAGTATCCCGAATACAACGGCTCCAAGCGCGGGTCCTCTTCCTCA
+Klac|KLLA0D16115g/1-2067 CAGGGTTTCTCTCTACCAGATGCCAGTATATCATCATCAAGGAAAAGTTCTACAACGAAT
+Agos|ADL123C/1-1188      GCGGCATTCAGACTGCCTGAGGCGGCTGCGGGCATCGCGTCGCGTACGTGCGCCCAGGGT
+Clus|CLUG03383/1-1173    GACCGCCGGCGCCTGCTGCTGGCCACCTTCGGCCAC---------GACGAGCCGGCAGGC
+Dhan|DEHA2C07656g/1-1494 GATAAGAGAAGG---TCTTCATCGGTATATGCGCCTACG------GAAGATGGTGTACCT
+Cgui|PGUG05400.1/1-1296  GATAGGCGACGTTCGTCGTCGTCGGCATACGGCACGGCT------GAAGACCAGCCTTCA
+Ctro|CTRG03846.3/1-1308  GATCGTAGAAGATCTTCAAGTTCAGTTTATGCTCCTACGAAA---GATGAGAATAAGCAA
+Calb|orf19.1253/1-1977   GATAGAAGAAGATCAACTAGTTCAGCATATGCTCCTAGTAAA---GATGAGAACAAACAA
+Cpar|CPAG05310/1-1914    GATAAACGAAGAAAATCAAGTTCGGTGTATGCACCATCTTCAGAGGATCATAGATATCAA
+Lelo|LELG05661/1-2715    GATAAGAGAAGAACGTCAAGTTCAATGTATGCGCCAGCCTCAACAGAGGAACAGAAATCT
+Ylip|YALI0F05126g/1-2148 ACGCGAAAAAGAAACTCTGTGGCCGGACGAGCTGCTGCTCCTCGAGGAGGAAAGGCTCGG
+Anid|AN8271/1-2121       GCTCAACACCCCAATCCGAACGGTTTTCCCATTCATTCTGGTCCGCTGACGGAAGTGAAT
+Ncra|NCU09315/1-2154     GCTTTGGGTATCATTGACCAGAGGCTCGGGATGATGAGCGGGAGCTCGCCAAGGGAGATG
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ACCAAGAAA------------ACTCCTCAT---TCAACTCCTGCTTTGGTGGCTACAACT
+Scer|YFR034C/1-936       AAT------------------------------AGTAGTCCGTATTTGAACAAGCGC---
+Spar|spar434-g18.1/1-942 AAT------------------------------AGTAGTCCGTATTTGAACAAGCGC---
+Smik|smik267-g18.1/1-963 AGC------------------------------AGCAGTCCGTATTTGAACAAACGT---
+Cgla|CAGL0D05170g/1-1599 TCAAAAAGA---------GTGCTACCGAGT---GGTAATTCATCTGTTTCTTCTACTTCA
+Scas|Scas565.10d/1-1173  TTTGAACAC---------ATTTCTCCCCTA---GTATCGCCGGCTCTGCTTGCCAGG---
+Kwal|Kwal55.20403/1-1437 TCCTCCAGG---GGCAAGAAGACGCCACTT---TCTACGCCGGCGTTAACTGCCACCACG
+Klac|KLLA0D16115g/1-2067 ACGCGCTCG------AAACGGACCCCTCAT---ACAACGCCACTGATGGGACCGACACAG
+Agos|ADL123C/1-1188      AGCGCGCGCCCCGCGAAGAAGACCCCCCAC---TCCACGCCGTACCTGGGAGCGACCCCC
+Clus|CLUG03383/1-1173    ACCAAGAGA---------CGTACTCCACAC---CTGACACCAATCCTCCCGCCC------
+Dhan|DEHA2C07656g/1-1494 AGTAAAAGA---------AAAACTCCACAT---GGTACTCCTATCTTGCACGCTAATGGC
+Cgui|PGUG05400.1/1-1296  CACAAGCGC---------AGAACTCCCCAT---GGAACCCCGGTGATGGGACCCAATGGT
+Ctro|CTRG03846.3/1-1308  TATAAGAGA---------AGAACACCTCAT---GGTACACCAATTTTGCAAGGAAACAAA
+Calb|orf19.1253/1-1977   TACAAACGT---------AGAACTCCTCAT---GGAACGCCAATTTTGCAAGGTCATACA
+Cpar|CPAG05310/1-1914    AACAAGAGA---------AGAACACCTCAC---GGAACTCCCGTTCTTGCTGCTAGTAAC
+Lelo|LELG05661/1-2715    ACAAAGCGA---------AGAACTCCTCAT---AGTACTCCTGTTTTGAATGCAGTAAAC
+Ylip|YALI0F05126g/1-2148 TCCGGAAGA---------GCCACTCCAGTCGGAGGCACCCCCGTGATGGGTCCTCAATCT
+Anid|AN8271/1-2121       TTTGTCCAT---------TCACCTGTTGAC---AACGCTTTCCCTTTGTCCTCTGCTCCA
+Ncra|NCU09315/1-2154     GAACTCGAACCACCTGCCATGTCTCAAGCG---AGCGTTAGCCCAGGCGATTTGGCTAGG
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 TCCTCTAAA---------------------GTTGCCAAGCAGAGCCCACAAATAAAC---
+Scer|YFR034C/1-936       ------------------------------AGAGGTAAACCCGGGCCGGATTCGGCC---
+Spar|spar434-g18.1/1-942 ------------------------------AGAGGAAAGGCCGGGCCGGATTCGGCC---
+Smik|smik267-g18.1/1-963 ------------------------------AGAGGTAAGTCTGGCCCGGATTCGGCC---
+Cgla|CAGL0D05170g/1-1599 AACAAG------------------------GTTATAAAGAATAGTCCGTACATGAACGCC
+Scas|Scas565.10d/1-1173  ------------------------------AAACCTGCAAAGAGTCAGGATATGGAA---
+Kwal|Kwal55.20403/1-1437 TACTCGAGCTCATCCAGCTCCAAA------ATCGCGAAAAATAGTCCACAGCTTTCC---
+Klac|KLLA0D16115g/1-2067 TCCAACCAAACGACAAATACAAATAAG---ATCATAAAGCATTCTCCACATATCTCA---
+Agos|ADL123C/1-1188      GGC---------------------AAG---GTGGTCAAGCAGTCTCCACTGGTCGAC---
+Clus|CLUG03383/1-1173    ------------------------------AAACCACGGCGTTCGCCGTCTTTGCGCAAA
+Dhan|DEHA2C07656g/1-1494 CCT---------------------------CGTTCAAAGCGTTCGCCTTCAGTCAAA---
+Cgui|PGUG05400.1/1-1296  TCGACT------------------CGA---AAAGTCAAGCAGTCGCCCTCGCTCAAG---
+Ctro|CTRG03846.3/1-1308  ------------------------------AATAGTTATATCTCCCCTTCTTTGAAA---
+Calb|orf19.1253/1-1977   AGCAATGCTACCACGGTCAATGGTAGTGGTAAACCATACAAGTCACCAATTACAAAAAAT
+Cpar|CPAG05310/1-1914    ------------------------------AAGAGCTATATTTCACCCTCAGCCAAG---
+Lelo|LELG05661/1-2715    ------------------------------AAAAGTTATACTTCGCCCTCAGTAAAG---
+Ylip|YALI0F05126g/1-2148 GGAGCATCATCCGTGGCTGGCCGG------GTGGCCAAAATGTCGCCGATGACCCGACCC
+Anid|AN8271/1-2121       ------------------------------CCTTCGCCGGGATTGGCGCGGAAATACAAG
+Ncra|NCU09315/1-2154     AAGACGCGCAAGAACGCA------------GTGAAGGCCAGGGCAAAGAGCGGCAGT---
+                                                                       .             
+
+
+Sklu|SAKL0F07392g/1-1446 ---TCTAGA---------------------------------------------AGAAAC
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 AGTTCTAGG---------------------------------------------AGATTA
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ---AGCCGA---------------------------------------------------
+Klac|KLLA0D16115g/1-2067 ---TCACGA---------------------------------------------AGATCT
+Agos|ADL123C/1-1188      ---GCGAAG---------------------------------------------------
+Clus|CLUG03383/1-1173    GTTCCGCAG---------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ---CCTAGA---------------------------------------------------
+Cgui|PGUG05400.1/1-1296  ---GGCCGG---------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ---AGCAAG---------------------------------------------------
+Calb|orf19.1253/1-1977   GGCAAGAAT---------------------------------------------------
+Cpar|CPAG05310/1-1914    ---GCCAAA---------------------------------------------------
+Lelo|LELG05661/1-2715    ---CCACGT---------------------------------------------------
+Ylip|YALI0F05126g/1-2148 ACCGGTCGA------------------GCAAGTGCCCGGGCAGGATCTCTTTCAGGCCCC
+Anid|AN8271/1-2121       CGACGGTCATCAGCTGCTAGCAAGACCTTTCAGTCCAGGGCTAAGAAGCAGCAATCTCCC
+Ncra|NCU09315/1-2154     ---GGCATC---------AAACAGTCTCCCATCTCGAAGCCGATACGTAGAAAGACGGCC
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ATTTCTTCCAAGTTCAAA------------------------------GGCTCCAACGGC
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 CAAAAGACCATAAGTAATGGGAAC------------------------TCAAAGAGGGAT
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ---AGGTCCGCGCTTAACAAGCGCAAA---------------------AGTGTTGCTACG
+Klac|KLLA0D16115g/1-2067 TTAACGAAA---------------------------------------TTCAAGAGTGGA
+Agos|ADL123C/1-1188      ---AAGAGCAATGGGTCGACCGTCTCATCGGGCTCCTCATCCAAG---TACAAAAACCAC
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ---TCA------------------------------------------TCGCACAAATCT
+Cgui|PGUG05400.1/1-1296  ---TCG------------------------------------------CACCGGTCTGGG
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------AGTAGCAGTGGG
+Calb|orf19.1253/1-1977   ---TCTCAA---------------------------------------AAGCAGGACTTT
+Cpar|CPAG05310/1-1914    ------------------------------------------------TCTTCTACACCA
+Lelo|LELG05661/1-2715    ---------------------------------------------TTGAGCAATTCTTCA
+Ylip|YALI0F05126g/1-2148 AACTCCGTGGGAGGTTCTCCATTGGTGAACCCTTTGGTGTCTGCTTCCGGAAACAAAGAC
+Anid|AN8271/1-2121       TCAGTTCGACCTTTGGCGCGGACGAGATCCCGTCTGACCGATGAGGTTATGACCACGCTC
+Ncra|NCU09315/1-2154     ACCACCCCGATGCTCAACCCCCAAGCTTTGAACCAACTGGTTGAGAATGCAGCACCAAGT
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 AACTGGGACGAT------------ATGTTCAAGCTACCCGATAGTAGC------------
+Scer|YFR034C/1-936       ------------------ACTTCGCTGTTCGAATTGCCCGACAGCGTT------------
+Spar|spar434-g18.1/1-942 ------------------ACCTCACTATTTGAATTGCCCGACAGCGTT------------
+Smik|smik267-g18.1/1-963 ------------------ACTTCGCTGTTTGAGTTGCCCGACAGTGTC------------
+Cgla|CAGL0D05170g/1-1599 GAGTGGGACGAA---------TTCATGTTCTCTTTACCGGAGAGTAGT------------
+Scas|Scas565.10d/1-1173  ---------------------ATATATCTACCAGTTTCATCAACGACC------------
+Kwal|Kwal55.20403/1-1437 AATTGGGACGAC------------ATGTTTAAGCTTCCGGATAGCAGT------------
+Klac|KLLA0D16115g/1-2067 AGTCGAGACGAT---------ATGGTGTTCAAATTACCGGACTCCTCC------------
+Agos|ADL123C/1-1188      ACCTGGGACGAC------------ATGTTTTGCCTGCCGACCAGCTCA------------
+Clus|CLUG03383/1-1173    ------------------------TTTGAACAATTGCCTGAGCCAGGC------------
+Dhan|DEHA2C07656g/1-1494 CTGACGAGCTCC---------CCGTTTGAGAAGTTACCTGAAGCTGGT------------
+Cgui|PGUG05400.1/1-1296  GCCAGTTTGAAC---------TCGTTTGAAAAACTCCCAGAGTCGCTG------------
+Ctro|CTRG03846.3/1-1308  AATAATTCTCAACATCAATTTACATTTGAAAAATTACCTGAATCTAAA------------
+Calb|orf19.1253/1-1977   TCTTTTACAAAT---------CAGTTTGAAAAGTTACCGGAATCTACG------------
+Cpar|CPAG05310/1-1914    TCAGCTACTGAT---------CAACTTGAGAAATTGCCCCAGTCATCG------------
+Lelo|LELG05661/1-2715    TCGTACAACAAT---------GGAATGCAAAAATTACCAGAGGCTTCT------------
+Ylip|YALI0F05126g/1-2148 TCGTGGTCCTCAGACAGCATTTCACCCGAGTCGTTGCCGGACATTGTC------------
+Anid|AN8271/1-2121       TCAGAAGGCCAGATTAATCCAACCCCGAATCCCCCCCAGAATGGTAGC------------
+Ncra|NCU09315/1-2154     CAAGAACGCCAACAACCTCTTACGCCGCTAATACCGACCTCGTCTTCGTCCACAGCTGGT
+                                                     :        .  .                   
+
+
+Sklu|SAKL0F07392g/1-1446 ATGCCGCCACCACCCGGTAGGCATTCTCAATCTCATGGCAACACCACAGAAGAGGCTACG
+Scer|YFR034C/1-936       ATCCCAACTCCG------------------------------------------------
+Spar|spar434-g18.1/1-942 ATCCCAACTCCG------------------------------------------------
+Smik|smik267-g18.1/1-963 ATCCCAACTCCAAAACCAAAGTCAAAG---------------------------------
+Cgla|CAGL0D05170g/1-1599 TTAGCTAATGACTTAACAACTGGAAATGATGAAAACATGGATATTAGCTTGCCAGCGGGA
+Scas|Scas565.10d/1-1173  ATGAAGATGAACTCTTCTAGCTTTATGAATATATCGCAAGGGTCGGAGCTTAATGCTAAT
+Kwal|Kwal55.20403/1-1437 ATACCACCGCCCCCGCCACCGGGGTCTCTTTTCCCCGGTTCCCAAAGTCACACCCACCAT
+Klac|KLLA0D16115g/1-2067 CTAAAGAATGAAAACGCAGGTTCACATAACAGTAACAACCATACTCCAAACTCTGCACAT
+Agos|ADL123C/1-1188      ATGGGCATTGGCGGCCACAGCTCGCTCGGCAGCACCCCGGACGACAGCCTGCGCGCGCCC
+Clus|CLUG03383/1-1173    CAGAGTGCGCCCGGAAGTGCGCCAGACAGCTCAACGGCACAGGGCGACGGCGAC------
+Dhan|DEHA2C07656g/1-1494 GTGGATCTGCAACGAAATAGTTCTGAATCTACT---------------------------
+Cgui|PGUG05400.1/1-1296  GTGGCTCCTCCTCGGTCTTCGGGTGATTCTACT---------------------------
+Ctro|CTRG03846.3/1-1308  CTTAAAACAGATTCTAATCCATCAAAAGATCAA---------------------------
+Calb|orf19.1253/1-1977   ATAACTGTGAAAAGTGAACCAATGGAAACATCAGTAGAACCACCACTAGCACCACAAGGA
+Cpar|CPAG05310/1-1914    ATACCCGAGTCCAAAGTGAATACTAATGATACG---------------------------
+Lelo|LELG05661/1-2715    GTTGATAATGTGCAACAACACGATAGC---------------------------------
+Ylip|YALI0F05126g/1-2148 ATGCCACCTCCGCAAACCCGGTCGTCGGTTTCGTCGTCGTCTTCTTCGGGTCACATGAAA
+Anid|AN8271/1-2121       AGGTCGCATTTTGGCAGTGCCGAGAGCTCGGGCCAGGACTCAGTATCCCCAGAACCACTT
+Ncra|NCU09315/1-2154     GTAACTGACTCTGAGAATGGGTCCATCTCCCCCGAAAATCTCAACGACGTTGTCTTGCCG
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 CCGAAATCAACATCA---------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 CACTCACCCACTAAAGAGTACAATAGCTACCCT---------------------------
+Scas|Scas565.10d/1-1173  AATACC------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 TCGCACTCCTCCACGCATACGCACCTCATTCAAGATCCTATCGATGGGTCCATATCAGGG
+Klac|KLLA0D16115g/1-2067 TCATCATCTAAT------------------------------------------------
+Agos|ADL123C/1-1188      CTCGACGGCTCC------------------------------------------------
+Clus|CLUG03383/1-1173    ---------------------TCAATGTTGCCG---------------------------
+Dhan|DEHA2C07656g/1-1494 ---------------------CCCATGCTTCCA---------------------------
+Cgui|PGUG05400.1/1-1296  ---------------------CCAATGTATCCT---------------------------
+Ctro|CTRG03846.3/1-1308  ---------------------GATATGTTACCT---------------------------
+Calb|orf19.1253/1-1977   CAACAACAAGATGACAGTAATCCAATGTTACCT---------------------------
+Cpar|CPAG05310/1-1914    ---------------------GAAATGTTACCA---------------------------
+Lelo|LELG05661/1-2715    ---------------------ACCATGCTTCCA---------------------------
+Ylip|YALI0F05126g/1-2148 CCGGCCACTCCCTCAACTCTAATGGACCTCCCT---------------------------
+Anid|AN8271/1-2121       TCTGAGCCATTGATGCCACCACCAGCATTACCACCATCTCGAAAA---------------
+Ncra|NCU09315/1-2154     GTTGAGATGCCTCCGCCACCACTTCCGAAACCTCGCTCCGCCAAACCGTCCCCTTTTCTG
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ---------------------------------------------TCTGCTTCTTCAACG
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ---------------------------------------------AAGGTAATATTACCA
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 TCTGCGTCCAGTGTATCCTCTTGCCGTACTCATCACTCTGGTACGCCCGCGATCCCCAGC
+Klac|KLLA0D16115g/1-2067 ------------------------------------------------------------
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ---------------------------------------------CCACGCAATGTACCA
+Dhan|DEHA2C07656g/1-1494 ---------------------------------------------CCTCTGGGTAAGAAG
+Cgui|PGUG05400.1/1-1296  ---------------------------------------------CCACAAAGAAAACAG
+Ctro|CTRG03846.3/1-1308  ---------------------------------------------CCAAGTGGAAAACCA
+Calb|orf19.1253/1-1977   ---------------------------------------------CCAAATGGTAAACCG
+Cpar|CPAG05310/1-1914    ---------------------------------------------CCAAGTGGGAAACCC
+Lelo|LELG05661/1-2715    ---------------------------------------------CCAAGTGGAAGACCA
+Ylip|YALI0F05126g/1-2148 ---------------------------------------------AAGGGCCAGAACGAG
+Anid|AN8271/1-2121       ---------------------------------------------TCGCCCGCAATAGCT
+Ncra|NCU09315/1-2154     GCACCTCAAGCGAGCGGTAGTGCT---------------------GTGCCTATTAATCTC
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 CATTCCACATACAACCAAGATAGTGGCGAGCCCCGCGTGACTCCCGCAACTTTAATGAAC
+Scer|YFR034C/1-936       ---------------------------------AAACCGAAACCGAAACCAAAG---CAA
+Spar|spar434-g18.1/1-942 ---------------------------------AAACCGAAACCAAAG---------CAA
+Smik|smik267-g18.1/1-963 ---------------------------------------------------------CAA
+Cgla|CAGL0D05170g/1-1599 TCT---------------------CATGCAGCTGAAAACGAGAGTATGGAAACGGATAAC
+Scas|Scas565.10d/1-1173  ------------------------AATCGTAGCCATCATCATAGGCCGTCGCAAAATTTG
+Kwal|Kwal55.20403/1-1437 TCTACGAGCCGCGACGGCGAAAACAGCGATTACAATCCAACCACCACTACAAACATAAAC
+Klac|KLLA0D16115g/1-2067 ------------------GGATCAAACTCGGATAGAATGACTCCGTCATCGTTGATGAAT
+Agos|ADL123C/1-1188      ------------------------GACGACCTGCACGACGCGCGCAAGCCTGCACCGGGC
+Clus|CLUG03383/1-1173    AGG------------------CAGCAGCTGGTTGGTGAAGACGCCCCTACACTCATGGGT
+Dhan|DEHA2C07656g/1-1494 GTTGACATTCCTAATAATTCAGTATCTGGCGAAGCACCAGCTTCTGCAACCATGATGGGA
+Cgui|PGUG05400.1/1-1296  GTT---------ATGGACTTCTCTAATGGTGGTGACGGCGCGGCTCCAGCCATGATGGGG
+Ctro|CTRG03846.3/1-1308  GTC------------------------------GAAATTAATGGAGCTCCATTGATGGGA
+Calb|orf19.1253/1-1977   GTT------------------------------GAAATAACCGGAGCTCCATTAATGGGG
+Cpar|CPAG05310/1-1914    CGA------------------------------GAGATTAATGAGCCACCATTAATGGGC
+Lelo|LELG05661/1-2715    ATT------------------------------ACAGTAAATAAAACGCCACTCATGGGG
+Ylip|YALI0F05126g/1-2148 GAC------------ATTGATATGAAGGACGCCAACAGCGCGCTGGAGGACGCCATCCGA
+Anid|AN8271/1-2121       CCGCAGGCACGGCAACAACAAAATCCCAGCGAACCCGCGACACCCGCCATGCTGATGCGT
+Ncra|NCU09315/1-2154     CAGCCGGGGCGGCCTGGAATTGCCTCTCCTGCAACACCAGCATCACTGATGAAACTAAGC
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ---------------TATCCTAAAATCATCCTTCCCTCTAATAAC---------------
+Scer|YFR034C/1-936       ---------------TATCCGAAAGTTATTCTGCCGTCGAACAGC---------------
+Spar|spar434-g18.1/1-942 ---------------TATCCGAAAGTTATTCTGCCGTCGAACAAC---------------
+Smik|smik267-g18.1/1-963 ---------------TATCCAAAAGTTATTCTGCCGTCGAACAGC---------------
+Cgla|CAGL0D05170g/1-1599 ---------------TATGAGAGGGCCAGCTTGCTAGAGGACTCACAACCAGACGAGACA
+Scas|Scas565.10d/1-1173  ---------------GAAACTAAAGTCGTTCTGCCCTCTTCTGAT---------------
+Kwal|Kwal55.20403/1-1437 ---------------TATCCAAAGGTAATTCTGCCGTCCAACAAC---------------
+Klac|KLLA0D16115g/1-2067 ---------------TATCCAAAGATTATTCTTCCGTCTAATTCA---------------
+Agos|ADL123C/1-1188      ---------------CTTCCGCGCTTCATACTGCCCTCCAACAAC---------------
+Clus|CLUG03383/1-1173    ---------------TTCACTATGAACAGATTGGCAGAACTGCAG---------------
+Dhan|DEHA2C07656g/1-1494 ---------------TTCACAATGAGTGTATTGGCAGAACAACAG---------------
+Cgui|PGUG05400.1/1-1296  ---------------TTCACCATGGGCCGATTGTCGGAACAGCAG---------------
+Ctro|CTRG03846.3/1-1308  ---------------TTTACTATGGGTAAATTAGCTGAAGGAAAT---------------
+Calb|orf19.1253/1-1977   ---------------TTCACTATGGGTAAACTAGCTGAAGGTGGA---------------
+Cpar|CPAG05310/1-1914    ---------------TTCACTATGGGAAGACTAGCTGAAGTGGAA---------------
+Lelo|LELG05661/1-2715    ---------------TTCACAATGGGTAAATTAGCCGAAGAGGAG---------------
+Ylip|YALI0F05126g/1-2148 ---------------GTGACTCGTAACCTGACTTCTTCGCGGTCG------------TCT
+Anid|AN8271/1-2121       ATGCAGCGATCTCCCCTCGCTCGCTCTGCGCCGGATCACAACTTGACTCCTACACAACGG
+Ncra|NCU09315/1-2154     ---------------TCACCGAGCAATCGCAACCCTTCAGTGGTA---------------
+                                            . .               .                      
+
+
+Sklu|SAKL0F07392g/1-1446 ------------AATAGGGATGCTACTCCAACGGATCCTGCTAATATGAGGAACATCAAT
+Scer|YFR034C/1-936       ------------ACAAGACGCGTATCACCGGTCACGGCCAAGACCAGCAGCAGCGCAGAA
+Spar|spar434-g18.1/1-942 ------------ACCAGGCGTGTATCACCGGCTACGACCAAGACCAACAGTAGTGAAGGC
+Smik|smik267-g18.1/1-963 ------------ACCAGGCGCCTATCACCTTCCACGACTAAGACTAACAGTAGTGAAGGC
+Cgla|CAGL0D05170g/1-1599 CAGAACAATAACCCACAGAACAATAATCCACATAGCAATGGCTCTAGTATCAGTCCTGTT
+Scas|Scas565.10d/1-1173  ------------TTTGAATCCATTTTTAAATCTGTTTCGAAAGATAAGAGAATAATTAGG
+Kwal|Kwal55.20403/1-1437 ------------CGCGACAGCAGTGGCAGAGCCCACTCACCAGTACGAGACCATAATTCG
+Klac|KLLA0D16115g/1-2067 ---------------AATACAATGACTCCTTCTAACGATGAATCC---------------
+Agos|ADL123C/1-1188      ------------CCTCAGCGACAGCTGCCCCCTCCGCCCTCCGACTCTGTTATCCATGCG
+Clus|CLUG03383/1-1173    ---------------AGTGCGTCATCACCC------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------CAAGAAGGATCGAATAATAGTTCTGTGGATATGGTACATCGCACAACA
+Cgui|PGUG05400.1/1-1296  ------------CCTCACGGCCACAGCAGGTCATCATCT---------------------
+Ctro|CTRG03846.3/1-1308  ------------GAACAAAAATCGAGACAGACGTCACCAACTATGTCGATTTCTTCATCT
+Calb|orf19.1253/1-1977   ------------GCCGGAACAGTTGCTGATAAAAAGCTGGCCAAAAAAGCAGGTGCTAAC
+Cpar|CPAG05310/1-1914    ---------------GAGAAAAATCAACCAAAAGGAAAGAAACAACAGCAGCAGCAGCAG
+Lelo|LELG05661/1-2715    ---------------CTTAACAATAATCCCAAAAATAACAAAAATAACAAAAATAAAAAG
+Ylip|YALI0F05126g/1-2148 GTTTCACTGGCGTCCACCGGTGCCACTCCTCTCATGAGCGACGCCAACATCTCGCCAAAC
+Anid|AN8271/1-2121       CCGATGAACCAAGTGCAGGACGAAGTGATGGAGGACGTCATTCTTCCGGAGGCAGCTAAT
+Ncra|NCU09315/1-2154     ------------GGAACCGGCTCTCATGACCCAATGGATCCCGACCACATTGAGAACTTT
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ---------------GTAATCCGTGCC------------ACCGAGTCACCAGTACTAAGA
+Scer|YFR034C/1-936       GGC------------GTGGTCGTAGCA------------AGTGAGTCTCCTGTAATCGCG
+Spar|spar434-g18.1/1-942 ---------------GTTGTCGTAGCG------------AGTGAGTCGCCTGTAATCGCG
+Smik|smik267-g18.1/1-963 ---------------GTCGTCGTAGCA------------AGTGAGTCTCCCGTAATCGCA
+Cgla|CAGL0D05170g/1-1599 GGCAAAAACGACTCGGTGATGCTAGCC------------AGTGGCTCACCTGTGTTGAAA
+Scas|Scas565.10d/1-1173  GCA------------------------------------ACTAAATCACCAGTAATCAAG
+Kwal|Kwal55.20403/1-1437 CACGGCAACGGCCACGTGATCATGGCT------------ACCGATTCTCCCGTCATCCAG
+Klac|KLLA0D16115g/1-2067 ---------------GTGCTACGAGCC------------ACTGAATCTCCCGTCATCAAA
+Agos|ADL123C/1-1188      ---------------------------------------TCGCAATCCCCAGTCATAAAG
+Clus|CLUG03383/1-1173    ---------------------------------------AGCCCTTCGCCTGCGCTTGGG
+Dhan|DEHA2C07656g/1-1494 ---------------------------------------CTGAACGGTCAAACTAGAAAC
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ---------------------------------------AAGAAATCAAGTACTAAATCA
+Calb|orf19.1253/1-1977   AATGGCAAACTA---------------------------TCACGTAAACCAAGCTATTCA
+Cpar|CPAG05310/1-1914    ---------------------------------------CAGCAACAGCCAAAGAAGAGC
+Lelo|LELG05661/1-2715    AATAAAAATTATAGAAACGATCAAGAAGAAGAAGGAGCAGAAGAAGCAGAAGAAGACGGG
+Ylip|YALI0F05126g/1-2148 ACAAAC---------ATCAGTAGTGTC------------TCGTCGACACCTCAGATTGCT
+Anid|AN8271/1-2121       CCGTCAGCTCAACTTTTTCGGCCCCAGGTGGCTCGCATCGACACGGCTATGCCGACCAGC
+Ncra|NCU09315/1-2154     GAGCTCCCGGACTCCATCAACTTCTCGTCTGCACCAAAACCCGCCCCTATAATTACCACT
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 CCT---------------------------------------------------------
+Scer|YFR034C/1-936       CCG---------------------------------------------------------
+Spar|spar434-g18.1/1-942 CCT---------------------------------------------------------
+Smik|smik267-g18.1/1-963 CCG---------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 CCC---------------------------------------------------CAAAAT
+Scas|Scas565.10d/1-1173  CCA---------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 GCC---------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 CCGAAAAAATACTCTGAGGGTTATTACAGCACTGCCGCTACTCATCGTCAATCTTCTGTA
+Agos|ADL123C/1-1188      CCC---------------------------------------------------------
+Clus|CLUG03383/1-1173    CCT---------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 GGT---------------------------------------------------------
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  TCA---------------------------------------------------------
+Calb|orf19.1253/1-1977   AAA---------------------------------------------------------
+Cpar|CPAG05310/1-1914    AAA---------------------------------------------------------
+Lelo|LELG05661/1-2715    TAT---------------------------------------------------------
+Ylip|YALI0F05126g/1-2148 GCC---------------------------------------------------------
+Anid|AN8271/1-2121       ACT---------------------------------------------------------
+Ncra|NCU09315/1-2154     CTT---------------------------------------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 TCAAGTTCTAATATTTTGCAGACA------------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 GAAGAAGCGGGCGGCACTGGCGCAGGAGGTGAAAACAATCAAAAGCAATCGCCTACGGTA
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------------------------------------------------------
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   ------------------------------------------------------------
+Cpar|CPAG05310/1-1914    ------------------------------------------------------------
+Lelo|LELG05661/1-2715    ------------------------------------------------------------
+Ylip|YALI0F05126g/1-2148 ---------------------AAG------------------------------------
+Anid|AN8271/1-2121       ------------------------------------------------------------
+Ncra|NCU09315/1-2154     ------------------------------------------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ---------------------------------------------------------CCT
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 CAGAAACAAGGTTTCAACAATACAAACTCATCGAGTAACGGTTCTAATACGAAACTAAAG
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------------------------------------------------------
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   ------------------------------------------------------------
+Cpar|CPAG05310/1-1914    ------------------------------------------------------------
+Lelo|LELG05661/1-2715    ------------------------------------------------------------
+Ylip|YALI0F05126g/1-2148 ---------------------------------------------------------AAA
+Anid|AN8271/1-2121       ------------------------------------------------------------
+Ncra|NCU09315/1-2154     ---------------------------------------------------------GGA
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 TACTCATCTAAAAGAGTTTTCAAGTCGCCAGCGGATATTTCAAGCACTGAACAAACTGCA
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 AAAAATAATGGTTCTACAACAACTTCACCCACGATTAATGCTAATTCTAATTCTACAACA
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------------------------------------------------------
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   ------------------------------------------------------------
+Cpar|CPAG05310/1-1914    ------------------------------------------------------------
+Lelo|LELG05661/1-2715    GATGATAATATTAATAATAATAATCATAATTATGATACAAAAGATTTCGACGGTAGTGAC
+Ylip|YALI0F05126g/1-2148 CAACAGCAGCAGCATAGTGGCAAGAAGGGCAGCATCAGTGGTAGCAGCAATGGAGGCAGC
+Anid|AN8271/1-2121       ---------------------------TCGTCCCAGGGTGTGTCGCTAAACGCTACGGCC
+Ncra|NCU09315/1-2154     ACACCGGCTCTCGATCCTCTCCAAAAGGCCGCCGCGCCTCTACAAACGCCAGGCCTCCCA
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------AAAATGTCTTCACATCAAAGTCAT
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 GACGAG---------------------GCTTCCAACGATGCAAGTAATGATGCTAAGTCG
+Scas|Scas565.10d/1-1173  ---------------------------------CGAAATACGAGAAGAAGATCCTCATTT
+Kwal|Kwal55.20403/1-1437 ---------------------------AAGAACCCGCATCTCCCAGTAGCGCGCCACGCC
+Klac|KLLA0D16115g/1-2067 TCTACATCAGGTACCACTGCAACAACTGCACCAGCTCTTACTGCACCATCAGCTTCAAGT
+Agos|ADL123C/1-1188      ---------------------------------------------------------AAT
+Clus|CLUG03383/1-1173    ---------------------------------------------------CGGAAACTG
+Dhan|DEHA2C07656g/1-1494 ---------------------------------------------TCAACGTATGCGAAT
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------AGAAAATCCAGTATTTCA
+Calb|orf19.1253/1-1977   ------------------------------------------AACAGGAATTCAGTATCT
+Cpar|CPAG05310/1-1914    ------------------------------------TCAGTATCACGTAAATCGTCGATT
+Lelo|LELG05661/1-2715    GGGAAAGCTAGTGCTGATAATGTTGGCGATATTTCGAAAAACTCAATGCTGCGTAAATCA
+Ylip|YALI0F05126g/1-2148 AGCAGT---------------------GGAGGAAACGGCCCTGGTAGCAGTAAGATTGCG
+Anid|AN8271/1-2121       CATTCAGCTCCTCATCAGGTGTCTCTTTCCGAAAAACCACCCGCCTCTATTGCTCCTAGC
+Ncra|NCU09315/1-2154     CCACCACCTTCTCCTGCGGTGGCCAAGCCTCTGGCACTTCCTTCCGCCGCTCTTTCCAGT
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 AATTCAAGGCAAAACAGTATTAATTCTGCATCTCGCCAAACCCCAGAACTGAATCCAAGA
+Scer|YFR034C/1-936       ---------------CACGGATCGAGCCATTCGCGGTCGCTGAGTAAGCGACGGTCA---
+Spar|spar434-g18.1/1-942 ---------------CACGGGTTGAGCAATTCGCGGTCGCTGACTAAACGACGGTCA---
+Smik|smik267-g18.1/1-963 ---------------CACGGGTCGAGCAATTCCCGGTCGCTGGGTAGGCGACGGTCA---
+Cgla|CAGL0D05170g/1-1599 AAGGACAAGAAACAAAGGAAACCTTCATCCAGTGGACCCAATAAGCTAAAGAGAACTAAT
+Scas|Scas565.10d/1-1173  AATAATGATATAATAAAGGAGAATCCAAGGGAAATGGAACTACCAGCAAAGAAATCA---
+Kwal|Kwal55.20403/1-1437 AGTGGAGGCTCATCACTGGGTGGGGGTGCCCCACGCTCTACACCCGAGCTCAAGCCTCTG
+Klac|KLLA0D16115g/1-2067 TCAAATTCCTCTGTGAAGAGTAACGGCAGAACAAGATCCGTGCCTGGAAGACGAACCTCA
+Agos|ADL123C/1-1188      TACGCAGGCAAGCCCCCCGGATTCGTGTCCGCGCGCAGCGTCCGTACCCTG---------
+Clus|CLUG03383/1-1173    GACGCCGGTTCGCGTGGCGAGTCCTCGCTGGCAGAAACTTCACCGGTGCTT---------
+Dhan|DEHA2C07656g/1-1494 AACAACATACCGCCTAAATCATCATCTTCGAGCGAGACGTCTCCGATAATGGGTCTGCAA
+Cgui|PGUG05400.1/1-1296  ------------------------TCCAGCGCCAATACCTCTCCAGTAATCGGCACC---
+Ctro|CTRG03846.3/1-1308  AAAGCACCAGCCGCGTCAAGAAGTTCTTCAGAGGAATCATCACCCAAATTA---------
+Calb|orf19.1253/1-1977   TCAAGCTCCGATGAATCATCTTCCACTTCTGCTTCAACATCACCAAAAATGCTAGCAAAT
+Cpar|CPAG05310/1-1914    TCGAAATCATCTTCTTCGGGAGATAGCAGCGCATCATCGTCGCCAAAATTA---------
+Lelo|LELG05661/1-2715    AGCATCAAAAAGCCAAAATCAGTGTCTCGTAAATCGTCAACATCAAAACATAGATCTATG
+Ylip|YALI0F05126g/1-2148 CCCCAGCCTCCTTCGCGACGATCCTCTTCCGTGTCTGCCTCGCCAGCACTCATGCCCAAG
+Anid|AN8271/1-2121       CCGCGTACCGCTGCCATGCCGTCTCCTAGCGGCCCTGTTCCAAAGAAATCGGACACTCCG
+Ncra|NCU09315/1-2154     CCACAACTGAAGCCCGATTCCGCTCATAGCCTGAAACGGACACCCCAGCTTGCACCCATG
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 CGCAGATCGAGCAAGACTTCATTG------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ACTGGTGGCAGCATCGGGAGAGTACGATCA------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 CGCCAGGGCTCCAAATCTTCGCTC------------------------------------
+Klac|KLLA0D16115g/1-2067 TTAAGAGGATCAAATCGATCTTCTCAGAAACCTAAATCCTCTAGTGAGGATGACGAAAAT
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 GGAAGCGGTGAGTCGTCCCCTGTGCTC---------------------------------
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   AATGGTACC---------------------------------------------------
+Cpar|CPAG05310/1-1914    ------------------------------------------------------------
+Lelo|LELG05661/1-2715    TCATCTTCGTCACTGGCCAGTTCCACGACATCATCT------------------------
+Ylip|YALI0F05126g/1-2148 ATCTCTCCTCAAATCAAGCCCATGATGTCCGAGGGCTCG------TCCCTGGACTACCAG
+Anid|AN8271/1-2121       AAGCTTGGTCCAGTCAGCAGGAAGCGACAAAGTCTCAGC---------------TCGTCA
+Ncra|NCU09315/1-2154     GGAAGAAGCAGCAAAAAACGTGCAAGCGTGACCTCCATCCAGATGTCCCCGGCCCTTCGA
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ---------------------------------------AACGAAGTTGTTGTTTCTGAG
+Scer|YFR034C/1-936       ---------------------------------------TCGGGCGCGCTCGTGGACGAT
+Spar|spar434-g18.1/1-942 ---------------------------------------TCGGGCGCCCTCGTGGATGAT
+Smik|smik267-g18.1/1-963 ---------------------------------------TCGGGCGTTCTCGTGGATGAC
+Cgla|CAGL0D05170g/1-1599 ---------------------------------------GACAGTGCCAGCCAAAACAGC
+Scas|Scas565.10d/1-1173  ---------------------------------------TCATCCGCCGTGGAGAAGAAG
+Kwal|Kwal55.20403/1-1437 ---------------------------------------AACGATAGCGAAGTTGACCCA
+Klac|KLLA0D16115g/1-2067 GACGCTGACGCTGACCGTGAAAACGAACGTGAC------GAAGAAGACGATGATGATGAC
+Agos|ADL123C/1-1188      ---------------------------------------TCAGGGGGCGACGCGAACACC
+Clus|CLUG03383/1-1173    ---------------------------------------ATGGCGGACGGTACGCGGCGC
+Dhan|DEHA2C07656g/1-1494 ---------------------------------------ACGAGAACGAAGTCAAGATCA
+Cgui|PGUG05400.1/1-1296  ---------------------------------------CAGGGCTCCAAGGGAAGATTT
+Ctro|CTRG03846.3/1-1308  ---------------------------------------AGTGCTGGCAAGAAATCAGGA
+Calb|orf19.1253/1-1977   ---------------------------------------AACTCCAGTGGTAAAAGATCT
+Cpar|CPAG05310/1-1914    ------------------------------------------------ACCAAGAAACCT
+Lelo|LELG05661/1-2715    ---------------------------------------CCAAAGTTTACAAAGAAACCA
+Ylip|YALI0F05126g/1-2148 ACGCTTCTGGCGACAAAGTCCAACTATCAGAACATTGTTGAGGGCAAGCACAACGCTCTG
+Anid|AN8271/1-2121       CACCCTAGTCCTAGTTTGAGACCTAAAATCAGTCCTAATATCCAGCCATTGGTTGCCGGT
+Ncra|NCU09315/1-2154     CCCAAGATCTCGCCCAGCATCAAGCCTCTGCTACCAGGAGGTTCTGCGGGTGCCGAAGAC
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 GGC---------------------------GATGAAGTGGTAAAAAAGGAAGTCCATAAA
+Scer|YFR034C/1-936       GAC---------------------------------------AAGCGCGAATCACACAAG
+Spar|spar434-g18.1/1-942 GAC---------------------------------------AAGCGCGAGTCGCACAAG
+Smik|smik267-g18.1/1-963 GAC---------------------------------------AAGCGTGAATCGCACAAG
+Cgla|CAGL0D05170g/1-1599 GAC---------------------------TATGTTCAAAGAAAGAAAGAGGTGCATAAG
+Scas|Scas565.10d/1-1173  GAT------------------------GTATCTAAAACTAAGAAACAATTATCACATAGA
+Kwal|Kwal55.20403/1-1437 GAT------------------------GACGACCAACAACAAAAGAAAGAGGTACACAAG
+Klac|KLLA0D16115g/1-2067 GAC---------------------------GTGGTAAAGAAGCAAAAGCAAGTGCATAAA
+Agos|ADL123C/1-1188      GGC---------------------------GACGAGTTCATCAAGAAAGAAGTACACAAG
+Clus|CLUG03383/1-1173    GAG---------------------------AAGCCCGCAACCAAGAAGGCTACACATAAA
+Dhan|DEHA2C07656g/1-1494 GAA---------------------------AAGCCGACAACAAAGAAGGCATCACATAAA
+Cgui|PGUG05400.1/1-1296  GAA---------------------------AAACCAGACTACAAGCGCACATCGCACAAA
+Ctro|CTRG03846.3/1-1308  GAG---------------------------AAGCCAGCTACCAAAAAAGCAAGTCATAAA
+Calb|orf19.1253/1-1977   GAA---------------------------AAGCCAGCAACAAAAAAGGCTTCCCATAAG
+Cpar|CPAG05310/1-1914    GAA---------------------------AAATTGTCCACGAAAAAGGCATCACACAAA
+Lelo|LELG05661/1-2715    GAG---------------------------AAGCTCGCTTCTAAAAAGGCATCACATAAG
+Ylip|YALI0F05126g/1-2148 GGACTCCAATATCCTGAGCATCTGAGTGTGAACATTGCCTCCAAACGCACTTCGCACAAG
+Anid|AN8271/1-2121       GATACCTCAGCTGCATACCTGGCCGGTATAAAGTCGAACTATCAACAAATTTTGGAGGGA
+Ncra|NCU09315/1-2154     GCAGCATCGATCTTGCTCGCCACCAAATCCAACTACCAACGCATCCTCGAGGGCAACACA
+                         *                                         .: .         * . .
+
+
+Sklu|SAKL0F07392g/1-1446 GTTGCTGAACAAGGTAGGAGAAACAGGCTGAACAATGCTTTAACGGAACTACACGCCTTG
+Scer|YFR034C/1-936       CATGCAGAGCAAGCACGGCGTAATCGATTAGCGGTCGCGCTGCACGAACTGGCGTCTTTA
+Spar|spar434-g18.1/1-942 CATGCGGAGCAAGCACGGCGTAACCGGCTGGCGGTCGCGTTGCACGAACTGTCGTCTCTA
+Smik|smik267-g18.1/1-963 TATGCAGAGCAAGCACGGCGCAACCGCCTGGCGGTCGCGCTGCACGAACTAGCATCTTTA
+Cgla|CAGL0D05170g/1-1599 TACGCAGAACAAGAAAGAAGAAACAGGCTGAACAACGCGCTTAGCGATTTGAACTCTTTA
+Scas|Scas565.10d/1-1173  GAATCAGAACAAGAACGAAGAAATCGTCTCAATAATGCTATTTCCTCATTGGAGAGCCTT
+Kwal|Kwal55.20403/1-1437 GCCGCAGAACAAGGTCGTCGTGACCGTCTCAACAATGCTCTAGCCGAGTTGCACTCGCTG
+Klac|KLLA0D16115g/1-2067 GTAGCAGAACAAGGAAGAAGAAACAGATTGAACAATGCATTGAAGGATCTTGAGTCCTTG
+Agos|ADL123C/1-1188      GTCGCCGAGCAGGGCCGCCGCAATAGGCTGAACAATGCTCTGGCCGAGCTCAACGATCTC
+Clus|CLUG03383/1-1173    TTGGCTGAGCAAGGCCGGCGCAATCGGATGAACCAGGCGGTTCACGAGCTCTCCAAGTTA
+Dhan|DEHA2C07656g/1-1494 TTAGCAGAGCAGGGTAGACGTAATAGAATGAATATGGCAGTCCAAGAATTATCGAATTTG
+Cgui|PGUG05400.1/1-1296  ATAGCAGAACAGGGCCGTAGAAACAGAATGAACACCGCCGTGCAAGAATTGGCGTCGTTG
+Ctro|CTRG03846.3/1-1308  TTGGCAGAACAAGGAAGAAGAAATAGAATGAATATGGCAGTTCAAGAATTAGGTAGATTA
+Calb|orf19.1253/1-1977   TTAGCAGAACAAGGGAGAAGAAATAGAATGAATAATGCAGTACAAGAATTGGGAAGATTG
+Cpar|CPAG05310/1-1914    ATAGCAGAACAAGGACGAAGAAATAGAATGAATACCGCCATTGCTGATTTGGCATCCTTG
+Lelo|LELG05661/1-2715    ATTGCTGAGCAAGGTCGGAGAAATAGGATGAATGTTGCAATTGCCGAATTGACGGCATTG
+Ylip|YALI0F05126g/1-2148 CTGGCGGAACAAGGCCGACGAAACCGAATCAACAACGCGCTTGCCGATCTCGGAAAGTTG
+Anid|AN8271/1-2121       ACACTTCTCCCTGGCGTCTCATACCCCGAAACCTTAGCTGAGAATTTAAGCTCTAAGCGG
+Ncra|NCU09315/1-2154     GTTCCCGGCGTTTCGTATCCCAGCGAGCTTTCTACGAATCTCACATCGAAGCGGACGTCG
+                                               .     :  .    ..  :                   
+
+
+Sklu|SAKL0F07392g/1-1446 ATTCCCCAA------------------------------------------GATTTG---
+Scer|YFR034C/1-936       ATCCCCGCG------------------------------------------GAGTGG---
+Spar|spar434-g18.1/1-942 ATCCCCGCG------------------------------------------GAATGG---
+Smik|smik267-g18.1/1-963 ATCCCCGCG------------------------------------------GAATGG---
+Cgla|CAGL0D05170g/1-1599 CTTCCACAA------------------------------------------GACTGG---
+Scas|Scas565.10d/1-1173  CTACCAAAG------------------------------------------GATTTA---
+Kwal|Kwal55.20403/1-1437 ATTCCAACG------------------------------------------GAAATG---
+Klac|KLLA0D16115g/1-2067 ATTCCAAAG------------------------------------------GAACTC---
+Agos|ADL123C/1-1188      CTGCCGCCA------------------------------------------GAGCTC---
+Clus|CLUG03383/1-1173    ATCCCTCCC------------------------------------------GCGTAC---
+Dhan|DEHA2C07656g/1-1494 ATTCCTCAG------------------------------------------GCATAT---
+Cgui|PGUG05400.1/1-1296  ATACCGCCG------------------------------------------TCCTTC---
+Ctro|CTRG03846.3/1-1308  ATTCCTCAA------------------------------------------AATTAT---
+Calb|orf19.1253/1-1977   ATTCCCCAG------------------------------------------AGTTAT---
+Cpar|CPAG05310/1-1914    ATCCCACAA------------------------------------------CTGTAT---
+Lelo|LELG05661/1-2715    ATACCGCAA------------------------------------------GCGTAT---
+Ylip|YALI0F05126g/1-2148 CTTGTG------------------------------------------------------
+Anid|AN8271/1-2121       ACGAATCAC------------------------------------------AAGCTTGCC
+Ncra|NCU09315/1-2154     CACAAGATCGCGGAGCAAGGCAGGAGGAACAGAATCAACTCCGCGCTGCAGGAGATCGCC
+                         .                                                           
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------AAA---
+Scer|YFR034C/1-936       ------------------------------------------------------AAACAG
+Spar|spar434-g18.1/1-942 ------------------------------------------------------AAACAG
+Smik|smik267-g18.1/1-963 ------------------------------------------------------AAACAG
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------AAA---
+Scas|Scas565.10d/1-1173  ------------------------------------------------------AAG---
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------AAG---
+Klac|KLLA0D16115g/1-2067 ------------------------------------------------------AAA---
+Agos|ADL123C/1-1188      ------------------------------------------------------AAA---
+Clus|CLUG03383/1-1173    ------------------------------------------------------CAC---
+Dhan|DEHA2C07656g/1-1494 ------------------------------------------------------CAT---
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------AAC---
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------CAT---
+Calb|orf19.1253/1-1977   ------------------------------------------------------CAC---
+Cpar|CPAG05310/1-1914    ------------------------------------------------------CAT---
+Lelo|LELG05661/1-2715    ------------------------------------------------------CAC---
+Ylip|YALI0F05126g/1-2148 ------------------------------------------------------------
+Anid|AN8271/1-2121       GAGCAAGGTCGACGGAACCGCATAAACACTGCTCTCAAAGAAATCGAAACCCTGATTCCG
+Ncra|NCU09315/1-2154     ACGCTTCTTCCCAAAGCTCCTGCGAAGGAGGGGGGAGATGGTGATGGAGACGGTCATAGT
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ---GAAACAGTACTTATCCCA---TCTAAAGCCACCACTGTAGAACTCGCTTGTCAATAT
+Scer|YFR034C/1-936       CAAAATGTGTCGGCCGCGCCG---TCCAAAGCGACCACCGTGGAGGCGGCCTGCCGGTAC
+Spar|spar434-g18.1/1-942 CAAAACGTGTCTGCCGCACCG---TCCAAAGCGACAACAGTGGAGGCCGCCTGCCGGTAC
+Smik|smik267-g18.1/1-963 CAAAACGTCTCGGCCGCCCCG---TCTAAAGCGACTACAGTAGAGGCCGCCTGCCGGTAC
+Cgla|CAGL0D05170g/1-1599 ---GACGCTGTCACAGTCCCA---TCTAAGGCTATCACAGCTGAACTCGCTTGCAAATAC
+Scas|Scas565.10d/1-1173  ---GATTCCGTGGCTATTCCT---TCGAAAGCTGGTACAGTGGAACTGGCTGTGAAATAT
+Kwal|Kwal55.20403/1-1437 ---GAATCAGTACTCATACCG---TCCAAGGCGACTACCATCGAAATGGCCTGTGCATAC
+Klac|KLLA0D16115g/1-2067 ---GACGTGGCGGCAATCCCA---TCCAAAGCTACCACAGTCGAGCTGGCTGCCCAGTAT
+Agos|ADL123C/1-1188      ---GAGTCAGCCCAGGTACCG---TCCAAGGCTACCACAGTGGAGCTGGCTTGTAAATAC
+Clus|CLUG03383/1-1173    ---GGCCTGGTGCTGATTCCG---TCAAAAGCAACCACAGTAGAGTTGGCTTCTGTTTAC
+Dhan|DEHA2C07656g/1-1494 ---GATGAAGTATCTATCCCT---TCCAAAGCTACCACGATCGAATTGGCATCCAAGTAT
+Cgui|PGUG05400.1/1-1296  ---AGCGAAGAGTCTGTGCCT---TCCAAAGCCAATACCGTTGAAATGGCTTCAAAATAC
+Ctro|CTRG03846.3/1-1308  ---GACGAAGTTAGTATTCCT---TCAAAGGCAACTACAGTTGAATTAGCTTCAAAATAC
+Calb|orf19.1253/1-1977   ---GATGAAGTAAGTATTCCT---TCAAAGGCAACAACAGTTGAATTAGCCTCGAAATAT
+Cpar|CPAG05310/1-1914    ---GATGAAATCAGCATTCCG---TCTAAAGCAACAACTGTGGAATTGGCCTCAAGGTAT
+Lelo|LELG05661/1-2715    ---GATGAAGTGGCTATTCCT---TCCAAGGCAACAACAGTAGAGTTGGCCTCTAAGTAT
+Ylip|YALI0F05126g/1-2148 ---CCCGAGTCGGCGTCTACA---TCTAAGGCCAACACCGTCGAGAACGCCATTGACTAC
+Anid|AN8271/1-2121       ---GCTGCCTATGTACAAATGAGATTACACAAGGAAGCAGCAACATGCAACGGAAAGGGC
+Ncra|NCU09315/1-2154     AGTAGCGGTGGGGGCGGTGGCAGCGGGGGTGCTGACAGGGAAGATAAGAGGGAGAAGGAT
+                                                     . .. .  .  .  ..    .         . 
+
+
+Sklu|SAKL0F07392g/1-1446 ATCAAGATTTTGACTGGGCAACAGGACGAGGCTGAAAGT---------------------
+Scer|YFR034C/1-936       ATCCGTCACCTACAGCAGAACGTGAGCACG------------------------------
+Spar|spar434-g18.1/1-942 ATCCGTCACTTACAGCAGAATGGGAGCACG------------------------------
+Smik|smik267-g18.1/1-963 ATCCGTCATCTACAACGGAATGGGAGCACG------------------------------
+Cgla|CAGL0D05170g/1-1599 ATAAGGACACTGCTCGAAGAGCTTGAGCAGTACAAGAAA---------------------
+Scas|Scas565.10d/1-1173  ATTAAACAATTACATGAACGATTAGGAATC------------------------------
+Kwal|Kwal55.20403/1-1437 ATTCGGCAACTGGCACAGCAGCTGGAACGGTCACAA------------------------
+Klac|KLLA0D16115g/1-2067 ATCCGTCAATTGTTGAAGGCAAACTCCAACCAG---------------------------
+Agos|ADL123C/1-1188      ATAAGACAGTTGACTGGTCAACAAAAC---------------------------------
+Clus|CLUG03383/1-1173    ATTCGAGATTTACTCCGCGAAATGGAGGAGTTGTCGAAACAAGTGGAGAAAAAGAAA---
+Dhan|DEHA2C07656g/1-1494 ATTAGGGATTTGATAAAGGAGAATAACGAAATGAAATACTACAACCTTGAACGC------
+Cgui|PGUG05400.1/1-1296  ATTCGCACCTTGTTGAGCGAAATAGATGAGATGAGAAGAAAA------------------
+Ctro|CTRG03846.3/1-1308  ATTAGAACTCTATTGGAAGAAATCGATCAATTGAAAGGGAATAGTGATAAGAATAATAAT
+Calb|orf19.1253/1-1977   ATCACTGCTTTATTGAAAGAAGTTGAGGAGTTGAAAGGAAGGAAG---------------
+Cpar|CPAG05310/1-1914    ATCAGAAAGCTTTTAGGGGATATTGAAAACTTGAAAAGTGATGCAGAACAAGGCGTAAAT
+Lelo|LELG05661/1-2715    ATTACTTTCTTGTTGGGGGAAATTGACGAGTTGACAAAGGGTAATCTGGGCGAAAGAAGA
+Ylip|YALI0F05126g/1-2148 ATTCGCAAACTCAAGACGGAGCTGGTCGAGGTGACCACCAAAGCCGATCGTCTGCAGGCA
+Anid|AN8271/1-2121       GAGAAGGAGAAAGAAAGGACCGGTAACCAGCCAATCAGTAAAGCCAGCACCGTGGAGATG
+Ncra|NCU09315/1-2154     AAGGACAAGGCTGGAGGGGGGATACCCAATAGCAAGGCGAGCACGGTGGAGATGGCAATT
+                         .:                                                          
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 ------------------------------------------------------------
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------------------------------------------------------
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  AAGAATAATAATGGTTCACGTGAGAATGATGAA---------------------------
+Calb|orf19.1253/1-1977   ------------------------------------------------------------
+Cpar|CPAG05310/1-1914    GGGGCTGAAGAGGAGATACGTGGAAATGGGGAGCTTGTAATTGAAGGTGAAGTTAGTGAT
+Lelo|LELG05661/1-2715    GGGAAACAGGAAGAAAACAAGTGGGAAGAGGATACAACCAAAGAAAGAGAGAAGAAGAAG
+Ylip|YALI0F05126g/1-2148 TTCCTTCAGGCCAAGGGTCTGTCCGACGAGTTCGAAGCGACCATGGGGGTGTTGGTCAAG
+Anid|AN8271/1-2121       GCTATTGATTATATTAAATCACTCAAGGCAGAGCTTGATGCGACAAAGGTGAAACTCGCA
+Ncra|NCU09315/1-2154     GAGTAT------ATCAAGCAGCTGCAGAAGGAGGTGGCTGACGCGAACAAGAGGGCGGAA
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 ------------------------------------------------------------
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------------------------------------------------------
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   ------------------------------------------------------------
+Cpar|CPAG05310/1-1914    ------------------------------------------------------------
+Lelo|LELG05661/1-2715    AATAATAATAATAACAATAGCAGTAAGAATGATGGTAAGAAGGATGATAAGAACGTGGAT
+Ylip|YALI0F05126g/1-2148 GAGGAGGATAAGAACTGGCAAGGCGCTGAATCC---------------------------
+Anid|AN8271/1-2121       GCTGCAGAGGCCAAATTGGGAACCAGCGAGACCGCCAAAGAGGCCCATGGTAGCAATGGG
+Ncra|NCU09315/1-2154     GAGGCAGAGAGGAAGTTGGTGGAGATGAAGATGCAGGGAGGCGCCGCGACGGGGTCCGGG
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------------------------------------------------
+Scer|YFR034C/1-936       ------------------------------------------------------------
+Spar|spar434-g18.1/1-942 ------------------------------------------------------------
+Smik|smik267-g18.1/1-963 ------------------------------------------------------------
+Cgla|CAGL0D05170g/1-1599 ------------------------------------------------------------
+Scas|Scas565.10d/1-1173  ------------------------------------------------------------
+Kwal|Kwal55.20403/1-1437 ------------------------------------------------------------
+Klac|KLLA0D16115g/1-2067 ------------------------------------------------------------
+Agos|ADL123C/1-1188      ------------------------------------------------------------
+Clus|CLUG03383/1-1173    ------------------------------------------------------------
+Dhan|DEHA2C07656g/1-1494 ------------------------------------------------------------
+Cgui|PGUG05400.1/1-1296  ------------------------------------------------------------
+Ctro|CTRG03846.3/1-1308  ------------------------------------------------------------
+Calb|orf19.1253/1-1977   ------------------------------------------------------------
+Cpar|CPAG05310/1-1914    ------------------------------------------------------------
+Lelo|LELG05661/1-2715    GAAGATGAGAATATTGACGAGGATCTAGAAGTGACCGAAAAAGTGGAGGAGAGTGTGAAA
+Ylip|YALI0F05126g/1-2148 ------------------------------------------------------------
+Anid|AN8271/1-2121       CAACAGAACGAAGAAAAGGCA---------------------------------------
+Ncra|NCU09315/1-2154     TCATCAGTTGGTGATGCTGGCGATTTGGGTACTCCA------------------------
+                                                                                     
+
+
+Sklu|SAKL0F07392g/1-1446 ------------------
+Scer|YFR034C/1-936       ------------------
+Spar|spar434-g18.1/1-942 ------------------
+Smik|smik267-g18.1/1-963 ------------------
+Cgla|CAGL0D05170g/1-1599 ------------------
+Scas|Scas565.10d/1-1173  ------------------
+Kwal|Kwal55.20403/1-1437 ------------------
+Klac|KLLA0D16115g/1-2067 ------------------
+Agos|ADL123C/1-1188      ------------------
+Clus|CLUG03383/1-1173    ------------------
+Dhan|DEHA2C07656g/1-1494 ------------------
+Cgui|PGUG05400.1/1-1296  ------------------
+Ctro|CTRG03846.3/1-1308  ------------------
+Calb|orf19.1253/1-1977   ------------------
+Cpar|CPAG05310/1-1914    ------------------
+Lelo|LELG05661/1-2715    GTTGAGAAAGACCGGAAT
+Ylip|YALI0F05126g/1-2148 ------------------
+Anid|AN8271/1-2121       ------------------
+Ncra|NCU09315/1-2154     ------------------
+                                           
+
+

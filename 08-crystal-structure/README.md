@@ -1,0 +1,3 @@
+The goal of this experiment is to solve the crystal structure of CgPho4 DBD and compare it to that of ScPho4 DBD to formulate hypotheses about their functional differences. We will potentially work on other parts of either ScPho4 or CgPho4, with or without DNA and Pho2 fragments. 
+
+**Update 2022-07-29** The first few tries didn't result in a satisfactory resolution output. Nick at the P&CF thought since it wasn't an easy shot, and given the accuracy of AlphaFold2 nowadays, it may no longer be worthwhile to continue the pursuit. So this subproject now also hosts analyses of the predicted structures.

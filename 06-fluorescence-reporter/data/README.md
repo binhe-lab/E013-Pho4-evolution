@@ -1,3 +1,1 @@
-| Folder | Content | Comment |
-| ------ | ------- | ------- |
-| sequencing | sanger sequencing results | raw data on RDSS, only processed data here |
+Stores the excel output (or FCS files) from the flow cytometer application for further analysis and plotting. I reformatted the CSV files to make them easier for analysis in R. The original exported CSV and the raw experimental data are stored on `RDSS/Project/E013/flow-cytometry/`

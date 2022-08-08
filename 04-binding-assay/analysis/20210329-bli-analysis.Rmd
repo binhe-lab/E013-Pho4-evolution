@@ -1,0 +1,59 @@
+---
+title: "2021 Jan-Feb BLi data analysis (curve-fitting approach)"
+author: "Bin He"
+date: "3/29/2021"
+output: 
+  html_notebook:
+    toc: yes
+    toc_float: yes
+    toc_depth: 5
+---
+
+```{r setup, echo=FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+```
+
+## Goal
+
+Analyze BLI data to check the consistency between batches of experiments and compare the binding affinities between ScPho4 vs CgPho4 DBDs against the consensus motif and the nine 1-bp-off variants.
+
+### 2021-03-29 update
+What's new in this analysis is that Chris Ptak joined the P&CF and helped us prepare two batches of ScPho4 DBD and CgPho4 DBD. The quality of the protein is high and stayed high over the course of over a month at 4C. I was thus able to screen the 10 oligo library for both proteins. Another new piece is the method used for inferring Kd. In all past analyses, I use the Octet data analysis softwrae to extract the Req by averaging the signal over 5 sec close to the end of the association phase. I then fit a one-site specific binding equation to the Req values over the series of protein titration (concentration series) in Prism. In this analysis, I used the built-in curve fitting functions in the Data Analysis software, which fits the kinetic curves (sensorgram for association and dissociation) to extract both the equilibrium dissociation constant $K_d$ as well as the kinetic parameters $k_{on}$ and $k_{off}$.
+
+> to discuss: reason to use (or not to use) kinetic curve fitting vs the equilibrium state fitting
+
+## Data
+
+| Batch | Exp. Date | Analyte |  Concentration | Notes |
+|:------|:----------|:--------|:---------------|:------|
+| rH021a| 01/2020 | CgPho4 | 3.8 mg/mL | peak 1 from Heparin column |
+| rH021b| 01/2020 | CgPho4 | 2.0 mg/mL | peak 2 from Heparin column |
+| rH022 | 01/2020 | mixture| 1.7 mg/mL | ScPho4 DBD contaminated with CgPho4 DBD |
+| rH023 | 02/2020 | ScPho4 | 1.8 mg/mL | peak 1 from Heparin column |
+
+## Load data
+```{r}
+dat <- read_tsv("../data/BLI/2021-Jan-Feb-Kd-estimates.tsv") %>% 
+  filter(!is.na(Model)) %>% 
+  mutate(Half_site = factor(str_sub(Ligand,7,9), 
+                            levels = c("CAC","AAC","TAC","GAC","CTC","CCC","CGC","CAA","CAT","CAG")))
+```
+
+## Compare ScPho4 and CgPho4 DBD binding affinities
+```{r compare_Kd, echo=FALSE, fig.width=10, fig.height=5}
+# plot Kd ± 95%CI for each experiment, fill-color by protein source
+dat %>%
+  # use the latest batch of protein results only, and only use the 1:1 model fitting
+  filter(Include, str_sub(Batch, 1, 5) %in% c("rH021","rH023"), Model == "1:1") %>%
+  mutate(Kd = Kd_c * 1e9, Kd_err = Kd_c_err * 1e9) %>% 
+  ggplot(aes(x = Half_site, y = Kd, fill = Protein)) + 
+  geom_col(position = position_dodge2()) +
+  geom_errorbar(aes(ymin = Kd - Kd_err, ymax = Kd + Kd_err), position = position_dodge2()) +
+  scale_fill_manual(values = c("blue2","green3")) +
+  labs(title = "Kd estimates", y = "Kd [nM]") +
+  #scale_alpha_manual(values = c(0.4,1)) +
+  #scale_fill_manual(values = c("blue2","green3")) +
+  scale_y_log10() +
+  theme_minimal()
+#ggsave("imgs/20200915-Kd-estimates-comparison.png", width = 8, height = 4.5)
+```

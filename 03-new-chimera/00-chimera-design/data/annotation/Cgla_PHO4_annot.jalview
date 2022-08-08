@@ -1,0 +1,30 @@
+SP2	ff0033
+Interaction with PHO80	979d6c
+Transcription activation domain	3acea0
+SP1	ff0033
+9aaTAD	72517b
+oligomerization	a8b5a9
+Nuclear localization signal	155d84
+bHLH	1cd430
+modified residue	9d7057
+Interaction with PHO2	b5bbca
+SP6	ff0033
+SP5	ff0033
+SP4	ff0033
+SP3	ff0033
+
+STARTGROUP	Uniprot
+Uniprot  	Cgla	-1	125	125	SP1	0.0
+Uniprot  	Cgla	-1	195	195	SP2	0.0
+Uniprot  	Cgla	-1	199	199	SP3	0.0
+Uniprot  	Cgla	-1	248	248	SP4	0.0
+Uniprot  	Cgla	-1	365	365	SP5	0.0
+Uniprot  	Cgla	-1	379	379	SP6	0.0
+Uniprot  	Cgla	-1	470	524	bHLH	0.0
+Uniprot  	Cgla	-1	1	31	Interaction with PHO80	0.0
+Uniprot  	Cgla	-1	81	112	Transcription activation domain	0.0
+Uniprot  	Cgla	-1	273	323	Interaction with PHO80	0.0
+Uniprot  	Cgla	-1	324	374	Interaction with PHO2	0.0
+Uniprot  	Cgla	-1	81	89	9aaTAD	0.0
+Uniprot  	Cgla	-1	240	272	Nuclear localization signal	0.0
+ENDGROUP	Uniprot

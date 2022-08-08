@@ -1,0 +1,5 @@
+#	EXAMPLE INPUT FILE
+motifs_file	PARAM_FILES/MOTIFS.txt
+repeats_file	PARAM_FILES/repeats.txt
+#WILL READ ANY FILE WITH EXTENSION *.fa or *.fasta IN ALIGN_DIR DIRECTORY
+align_dir DATA/
