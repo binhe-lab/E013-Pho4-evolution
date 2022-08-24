@@ -98,7 +98,27 @@ dat %>% filter(host == "156") %>%
   theme_bw(base_size = 14) + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-> 07/26 and 08/03 runs both had high BL1.H readings.
+> 07/26 and 08/03 runs both had high BL1.H readings in the yH156 strain. Check other GFP-strains
+
+```{r}
+dat %>% filter(is.na(plasmid)) %>% 
+  mutate(date = gsub("/22", "", date)) %>% 
+  ggplot(aes(x = date, y = BL1.H)) + geom_point() +
+  stat_summary(fun.data = "mean_se", geom = "pointrange", color = "red", position = position_nudge(x = 0.1)) +
+  facet_wrap(~host, scale = "free_y") +
+  theme_bw(base_size = 14) + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+> How about GFP+ strains?
+
+```{r}
+dat %>% filter(plasmid %in% c("188", "194")) %>% 
+  mutate(date = gsub("/22", "", date)) %>% 
+  ggplot(aes(x = date, y = BL1.H)) + geom_point() +
+  stat_summary(fun.data = "mean_se", geom = "pointrange", color = "red", position = position_nudge(x = 0.1)) +
+  facet_wrap(~host+plasmid, scale = "free_y") +
+  theme_bw(base_size = 14) + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
 
 Subtract the background
 ```{r}
