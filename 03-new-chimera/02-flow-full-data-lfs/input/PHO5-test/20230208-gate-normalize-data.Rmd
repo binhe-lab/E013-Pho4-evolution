@@ -79,12 +79,15 @@ p
 
 ## Gating
 
-Next we use a series of plots to guide our gating strategy for identifying the population we want to work with. \### Remove outliers We first gate on FSC.H and SSC.H to remove outliers (events that are too big or too small). The Attune instrument we use can record six decades (10^0-10^6), with the first two decades mostly occupied by electronic noise.
+Next we use a series of plots to guide our gating strategy for identifying the population we want to work with. 
+
+### Remove outliers
+We first gate on FSC.H and SSC.H to remove outliers (events that are too big or too small). The Attune instrument we use can record six decades (10^0-10^6), with the first two decades mostly occupied by electronic noise.
 
 Let's first define a gate and visualize it in a plot before adding it to a GatingSet.
 
 ```{r}
-test <- shortNames[c(3, 12*2+3, 12*5+3, 12*7+3)]
+#test <- shortNames[c(3, 12*2+3, 12*5+3, 12*7+3)]
 outlier.gate <- rectangleGate(filterId = "-outlier", "FSC.H" = c(1.2e5, 1e6), "SSC.H" = c(1e2, 1e6))
 ggcyto(fs[test], aes(x = FSC.H, y = SSC.H), subset = "root") +
   geom_hex(bins = 64) + geom_gate(outlier.gate) + geom_stats()
@@ -274,7 +277,7 @@ ggcyto(tmp, aes(x = "FSC.H", y = "YL2.H"), subset = "induction") + geom_hex(bins
 ```
 
 > While there are certainly some differences in the cell size distribution, and fluorescence is indeed correlated with cell size, the median fluorescence intensity value may still be quite comparable. More importantly, the correction method proposed by Brian Metzger and colleagues in their 2015 paper doesn't work well for all samples. In their work, they cared about the CV as well as the median. Removing the cell size dependence on the fluorescence measurement is thus crucial (it affects CV very strongly). For us, however, we only care about the MFI and thus I decide to skip this step. 
-> Below are some code I developed previously to perform the Metzger 2015 correction, for reference.
+> Nonetheless, I decided to calculate the normalized nGFP and nRFP, using an exponent of 1.2 that seems to work better than 1.5 for our data
 
 Test normalization formula
 
@@ -289,22 +292,6 @@ mfsc <- 5e5 # based on the mode of the median of FSC.H from all samples
 # fs.out is of the cytoframe class, which is a reference class. need to convert to flowframe for transformation
 # https://www.bioconductor.org/packages/devel/bioc/vignettes/flowWorkspace/inst/doc/flowWorkspace-Introduction.html
 exponent <- 1.2
-# ex <- cytoframe_to_flowFrame(fs.out[["A9"]]) %>%
-#   transform(nFSC = FSC.H/mfsc) %>% 
-#   transform(nGFP = BL1.H/nFSC^(exponent), nRFP = YL2.H/nFSC^(exponent))
-
-tmp <- cytoset_to_flowSet(fs.out) %>% 
-  transform(nFSC = FSC.H/mfsc) %>% 
-  transform(nGFP = BL1.H/nFSC^(exponent), nRFP = YL2.H/nFSC^(exponent))
-```
-
-
-plot the examples
-```{r fig.width = 8, fig.height=8}
-ggplot(tmp[sample(1:96, 48)], aes(x = nFSC, y = nRFP/1e3)) + geom_hex(bins = 64) + 
-  scale_y_log10() + stat_smooth(method = "loess") +
-  scale_fill_gradientn(colours = rev(RColorBrewer::brewer.pal(11, "Spectral"))) +
-  facet_wrap(~name, scales = "free_y")
 ```
 
 ```{r}
@@ -338,5 +325,7 @@ Export the data
 # pull all info together in a single tibble
 final <- left_join(as_tibble(pData(fs)), stats, by = c("name" = "sample")) %>% 
   left_join(norm.data, by = "name")
+final <- final[gtools::mixedorder(final$well),] # sort by well number, thanks to 
+# https://stackoverflow.com/questions/58531533/r-sorting-all-columns-in-data-frame-by-an-alphanumeric-column
 write_tsv(final, "20230208-gated-median-out.txt")
 ```
