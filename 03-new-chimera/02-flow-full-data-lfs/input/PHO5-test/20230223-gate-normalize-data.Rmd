@@ -1,7 +1,7 @@
 ---
-title: "Full set of chimeric Pho4 in PHO5pr-RFP, Day 9"
+title: "Full set of chimeric Pho4 in PHO5pr-RFP, Day 2"
 author: Bin He, Lindsey Snyder
-date: "2023-02-22 (updated `r Sys.time()`)"
+date: "2023-02-23 (updated `r Sys.time()`)"
 output:
   html_notebook:
     toc: true
@@ -28,9 +28,9 @@ old <- theme_set(theme_minimal())
 ## Import data and edit the meta data
 
 import the data from the RDSS (just once) and then write it to the local disk
-```{r eval=FALSE, include=FALSE}
-sample <- read.csv("20230222-sample-list.csv") %>% column_to_rownames(var = "file")
-data.path = "/Volumes/rdss_bhe2/Project/E013-Pho4p-evolution/flow-cytometry/data/20230224-LS-chimera-production-run/PHO5-flow-data/20230222pho5pr-day9/"
+```{r}
+sample <- read.csv("20230223-sample-list.csv") %>% column_to_rownames(var = "file")
+data.path = "/Volumes/rdss_bhe2/Project/E013-Pho4p-evolution/flow-cytometry/data/20230224-LS-chimera-production-run/PHO5-flow-data/20230223pho5pr-day10/"
 fs <- read.flowSet(path = data.path, pattern = ".fcs", # specify the file pattern
                    transformation = FALSE,  # the original values are already linearized. 
                    emptyValue = FALSE,  alter.names = TRUE,   # change parameter names to R format
@@ -203,7 +203,7 @@ ggcyto(gs, aes(x = BL1.H, y = YL2.H), subset = "singlet") + geom_hex(bins = 64) 
 
 Implement the 2 cluster gates
 ```{r}
-list.redo <- c("334-555-1")
+list.redo <- c("334-555-1", "188-555-3")
 newGate <- lapply(list.redo, function(x){
   gate_flowclust_2d(dat[[x]], "BL1.H", "YL2.H", K = 2, quantile = 0.9, target = c(3,4))
 })
@@ -303,5 +303,5 @@ final <- left_join(as_tibble(pData(fs)), stats, by = c("name" = "sample")) %>%
   left_join(norm.data, by = "name")
 final <- final[gtools::mixedorder(final$well),] # sort by well number, thanks to 
 # https://stackoverflow.com/questions/58531533/r-sorting-all-columns-in-data-frame-by-an-alphanumeric-column
-write_tsv(final, "20230222a-gated-median-out.txt")
+write_tsv(final, "20230223-gated-median-out.txt")
 ```

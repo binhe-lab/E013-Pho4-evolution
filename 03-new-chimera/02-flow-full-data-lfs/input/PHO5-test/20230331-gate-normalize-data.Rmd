@@ -1,7 +1,7 @@
 ---
-title: "Full set of chimeric Pho4 in PHO5pr-RFP, Day 9"
+title: "Full set of chimeric Pho4 in PHO5pr-RFP, redo 2"
 author: Bin He, Lindsey Snyder
-date: "2023-02-22 (updated `r Sys.time()`)"
+date: "2022-03-31 (updated `r Sys.time()`)"
 output:
   html_notebook:
     toc: true
@@ -29,8 +29,8 @@ old <- theme_set(theme_minimal())
 
 import the data from the RDSS (just once) and then write it to the local disk
 ```{r eval=FALSE, include=FALSE}
-sample <- read.csv("20230222-sample-list.csv") %>% column_to_rownames(var = "file")
-data.path = "/Volumes/rdss_bhe2/Project/E013-Pho4p-evolution/flow-cytometry/data/20230224-LS-chimera-production-run/PHO5-flow-data/20230222pho5pr-day9/"
+sample <- read.csv("20230331-sample-list.csv") %>% column_to_rownames(var = "file")
+data.path = "/Volumes/rdss_bhe2/Project/E013-Pho4p-evolution/flow-cytometry/data/20230224-LS-chimera-production-run/newflow-repeated some chimeras/20230331pho5pr-redo2/"
 fs <- read.flowSet(path = data.path, pattern = ".fcs", # specify the file pattern
                    transformation = FALSE,  # the original values are already linearized. 
                    emptyValue = FALSE,  alter.names = TRUE,   # change parameter names to R format
@@ -54,7 +54,7 @@ pData(fs) <- sample
 The code below demonstrates how to subset a flowSet, how to apply logicle (or other) transformations in ggcyto() (not on the original dataset)
 
 ```{r eval=FALSE, include=FALSE}
-test <- shortNames[c(3, 12*2+3, 12*5+3, 12*7+3)]
+test <- shortNames[c(49, 12+3, 12*2+3, 12*3+3)]
 p1 <- ggplot(fs[test], aes(x = `BL1.H`)) + geom_density_ridges(aes(y = name, fill = name)) + scale_x_logicle()
 p2 <- ggplot(fs[test], aes(x = `YL2.H`)) + geom_density_ridges(aes(y = name, fill = name)) + scale_x_logicle()
 theme.elements <- list(
@@ -140,7 +140,7 @@ recompute(gs)
 ```
 
 ```{r, fig.width=10, fig.height=10}
-ggcyto(gs[sample(1:96, 36)], aes(x = FSC.H, y = FSC.W), subset = "-outlier") + geom_hex(bins = 128) + geom_gate("singlet") + 
+ggcyto(gs[sample(1:60, 36)], aes(x = FSC.H, y = FSC.W), subset = "-outlier") + geom_hex(bins = 128) + geom_gate("singlet") + 
   facet_wrap(~name, ncol = 6)+ scPars + 
   geom_stats(type = c("percent", "count"), location = "fixed", adjust = c(125e3, 250))
 ```
@@ -151,7 +151,7 @@ Plot the singlet events on GFP-RFP 2d space and check for the presence of multip
 
 ```{r fig.width=10, fig.height=10}
 ggcyto(gs, aes(x = BL1.H, y = YL2.H), subset = "singlet") + geom_hex(bins = 80) +
-  facet_wrap(~name, ncol = 10) + scale_x_logicle() + scale_y_logicle() + panel_border()
+  facet_wrap(~name, ncol = 8) + scale_x_logicle() + scale_y_logicle() + panel_border()
 ```
 
 > Be careful when working with the GatingSet and GatingHierarchy objects -- these are strictly reference classes, meaning that most of the operations work by pointers and the operations will change the underlying data. For example, the first line of the code below (commented out) obtains a pointer to the underlying data rather than making a copy of that data. any operations on it will change the original data as a result.
@@ -198,12 +198,11 @@ ggcyto(gs, aes(x = BL1.H, y = YL2.H), subset = "singlet") + geom_hex(bins = 64) 
   geom_gate("induction") + geom_stats(location = "data", adjust = c(0.8, 0.2), type = "count") + 
   facet_wrap(~name, ncol = 10) + panel_border()
 ```
-> 329-555-1/2/3 grew but didn't have as many cells.
-> 334-555-1 had a ghost pop
+> 194-555-1 and 334-555-3 had multiple populations. NA-blank-1 seems to have some cells carried over, which is likely why Lindsey didn't include this well in the list.csv (I manually added it)
 
 Implement the 2 cluster gates
 ```{r}
-list.redo <- c("334-555-1")
+list.redo <- c("334-555-3", "194-555-1")
 newGate <- lapply(list.redo, function(x){
   gate_flowclust_2d(dat[[x]], "BL1.H", "YL2.H", K = 2, quantile = 0.9, target = c(3,4))
 })
@@ -236,7 +235,7 @@ The amount of fluorescence per cell should scale with cell size. As a result, if
 mult_format <- function() {
      function(x) format(x/10000,digits = 2) 
 }
-tmp <- gs[sample(1:96, 18)]
+tmp <- gs[sample(1:60, 18)]
 ```
 
 ```{r}
@@ -303,5 +302,5 @@ final <- left_join(as_tibble(pData(fs)), stats, by = c("name" = "sample")) %>%
   left_join(norm.data, by = "name")
 final <- final[gtools::mixedorder(final$well),] # sort by well number, thanks to 
 # https://stackoverflow.com/questions/58531533/r-sorting-all-columns-in-data-frame-by-an-alphanumeric-column
-write_tsv(final, "20230222a-gated-median-out.txt")
+write_tsv(final, "20230331-gated-median-out.txt")
 ```
