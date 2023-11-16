@@ -1,12 +1,14 @@
 ---
 title: "E013 Pho4 chimera activity analysis using PHO5 reporter, pool and QC"
-author: Bin He
+author: "Bin He"
 date: "2023-10-19 updated `r Sys.Date()`"
-output: 
+output:
   html_notebook:
-    toc: true
-    toc_float: true
+    toc: yes
+    toc_float: yes
     code_folding: hide
+  pdf_document:
+    toc: yes
 ---
 
 ```{r message=FALSE}
@@ -159,7 +161,7 @@ bg <- dat %>%
   #column_to_rownames(var = "date")
 
 bg.rm <- dat %>% 
-  select(date:host, FSC.H:nRFP, flag) %>%
+  select(date:host, events = n_induction, FSC.H:nRFP, flag) %>%
   mutate(
     BL1.H = BL1.H - bg["BL1.H"],
     YL2.H = YL2.H - bg["YL2.H"],
@@ -201,6 +203,14 @@ filter(bg.rm, flag == "fail")
 ```
 > the above samples will be exported for archiving, but won't be used in subsequent analyses.
 
+Lastly, pH231 assayed on 2/18 and 2/19 exhibited abnormal behaviors.
+![pH231 on 2/18, 2/19](../../img/20231116-pH231-problem.png)
+The existing one replicate from each day is from biological replicate 2, in which the majority of the cells were not inducing. Lindsey repeated this strain on 3/30 and 3/31, and obtained properly behaving data. Therefore, we will remove the single replicate for pH231 from 2/18 and 2/19
+```{r}
+bg.rm[bg.rm$plasmid == "231" & bg.rm$host == "555" & bg.rm$date %in% c("02/18", "02/19"), "flag"] = "fail"
+filter(bg.rm, flag == "fail")
+```
+
 Export the background-subtracted values for later use with the shinyapp
 ```{r}
 # remove the yH156 samples
@@ -209,7 +219,7 @@ dat.export <- bg.rm %>%
   mutate(
     host = ordered(host, levels = c("555", "373", "529"), labels = c("PHO2", "pho2∆", "PHO84"))
   )
-write_tsv(dat.export, "20231023-PHO5-bg-subtracted-data.tsv")
+write_tsv(dat.export, "../20231023-PHO5-bg-subtracted-data.tsv")
 ```
 
 ## 3. Consistency across plates.
@@ -425,114 +435,4 @@ dat.high.var %>% filter((CV_BL1.H > 1 & plasmid != "NA") | CV_YL2.H > 1)
 ```
 
 > plasmid 233 replicates 1 & 2 repeatedly showed no RFP induction, while replicate 3 did show induction.
-
-# Main
-## Plotting functions
-Here I'd like to develop a series of plotting functions that take the names or any part of the Pho4 chimera annotation as input and plot their results in a variety of ways
-Load the Pho4 plasmid information and merge with the reshaped data
-
-Plotting function
-```{r}
-# extract ximera names
-refs <- c("CCCCC","SSSSS")
-ximeras <- setdiff(meta$symbol, refs)
-# make a test set
-test <- sample(ximeras, 6)
-# subset data
-tmp <- meta %>% 
-  filter(symbol %in% c(refs,test)) %>% 
-  inner_join(dat1, by = "plasmid") %>% 
-  mutate(symbol = factor(symbol, levels = c(refs, test)))
-```
-
-Plot individual components
-```{r}
-tmp %>% 
-  pivot_longer(nGFP:nRFP, names_to = "parameter", values_to = "intensity") %>% 
-  mutate(parameter = ordered(parameter, levels = c("nRFP", "nGFP"))) %>% 
-  #pivot_longer(BL1.H:YL2.H, names_to = "parameter", values_to = "intensity") %>% 
-  #mutate(parameter = ordered(parameter, levels = c("YL2.H", "BL1.H"))) %>% 
-  ggplot(aes(x = symbol, y = intensity, group = host)) + 
-  geom_bar(aes(fill = host), width = 0.5, alpha = 0.8,
-           stat = "summary", fun = "mean", position = position_dodge(0.5)) +
-  geom_point(aes(color = host), size = 1,
-             position = position_jitterdodge(dodge.width = 0.5)) + 
-  scale_color_manual(values = c("PHO2" = "gray20", "pho2∆" = "gray40")) +
-  scale_fill_viridis_d(begin = 0.2, end = 0.6) +
-  #stat_summary(fun = "mean", geom = "crossbar", color = "red", width = 0.25,
-  #             position = position_dodge(0.75), ) +
-  facet_wrap(~parameter, scale = "free_y", ncol = 1) +
-  xlab("Pho4 chimera") + expand_limits(y = 0) +
-  theme_gray(base_size = 14) +
-  theme(axis.text.x = element_text(angle = 30, hjust = 1, family = "mono"))
-```
-```{r}
-tmp %>% 
-  #mutate(`YL2.H/BL1.H` = YL2.H/BL1.H,
-  mutate(`R/G` = nRFP/nGFP) %>% 
-  ggplot(aes(x = symbol, y = `R/G`, group = host)) + 
-  geom_bar(aes(fill = host), width = 0.5, alpha = 0.8,
-           stat = "summary", fun = "mean", position = position_dodge(0.5)) +
-  geom_point(aes(color = host), position = position_jitterdodge(dodge.width = 0.5)) + 
-  scale_color_manual(values = c("PHO2" = "gray20", "pho2∆" = "gray40")) +
-  scale_fill_viridis_d(begin = 0.2, end = 0.6) +
-  #stat_summary(fun = "mean", color = "red", geom = "crossbar", width = 0.2,
-  #             position = position_dodge(0.75), ) +
-  theme_gray(base_size = 14) + xlab("Pho4 chimera") +
-  theme(axis.text.x = element_text(angle = 30, hjust = 1, family = "mono"))
-```
-
-Next idea is to plot the ratio between the mean R/G for _PHO2_ and mean R/G for _pho2∆_, over the mean R/G for _PHO2_
-
-First summarize the data.
-```{r}
-datsum <- dat1 %>%
-  filter(plasmid != "NA") %>% 
-  mutate(`R/G` = YL2.H/BL1.H, `nR/G` = nRFP/nGFP) %>% 
-  group_by(date, plasmid, host) %>% 
-  summarize(across(c(BL1.H, nGFP, YL2.H, nRFP, `R/G`, `nR/G`), mean), .groups = "drop") %>% 
-  pivot_wider(names_from = host, values_from = BL1.H:`nR/G`) %>% 
-  mutate(`pho2∆/PHO2` = `R/G_pho2∆`/`R/G_PHO2`,
-         `n.pho2∆/PHO2` = `nR/G_pho2∆`/`nR/G_PHO2`)
-
-# useful to set a flag for low activity mutants
-low.act.th <- datsum %>% filter(plasmid == "194") %>% summarize(across(.cols = where(is.numeric), .fns = mean)) %>% unlist()
-```
-
-Then extract the subset for plotting
-```{r}
-tmpsum <- meta %>% 
-  filter(symbol %in% c(refs,test)) %>% 
-  inner_join(datsum, by = "plasmid") %>% 
-  mutate(symbol = factor(symbol, levels = c(refs, test)))
-
-```
-
-Design the plot
-```{r}
-tmpsum %>% 
-  mutate(Activity = ifelse(`R/G_PHO2` < 2*low.act.th["R/G_pho2∆"], "low", "pass")) %>% 
-  ggplot(aes(x = symbol, y = `pho2∆/PHO2`)) + 
-  geom_col(aes(group = date, fill = `R/G_PHO2`), width = 0.75, color = "gray50",
-           position = position_dodge(0.9)) +
-  #geom_point(aes(color = host), position = position_jitterdodge(dodge.width = 0.5)) + 
-  scale_fill_gradient2("Activity") +
-  #scale_color_manual(values = c(alpha("black",0), "red3")) +
-  #stat_summary(fun = "mean", color = "red", geom = "crossbar", width = 0.2,
-  #             position = position_dodge(0.75), ) +
-  facet_grid(.~Activity, scales = "free_x", space = "free_x", labeller = "label_both") +
-  theme_bw(base_size = 14) + xlab("Pho4 chimera") +
-  theme(axis.text.x = element_text(angle = 30, hjust = 1, family = "mono"))
-```
-
-X-Y plot
-```{r}
-p3 <- tmpsum %>% 
-  mutate(`nR/G_PHO2` = signif(`nR/G_PHO2`, digits = 2),
-         `nR/G_pho2∆` = signif(`nR/G_pho2∆`, digits = 2)) %>% 
-  ggplot(aes(x = `nR/G_PHO2`, y = `nR/G_pho2∆`, label = symbol)) + 
-  geom_point(size = 2.5) + geom_abline(slope = 1) +
-  theme_gray(base_size = 14)
-ggplotly(p3, tooltip = c("label", "x", "y"))
-```
 

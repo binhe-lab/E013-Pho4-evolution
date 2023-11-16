@@ -1,2 +1,4 @@
 # skip R notebook HTML files
 *.nb.html
+# skip Rpubs
+rsconnect/
