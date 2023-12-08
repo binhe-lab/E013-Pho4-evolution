@@ -1,0 +1,624 @@
+---
+title: "E013 Pho4 chimera activity analysis using PHO5 reporter, analysis"
+author: "Bin He"
+date: "2023-10-31 updated `r Sys.Date()`"
+output:
+  html_notebook:
+    toc: yes
+    toc_float: yes
+    code_folding: hide
+  pdf_document:
+    toc: yes
+---
+
+```{r message=FALSE}
+require(plotly)
+require(tidyverse)
+require(ggridges)
+require(cowplot)
+require(RColorBrewer)
+```
+
+```{r}
+old <- theme_set(theme_bw(base_size = 16))
+```
+
+This is the second part of the analysis. In the first part (see `../input/PHO5-data/20231019-pool-qc-PHO5.Rmd`), I did QC and exported the filtered dataset. Here, I will continue working with that dataset and answer our biological questions.
+
+# Goal
+- Analyze the full chimera set flow results for _PHO5pr_-mCherry reporter.
+- Develop an analysis pipeline to perform QC, correction (if needed) and plotting the results.
+
+# Data
+Import the background subtracted data
+```{r}
+dat0 <- read_tsv("../input/20231023-PHO5-bg-subtracted-data.tsv", col_types = "ccccdddddc")
+```
+
+Filter the data
+```{r}
+dat <- filter(dat0, host != "PHO84", flag == "pass", date != "02/10") %>% 
+  # based on previous QC, the following sample (both replicates) have high
+  # variance - one biological replicate is highly expressed, while the other 
+  # two have mNeon, but barely any RFP expression.
+  mutate(flag = ifelse(plasmid == "233" & host == "pho2∆", "high.var", flag))
+```
+
+Chimera makeup information
+```{r}
+meta <- read_tsv("../input/20230208-chimera-Pho4-makeup.txt", col_types = "ccccc")
+```
+
+## Summarize data
+
+Here we would like calculate the ratio of RFP/GFP for each chimera (plasmid) across all replicates, including from different days. Note that the parameter of interest is a ratio, which can be estimated using either "means of ratios" or "ratios of means". These are just two specific instances of a more general estimator, representing two choices of the weights. The "means of ratios" first calculates the ratios for each replicate within a plasmid, then average them. In this calculation, each replicate is given the weight of 1/n (equal). The "ratios of means" first sum up the GFP and RFP values separately across the replicates for each plasmid, then take the ratio between them. In this estimator, the weight for each replicate is x / sum(x), where x is the denominator in the ratio, i.e., GFP. In other words, this estimator will give more weights to the replicates where the chimera had a higher expression level.
+
+Both estimators are known to be biased. We will ignore that for the moment. In terms of a choice between the two, it seems that there is no reason to give more weights to the experiments with a higher GFP signal. So, the "means of ratios" seems a more natural choice. However, we will calcultae both and dedice later.
+
+
+A final question is how to calculate the variance of the ratio estimate. According to the `survey` package [manual]](https://rstudio-pubs-static.s3.amazonaws.com/178965_fb60a0f7bbb44a6ea219713fb1a89a22.html), an approximate estimator for the variance is
+
+$$
+r = \frac{\bar{y}}{\bar{x}}, \text{where}\ \bar{y}=\frac{1}{n}\sum_{i=1}^{n}y_i\ \text{and}\ \bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i\ \\
+\hat{V}(r) = (1-\frac{n}{N})(\frac{1}{\bar{x}^2})\frac{s_r^2}{n}\ \text{where}\ s_r^2=\frac{1}{n-1}\sum_{i=1}^{n}(y_i-rx_i)^2
+$$
+
+Assuming that N>>n, we can ignore the first term in the variance estimator. The rest can be calculated from the data
+
+```{r}
+datsum <- dat %>%
+  filter(!is.na(plasmid)) %>% 
+  group_by(plasmid, host) %>% 
+  summarize(
+     n = n(),
+    mG = mean(BL1.H),
+    mR = mean(YL2.H),
+     A = mean(YL2.H/BL1.H),
+     r = mR/mG,
+    s2 = 1/(n-1)*sum((YL2.H - r*BL1.H)^2),
+    vr = 1/(mG^2)*s2/n,
+    se = sqrt(vr),
+    .groups = "drop"
+  ) %>% 
+  select(-s2, -vr)# %>% 
+  #pivot_wider(names_from = host, values_from = BL1.H:`nR/G`) %>% 
+  #mutate(`pho2∆/PHO2` = `R/G_pho2∆`/`R/G_PHO2`,
+  #       `n.pho2∆/PHO2` = `nR/G_pho2∆`/`nR/G_PHO2`)
+```
+
+For each chimera, we would also like to calculate **three values**:
+
+1. A in _pho2∆_: this is its base activity without Pho2
+1. A in _PHO2_: this is its full activity with Pho2
+1. A_PHO2 / A_pho2∆: this is the Pho2 enhancement of activity
+
+We assign the chimeras into several groups, based on their A_PHO2 and A_PHO2/A_pho2∆
+
+```{r}
+ximera <- datsum %>%
+  mutate(host = fct_recode(host, "pho2" = "pho2∆")) %>% 
+  pivot_wider(id_cols = plasmid, names_from = host, values_from = A, names_prefix = "A_") %>% 
+  mutate(
+    s_PHO2 = A_PHO2 / A_PHO2[plasmid == "194"],
+    s_pho2 = A_pho2 / A_pho2[plasmid == "194"],
+    boost = A_PHO2 / A_pho2,
+    group = case_when(
+      plasmid %in% c("188", "194") ~ "ref",
+      s_PHO2 < 0.2                 ~ "n.f.",
+      .default = "chimera"
+    ),
+    group = fct_relevel(group, "ref", "chimera", "n.f.")
+  ) %>% 
+  right_join(select(meta, plasmid, set, symbol), by = "plasmid") %>% 
+  mutate(symbol = fct_reorder(symbol, s_PHO2, .desc = TRUE)) %>% 
+  relocate(c(set, symbol, group), .after = plasmid)
+```
+
+Export the summarized data
+```{r}
+write_tsv(ximera, file = "../output/20231125-PHO5pr-chimera-summarized.tsv")
+```
+
+## Data selection
+Write a function that can select a subset of the chimeras given a set of rules
+```{r}
+my_data_select <- function(pattern = NULL, Set = NULL){
+  # change region 4 into a consistent format
+  tmp <- ximera %>% 
+    mutate(
+      symbol = as.character(symbol),
+      Symbol = ifelse(
+        nchar(symbol) == 5,
+        paste0(str_sub(symbol, 1, 3), 
+               str_sub(symbol, 4, 4), 
+               str_sub(symbol, 4, 4), 
+               str_sub(symbol, 5, 5)),
+        symbol
+      )) %>% 
+    select(plasmid, Symbol)
+  # starting set
+  if(length(Set) == 0)
+    xim <- filter(tmp, !plasmid %in% refs)
+  else
+    xim <- filter(tmp, set %in% Set, !plasmid %in% refs)
+  # compare to the pattern
+  try(if(nchar(pattern) != 6) stop("Pattern must be a string with 6 characters"))
+  symbols = xim$Symbol # extrac the symbols for testing
+  include = nchar(symbols) > 0 # initialize the inclusion vector
+  for(i in 1:6){
+    p = substr(pattern, i, i)
+    if(p != "X" & p != "x"){ # ignore X and x
+      test = toupper(str_sub(symbols, i, i)) == toupper(p)
+      include = include & test
+    }
+  }
+  select <- cbind(xim, include)
+  return(select$plasmid[select$include])
+}
+my_data_select_m <- function(patterns = NULL, Set = NULL){
+  all_selected = c()
+  try(if(length(patterns) == 0) stop("No patterns provided"))
+  for(i in patterns)
+    all_selected = c(all_selected, my_data_select(pattern = i))
+  return(unique(all_selected))
+}
+```
+
+# Plotting functions
+Set up common parameters for thresholding and plotting
+```{r}
+# reference Pho4 plasmid ids
+refs <- c("188", "194")
+# colors
+date.colors = c(brewer.pal(name="Dark2", n = 8), brewer.pal(name="Paired", n = 8))
+host.colors = c("PHO2" = "gray30", "pho2∆" = "gray70")
+point.colors = c("PHO2" = "forestgreen", "pho2∆" = "purple4")
+# 
+```
+
+Data prep and transform
+```{r}
+my_data_prep <- function(selection){
+  # given a selection of chimera ID (plasmid), prepare a data frame for plotting
+  # subset data
+  tmp <- ximera %>% 
+    filter(plasmid %in% c(refs, selection)) %>% 
+    select(plasmid, symbol, group) %>% 
+    inner_join(dat, by = "plasmid") %>% 
+  return(tmp)
+}
+```
+
+Plot RFP/GFP ratio and individual components
+```{r}
+my_plot_ratio <- function(selection){
+  tmp <- my_data_prep(selection)
+  p <- tmp %>% 
+    select(-c(FSC.H, nGFP, nRFP, flag)) %>% 
+    mutate(`R/G` = YL2.H/BL1.H) %>% 
+    pivot_longer(cols = c(BL1.H, YL2.H, `R/G`), 
+                 names_to = "parameter", values_to = "value") %>% 
+    mutate(parameter = factor(parameter, levels = c("R/G", "YL2.H", "BL1.H"),
+                              labels = c("RFP/GFP", "PHO5pRFP", "Pho4-GFP"))) %>% 
+    ggplot(aes(x = symbol, y = value, group = host)) + 
+    stat_summary(aes(group = host), fun.data = "mean_cl_boot", geom = "errorbar",
+                 position = position_dodge(0.5), width = 0.3) +
+    geom_bar(aes(fill = host), width = 0.5, alpha = 0.8,
+             stat = "summary", fun = "mean", position = position_dodge(0.5)) +
+    geom_point(data = function(x) subset(x, !symbol %in% c("CCCCC", "SSSSS")),
+               aes(group = host, color = host), size = 1, shape = 3, alpha = 0.9,
+               position = position_jitterdodge(dodge.width = 0.5, jitter.width = 0.1)) +
+    scale_color_manual(values = point.colors) +
+    scale_fill_manual(values = host.colors) +
+    facet_grid(parameter~group, scales = "free", space = "free_x") +
+    theme_bw(base_size = 18) + background_grid(minor = "none") + 
+    xlab("Pho4 chimera") +
+    theme(axis.text.x = element_text(angle = 30, hjust = 1, family = "mono"),
+          legend.position = "top",
+          axis.title = element_blank())
+  return(p) 
+}
+```
+
+Plot chimera relative activity to ScPho4 w/ Pho2 and boost factor
+```{r}
+my_plot_rel_act <- function(selection){
+  # given a selection of chimera IDs, plot their functionality w/PHO2
+  # relative to ScPho4, and their boost
+  p <- filter(ximera, plasmid %in% c(refs, selection)) %>%
+    ggplot(aes(x = symbol, y = s_PHO2)) +
+    geom_col(width = 0.3, color = "black", fill = "gray80") + 
+    geom_hline(yintercept = 1, linetype = 2, color = "gray30") +
+    facet_grid(.~group, scales = "free_x", space = "free_x") + 
+    scale_y_continuous(labels = scales::percent) +
+    xlab("Pho4 chimera") + ylab("A<sub>PHO2</sub>, chimera/ScPho4") +
+    ggtitle("Chimera function in <em>S. cerevisiae</em>") +
+    theme_bw(base_size = 18) + background_grid(minor = "none") +
+    theme(axis.text.x = element_text(angle = 30, hjust = 1, family = "mono"),
+          #strip.text = element_blank(), 
+          plot.title = element_markdown(hjust = 0.5),
+          axis.title.y = element_markdown(),
+          legend.position = "top")
+  return(p)
+}
+```
+
+```{r}
+my_plot_boost <- function(selection){
+  # given a selection of chimera IDs, plot their functionality w/PHO2
+  # relative to ScPho4, and their boost
+  # dat
+  tmp <- filter(ximera, plasmid %in% c(refs, selection)) %>% 
+    mutate(perc_pho2 = A_pho2/A_PHO2) %>% 
+    pivot_longer(cols = c(s_PHO2, boost, perc_pho2), 
+                 names_to = "parameter", values_to = "ratio")
+  # labeller
+  par.explain <- c(
+    s_PHO2 = "Rel. A<sub>PHO2</sub>",
+    boost = "Boost",
+    perc_pho2 = "%A<sub>pho2∆</sub>"
+  )
+  p <- ggplot(tmp, aes(x = symbol, y = ratio)) +
+    geom_col(width = 0.3, color = "black", fill = "gray80") +
+    geom_hline(yintercept = 1, linetype = 2, color = "gray30") +
+    facet_grid(parameter~group, scales = "free", space = "free_x",
+              labeller = labeller(parameter = par.explain)) +
+    theme_bw(base_size = 18) +
+    background_grid(minor = "none") +
+    theme(axis.text.x = element_text(angle = 30, hjust = 1, family = "mono"),
+          axis.title.x = element_blank(),
+          strip.text.y = element_markdown(size = rel(0.9))
+          #plot.title = element_text(hjust = 0.5)
+    )
+  return(p)
+}
+```
+
+# High variance samples
+
+Summarize the background subtracted data by calculating the means and cv for each strain.
+```{r}
+cv <- dat %>% 
+  select(-nGFP, -nRFP) %>%
+  pivot_longer(FSC.H:YL2.H, names_to = "parameter", values_to = "intensity") %>% 
+  group_by(date, plasmid, host, parameter) %>% 
+  summarize(
+    n = n(),
+    mean = mean(intensity),
+    cv = sd(intensity)/mean(intensity),
+    .groups = "drop"
+  ) %>% 
+  arrange(desc(cv))
+```
+
+Number of replicates left for each sample
+```{r}
+expt <- dat %>% 
+  filter(host %in% c("PHO2", "pho2∆"), !plasmid %in% c("188", "194")) %>% 
+  group_by(date, plasmid, host) %>% 
+  summarize(n = n(), .groups = "drop")
+
+expt %>% 
+  ggplot(aes(x = plasmid, y = n)) +
+  geom_col(aes(fill = host)) + 
+  facet_grid(date ~ .) +
+  scale_fill_manual(values = c("PHO2" = "gray30", "pho2∆" = "gray70")) +
+  theme_minimal() + background_grid(major = "none") + panel_border(size = 0.5) +
+  scale_y_continuous(name = "Replicates", breaks = c(6)) + xlab(NULL) +
+  theme(axis.text.x = element_text(angle = 90),
+        strip.text.y = element_text(angle = 0),
+        legend.position = "top")
+```
+Use the control strain (pH194 with PHO2) to identify and correct for systematic biases
+```{r}
+control <- filter(dat, plasmid == "194", host == "PHO2") %>% 
+  separate(well, into = c("row", "col"), sep = 1) %>% 
+  droplevels()
+```
+
+Model for mNeon
+```{r}
+gfp.model.0 <- lm(BL1.H ~ log10(events) + date + row*col, data = control)
+step(gfp.model.0)
+gfp.model.1 <- lm(BL1.H ~ date + col, data = control)
+```
+
+Model for PHO5pr::RFP
+```{r}
+rfp.model.0 <- lm(YL2.H ~ log10(events) + date + row*col, data = control)
+step(rfp.model.0)
+rfp.model.1 <- lm(YL2.H ~ log10(events) + date + row + col, data = control)
+```
+> there are more systematic shifts in the RFP, significant for row, col, date and also # of events
+> however, I won't be removing these effects yet, because I've found that RFP/GFP ratios are pretty consistent across days. In other words, the variation in GFP and RFP may be cancelled out.
+
+Check for each plasmid how consistent are the measurements between days
+```{r}
+tmp <- dat %>% 
+  # remove one sample with only one valid day of experiment
+  filter(!(plasmid == "218" & host == "PHO2"), !plasmid %in% c("188", "194", NA)) %>% 
+  nest(data = c(date, BL1.H, YL2.H), .by = c(plasmid, host))
+
+day.var.gfp <- tmp %>% 
+  mutate(model = map(data, function(df) lm(BL1.H ~ date, data = df)),
+         tidied = map(model, broom::tidy)) %>% 
+  unnest(tidied) %>% 
+  filter(term != "(Intercept)") %>% 
+  mutate(p.adj = p.adjust(p.value, method = "BH")) %>% 
+  select(-data, -model) %>% 
+  filter(p.adj < 0.10) %>% 
+  arrange(plasmid, host)
+
+day.var.rfp <- tmp %>% 
+  mutate(model = map(data, function(df) lm(YL2.H ~ date, data = df)),
+         tidied = map(model, broom::tidy)) %>% 
+  unnest(tidied) %>% 
+  filter(term != "(Intercept)") %>% 
+  mutate(p.adj = p.adjust(p.value, method = "BH")) %>% 
+  select(-data, -model) %>% 
+  filter(p.adj < 0.10) %>% 
+  arrange(plasmid, host)
+```
+
+```{r}
+# extract ximera names
+refs <- c("188","194")
+# make a test set
+day.var.gfp.list <- unique(day.var.gfp$plasmid)
+day.var.rfp.list <- unique(day.var.rfp$plasmid)
+```
+
+High day-to-day GFP variance: `r day.var.gfp.list`
+High day-to-day RFP variance: `r day.var.rfp.list`
+
+Plotting components for chimeras with high day-to-day variance in Pho4-mNeon
+```{r}
+p <- my_plot_ratio(c(refs,day.var.gfp.list)) + 
+    geom_point(data = function(x) subset(x, !symbol %in% c("CCCCC", "SSSSS")),
+               aes(group = host, color = date), size = 1, shape = 3, alpha = 0.9,
+               position = position_jitterdodge(dodge.width = 0.5, jitter.width = 0.1)) +
+    scale_color_manual(values = date.colors, guide = "none")
+p
+```
+> Watch out for CSCscC, SCCsS, SCCsS
+
+Plotting components for chimeras with high day-to-day variance in _PHO5pr_-mCherry
+```{r}
+p <- my_plot_ratio(c(refs,day.var.rfp.list)) + 
+    geom_point(data = function(x) subset(x, !symbol %in% c("CCCCC", "SSSSS")),
+               aes(group = host, color = date), size = 1, shape = 3, alpha = 0.9,
+               position = position_dodge(width = 0.5)) +
+    scale_color_manual(values = date.colors, guide = "none")
+p
+```
+> most of the day-to-day variance are canceled out after RFP/GFP normalization
+
+# All chimera, scatter plot
+Design the plot
+
+```{r}
+my_scatter_plot <- function(pattern){
+  selection = my_data_select(pattern = pattern)
+  scatter.colors = c("ScPho4" = "forestgreen", "CgPho4" = "blue3", "cyan2", "other" = "gray20")
+  names(scatter.colors)[3] = pattern
+  p <- ximera %>% 
+    mutate(A_PHO2 = signif(A_PHO2, digits = 2),
+           A_pho2 = signif(A_pho2, digits = 2),
+           group = case_when(
+             symbol == "CCCCC" ~ "CgPho4",
+             symbol == "SSSSS" ~ "ScPho4",
+             plasmid %in% selection ~ pattern,
+             .default = "other"
+           ),
+           group = fct_relevel(group, names(scatter.colors))) %>% 
+    ggplot(aes(x = A_PHO2, y = A_pho2, label = symbol)) + 
+    geom_point(aes(color = group), size = 2.5) + 
+    scale_color_manual("Pho4 type", values = scatter.colors) +
+    geom_abline(slope = 1) +
+    theme_gray(base_size = 14)
+  return(p)
+}
+```
+
+```{r}
+p <- my_scatter_plot("XXXCXX")
+ggplotly(p, tooltip = c("label", "x", "y"))
+```
+
+# ANOVA
+```{r}
+split <- c(1,1,1,1,1); names(split) <- paste0("P", 1:5)
+tmp <- ximera %>% 
+  filter(set == "M", group != "n.f.") %>% 
+  separate_wider_position(symbol, split) %>% 
+  mutate(across(P1:P5, ~factor(.x, levels = c("S", "C"))))
+lm <- lm(A_pho2 ~ (P1+P2+P3+P4+P5), data = tmp)
+summary(lm)
+```
+The main effects were calculated by averaging over all chimeras with CgPho4 region at the respective position. I'd like to break them down by backgrounds. For example, for region 3, I'd like to see the pairwise comparisons between CCCSS and CCSSS, where only region 3 differs. The steps are
+
+1. select the region to be compared. split the symbol into two parts - the genotype of the focal region and the rest
+2. group by the second part (rest) and calculate the differential
+
+```{r}
+my_calc_region_effect <- function(region, variable){
+  # this function takes the name of a variable of interest
+  # x specifies the foreground region, which will be examined for its effect on
+  # the variable of interest.
+  # it then transforms the ximera data frame to preserve only the variable of
+  # interest, pivots it wider after grouping by the background composition.
+  
+  # prepare the data by mutating the symbol column into fg and bg
+  valid.var <- c("A_PHO2", "A_pho2", "s_PHO2", "spho2", "boost")
+  if(!variable %in% valid.var)
+    stop(paste0("Please specify one of the valid variable names:", 
+                paste(valid.var, collapse = ", ")))
+  tmp <- ximera %>% 
+    filter(set == "M") %>% 
+    select(plasmid, symbol, var = {{ variable }}) %>% 
+    mutate(fg = str_sub(symbol, region, region) %>% toupper(),
+           bg = symbol %>% toupper())
+  # replace the foreground region with X for grouping
+  str_sub(tmp$bg, region, region) <- "X"
+  # reorganize the tibble for easier handling, optional
+  tmp <- relocate(tmp, fg, bg, .before = symbol) %>% select(-symbol)
+  # pivot the data into a wide format such that for each background, there
+  # are two values for the variable of interest, one from the chimera with 
+  # CgPho4's version in the foreground and another with ScPho4's version
+  tmp <- tmp %>% 
+    select(plasmid, fg, bg, var) %>% 
+    pivot_wider(id_cols = bg, names_from = "fg", 
+                values_from = c(plasmid, var)) %>% 
+    unite(plasmid, starts_with("plasmid")) %>%
+    mutate(label = paste(bg, plasmid, sep = "\n"))
+  return(tmp)
+}
+
+my_plot_region_effect_onevar <- function(region, variable){
+  # this function uses `my_calc_region_effect` output as the data
+  # and makes a xy scatter plot, where x shows the value of the variable of 
+  # interest with CgPho4 in the focal region, and y for the ScPho4 version
+  tmp <- my_calc_region_effect(region, variable)
+  p <- ggplot(tmp, aes(x = var_C, y = var_S, label = label)) +
+    geom_point(size = 2.5) + 
+    geom_abline(slope = 1) +
+    xlab(paste0("Region ", region, " from CgPho4")) +
+    ylab(paste0("Region ", region, " from ScPho4")) +
+    xlim(0, NA) + ylim(0, NA) +
+    ggtitle(paste0("Effect on ", variable)) +
+    theme_gray(base_size = 16) +
+    theme(plot.title = element_text(hjust = 0.5))
+  return(p)
+}
+```
+
+```{r}
+x = 5
+p1 <- my_plot_region_effect_onevar(x, "A_PHO2")
+p2 <- my_plot_region_effect_onevar(x, "A_pho2")
+subplot(p1, p2, margin = 0.05) %>% 
+  layout(title = paste("Region", x, "swap effect on A_PHO2 and A_pho2", sep = " "),
+         xaxis = list(title = paste0("Region ", x, " from CgPho4")),
+         yaxis = list(title = paste0("Region ", x, " from ScPho4")) )
+```
+
+Here, I'd like to take what I build above and create a new tibble, in which each row is a different background (makeup of the chimera except for the focal region). The value columns are:
+
+1. dA_PHO2 = A_PHO2_Cg - A_PHO2_Sc
+2. dA_pho2 = A_pho2_Cg - A_pho2_Sc
+3. A_PHO2_Sc = A_PHO2_Sc
+
+The goal is to plot dA_PHO2 and dA_pho2 side-by-side for each background.
+```{r}
+my_comp_region_effect <- function(region){
+  # this function uses my_calc_region_effect to get the value for the variable of interest
+  # with either Cg or Sc version in the focal region, separately for each background composition
+  # it does so for two variables, A_PHO2 and A_pho2, then calculate dA_PHO2, dA_pho2, and
+  # combine them
+  PHO2 = my_calc_region_effect(region, "A_PHO2") %>% 
+    mutate(dA_PHO2 = var_C - var_S,
+           # mean A_PHO2
+           M_PHO2 = (var_S + var_C)/2,
+           NF = ifelse(M_PHO2 <=3.5, TRUE, FALSE)) %>% 
+    select(-var_S, -var_C)
+  
+  pho2 = my_calc_region_effect(region, "A_pho2") %>% 
+    mutate(dA_pho2 = var_C - var_S, 
+           M_pho2 = (var_S + var_C)/2) %>% 
+    select(-var_S, -var_C)
+  
+  dat <- full_join(PHO2, pho2, by = c("bg", "plasmid", "label")) %>% 
+    select(bg, plasmid, dA_PHO2, dA_pho2, M_PHO2, M_pho2, NF)
+  
+  return(dat)
+}
+
+my_plot_region_effect_twovar_line <- function(region, highlight = "none"){
+  # this function uses my_comp_region_effect to generate the data
+  # and plot the difference in A_PHO2 and A_pho2 between the CgPho4 vs ScPho4
+  # in the focal region
+  dat <- my_comp_region_effect(region) %>% 
+    pivot_longer(cols = c(dA_PHO2, dA_pho2), 
+                 names_to = "host", values_to = "diff") %>% 
+    mutate(host = fct_recode(host, `PHO2` = "dA_PHO2", `pho2∆` = "dA_pho2"),
+           host = fct_relevel(host, "PHO2"))
+  if(highlight != "none" & highlight != region){
+    hl = as.numeric(highlight)
+    dat <- mutate(dat, grp = str_sub(bg, hl, hl) %>% toupper(),
+                  grp = fct_recode(grp, CgPho4 = "C", ScPho4 = "S"))
+  }else{
+    dat <- mutate(dat, grp = ifelse(NF, "n.f.", "others"))
+  }
+  p <- dat %>% 
+    ggplot(aes(x = host, y = diff, label = bg)) +
+    geom_point(aes(color = grp), size = 2, alpha = 0.8,
+               position = position_jitter(0.05)) + 
+    geom_line(aes(group = bg), linewidth = 0.2, alpha = 0.8) +
+    scale_color_manual(NULL, values = c("orange", "gray20")) +
+    ylab("Region swap diff (Cg-Sc)") +
+    theme_bw(base_size = 18) + 
+    theme(
+      axis.title.x = element_blank(),
+      legend.text = element_text(size = rel(0.8)),
+      legend.title = element_text(size = rel(0.8)),
+    )
+  return(p)
+  #dat <- my_comp_region_effect(region) %>% 
+  #  pivot_longer(cols = c(dA_PHO2, dA_pho2), 
+  #               names_to = "host", values_to = "diff") %>% 
+  #  mutate(host = fct_recode(host, `PHO2` = "dA_PHO2", `pho2∆` = "dA_pho2"),
+  #         host = fct_relevel(host, "PHO2"))
+  #p <- dat %>% 
+  #  ggplot(aes(x = host, y = diff, label = bg)) +
+  #  geom_point(aes(color = NF), size = 2, alpha = 0.8,
+  #             position = position_jitter(0.05)) + 
+  #  geom_line(aes(group = bg), linewidth = 0.2, alpha = 0.8) +
+  #  scale_color_manual("Non functional", values = c("gray10", "gray")) +
+  #  ylab("Region swap diff (Cg-Sc)") +
+  #  theme_bw(base_size = 20) + 
+  #  theme(
+  #    axis.title.x = element_blank(),
+  #    legend.text = element_text(size = rel(0.8)),
+  #    legend.title = element_text(size = rel(0.8)),
+  #  )
+  #return(p)
+}
+
+my_plot_region_effect_twovar_line("4", "4") %>% ggplotly()
+```
+
+```{r}
+my_plot_region_effect_twovar_side <- function(region){
+  # this function uses my_comp_region_effect to generate the data
+  # and plot the difference in A_PHO2 and A_pho2 between the CgPho4 vs ScPho4
+  # in the focal region
+  dat <- my_comp_region_effect(region) %>% 
+    pivot_longer(cols = c(dA_PHO2, dA_pho2), 
+                 names_to = "host", values_to = "diff") %>% 
+    mutate(host = fct_recode(host, `PHO2` = "dA_PHO2", `pho2∆` = "dA_pho2"),
+           host = fct_relevel(host, "PHO2"))
+  p <- dat %>% 
+    ggplot(aes(x = bg, y = diff, group = host)) +
+    geom_col(aes(fill = host), position = position_dodge(0.9)) +
+    scale_fill_manual(values = host.colors) +
+    ylab("Region swap diff (Cg vs Sc)") +
+    theme_cowplot(font_size = 20) + 
+    panel_border(color = "gray30") +
+    background_grid(major = "y", minor = "none") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1, family = "courier"),
+          axis.title.x = element_blank(),
+          legend.position = "top")
+  return(p)
+}
+```
+
+# triangle heatmap
+First, write a function to generate the data for plotting. If we are going to use ggplot, we need a tibble to store the data, something in the following form
+
+| plasmid | symbol | RegionA | RegionB | A_PHO2 | A_pho2 | s_PHO2 | boost | perc_pho2 |
+|:------- |:------ |:------- |:------- |:------ |:------ |:------ |:----- |:--------- |
+| 209     | CCSCC  | 3       | 3       | 8.25   | 7.82   | 0.468  | 1.06  | 0.94      |
+
+Note that this way of summarizing the data has many limitaitons: 1) it requires specifying the reference, either CCCCC or SSSSS. Everything is measured against that; 2) it only shows pairwise (two region) interactions. This turns out to be fine with five regions, since every chimera can be expressed as either a 0, 1 or 2 region swap from one of the two reference genotypes. With 6 or more regions, higher level (3 or more region) interactions cannot be visualized this way. Because of this, we will focus on just the main set for this analysis.
+
+To build the matrix, we need to first identify the chimeras that belong to the set. The function will first determine which reference to use. If we use SSSSS as the reference, for example, we will 
