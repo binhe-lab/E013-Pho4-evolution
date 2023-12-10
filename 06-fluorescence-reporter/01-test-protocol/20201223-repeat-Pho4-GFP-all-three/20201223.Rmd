@@ -1,7 +1,7 @@
 ---
 title: analyze flow cytometry data from 2020-12-23
 author: Bin He
-date: 2020-12-23
+date: 2020-12-23, updated `r Sys.Date()`
 output: 
   html_notebook:
     toc: true
@@ -10,7 +10,7 @@ output:
     code_folding: hide
 ---
 
-```{r setup}
+```{r setup, message=FALSE}
 require(tidyverse)
 require(cowplot)
 ```
@@ -29,10 +29,26 @@ See gDoc. This time I reverted to one o/n growth. The second growth was done in 
 ## Data and analysis
 ### Import data
 ```{r}
-dat <- read_csv("20201223-Pho4-GFP-stats.csv")
-dat <- dat %>% mutate(Pho4GFP = factor(Pho4GFP, levels = c("No-GFP","ScPho4-mNeon","ScPho4-EGFP", "CgPho4-mNeon")), Group = factor(Group, levels = c("control", "endogenous", "exogenous", "plasmid")), Pho4 = factor(Pho4, levels = c("pho4-","ScPho4", "CgPho4"))) %>% filter(Sample != "G2") # remove G2 as it most likely had multiple PHO5pr-mCherry integrated and causes the rest of the RFP data to be compressed
+#dat <- read_csv("20201223-Pho4-GFP-stats.csv")
+#dat <- dat %>% mutate(Pho4GFP = factor(Pho4GFP, levels = c("No-GFP","ScPho4-mNeon","ScPho4-EGFP", "CgPho4-mNeon")), Group = factor(Group, levels = c("control", "endogenous", "exogenous", "plasmid")), Pho4 = factor(Pho4, levels = c("pho4-","ScPho4", "CgPho4"))) %>% filter(Sample != "G2") # remove G2 as it most likely had multiple PHO5pr-mCherry integrated and causes the rest of the RFP data to be compressed
+
+dat <- read_tsv("./20201223-gated-median-out.txt", col_types = cols()) %>% 
+  rename(Sample = name) %>%
+  relocate(Sample) %>% 
+  # remove G2 as it most likely had multiple PHO5pr-mCherry integrated and 
+  # causes the rest of the RFP data to be compressed
+  filter(Sample != "G2")
+dat <- mutate(
+  dat,
+  Pho4GFP = factor(Pho4GFP, 
+                   levels = c("No-GFP","ScPho4-mNeon","ScPho4-EGFP", "CgPho4-mNeon")), 
+  Group = factor(Group, 
+                 levels = c("control", "endogenous", "exogenous", "plasmid"),
+                 labels = c("no GFP", "pho4::Pho4-GFP", "leu2::Pho4-GFP", "plasmid"))
+)
 issues <- c("G3","B3","C1","C2","D1","E3") # see below for reasons
 ```
+
 Looking at the detailed plots, I identified a few samples that are problematic.
 
 | | | | |
@@ -42,22 +58,30 @@ Looking at the detailed plots, I identified a few samples that are problematic.
 | two populations | two populations | two populations |
 | ![](./img/D1.png) | ![](./img/E3.png) | ![](./img/G3.png) |
  
+> In the FlowCore analysis, I now fixed some of them using a cluster gate.
+> C1, D1 and E3 should now represent a homogenous population.
 
 ### Pho4-GFP expression levels
 First look at the level of Pho4-GFP compared with the negative controls.
 ```{r, echo = F, fig.height = 6, fig.width = 6}
-gfp.bg <- dat %>% filter(Pho4GFP == "No-GFP", Parameter == "Pho4-GFP") %>% pull(Median) %>% mean()
-p1 <- dat %>% filter(Parameter == "Pho4-GFP") %>% 
-  ggplot(aes(x = Sample, y = Median, fill =  Group)) + 
-  geom_text(aes(label = ifelse(Sample %in% issues, "*", ""), hjust = -0.2, vjust = 0.8), color = "black", size = 5) +
+gfp.bg <- dat %>% filter(Pho4GFP == "No-GFP") %>% pull(BL1.H) %>% mean()
+p1 <- dat %>% 
+  mutate(Sample = ifelse(PHO2 == "pho2-", paste("*", Sample), Sample)) %>%
+  ggplot(aes(x = Sample, y = BL1.H, fill =  Group)) + 
   geom_bar(stat = "identity", position = position_dodge2(width = 0.9)) +
   geom_hline(yintercept = gfp.bg, linetype = "dashed", alpha = 0.6) +
   facet_grid(Pho4GFP~., scales = "free_y", space = "free_y") +
-  scale_fill_brewer(type = "div", drop = FALSE) + ylab("MFI") +
-  coord_flip() + scale_y_continuous(expand = expansion(mult = c(0.01,0.1))) +
-  theme_bw() + labs(title = "GFP fluorescent intensity (arbitrary units)", subtitle = "dashed line indicates background fluorescence")
+  scale_fill_brewer("Pho4-GFP source", type = "div", drop = FALSE) + 
+  scale_y_continuous(limits = c(0,NA), expand = c(0.01,0)) +
+  coord_flip() + 
+  theme_bw() +
+  labs(title = "GFP fluorescent intensity (arbitrary units)", 
+       subtitle = "dashed line indicates background fluorescence", 
+       x = "Sample (* = pho2-)",
+       y = "GFP Intensity (a.u.)")
 
 p1
+ggsave("img/20201223-Pho4-GFP-levels.png", width = 5, height = 6)
 ```
 **Figure 1 Pho4-GFP intensity by strain.** Pho4-GFP intensities were quantified on an Attune NxT flow cytometer using 400 mV on the BL1 channel. Acquisition rate is 200 ul/min. At least 10,000 events were collected and the median fluorescent intensity (MFI, arbitrary units) were presented on the x-axis, while strain IDs are listed on the vertical axis. An asterisk next to a bar indicates issues found with the sample (see methods section for details).
 
@@ -68,19 +92,29 @@ _Discussion_
 
 ### PHO5pr-mCherry reporter levels
 ```{r, fig.height = 7, fig.width = 7}
-rfp.basal <- dat %>% filter(PHO5RFP, Pho4 == "pho4-", Parameter == "PHO5pr-mCherry") %>% pull(Median) %>% mean()
+#rfp.bg <- mean(dat %>% filter(!PHO5RFP) %>% pull(YL2.H))
+# didn't include a negative control for no RFP. from preivous runs, we know'
+# the background for RFP is extremely low (~100), and thus can be safely ignored
+rfp.basal <- dat %>% filter(Sample %in% c("yH295", "yH296")) %>% pull(YL2.H) %>% mean()
 
 # removed a few outliers with MFI > 20k
-p1 <- dat %>% filter(PHO5RFP) %>% 
-  ggplot(aes(x = Sample, y = Median, fill =  Group, color = PHO2)) + 
+p2 <- dat %>% #filter(PHO5RFP) %>% 
+  select(Sample, Group, Pho4GFP, PHO2, BL1.H, YL2.H) %>% 
+  pivot_longer(cols = c(BL1.H, YL2.H),
+               names_to = "Parameter", values_to = "Median") %>% 
+  mutate(Parameter = factor(Parameter, levels = c("BL1.H", "YL2.H"), 
+                            labels = c("Pho4-GFP", "PHO5-RFP")),
+         Sample = ifelse(PHO2 == "pho2-", paste("*", Sample), Sample)) %>%
+  ggplot(aes(x = Sample, y = Median, fill =  Group)) + 
   geom_bar(stat = "identity", position = position_dodge2(width = 0.9)) +
-  geom_text(aes(label = ifelse(Sample %in% issues, "*", ""), hjust = -0.2, vjust = 0.8), color = "black", size = 5) +
   geom_hline(aes(yintercept = ifelse(Parameter == "Pho4-GFP", gfp.bg, rfp.basal)), linetype = 2, alpha = 0.6) +
-  facet_grid(Pho4 ~ Parameter, scales = "free", space = "free_y") + ylab("MFI") +
-  scale_fill_brewer(type = "div", drop = FALSE) + scale_color_manual(values = c("red", NA)) +
-  coord_flip() + scale_y_continuous(expand = expansion(mult = c(0.01,0.1))) +
+  facet_grid(Pho4GFP ~ Parameter, scales = "free", space = "free_y") + 
+  xlab("Sample (* = pho2-)") + ylab("Median Fluorescent Intensity (a.u.)") +
+  scale_fill_brewer("Pho4-GFP source", type = "div", drop = FALSE) + #scale_color_manual(values = c("red", NA)) +
+  coord_flip() + scale_y_continuous(expand = c(0.01,0.02)) +
   theme_bw()
-p1
+p2
+ggsave("img/20201223-Pho4-GFP-PHO5RFP-levels.png", width = 6, height = 6)
 ```
 **Figure 2 Corresponding Pho4-GFP and PHO5pr-mCherry reporter fluorescence intensity per strain.** Pho4-GFP and PHO5p-mCherry intensities were quantified on an Attune NxT flow cytometer using 400 mV on the BL1 and 430 mV on the YL2 channels respectively. Acquisition rate is 200 ul/min. At least 10,000 events were collected. Strain IDs are listed on the vertical axis and the Median Fluorescent Intensity (MFI, arbitury units) for each channel on the horizontal axis. An asterisk next to a bar indicates an overnight growth instead of a mid-log phase growth was used for quantification. The dashed vertical line for Pho4-GFP indicates the autofluorescence as calculated by the mean of the intensities in the strains without GFP; the dashed vertical line for the RFP plot indicates the basal level expression from the reporter without Pho4, calculated by the average of yH295 and yH296, both of which lack Pho4 but has the reporter). An asterisk next to a bar indicates issues found with the sample (see methods section for details).
 
@@ -92,45 +126,53 @@ _Discussion_
 ### _PHO5pr-mCherry_ induction levels normalized by Pho4 abundance
 We will first transform the raw GFP and RFP intensities to make them more interpretable. For the GFP intensity, as there is a substantial background, we will subtract the background from all the GFP-containing strains to obtain the meaningful measure for Pho4 protein levels. For RFP, there is minimal background (see below). However, there is a "basal" expression of the reporter in the absence of Pho4 -- what we are interested in is not the absolute level of reporter expression but the fold induction compared with the _pho4∆_ strains.
 ```{r transform}
-# calculate gfp background
-gfp.bg <- dat %>% filter(Pho4GFP == "No-GFP", Parameter == "Pho4-GFP") %>% pull(Median) %>% mean()
 # transform
-dat1 <- dat %>% select(-Count, -CV, -rCV) %>% 
-  pivot_wider(names_from = Parameter, values_from = Median) %>% 
-  mutate(GFP.noBG = ifelse(Pho4GFP == "No-GFP", NA, `Pho4-GFP` - gfp.bg),
-         RFP.noBG = `PHO5pr-mCherry`, # I didn't include a RFP- strain in this experiment
-         RFP.FC = ifelse(PHO5RFP, RFP.noBG / rfp.basal, NA),
-         nRFP.FC = RFP.FC / GFP.noBG * median(GFP.noBG, na.rm = T))
+dat1 <- dat %>%
+  # remove the control groups as we need to calculate R/G
+  filter(Group != "no GFP") %>% 
+  mutate(#GFP.noBG = ifelse(Pho4GFP == "No-GFP", NA, `Pho4-GFP` - gfp.bg),
+    #RFP.noBG = ifelse(PHO5RFP, `PHO5pr-mCherry` - rfp.bg, 0),
+    #RFP.FC = ifelse(PHO5RFP, RFP.noBG / rfp.basal, NA),
+    #nRFP.FC = RFP.FC / GFP.noBG * median(GFP.noBG, na.rm = T))
+    GFP.noBG = BL1.H - gfp.bg,
+    GFP.noBG = ifelse(GFP.noBG > 0, GFP.noBG, NA),
+    RFP.noBG = YL2.H, # - rfp.bg,
+    RFP.FC = RFP.noBG / rfp.basal,
+    RvG = RFP.noBG / GFP.noBG
+  )
 ```
 
 ```{r plot_normalized_induction, fig.height = 7, fig.width=10, warning=FALSE}
-dat2 <- dat1 %>% filter(Pho4GFP != "No-GFP", PHO5RFP)
-p1 <- dat2 %>% 
+p3 <- dat1 %>% 
   mutate(GFP.noBG = GFP.noBG / 1000, RFP.noBG = RFP.noBG / 1000) %>% 
   pivot_longer(cols = c(GFP.noBG, RFP.noBG), names_to = "Parameter", values_to = "Value") %>%
   mutate(Parameter = factor(Parameter, levels = c("GFP.noBG", "RFP.noBG"),  
-                            labels = c("Pho4-GFP abundance", "PHO5pr-mCherry level")),
-         Group = factor(Group, levels = c("control", "endogenous", "exogenous", "plasmid"))) %>% 
-  ggplot(aes(x = Sample, y = Value, fill =  Group, color = PHO2)) + 
+                            labels = c("Pho4-GFP noBG", "PHO5pr-RFP noBG")),
+         Sample = ifelse(PHO2 == "pho2-", paste("*", Sample), Sample)) %>% 
+  ggplot(aes(x = Sample, y = Value, fill =  Group)) + 
   geom_bar(stat = "identity", position = position_dodge2(width = 0.9)) +
   geom_text(aes(label = ifelse(Sample %in% issues, "*", ""), hjust = -0.2, vjust = 0.8), color = "black", size = 5) +
   facet_grid(Pho4GFP ~ Parameter, scales = "free", space = "free_y") +
-  scale_fill_brewer(type = "div", drop = FALSE) + scale_color_manual(values = c("red", NA)) +
-  coord_flip() + scale_y_continuous(expand = expansion(mult=c(0.01,0.1))) + ylab("MFI (x1000, a.u.)") + 
+  scale_fill_brewer("Pho4-GFP source", type = "div", drop = FALSE) + 
+  scale_color_manual(values = c("red", NA)) +
+  coord_flip() + scale_y_continuous(expand = c(0.01,0.02)) + 
+  xlab("Sample (* = pho2-)") + 
+  ylab("Median Fluorescent Intensity (-backgroundd)") +
   theme_bw()
   
-p2 <- dat2 %>% 
-  pivot_longer(cols = c(RFP.FC, nRFP.FC), names_to = "Parameter", values_to = "Value") %>%
-  mutate(Parameter = factor(Parameter, levels = c("RFP.FC", "nRFP.FC"), 
-                            labels = c("PHO5 fold induction", "PHO5 induction / Pho4-GFP")),
-         Group = factor(Group, levels = c("control", "endogenous", "exogenous", "plasmid"))) %>% 
-  ggplot(aes(x = Sample, y = Value, fill =  Group, color = PHO2)) + 
+p4 <- dat1 %>% 
+  pivot_longer(cols = c(RFP.FC, RvG), names_to = "Parameter", values_to = "Value") %>%
+  mutate(Parameter = factor(Parameter, levels = c("RFP.FC", "RvG"), 
+                            labels = c("PHO5 fold induction", "PHO5-RFP / Pho4-GFP")),
+         Sample = ifelse(PHO2 == "pho2-", paste("*", Sample), Sample)) %>% 
+  ggplot(aes(x = Sample, y = Value, fill =  Group)) + 
   geom_bar(stat = "identity", position = position_dodge2(width = 0.9)) +
-  geom_text(aes(label = ifelse(Sample %in% issues, "*", ""), hjust = -0.2, vjust = 0.8), color = "black", size = 5) +
   geom_hline(yintercept = 1, linetype = 2) +
+  geom_text(aes(label = ifelse(Sample %in% issues, "*", ""), hjust = -0.2, vjust = 0.8), color = "black", size = 5) +
   facet_grid(Pho4GFP ~ Parameter, scales = "free", space = "free_y") +
-  scale_fill_brewer(type = "div", drop = F) + scale_color_manual(values = c("red", NA)) +
-  coord_flip() + scale_y_continuous(expand = expansion(mult=c(0.01,0.1))) + ylab("Fold Induction") + xlab("") +
+  scale_fill_brewer("Pho4-GFP source", type = "div", drop = F) + #scale_color_manual(values = c("red", NA)) +
+  coord_flip() + scale_y_continuous(expand = c(0.01,0.02)) + 
+  ylab(NULL) + xlab("") +
   theme_bw()
 
 ## place shared legend at the bottom
@@ -141,8 +183,8 @@ legend <- get_legend(
   theme(legend.position = "bottom")
 )
 prow <- plot_grid(
-  p1 + theme(legend.position="none"),
-  p2 + theme(legend.position="none"),
+  p3 + theme(legend.position="none"),
+  p4 + theme(legend.position="none"),
   align = 'vh',
   labels = c("A", "B", "C"),
   hjust = -1,
@@ -157,6 +199,37 @@ _Discussion_
 - Plasmid-born Pho4-GFP strains show more variability in Pho4 abundance, but yields quite consistent fold induction values after normalizing by the GFP intensity. Some issues do exist, e.g. Q1, Q2. B2 and B4's abnormally high induction after normalization is due to the very low GFP intensity.
 - The exogenously integrated strains show more variability, likely due to two reasons: multiple-integration at the time of transformation and spontaneous loop-out leading to loss of the extra copies during the outgrowth (or even on the plates)
 - Based on limited data, the endogenously integrated Pho4-GFP has the lowest clone-to-clone variability. If we could make the reporter construct also endogenous, we would expect highly reproducible data.
+
+### Plot variations
+Present the above plot in a different way.
+```{r plot_variation, fig.height = 5, fig.width=6}
+pd <- position_dodge(0.9)
+tmp <- bind_rows(
+  "Pho4-GFP (MFI)" = select(dat, Sample, Group, Pho4GFP, PHO2, Value = BL1.H),
+  "PHO5-RFP / Pho4-GFP" = select(dat1, Sample, Group, Pho4GFP, PHO2, Value = RvG),
+  .id = "Parameter"
+)
+p5 <- tmp %>% 
+  ggplot(aes(x = PHO2, y = Value, group = Group)) + 
+  stat_summary(aes(fill = Group), geom = "crossbar", 
+               fun.data = "mean_sdl", fun.args = list(mult = 1), 
+               position = pd, linewidth = 0.2, width = 0.5) +
+  geom_point(shape = 21, size = 1, position = pd, color = "gray20", fill = "white") +
+  #geom_hline(yintercept = gfp.bg, linetype = "dashed", alpha = 0.6) +
+  facet_grid(Pho4GFP ~ Parameter, scales = "free", space = "free_y") +
+  scale_fill_brewer("Pho4-GFP source", type = "div", drop = FALSE,
+                    breaks = c("no GFP", "leu2::Pho4-GFP", "plasmid")) + 
+  #scale_y_continuous(limits = c(0,NA), expand = c(0.01,0)) +
+  coord_flip() +  theme_bw() +
+  theme(axis.title = element_blank(), legend.position = "top")
+p5
+ggsave("img/20201223-Pho4-GFP-RvG-crossbar.png", width = 5, height = 6)
+```
+**Figure 4 Variability in Pho4-GFP intensity and normalized PHO5RFP levels between plasmids and integrated Pho4** The same definitions for the two values as above. Here, the different biological replicates are plotted as dots. The crossbar shows the mean (middle line) and standard deviation (box).
+
+_Discussions_
+
+- It's clear that plasmid-born Pho4 has smaller biological variation than exogenously integrated ones.
 
 ## Conclusion
 - If CRISPR can boost the gene editing efficiency, prefers the endogenous method.
