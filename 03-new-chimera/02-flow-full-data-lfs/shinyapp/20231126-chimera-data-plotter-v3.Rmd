@@ -12,7 +12,7 @@ runtime: shiny
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-```{r echo = FALSE, message=FALSE}
+```{r echo=FALSE, message=FALSE}
 suppressPackageStartupMessages(require(shinyWidgets))
 require(bslib)
 require(bsicons)
@@ -21,6 +21,7 @@ suppressPackageStartupMessages(require(plotly))
 suppressPackageStartupMessages(require(tidyverse))
 suppressPackageStartupMessages(require(cowplot))
 suppressPackageStartupMessages(require(ggtext))
+require(grid)
 require(RColorBrewer)
 ```
 
@@ -180,13 +181,61 @@ my_comp_region_effect <- function(region){
   return(dat)
 }
 
+my_upper_triangular_mat <- function(alt = "C", var = "A_PHO2"){
+  # given the alternative allele (C/S) and a variable of interest, e.g., A_PHO2,
+  # output an upper triangular matrix containing the values from the variable 
+  # of interest, with the row and col numbers based on the first and second
+  # positions containing the alternative allele. If all positions contain the 
+  # reference allele, the value is subtracted from all values in the matrix
+  # when just one position is the alternative allele, the value in the diagonal
+  # is set. when there are more than 2 regions containing the alternative allele
+  # skip.
+  out_mat <- matrix(NA, nrow = 5, ncol = 5)
+  ref_val <- NA
+  dat <- filter(ximera, set == "M") %>% 
+    mutate(S = as.character(symbol) %>% toupper())
+  for(i in seq(1, nrow(dat))){
+    symbol = dat[i, "S"]
+    # determine which positions contain the alternative allele
+    p = str_locate_all(symbol, alt)[[1]][,"start"]
+    l = length(p)   # how many positions contain the alt allele
+    v = dat[[var]][i] # retrieve the value of the variable
+    if(l == 0)
+      ref_val = v
+    else if(l == 1)
+      out_mat[p, p] = v
+    else if(l == 2)
+      out_mat[p[1], p[2]] = v
+  }
+  out_mat = out_mat - ref_val
+  return(out_mat)
+}
+
+my_combined_triangular_mat <- function(alt = "C"){
+  # given the alternative allele (C/S), output a matrix containing the values
+  # for both with and without Pho2, arranged in two complementary triagular
+  # matrices, with the row and col numbers based on the first and second
+  # positions containing the alternative allele. If all positions contain the 
+  # reference allele, the value is subtracted from all values in the matrix
+  # when just one position is the alternative allele, the value in the diagonal
+  # is set. when there are more than 2 regions containing the alternative allele
+  # skip.
+  out_mat <- matrix(NA, nrow = 6, ncol = 6)
+  upper <- cbind(NA, my_upper_triangular_mat(alt, var = "A_PHO2")) %>% 
+    rbind(., NA)
+  lower <- rbind(NA, t(my_upper_triangular_mat(alt, var = "A_pho2"))) %>% 
+    cbind(., NA)
+  out_mat = ifelse(is.na(upper), lower, upper)
+  return(out_mat)
+}
+
 # 3. Plotting
 themes <- list(
   labs(caption = "ref = reference; n.f. = non functional"),
   theme_cowplot(font_size = 20),
   panel_border(color = "gray30"),
   background_grid(major = "y", minor = "none"),
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, family = "mono"),
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = rel(0.9)),
         axis.title.x = element_blank(),
         axis.title.y = element_blank(),
         strip.placement = "outside",
@@ -228,11 +277,12 @@ my_plot_boost <- function(selection){
   # dat
   tmp <- filter(ximera, plasmid %in% c(refs, selection)) %>% 
     mutate(perc_pho2 = A_pho2/A_PHO2) %>% 
-    pivot_longer(cols = c(s_PHO2, boost, perc_pho2), 
+    pivot_longer(cols = c(s_PHO2, boost, s_pho2), 
                  names_to = "parameter", values_to = "ratio")
   # labeller
   par.explain <- c(
     s_PHO2 = "Rel. A<sub>PHO2</sub>",
+    s_pho2 = "Rel. A<sub>pho2</sub>",
     boost = "Boost",
     perc_pho2 = "%A<sub>pho2</sub>"
   )
@@ -306,6 +356,41 @@ my_plot_region_effect_twovar_line <- function(region, highlight = "none"){
     )
   return(p)
 }
+
+my_plot_combined_triangle_heatmap <- function(alt){
+  # this function takes the output of the function my_combined_triangular_mat()
+  # using pheatmap function, then rotates it using grid graphics
+  # thanks to https://bookdown.org/rdpeng/RProgDA/the-grid-package.html#grid-graphics-coordinate-systems
+  # adding title based on https://davetang.github.io/muse/pheatmap.html
+  
+  # construct title of plot
+  ref = ifelse(alt == "C", "ScPho4", "CgPho4")
+  my_title <- paste("Epistasis between regions on", ref, "background")
+  test <- my_combined_triangular_mat(alt = alt)
+  paletteLength = 50
+  myColors <- colorRampPalette(c("steelblue4", "gray90", "red"))(paletteLength)
+  rng <- max(abs(test), na.rm = TRUE)
+  myBreaks <- c(seq(-rng, 0, length.out=ceiling(paletteLength/2) + 1), 
+                seq(rng/paletteLength, rng,
+                    length.out=floor(paletteLength/2)))
+  p <- pheatmap::pheatmap(test, color = myColors, breaks = myBreaks,
+                          cellwidth = 40, cellheight = 40,
+                          border_color = NA, na_col = NA, silent = TRUE,
+                          cluster_cols = FALSE, cluster_rows = FALSE)
+  vp <- viewport(x = 0.5, y = 0.45,
+                 width = unit(3, "in"), height = unit(3, "in"), angle = 45) 
+  grid.newpage()
+  pushViewport(vp)
+  grid.draw(p$gtable)
+  popViewport()
+  grid.text(label = my_title, x = 0.5, y = 0.95, 
+            gp = gpar(fontsize = 16, fontface = "bold"))
+  grid.text(label = "With Pho2", x = 0.2, y = 0.75, just = "center",
+            gp = gpar(fontsize = 14, fontface = "bold"))
+  grid.text(label = "Without pho2", x = 0.2, y = 0.15, just = "center", 
+            gp = gpar(fontsize = 14, fontface = "bold"))
+  return(p)
+}
 ```
 
 ```{r}
@@ -344,7 +429,7 @@ renderText({
 ```
 
 ### Results {.tabset}
-#### Pho2-dependence
+#### Relative activity
 ```{r}
 # reactive function to produce the plot
 plot_boost <- reactive({
@@ -377,9 +462,9 @@ fluidPage(
 
 **n.f.** = "non functional", meaning activity with Pho2 is less than 20% of ScPho4 with Pho2.
 
-**boost** = A<sub>PHO2</sub>/A_<sub>pho2∆</sub>; **%A<sub>pho2∆</sub>** = 1/boost = A<sub>pho2∆</sub>/A<sub>PHO2</sub>; **Rel. A<sub>PHO2</sub>** = $A<sub>PHO2, chimera</sub>/A<sub>PHO2, ScPho4</sub>; 
+**boost** = A<sub>PHO2</sub>/A_<sub>pho2∆</sub>; **Rel. A<sub>PHO2</sub>** = A<sub>PHO2, chimera</sub>/A<sub>PHO2, ScPho4</sub>; **Rel. A<sub>pho2</sub>** = A<sub>pho2, chimera</sub>/A<sub>pho2</sub>;
 
-#### RFP/GFP
+#### Components
 ```{r}
 plot_ratio <- reactive({
     selection = my_data_select(input$pattern)
@@ -483,10 +568,53 @@ fluidPage(
   ),
 )
 ```
+#### Triangle heatmap
 
-#### Chimera summary & lookup
+```{r}
+fluidPage(
+  fluidRow(
+    column(
+      6,
+      renderPlot({
+        p1 <- my_plot_combined_triangle_heatmap("C")
+      }),
+      downloadHandler(
+        filename = paste0(gsub('-', '', Sys.Date()),
+                          "-triangle-heatmap-ScPho4-ref-",
+                          sample(1:100, 1), ".pdf"),
+        content = function(file){
+          pdf(file, width = 7, height = 6)
+          my_plot_combined_triangle_heatmap("C")
+          dev.off()
+        }
+      )
+      
+    ),
+    column(
+      6,
+      renderPlot({
+        p2 <- my_plot_combined_triangle_heatmap("S")
+      }), 
+      
+      downloadHandler(
+        filename = paste0(gsub('-', '', Sys.Date()),
+                          "-triangle-heatmap-CgPho4-ref-",
+                          sample(1:100, 1), ".pdf"),
+        content = function(file){
+          pdf(file, width = 7, height = 6)
+          my_plot_combined_triangle_heatmap("S")
+          dev.off()
+        }
+      )
+    )
+  )
+)
+```
+> In the heatmaps above, the cells at the base of each triangle shows the effect of one region swaps (linearly arranged from 1-5) on the indicated Pho4 background. The rest of the triangle shows the two region swap effects. The values used to plot the color gradients are the difference in the respective chimera and the reference Pho4. For example, the tip of the top triangle has a value of A<sub>PHO2, CSSSC</sub> - A<sub>PHO2, SSSSS</sub>
+
+#### Chimera lookup
 ```{r}
 ximera %>% 
-  mutate(across(A_PHO2:boost, signif, digits = 2)) %>% 
+  mutate(across(A_PHO2:boost, \(x) signif(x, digits = 2))) %>% 
   renderDT(rownames = FALSE)
 ```
