@@ -1,3 +1,4 @@
+# [set] M: main; A: alternative; B: miscellaneous;
 plasmid	set	symbol	letter	full
 188	M	CCCCC	ABCDE	Cg(1-533)
 194	M	SSSSS	abcde	Sc(1-312)
