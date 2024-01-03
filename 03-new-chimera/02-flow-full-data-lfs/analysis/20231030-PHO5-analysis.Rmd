@@ -9,6 +9,9 @@ output:
     code_folding: hide
   pdf_document:
     toc: yes
+  html_document:
+    toc: yes
+    df_print: paged
 ---
 
 ```{r message=FALSE}
@@ -17,6 +20,8 @@ require(tidyverse)
 require(ggridges)
 require(cowplot)
 require(RColorBrewer)
+require(grid)
+require(ggtext)
 ```
 
 ```{r}
@@ -56,7 +61,7 @@ Here we would like calculate the ratio of RFP/GFP for each chimera (plasmid) acr
 Both estimators are known to be biased. We will ignore that for the moment. In terms of a choice between the two, it seems that there is no reason to give more weights to the experiments with a higher GFP signal. So, the "means of ratios" seems a more natural choice. However, we will calcultae both and dedice later.
 
 
-A final question is how to calculate the variance of the ratio estimate. According to the `survey` package [manual]](https://rstudio-pubs-static.s3.amazonaws.com/178965_fb60a0f7bbb44a6ea219713fb1a89a22.html), an approximate estimator for the variance is
+A final question is how to calculate the variance of the ratio estimate. According to the `survey` package [manual](https://rstudio-pubs-static.s3.amazonaws.com/178965_fb60a0f7bbb44a6ea219713fb1a89a22.html), an approximate estimator for the variance is
 
 $$
 r = \frac{\bar{y}}{\bar{x}}, \text{where}\ \bar{y}=\frac{1}{n}\sum_{i=1}^{n}y_i\ \text{and}\ \bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i\ \\
@@ -421,8 +426,44 @@ my_scatter_plot <- function(pattern){
 ```
 
 ```{r}
-p <- my_scatter_plot("XXXCXX")
-ggplotly(p, tooltip = c("label", "x", "y"))
+my_scatter_plot_fix <- function(){
+  # this function is the same as above, but is used to plot region 4
+  # effects alone, and doesn't take any input
+  s1 = my_data_select(pattern = "XXXCCX")
+  s2 = my_data_select(pattern = "XXXSSX")
+  scatter.colors = c("ScPho4" = "forestgreen", "CgPho4" = "blue3", 
+                     "P2ID:Cg" = "cyan2", "P2ID:Sc" = "palegreen",
+                     "P2ID:mixed" = "gray20")
+  p <- ximera %>% 
+    mutate(A_PHO2 = signif(A_PHO2, digits = 2),
+           A_pho2 = signif(A_pho2, digits = 2),
+           group = case_when(
+             symbol == "CCCCC" ~ "CgPho4",
+             symbol == "SSSSS" ~ "ScPho4",
+             plasmid %in% s1 ~ "P2ID:Cg",
+             plasmid %in% s2 ~ "P2ID:Sc",
+             .default = "P2ID:mixed"
+           ),
+           group = fct_relevel(group, names(scatter.colors))) %>% 
+    ggplot(aes(x = A_PHO2, y = A_pho2, label = symbol)) + 
+    geom_abline(slope = 1) +
+    geom_point(aes(color = group), size = 2.5) + 
+    scale_color_manual(NULL, values = scatter.colors) +
+    labs(x = bquote(A[PHO2]), y = bquote(A[pho2])) +
+    theme_minimal(base_size = 16) +
+    theme(legend.text = element_text(size = rel(0.75)))
+  return(p)
+}
+```
+
+```{r}
+p <- my_scatter_plot_fix()
+ggsave(filename = "../img/20231220-all-chimera-scatter-color-by-P2ID.png",
+       plot = p, width = 6, height = 4, dpi = 300)
+ggplotly(p + labs(x = "A<sub>PHO2</sub>", y = "A<sub>pho2</sub>") +
+           theme_gray(base_size = 16) +
+           theme(legend.text = element_markdown()), 
+         tooltip = c("label", "x", "y"))
 ```
 
 # ANOVA
@@ -492,7 +533,7 @@ my_plot_region_effect_onevar <- function(region, variable){
 }
 ```
 
-```{r}
+```
 x = 5
 p1 <- my_plot_region_effect_onevar(x, "A_PHO2")
 p2 <- my_plot_region_effect_onevar(x, "A_pho2")
@@ -549,42 +590,101 @@ my_plot_region_effect_twovar_line <- function(region, highlight = "none"){
   }else{
     dat <- mutate(dat, grp = ifelse(NF, "n.f.", "others"))
   }
+  # specify legend title
+  legend.title = ""
+  if(highlight != "none" & highlight != region){
+    hl = as.numeric(highlight)
+    dat <- mutate(dat, grp = str_sub(bg, hl, hl) %>% toupper(),
+                  grp = fct_recode(grp, CgPho4 = "C", ScPho4 = "S"))
+    legend.title = paste("Region", highlight, sep = " ")
+  }else{
+    dat <- mutate(dat, grp = ifelse(NF, "no", "yes"))
+    legend.title = "Functional"
+  }
+  # specify arrow annotation
+  arrow.x = 0.7
+  arrow.y = (max(dat$diff) - min(dat$diff)) / 5 
   p <- dat %>% 
     ggplot(aes(x = host, y = diff, label = bg)) +
     geom_point(aes(color = grp), size = 2, alpha = 0.8,
                position = position_jitter(0.05)) + 
     geom_line(aes(group = bg), linewidth = 0.2, alpha = 0.8) +
-    scale_color_manual(NULL, values = c("orange", "gray20")) +
-    ylab("Region swap diff (Cg-Sc)") +
+    geom_segment(aes(x = arrow.x, xend = arrow.x, y = -arrow.y, yend = arrow.y),
+                 arrow = arrow(length = unit(0.03, "npc"), ends = "both"), 
+                 color = "gray60", lwd = 1, alpha = 0.5) +
+    geom_segment(aes(x = arrow.x - 0.05, xend = arrow.x + 0.05, y = 0, yend = 0),
+                 lwd = 2, color = "gray60") +
+    annotate("text", x = arrow.x - 0.1, y = 5, label = "CgPho4++", 
+             angle = '90', color = "gray30") +
+    annotate("text", x = arrow.x + 0.1, y = -5, label = "ScPho4++", 
+             angle = '270', color = "gray30") +
+    scale_color_manual(legend.title, values = c("orange", "gray20")) +
+    ylab("Region swap effect (Cg-Sc)") +
     theme_bw(base_size = 18) + 
     theme(
       axis.title.x = element_blank(),
+      axis.title.y = element_text(size = rel(0.9)),
       legend.text = element_text(size = rel(0.8)),
-      legend.title = element_text(size = rel(0.8)),
+      legend.title = element_text(size = rel(0.9)),
     )
   return(p)
-  #dat <- my_comp_region_effect(region) %>% 
-  #  pivot_longer(cols = c(dA_PHO2, dA_pho2), 
-  #               names_to = "host", values_to = "diff") %>% 
-  #  mutate(host = fct_recode(host, `PHO2` = "dA_PHO2", `pho2∆` = "dA_pho2"),
-  #         host = fct_relevel(host, "PHO2"))
-  #p <- dat %>% 
-  #  ggplot(aes(x = host, y = diff, label = bg)) +
-  #  geom_point(aes(color = NF), size = 2, alpha = 0.8,
-  #             position = position_jitter(0.05)) + 
-  #  geom_line(aes(group = bg), linewidth = 0.2, alpha = 0.8) +
-  #  scale_color_manual("Non functional", values = c("gray10", "gray")) +
-  #  ylab("Region swap diff (Cg-Sc)") +
-  #  theme_bw(base_size = 20) + 
-  #  theme(
-  #    axis.title.x = element_blank(),
-  #    legend.text = element_text(size = rel(0.8)),
-  #    legend.title = element_text(size = rel(0.8)),
-  #  )
-  #return(p)
 }
 
-my_plot_region_effect_twovar_line("4", "4") %>% ggplotly()
+my_plot_region_effect_twovar_line("4", "5")# %>% ggplotly()
+ggsave("../img/20231221-region-swap-effect-4-on-5.png", width = 6, height = 4, dpi = 150)
+```
+
+```{r}
+my_plot_region_effect_twovar_line("5", "4")# %>% ggplotly()
+ggsave("../img/20231224-region-swap-effect-5-on-4.png", width = 6, height = 4, dpi = 200)
+```
+
+```{r}
+my_plot_region_effect_twovar_line_par <- function(regions, highlight = "none"){
+  # this function uses my_comp_region_effect to generate the data
+  # and plot the difference in A_PHO2 and A_pho2 between the CgPho4 vs ScPho4
+  # in the focal region
+  dat <- map_dfr(regions, \(region) my_comp_region_effect(region), .id = "region") %>% 
+    pivot_longer(cols = c(dA_PHO2, dA_pho2), 
+                 names_to = "host", values_to = "diff") %>% 
+    mutate(host = fct_recode(host, `PHO2` = "dA_PHO2", `pho2∆` = "dA_pho2"),
+           host = fct_relevel(host, "PHO2"))
+  # specify legend title
+  legend.title = ""
+  if(highlight != "none" & !highlight %in% regions){
+    hl = as.numeric(highlight)
+    dat <- mutate(dat, grp = str_sub(bg, hl, hl) %>% toupper(),
+                  grp = fct_recode(grp, CgPho4 = "C", ScPho4 = "S"))
+    legend.title = paste("Region", highlight, "from", sep = " ")
+  }else{
+    dat <- mutate(dat, grp = ifelse(NF, "no", "yes"))
+    legend.title = "Functional"
+  }
+  # specify arrow annotation
+  arrow.x = 0.7
+  arrow.y = (max(dat$diff) - min(dat$diff)) / 5 
+  p <- dat %>% 
+    ggplot(aes(x = host, y = diff, label = bg)) +
+    geom_point(aes(color = grp), size = 2, alpha = 0.8,
+               position = position_jitter(0.1)) + 
+    geom_line(aes(group = bg), linewidth = 0.2, alpha = 0.8) +
+    facet_grid(grp ~ region, labeller = labeller(
+      grp = c(CgPho4 = "P2ID:CgPho4", ScPho4 = "P2ID:ScPho4"),
+      region = label_both
+    )) +
+    scale_color_manual("P2ID:", values = c("orange", "gray20")) +
+    ylab("Region swap effect (Cg-Sc)") +
+    theme_bw(base_size = 18) + 
+    theme(
+      axis.title.x = element_blank(),
+      axis.title.y = element_text(size = rel(0.9)),
+      legend.text = element_text(size = rel(0.8)),
+      legend.title = element_text(size = rel(0.9)),
+    )
+  return(p)
+}
+my_plot_region_effect_twovar_line_par(c(1,2,3), "4")
+ggsave("../img/20231224-region-swap-effect-1to3-on-4.png")
 ```
 
 ```{r}
@@ -619,6 +719,138 @@ First, write a function to generate the data for plotting. If we are going to us
 |:------- |:------ |:------- |:------- |:------ |:------ |:------ |:----- |:--------- |
 | 209     | CCSCC  | 3       | 3       | 8.25   | 7.82   | 0.468  | 1.06  | 0.94      |
 
+If we are ok with using non ggplot - heatmaps are not ggplot's strength anyways - we can just build a matrix.
+
 Note that this way of summarizing the data has many limitaitons: 1) it requires specifying the reference, either CCCCC or SSSSS. Everything is measured against that; 2) it only shows pairwise (two region) interactions. This turns out to be fine with five regions, since every chimera can be expressed as either a 0, 1 or 2 region swap from one of the two reference genotypes. With 6 or more regions, higher level (3 or more region) interactions cannot be visualized this way. Because of this, we will focus on just the main set for this analysis.
 
-To build the matrix, we need to first identify the chimeras that belong to the set. The function will first determine which reference to use. If we use SSSSS as the reference, for example, we will 
+To build the matrix, we need to first identify the chimeras that belong to the set. For that, we will use the "main" set, with the five region split, for the moment at least. The function will first determine which reference to use. If we use SSSSS as the reference, for example, we will assign 0 to the reference. All other chimeras with 1 or 2 regions from Cg will be used to fill an upper triangular matrix, using one of the values of interest, e.g., A_PHO2.
+```{r}
+my_upper_triangular_mat <- function(alt = "C", var = "A_PHO2"){
+  # given the alternative allele (C/S) and a variable of interest, e.g., A_PHO2,
+  # output an upper triangular matrix containing the values from the variable 
+  # of interest, with the row and col numbers based on the first and second
+  # positions containing the alternative allele. If all positions contain the 
+  # reference allele, the value is subtracted from all values in the matrix
+  # when just one position is the alternative allele, the value in the diagonal
+  # is set. when there are more than 2 regions containing the alternative allele
+  # skip.
+  out_mat <- matrix(NA, nrow = 5, ncol = 5)
+  ref_val <- NA
+  dat <- filter(ximera, set == "M") %>% 
+    mutate(S = as.character(symbol) %>% toupper())
+  for(i in seq(1, nrow(dat))){
+    symbol = dat[i, "S"]
+    # determine which positions contain the alternative allele
+    p = str_locate_all(symbol, alt)[[1]][,"start"]
+    l = length(p)   # how many positions contain the alt allele
+    v = dat[[var]][i] # retrieve the value of the variable
+    if(l == 0)
+      ref_val = v
+    else if(l == 1)
+      out_mat[p, p] = v
+    else if(l == 2)
+      out_mat[p[1], p[2]] = v
+  }
+  out_mat = out_mat - ref_val
+  return(out_mat)
+}
+```
+```{r}
+my_combined_triangular_mat <- function(alt = "C"){
+  # given the alternative allele (C/S), output a matrix containing the values
+  # for both with and without Pho2, arranged in two complementary triagular
+  # matrices, with the row and col numbers based on the first and second
+  # positions containing the alternative allele. If all positions contain the 
+  # reference allele, the value is subtracted from all values in the matrix
+  # when just one position is the alternative allele, the value in the diagonal
+  # is set. when there are more than 2 regions containing the alternative allele
+  # skip.
+  out_mat <- matrix(NA, nrow = 6, ncol = 6)
+  upper <- cbind(NA, my_upper_triangular_mat(alt, var = "A_PHO2")) %>% 
+    rbind(., NA)
+  lower <- rbind(NA, t(my_upper_triangular_mat(alt, var = "A_pho2"))) %>% 
+    cbind(., NA)
+  out_mat = ifelse(is.na(upper), lower, upper)
+  return(out_mat)
+}
+```
+
+```{r}
+my_plot_triangle_heatmap <- function(alt, var){
+  # this function takes the output of the function above and makes a heatmap
+  # using pheatmap function, then rotates it using grid graphics
+  # thanks to https://bookdown.org/rdpeng/RProgDA/the-grid-package.html#grid-graphics-coordinate-systems
+  # adding title based on https://davetang.github.io/muse/pheatmap.html
+  
+  # construct title of plot
+  ref = ifelse(alt == "C", "ScPho4", "CgPho4")
+  bg = ifelse(var == "A_PHO2", "with PHO2", "w/o pho2")
+  my_title <- paste("Epistasis between regions on", ref, "background", bg)
+  test <- my_upper_triangular_mat(alt = alt, var = var)
+  paletteLength = 50
+  myColors <- colorRampPalette(c("steelblue4", "gray90", "red"))(paletteLength)
+  rng <- max(abs(test), na.rm = TRUE)
+  myBreaks <- c(seq(-rng, 0, length.out=ceiling(paletteLength/2) + 1), 
+                seq(rng/paletteLength, rng,
+                    length.out=floor(paletteLength/2)))
+  p <- pheatmap::pheatmap(test, color = myColors, breaks = myBreaks,
+                          border_color = NA, na_col = NA, silent = TRUE,
+                          cluster_cols = FALSE, cluster_rows = FALSE)
+  vp <- viewport(x = 0.5, y = 0.25,
+                 width = unit(4.5, "in"), height = unit(4.5, "in"), angle = 47) 
+  grid.newpage()
+  pushViewport(vp)
+  grid.draw(p$gtable)
+  popViewport()
+  grid.text(label = my_title, x = 0.5, y = 0.95, gp = gpar(fontsize = 16, fontface = "bold"))
+  return(p)
+}
+```
+```{r}
+my_plot_combined_triangle_heatmap <- function(alt){
+  # this function takes the output of the function my_combined_triangular_mat()
+  # using pheatmap function, then rotates it using grid graphics
+  # thanks to https://bookdown.org/rdpeng/RProgDA/the-grid-package.html#grid-graphics-coordinate-systems
+  # adding title based on https://davetang.github.io/muse/pheatmap.html
+  
+  # construct title of plot
+  ref = ifelse(alt == "C", "ScPho4", "CgPho4")
+  my_title <- paste("Epistasis between regions on", ref, "background")
+  test <- my_combined_triangular_mat(alt = alt)
+  paletteLength = 50
+  myColors <- colorRampPalette(c("steelblue4", "gray90", "red"))(paletteLength)
+  rng <- max(abs(test), na.rm = TRUE)
+  myBreaks <- c(seq(-rng, 0, length.out=ceiling(paletteLength/2) + 1), 
+                seq(rng/paletteLength, rng,
+                    length.out=floor(paletteLength/2)))
+  p <- pheatmap::pheatmap(test, color = myColors, breaks = myBreaks,
+                          border_color = NA, na_col = NA, silent = TRUE,
+                          cluster_cols = FALSE, cluster_rows = FALSE)
+  vp <- viewport(x = 0.5, y = 0.45,
+                 width = unit(3, "in"), height = unit(2.8, "in"), angle = 47) 
+  grid.newpage()
+  pushViewport(vp)
+  grid.draw(p$gtable)
+  popViewport()
+  grid.text(label = my_title, x = 0.5, y = 0.95, 
+            gp = gpar(fontsize = 16, fontface = "bold"))
+  grid.text(label = "With Pho2", x = 0.1, y = 0.65, just = c("left", "top"),
+            gp = gpar(fontsize = 14, fontface = "bold"))
+  grid.text(label = "Without pho2", x = 0.1, y = 0.25, just = c("left", "top"), 
+            gp = gpar(fontsize = 14, fontface = "bold"))
+  return(p)
+}
+```
+
+```{r}
+p1 <- my_plot_combined_triangle_heatmap("C")
+p2 <- my_plot_combined_triangle_heatmap("S")
+```
+
+```{r}
+p1 <- my_plot_triangle_heatmap("C", "A_PHO2")
+p2 <- my_plot_triangle_heatmap("C", "A_pho2")
+p3 <- my_plot_triangle_heatmap("S", "A_PHO2")
+p4 <- my_plot_triangle_heatmap("S", "A_pho2")
+```
+
