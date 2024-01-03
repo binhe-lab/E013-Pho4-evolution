@@ -285,27 +285,29 @@ tmp <- dat.wide.fil %>%
   separate(well, into = c("row", "col"), sep = 1) %>% 
   pivot_longer(BL1.H:YL2.H, names_to = "parameter", values_to = "intensity")
 
-p1 <- tmp %>% 
-  ggplot(aes(x = row, y = intensity, group = date)) + 
-  geom_point(aes(color = date), size = 1) + 
-  #geom_line(aes(color = date), size = 0.4) +
-  stat_summary(aes(color = date), geom = "line", fun = mean, linewidth = 0.5) +
-  scale_color_manual(values = mycolors) +
-  #scale_color_brewer(type = "qual", palette = 2) +
-  facet_wrap(~parameter, scales = "free_y") +
-  theme_bw(base_size = 14)
+p0 <- list(
+  geom_point(aes(color = date), size = 1), 
+  #geom_line(aes(color = date), size = 0.4),
+  stat_summary(aes(color = date), geom = "line", fun = mean, linewidth = 0.5),
+  scale_color_manual(values = mycolors),
+  #scale_color_brewer(type = "qual", palette = 2),
+  facet_wrap(~parameter, scales = "free_y"),
+  xlab(NULL),
+  guides(color = guide_legend(title.position = "left", nrow = 2, byrow = TRUE)),
+  theme_bw(base_size = 14),
+  theme(legend.text = element_text(size = rel(0.8)))
+)
 
-p2 <- tmp %>% 
-  ggplot(aes(x = col, y = intensity, group = date)) + 
-  geom_point(aes(color = date), size = 1) + 
-  #geom_line(aes(color = date), size = 0.4) +
-  stat_summary(aes(color = date), geom = "line", fun = mean, linewidth = 0.5) +
-  scale_color_manual(values = mycolors) +
-  #scale_color_brewer(type = "qual", palette = 2) +
-  facet_wrap(~parameter, scales = "free_y") +
-  theme_bw(base_size = 14)
+p1 <- ggplot(tmp, aes(x = row, y = intensity, group = date)) + p0 +
+  labs(subtitle = "Variation over rows")
 
-plot_grid(p1, p2, nrow = 2, align = "hv")
+p2 <- ggplot(tmp, aes(x = col, y = intensity, group = date)) + p0 +
+  labs(subtitle = "Variation over columns")
+
+p.legend <- get_legend(p1)
+
+plot_grid(p1 + guides(color = "none"), p2 + guides(color = "none"), p.legend,
+          nrow = 3, rel_heights = c(1,1,0.3))
 ```
 
 > - no obivous trend between the rows; there seems to be downward trend for BL1 going from column 1 to 9
@@ -323,16 +325,18 @@ tmp %>%
   stat_smooth(aes(color = date, group = date), 
               method = "lm", formula = y ~ 0 + x, 
               se = FALSE, size = 0.5) +
-  geom_point(aes(color = date, shape = col), size = 3) + 
-  scale_color_manual(values = mycolors) +
+  geom_point(aes(color = date, shape = col), size = 1.5) + 
+  #scale_color_manual(values = mycolors) +
   scale_shape_manual(values = 17:19) +
+  facet_wrap(~ date) +
   theme_minimal(base_size = 16) + 
-  theme(legend.position = "right",
+  theme(axis.text = element_blank(),
+        legend.position = "right",
         legend.box = "horizontal")
 ```
 
 > There is variation in BL1.H and correspondingly in YL2.H, but the ratio between the two are very consistent
-> 02/08 data is a bit of an outlier
+> 02/20 data is a bit of an outlier
 
 Let's check both ScPho4 (pH194) and CgPho4 (pH188) to see if their behaviors are consistent across the days.
 ```{r}
