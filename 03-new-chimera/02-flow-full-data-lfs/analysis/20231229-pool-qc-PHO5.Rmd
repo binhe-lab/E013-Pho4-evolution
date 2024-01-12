@@ -272,7 +272,7 @@ dat.export <- bg.rm %>%
 # set flag to fail for 2/10 data. see 3. consistency across plates
 # for reason
 dat.export %>% 
-  mutate(flag = ifelse(date == "2/10", "fail", flag)) %>% 
+  mutate(flag = ifelse(date == "02/10", "fail", flag)) %>% 
   write_tsv("../input/20231230-PHO5-bg-subtracted-data.tsv")
 ```
 
