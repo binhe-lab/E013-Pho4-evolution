@@ -114,7 +114,7 @@ ximera <- datsum %>%
     ),
     group = fct_relevel(group, "ref", "chimera", "n.f.")
   ) %>% 
-  right_join(select(meta, plasmid, set, symbol), by = "plasmid") %>% 
+  left_join(select(meta, plasmid, set, symbol), by = "plasmid") %>% 
   mutate(symbol = fct_reorder(symbol, s_PHO2, .desc = TRUE)) %>% 
   relocate(c(set, symbol, group), .after = plasmid)
 ```
@@ -169,7 +169,8 @@ my_data_select_m <- function(patterns = NULL, Set = NULL){
 }
 ```
 
-# Plotting functions
+# Analysis
+## Plotting functions
 Set up common parameters for thresholding and plotting
 ```{r}
 # reference Pho4 plasmid ids
@@ -279,7 +280,7 @@ my_plot_boost <- function(selection){
 }
 ```
 
-# High variance samples
+## High variance samples
 
 Summarize the background subtracted data by calculating the means and cv for each strain.
 ```{r}
@@ -398,7 +399,7 @@ p
 ```
 > most of the day-to-day variance are canceled out after RFP/GFP normalization
 
-# All chimera, scatter plot
+## All chimera, scatter plot
 Design the plot
 
 ```{r}
@@ -466,7 +467,7 @@ ggplotly(p + labs(x = "A<sub>PHO2</sub>", y = "A<sub>pho2</sub>") +
          tooltip = c("label", "x", "y"))
 ```
 
-# ANOVA
+## ANOVA
 ```{r}
 split <- c(1,1,1,1,1); names(split) <- paste0("P", 1:5)
 tmp <- ximera %>% 
@@ -712,7 +713,7 @@ my_plot_region_effect_twovar_side <- function(region){
 }
 ```
 
-# triangle heatmap
+## Triangle heatmap
 First, write a function to generate the data for plotting. If we are going to use ggplot, we need a tibble to store the data, something in the following form
 
 | plasmid | symbol | RegionA | RegionB | A_PHO2 | A_pho2 | s_PHO2 | boost | perc_pho2 |
@@ -725,7 +726,7 @@ Note that this way of summarizing the data has many limitaitons: 1) it requires 
 
 To build the matrix, we need to first identify the chimeras that belong to the set. For that, we will use the "main" set, with the five region split, for the moment at least. The function will first determine which reference to use. If we use SSSSS as the reference, for example, we will assign 0 to the reference. All other chimeras with 1 or 2 regions from Cg will be used to fill an upper triangular matrix, using one of the values of interest, e.g., A_PHO2.
 ```{r}
-my_upper_triangular_mat <- function(alt = "C", var = "A_PHO2"){
+my_upper_triangular_mat <- function(alt = "C", var = "A_PHO2", nf.as.na = F){
   # given the alternative allele (C/S) and a variable of interest, e.g., A_PHO2,
   # output an upper triangular matrix containing the values from the variable 
   # of interest, with the row and col numbers based on the first and second
@@ -734,10 +735,16 @@ my_upper_triangular_mat <- function(alt = "C", var = "A_PHO2"){
   # when just one position is the alternative allele, the value in the diagonal
   # is set. when there are more than 2 regions containing the alternative allele
   # skip.
+  # if "nf.as.na = TRUE", evaluate if the activity of either of the two chimeras
+  # being compared is non functional. if yes, set the corresponding matrix value
+  # to NA
   out_mat <- matrix(NA, nrow = 5, ncol = 5)
   ref_val <- NA
   dat <- filter(ximera, set == "M") %>% 
     mutate(S = as.character(symbol) %>% toupper())
+  if(nf.as.na){
+    dat <- filter(dat, group != "n.f.")
+  }
   for(i in seq(1, nrow(dat))){
     symbol = dat[i, "S"]
     # determine which positions contain the alternative allele
@@ -766,7 +773,7 @@ my_combined_triangular_mat <- function(alt = "C"){
   # is set. when there are more than 2 regions containing the alternative allele
   # skip.
   out_mat <- matrix(NA, nrow = 6, ncol = 6)
-  upper <- cbind(NA, my_upper_triangular_mat(alt, var = "A_PHO2")) %>% 
+  upper <- cbind(NA, my_upper_triangular_mat(alt, var = "A_PHO2", )) %>% 
     rbind(., NA)
   lower <- rbind(NA, t(my_upper_triangular_mat(alt, var = "A_pho2"))) %>% 
     cbind(., NA)
@@ -847,10 +854,12 @@ p1 <- my_plot_combined_triangle_heatmap("C")
 p2 <- my_plot_combined_triangle_heatmap("S")
 ```
 
+## Region 4 splits
+We have so far focused on the main set with the 5 region design. In the scatter plot above, we see that there is a subset of chimeras in between the P2ID:Sc and P2ID:Cg ones. They are interesting in that their A_pho2∆/A_PHO2 ratios are intermediate.
+![scatter](../img/20231220-all-chimera-scatter-color-by-P2ID.png)
+Below, we will zoom in onto this set and try to understand what they tell us.
 ```{r}
-p1 <- my_plot_triangle_heatmap("C", "A_PHO2")
-p2 <- my_plot_triangle_heatmap("C", "A_pho2")
-p3 <- my_plot_triangle_heatmap("S", "A_PHO2")
-p4 <- my_plot_triangle_heatmap("S", "A_pho2")
+my_plot_boost(selection = ximera$plasmid[ximera$set == "S"])
+my_plot_ratio(selection = ximera$plasmid[ximera$set == "S"])
 ```
 

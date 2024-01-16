@@ -261,7 +261,7 @@ my_plot_ratio <- function(selection){
                  position = position_dodge(0.6), width = 0.3) +
     geom_bar(aes(fill = host), alpha = 0.8, width = 0.6,
              stat = "summary", fun = "mean", position = position_dodge(0.6)) +
-    geom_point(data = function(x) subset(x, !symbol %in% c("CCCCC", "SSSSS")),
+    geom_point(data = function(x) subset(x, group != "ref"),
                aes(group = host, color = host), size = 1, shape = 3, alpha = 0.9,
                position = position_jitterdodge(dodge.width = 0.7, jitter.width = 0.1)) +
     scale_color_manual(values = point.colors) +
@@ -276,7 +276,8 @@ my_plot_boost <- function(selection){
   # relative to ScPho4, and their boost
   # dat
   tmp <- filter(ximera, plasmid %in% c(refs, selection)) %>% 
-    mutate(perc_pho2 = A_pho2/A_PHO2) %>% 
+    mutate(perc_pho2 = A_pho2/A_PHO2, 
+           symbol = paste(symbol, set, sep = "-")) %>% 
     pivot_longer(cols = c(s_PHO2, boost, s_pho2), 
                  names_to = "parameter", values_to = "ratio")
   # labeller
