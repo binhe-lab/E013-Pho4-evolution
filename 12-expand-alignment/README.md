@@ -1,1 +1,0 @@
-goal: expand the phylogenetic sampling density of Pho4 and Pho2 sequences. this will likely help us 1) add intermediate sequences to reconstruct the evolution of the indel-rich region; 2) reconstruct the ancestral sequence; 3) perform dn/ds type of analysis; 4) perform DCA or SCA type of analysis for intra-Pho4 or inter-Pho4-Pho2 coevolution.
