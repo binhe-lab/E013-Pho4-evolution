@@ -1,0 +1,25 @@
+# [set] R: reference; Sc45: use region 4+5 of Sc as region 5; Cg4ext: add the helix extension in Cg till aa 470
+# [symbol] region 4 split is represented by the lower case letters s/c; Sc4+5 is represented by W at position 5; the Cg4ext is represented by Y in position 4;
+# [letter] for chimeras with region 4 splits, I replaced "d/D" for region 4 with "lr/LR", where l/L is the first half and r/R the second half.
+plasmid	set	symbol	letter	full
+188	R	CCCCC	ABCDE	Cg(1-533)
+194	R	SSSSS	abcde	Sc(1-312)
+250	Sc45	CSSCS	AbcDe	Cg(1-44) Sc(43-176) Cg(283-458) Sc(243-312)
+435	Sc45	CSSCW	AbcDde	Cg(1-44) Sc(43-176) Cg(283-458) Sc(177-312)
+443	Cg4ext	CSSYS	AbcYe	Cg(1-44) Sc(43-176) Cg(283-470) Sc(243-312)
+240	Sc45	CCSCS	ABcDe	Cg(1-112) Sc(100-176) Cg(283-458) Sc(243-312)
+436	Sc45	CCSCW	ABcDde	Cg(1-112) Sc(100-176) Cg(283-458) Sc(177-312)
+445	Cg4ext	CCSYS	ABcDe	Cg(1-112) Sc(100-176) Cg(283-470) Sc(243-312)
+224	Sc45	SCSCS	aBcDe	Sc(1-42) Cg(45-112) Sc(100-176) Cg(283-458) Sc(243-312)
+437	Sc45	SCSCW	aBcDde	Sc(1-42) Cg(45-112) Sc(100-176) Cg(283-458) Sc(177-312)
+229	Sc45	SSSCS	abcDe	Sc(1-176) Cg(283-458) Sc(243-312)
+438	Sc45	SSSCW	abcDde	Sc(1-176) Cg(283-458) Sc(177-312)
+278	Sc45	SSSscS	abclRe	Sc(1-204) Cg(328-458) Sc(243-312)
+439	Sc45	SSSscW	abclRde	Sc(1-204) Cg(328-458) Sc(177-312)
+253	Sc45	CSCCS	AbCDe	Cg(1-44) Sc(43-99) Cg(113-458) Sc(243-312)
+440	Sc45	CSCCW	AbCDde	Cg(1-44) Sc(43-99) Cg(113-458) Sc(177-312)
+444	Cg4ext	CSCYS	AbCYe	Cg(1-44) Sc(43-99) Cg(113-470) Sc(243-312)
+216	Sc45	SCCCS	aBCDe	Sc(1-42) Cg(45-458) Sc(243-312)
+441	Sc45	SCCCW	aBCDde	Sc(1-42) Cg(45-458) Sc(177-312)
+235	Sc45	SSCCS	abCDe	Sc(1-99) Cg(113-458) Sc(243-312)
+442	Sc45	SSCCW	abCDde	Sc(1-99) Cg(113-458) Sc(177-312)
