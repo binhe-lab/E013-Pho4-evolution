@@ -4,6 +4,7 @@ author: "Bin He"
 date: "2024-02-08 updated `r Sys.Date()`"
 output:
   html_notebook:
+    theme: flatly
     toc: yes
     toc_float: yes
     code_folding: hide
@@ -14,6 +15,7 @@ require(plotly)
 require(tidyverse)
 require(ggridges)
 require(cowplot)
+require(ggtext)
 require(RColorBrewer)
 ```
 
@@ -21,10 +23,13 @@ require(RColorBrewer)
 old <- theme_set(theme_bw(base_size = 16))
 ```
 
+# Background
+
+Most of the chimeras in the main set with P2ID:Cg + DBD:Sc are non functional. To test the hypothesis that DBD:Sc requires P2ID:Sc to be active, Lindsey constructed a few of those non-functional chimeras, replacing DBD:Sc with a combined P2ID-DBD:Sc. In addition, three chimeras were made to test a different idea related to the same non functional set. This time, the test is to see if fusing a small stretch of residues that are predicted to be an extention of the basic region and part of the first alpha helix only in CgPho4 to DBD:Sc would rescue those chimeras. 
+    
 # Goal
 
--   Analyze the extension Sc45 and Cg4ext flow results for *PHO5pr*-mCherry
-    reporter.
+-   Analyze the Sc45 and Cg4ext flow results.
 -   Compare the new set of chimeras to the corresponding ones in the main set, to test specific hypotheses about P2ID-DBD:Sc is the functional unit, and if the alpha helix extension predicted in CgPho4 can rescue the non-functional P2ID:Cg + DBD:Sc chimeras
 
 # Data
@@ -351,9 +356,6 @@ dat.high.var %>% filter((CV_BL1.H > 1 & plasmid != "NA") | CV_YL2.H > 1)
 bg.rm[bg.rm$plasmid == "437" & bg.rm$BL1.H > 5000, "flag"] = "unexpect"
 ```
 
----
-need to be revisited
----
 ## Summary and export
 
 Number of replicates left for each sample
@@ -386,3 +388,105 @@ bg.rm %>%
 
 # Analysis
 
+## Analysis of previous results and hypothesis
+Our earlier data and analysis revealed that most of the chimeras with P2ID:Cg + DBD:Sc are defective.
+
+![](../img/20240201-E013.3-P2ID_Cg-DBD_Sc-components.png)
+
+Two things jump out at us:
+
+1. If we look at those chimeras that are majority CgPho4, such as CCCCS, SCCCS etc., these have very low activities with or without Pho2 compared with ScPho4 with Pho2.
+
+    This result is contrary to our initial, naive expectation that DBD:Sc should function, perhaps slighly less active than DBD:Cg, on a CgPho4 background. This expectation is based on the assumption that 1) the DBD is modular and self-sufficient for its function and 2) we chose the breakpoint properly to ensure the modularity. Since the result is the opposite, one of the two assumptions must be wrong. The first one seems innocent, as modularity, especially when it comes to well characterized DBDs such as the bHLH, is well established. We have even done functional assays (BLI) on a DBD-only construct.
+    
+    Alternatively, it may be that we didn't choose the breakpoints properly, resulting in a nonfunctional DBD:Sc. Since our expression construct used for BLI is functional in the binding assay, I compared that one with our DBD:Sc in our main set. The expression construct included 7 additional amino acids. Note that in the P2ID:Cg + DBD:Sc chimeras, those 7 a.a. were not missing, just replaced by the counterparts from CgPho4. It turns out these 7 a.a. were fairly similar between the two: SLSKRRS vs SIGRVRS. So, how likely is it that differences in these positions were responsible for the problem? Furthermore, the crystal structure for DBD:Sc in Shimizu et al 1997 used an even shorter construct, starting from KRE... (251-312). This is also the construct used by Donovan et al 2023 (PMID: 36996811) both _in vitro_ and _in vivo_ for measuring naked and nucleosomal DNA binding. The Pho4∆N construct (250-312) was found to bind efficiently.
+    
+    So, it seems we have to find another answer. Since Donovan et al 2023 showed that Pho4∆N is able to bind DNA in vitro and in vivo, and even cause nucleosomal displacement (Fig. 5, note that the expression was controlled by a MET promoter, and is likely higher than native), it must be that the level of binding it provides is not sufficient for recruiting the necessary cofactors (general TFs for example) -- our assay is at the gene induction level after all.
+    
+    ![](https://ars.els-cdn.com/content/image/1-s2.0-S1097276523001636-gr5.jpg)
+    
+2. Several P2ID:Cg+DBD:Sc chimeras have a **higher activity w/o Pho2 than ScPho4 does**.
+
+    Note that such chimeras either have R1 or R3 from CgPho4, while R2 and R4 from CgPho4 by themselves seem to be unable to boost activity w/o Pho2. In light of the above, I hypothesize that DBD:Sc alone, without P2ID:Sc, has limited capability as an integral part of the TF (may be fine with respect to DBD function alone). On this background though, having R1 and R3 from CgPho4 could increase the activity without Pho2.
+    
+3. One chimera, CCCCs (Cg 1-470 Sc 251-312), shows the same activity levels as CgPho4.
+
+    I wondered if the additional amino acids (459-470), which included a CgPho4-specific extension of the basic region, and as part of the helix, may play a crucial role. To test this, Lindsey constructed a few tester constructs, replacing the original 4/5 breakpoints for P2ID:Cg with aa 470.
+    
+## Compare Sc45 combo and Cg4 extension
+The rationale of this experiment is to test whether putting P2ID:Sc back could not only rescue the activity of the chimeras with Pho2, but also boost the activity with Pho2, if **P2ID:Sc doesn't _actively_ inhibit DBD:Sc and is in fact required for its proper function**
+
+Import the sample information
+```{r}
+meta <- read_tsv("../input/20240207-Sc45-Cg4ext-makeup.txt",
+                 col_types = "ccccc", comment = "#")
+```
+
+... summarize the data
+```{r}
+dat1 <- bg.rm %>% 
+  filter(plasmid != "NA", host != "noRFP", flag == "pass") %>% 
+  mutate(host = fct_recode(host, pho2 = "pho2∆"))
+
+datsum <- dat1 %>%
+  group_by(plasmid, host) %>% 
+  summarize(
+     n = n(),
+    mG = mean(BL1.H),
+    mR = mean(YL2.H),
+     A = mean(YL2.H/BL1.H),
+     r = mR/mG,
+    s2 = 1/(n-1)*sum((YL2.H - r*BL1.H)^2),
+    vr = 1/(mG^2)*s2/n,
+    se = sqrt(vr),
+    .groups = "drop"
+  ) %>% 
+  select(-s2, -vr)
+```
+
+... merge the data for plotting
+```{r}
+ximera <- datsum %>%
+  pivot_wider(id_cols = plasmid, names_from = host, values_from = A, names_prefix = "A_") %>% 
+  mutate(
+    s_PHO2 = A_PHO2 / A_PHO2[plasmid == "194"],
+    s_pho2 = A_pho2 / A_pho2[plasmid == "194"],
+    boost = A_PHO2 / A_pho2,
+    group = case_when(
+      plasmid %in% c("188", "194") ~ "ref",
+      s_PHO2 < 0.2                 ~ "n.f.",
+      .default = "chimera"
+    ),
+    group = fct_relevel(group, "ref", "chimera", "n.f.")
+  ) %>% 
+  left_join(select(meta, plasmid, set, symbol), by = "plasmid") %>% 
+  mutate(symbol = fct_reorder(symbol, s_PHO2, .desc = TRUE)) %>% 
+  relocate(c(set, symbol, group), .after = plasmid)
+```
+
+Export the summarized data
+```{r}
+write_tsv(ximera, file = "../output/20240212-Sc45-Cg4ext-chimera-summarized.tsv")
+```
+
+... source the plotting functions
+```{r}
+source("../script/20240211-chimera-data-plotting-functions.R")
+```
+
+Plotting the results
+```{r, fig.width=8}
+tmp <- ximera %>% 
+  select(plasmid, symbol, group) %>% 
+  inner_join(dat1, by = "plasmid") %>% 
+  mutate(symbol = fct_relevel(symbol, sort),
+         group = fct_recode(group, chimera = "n.f."))
+my_plot_components(tmp)
+```
+> 1. Replacing DBD:Sc with the combination of P2ID+DBD:Sc rescued the activity with Pho2. This suggests that even though DBD:Sc have binding capabilities _in vitro_ and _in vivo_, its function in the context of the full TF protein requires P2ID:Sc and the presence of Pho2.
+> 
+>    It is worth noting that some of the chimeras exceeded the activity of both ScPho4 and CgPho4.
+> 
+> 2. There is very little change in the activity without Pho2. This is again consistent with the interpretation above, i.e., for full functionality of the TF, il faut le trio: P2ID:Sc + DBD:Sc + Pho2
+>
+> 3. Lindsey also tested if extending P2ID:Cg to a.a. 470 makes any difference. The answer is no.
