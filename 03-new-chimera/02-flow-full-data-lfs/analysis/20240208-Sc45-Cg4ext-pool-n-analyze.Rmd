@@ -480,8 +480,19 @@ tmp <- ximera %>%
   select(plasmid, symbol, group) %>% 
   inner_join(dat1, by = "plasmid") %>% 
   mutate(symbol = fct_relevel(symbol, sort),
-         group = fct_recode(group, chimera = "n.f."))
-my_plot_components(tmp)
+         group = fct_recode(group, chimera = "n.f.")
+         )
+my_symbol_colors <- function(symbols){
+  colored.symbols <- gsub("W", "<span style='color:red'>W</span>", symbols) %>% 
+    gsub("Y", "<span style='color:blue'>Y</span>", .)
+  return(colored.symbols)
+}
+my_plot_components(tmp) + 
+  scale_x_discrete(labels = my_symbol_colors) +
+  theme(axis.text.x = element_markdown(angle = 45, hjust = 1),
+        axis.line = element_blank())
+
+ggsave("../img/20240212-Sc45-Cg4ext-test-components.png", width = 8, height = 5)
 ```
 > 1. Replacing DBD:Sc with the combination of P2ID+DBD:Sc rescued the activity with Pho2. This suggests that even though DBD:Sc have binding capabilities _in vitro_ and _in vivo_, its function in the context of the full TF protein requires P2ID:Sc and the presence of Pho2.
 > 
