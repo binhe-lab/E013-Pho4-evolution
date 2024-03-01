@@ -49,6 +49,25 @@ dat <- filter(dat0, host != "PHO84", flag == "pass", date != "02/10") %>%
   mutate(flag = ifelse(plasmid == "233" & host == "pho2∆", "high.var", flag))
 ```
 
+Number of replicates left for each sample
+```{r}
+expt <- dat %>% 
+  filter(host %in% c("PHO2", "pho2∆"), !plasmid %in% c("188", "194")) %>% 
+  group_by(date, plasmid, host) %>% 
+  summarize(n = n(), .groups = "drop")
+
+expt %>% 
+  ggplot(aes(x = plasmid, y = n)) +
+  geom_col(aes(fill = host)) + 
+  facet_grid(date ~ .) +
+  scale_fill_manual(values = c("PHO2" = "gray30", "pho2∆" = "gray70")) +
+  theme_minimal() + background_grid(major = "none") + panel_border(size = 0.5) +
+  scale_y_continuous(name = "Replicates", breaks = c(6)) + xlab(NULL) +
+  theme(axis.text.x = element_text(angle = 90),
+        strip.text.y = element_text(angle = 0),
+        legend.position = "top")
+```
+
 Chimera makeup information
 ```{r}
 meta <- read_tsv("../input/20230208-chimera-Pho4-makeup.txt", col_types = "ccccc")
@@ -124,53 +143,9 @@ Export the summarized data
 write_tsv(ximera, file = "../output/20231125-PHO5pr-chimera-summarized.tsv")
 ```
 
-## Data selection
-Write a function that can select a subset of the chimeras given a set of rules
-```{r}
-my_data_select <- function(pattern = NULL, Set = NULL){
-  # change region 4 into a consistent format
-  tmp <- ximera %>% 
-    mutate(
-      symbol = as.character(symbol),
-      Symbol = ifelse(
-        nchar(symbol) == 5,
-        paste0(str_sub(symbol, 1, 3), 
-               str_sub(symbol, 4, 4), 
-               str_sub(symbol, 4, 4), 
-               str_sub(symbol, 5, 5)),
-        symbol
-      )) %>% 
-    select(plasmid, Symbol)
-  # starting set
-  if(length(Set) == 0)
-    xim <- filter(tmp, !plasmid %in% refs)
-  else
-    xim <- filter(tmp, set %in% Set, !plasmid %in% refs)
-  # compare to the pattern
-  try(if(nchar(pattern) != 6) stop("Pattern must be a string with 6 characters"))
-  symbols = xim$Symbol # extrac the symbols for testing
-  include = nchar(symbols) > 0 # initialize the inclusion vector
-  for(i in 1:6){
-    p = substr(pattern, i, i)
-    if(p != "X" & p != "x"){ # ignore X and x
-      test = toupper(str_sub(symbols, i, i)) == toupper(p)
-      include = include & test
-    }
-  }
-  select <- cbind(xim, include)
-  return(select$plasmid[select$include])
-}
-my_data_select_m <- function(patterns = NULL, Set = NULL){
-  all_selected = c()
-  try(if(length(patterns) == 0) stop("No patterns provided"))
-  for(i in patterns)
-    all_selected = c(all_selected, my_data_select(pattern = i))
-  return(unique(all_selected))
-}
-```
-
 # Analysis
 ## Plotting functions
+<!---
 Set up common parameters for thresholding and plotting
 ```{r}
 # reference Pho4 plasmid ids
@@ -181,24 +156,24 @@ host.colors = c("PHO2" = "gray30", "pho2∆" = "gray70")
 point.colors = c("PHO2" = "forestgreen", "pho2∆" = "purple4")
 # 
 ```
+--->
 
-Data prep and transform
+Source the scripts
 ```{r}
-my_data_prep <- function(selection){
-  # given a selection of chimera ID (plasmid), prepare a data frame for plotting
-  # subset data
-  tmp <- ximera %>% 
-    filter(plasmid %in% c(refs, selection)) %>% 
-    select(plasmid, symbol, group) %>% 
-    inner_join(dat, by = "plasmid") %>% 
-  return(tmp)
-}
+source("../script/20240211-chimera-data-plotting-functions.R")
 ```
 
-Plot RFP/GFP ratio and individual components
+
+Modify the component plotting function for special purposes
 ```{r}
 my_plot_ratio <- function(selection){
+  # custom colors for this function
+  date.colors = c(brewer.pal(name="Dark2", n = 8), brewer.pal(name="Paired", n = 8))
+  host.colors = c("PHO2" = "gray30", "pho2∆" = "gray70")
+  point.colors = c("PHO2" = "forestgreen", "pho2∆" = "purple4")
+  # prepare data
   tmp <- my_data_prep(selection)
+  # plotting
   p <- tmp %>% 
     select(-c(FSC.H, nGFP, nRFP, flag)) %>% 
     mutate(`R/G` = YL2.H/BL1.H) %>% 
@@ -212,9 +187,13 @@ my_plot_ratio <- function(selection){
     geom_bar(aes(fill = host), width = 0.5, alpha = 0.8,
              stat = "summary", fun = "mean", position = position_dodge(0.5)) +
     geom_point(data = function(x) subset(x, !symbol %in% c("CCCCC", "SSSSS")),
-               aes(group = host, color = host), size = 1, shape = 3, alpha = 0.9,
+               aes(group = host, color = date), size = 1, shape = 3, alpha = 0.9,
                position = position_jitterdodge(dodge.width = 0.5, jitter.width = 0.1)) +
-    scale_color_manual(values = point.colors) +
+    scale_color_manual(values = date.colors, guide = "none") +
+    #geom_point(data = function(x) subset(x, !symbol %in% c("CCCCC", "SSSSS")),
+    #           aes(group = host, color = host), size = 1, shape = 3, alpha = 0.9,
+    #           position = position_jitterdodge(dodge.width = 0.5, jitter.width = 0.1)) +
+    #scale_color_manual(values = point.colors) +
     scale_fill_manual(values = host.colors) +
     facet_grid(parameter~group, scales = "free", space = "free_x") +
     theme_bw(base_size = 18) + background_grid(minor = "none") + 
@@ -226,29 +205,8 @@ my_plot_ratio <- function(selection){
 }
 ```
 
-Plot chimera relative activity to ScPho4 w/ Pho2 and boost factor
-```{r}
-my_plot_rel_act <- function(selection){
-  # given a selection of chimera IDs, plot their functionality w/PHO2
-  # relative to ScPho4, and their boost
-  p <- filter(ximera, plasmid %in% c(refs, selection)) %>%
-    ggplot(aes(x = symbol, y = s_PHO2)) +
-    geom_col(width = 0.3, color = "black", fill = "gray80") + 
-    geom_hline(yintercept = 1, linetype = 2, color = "gray30") +
-    facet_grid(.~group, scales = "free_x", space = "free_x") + 
-    scale_y_continuous(labels = scales::percent) +
-    xlab("Pho4 chimera") + ylab("A<sub>PHO2</sub>, chimera/ScPho4") +
-    ggtitle("Chimera function in <em>S. cerevisiae</em>") +
-    theme_bw(base_size = 18) + background_grid(minor = "none") +
-    theme(axis.text.x = element_text(angle = 30, hjust = 1, family = "mono"),
-          #strip.text = element_blank(), 
-          plot.title = element_markdown(hjust = 0.5),
-          axis.title.y = element_markdown(),
-          legend.position = "top")
-  return(p)
-}
-```
 
+<!--- replace with script file
 ```{r}
 my_plot_boost <- function(selection){
   # given a selection of chimera IDs, plot their functionality w/PHO2
@@ -279,7 +237,8 @@ my_plot_boost <- function(selection){
   return(p)
 }
 ```
-
+--->
+ 
 ## High variance samples
 
 Summarize the background subtracted data by calculating the means and cv for each strain.
@@ -297,24 +256,6 @@ cv <- dat %>%
   arrange(desc(cv))
 ```
 
-Number of replicates left for each sample
-```{r}
-expt <- dat %>% 
-  filter(host %in% c("PHO2", "pho2∆"), !plasmid %in% c("188", "194")) %>% 
-  group_by(date, plasmid, host) %>% 
-  summarize(n = n(), .groups = "drop")
-
-expt %>% 
-  ggplot(aes(x = plasmid, y = n)) +
-  geom_col(aes(fill = host)) + 
-  facet_grid(date ~ .) +
-  scale_fill_manual(values = c("PHO2" = "gray30", "pho2∆" = "gray70")) +
-  theme_minimal() + background_grid(major = "none") + panel_border(size = 0.5) +
-  scale_y_continuous(name = "Replicates", breaks = c(6)) + xlab(NULL) +
-  theme(axis.text.x = element_text(angle = 90),
-        strip.text.y = element_text(angle = 0),
-        legend.position = "top")
-```
 Use the control strain (pH194 with PHO2) to identify and correct for systematic biases
 ```{r}
 control <- filter(dat, plasmid == "194", host == "PHO2") %>% 
@@ -379,57 +320,24 @@ High day-to-day RFP variance: `r day.var.rfp.list`
 
 Plotting components for chimeras with high day-to-day variance in Pho4-mNeon
 ```{r}
-p <- my_plot_ratio(c(refs,day.var.gfp.list)) + 
-    geom_point(data = function(x) subset(x, !symbol %in% c("CCCCC", "SSSSS")),
-               aes(group = host, color = date), size = 1, shape = 3, alpha = 0.9,
-               position = position_jitterdodge(dodge.width = 0.5, jitter.width = 0.1)) +
-    scale_color_manual(values = date.colors, guide = "none")
+p <- my_plot_ratio(c(refs,day.var.gfp.list))# + 
 p
 ```
 > Watch out for CSCscC, SCCsS, SCCsS
 
 Plotting components for chimeras with high day-to-day variance in _PHO5pr_-mCherry
 ```{r}
-p <- my_plot_ratio(c(refs,day.var.rfp.list)) + 
-    geom_point(data = function(x) subset(x, !symbol %in% c("CCCCC", "SSSSS")),
-               aes(group = host, color = date), size = 1, shape = 3, alpha = 0.9,
-               position = position_dodge(width = 0.5)) +
-    scale_color_manual(values = date.colors, guide = "none")
+p <- my_plot_ratio(c(refs,day.var.rfp.list))
 p
 ```
 > most of the day-to-day variance are canceled out after RFP/GFP normalization
 
 ## All chimera, scatter plot
-Design the plot
-
-```{r}
-my_scatter_plot <- function(pattern){
-  selection = my_data_select(pattern = pattern)
-  scatter.colors = c("ScPho4" = "forestgreen", "CgPho4" = "blue3", "cyan2", "other" = "gray20")
-  names(scatter.colors)[3] = pattern
-  p <- ximera %>% 
-    mutate(A_PHO2 = signif(A_PHO2, digits = 2),
-           A_pho2 = signif(A_pho2, digits = 2),
-           group = case_when(
-             symbol == "CCCCC" ~ "CgPho4",
-             symbol == "SSSSS" ~ "ScPho4",
-             plasmid %in% selection ~ pattern,
-             .default = "other"
-           ),
-           group = fct_relevel(group, names(scatter.colors))) %>% 
-    ggplot(aes(x = A_PHO2, y = A_pho2, label = symbol)) + 
-    geom_point(aes(color = group), size = 2.5) + 
-    scale_color_manual("Pho4 type", values = scatter.colors) +
-    geom_abline(slope = 1) +
-    theme_gray(base_size = 14)
-  return(p)
-}
-```
 
 ```{r}
 my_scatter_plot_fix <- function(){
-  # this function is the same as above, but is used to plot region 4
-  # effects alone, and doesn't take any input
+  # this function is the same as the one in the script file, but is used to 
+  # plot region 4 effects alone, and doesn't take any input
   s1 = my_data_select(pattern = "XXXCCX")
   s2 = my_data_select(pattern = "XXXSSX")
   scatter.colors = c("ScPho4" = "forestgreen", "CgPho4" = "blue3", 
@@ -467,7 +375,7 @@ ggplotly(p + labs(x = "A<sub>PHO2</sub>", y = "A<sub>pho2</sub>") +
          tooltip = c("label", "x", "y"))
 ```
 
-## ANOVA
+## Region main effect
 ```{r}
 split <- c(1,1,1,1,1); names(split) <- paste0("P", 1:5)
 tmp <- ximera %>% 
@@ -630,18 +538,17 @@ my_plot_region_effect_twovar_line <- function(region, highlight = "none"){
     )
   return(p)
 }
-
-my_plot_region_effect_twovar_line("4", "5")# %>% ggplotly()
-ggsave("../img/20231221-region-swap-effect-4-on-5.png", width = 6, height = 4, dpi = 150)
 ```
 
-```{r}
+```
+my_plot_region_effect_twovar_line("4", "5")# %>% ggplotly()
+ggsave("../img/20231221-region-swap-effect-4-on-5.png", width = 6, height = 4, dpi = 150)
 my_plot_region_effect_twovar_line("5", "4")# %>% ggplotly()
 ggsave("../img/20231224-region-swap-effect-5-on-4.png", width = 6, height = 4, dpi = 200)
 ```
 
 ```{r}
-my_plot_region_effect_twovar_line_par <- function(regions, highlight = "none"){
+my_plot_region_effect_twovar_line_par <- function(regions){
   # this function uses my_comp_region_effect to generate the data
   # and plot the difference in A_PHO2 and A_pho2 between the CgPho4 vs ScPho4
   # in the focal region
@@ -650,23 +557,19 @@ my_plot_region_effect_twovar_line_par <- function(regions, highlight = "none"){
                  names_to = "host", values_to = "diff") %>% 
     mutate(host = fct_recode(host, `PHO2` = "dA_PHO2", `pho2∆` = "dA_pho2"),
            host = fct_relevel(host, "PHO2"))
-  # specify legend title
-  legend.title = ""
-  if(highlight != "none" & !highlight %in% regions){
-    hl = as.numeric(highlight)
-    dat <- mutate(dat, grp = str_sub(bg, hl, hl) %>% toupper(),
-                  grp = fct_recode(grp, CgPho4 = "C", ScPho4 = "S"))
-    legend.title = paste("Region", highlight, "from", sep = " ")
-  }else{
-    dat <- mutate(dat, grp = ifelse(NF, "no", "yes"))
-    legend.title = "Functional"
-  }
+  # specify grouping variable
+  dat <- mutate(dat, 
+                grp = str_sub(bg, 4, 4) %>% toupper(),
+                grp = fct_recode(grp, CgPho4 = "C", ScPho4 = "S"),
+                sh = str_sub(bg, 5, 5) %>% toupper(),
+                sh = fct_recode(sh, CgPho4 = "C", ScPho4 = "S") )
   # specify arrow annotation
   arrow.x = 0.7
   arrow.y = (max(dat$diff) - min(dat$diff)) / 5 
+  # plot
   p <- dat %>% 
     ggplot(aes(x = host, y = diff, label = bg)) +
-    geom_point(aes(color = grp), size = 2, alpha = 0.8,
+    geom_point(aes(color = grp, shape = sh), size = 2, alpha = 0.8,
                position = position_jitter(0.1)) + 
     geom_line(aes(group = bg), linewidth = 0.2, alpha = 0.8) +
     facet_grid(grp ~ region, labeller = labeller(
@@ -674,6 +577,7 @@ my_plot_region_effect_twovar_line_par <- function(regions, highlight = "none"){
       region = label_both
     )) +
     scale_color_manual("P2ID:", values = c("orange", "gray20")) +
+    scale_shape_manual("DBD:", values = c(19, 1)) +
     ylab("Region swap effect (Cg-Sc)") +
     theme_bw(base_size = 18) + 
     theme(
@@ -684,8 +588,11 @@ my_plot_region_effect_twovar_line_par <- function(regions, highlight = "none"){
     )
   return(p)
 }
-my_plot_region_effect_twovar_line_par(c(1,2,3), "4")
-ggsave("../img/20231224-region-swap-effect-1to3-on-4.png")
+```
+
+```{r}
+my_plot_region_effect_twovar_line_par(c(1,2,3))
+ggsave("../img/20240214-region-swap-effect-1to3-on-4.png")
 ```
 
 ```{r}
@@ -696,7 +603,7 @@ my_plot_region_effect_twovar_side <- function(region){
   dat <- my_comp_region_effect(region) %>% 
     pivot_longer(cols = c(dA_PHO2, dA_pho2), 
                  names_to = "host", values_to = "diff") %>% 
-    mutate(host = fct_recode(host, `PHO2` = "dA_PHO2", `pho2∆` = "dA_pho2"),
+    mutate(host = fct_recode(host, `PHO2` = "dA_PHO2", `pho2` = "dA_pho2"),
            host = fct_relevel(host, "PHO2"))
   p <- dat %>% 
     ggplot(aes(x = bg, y = diff, group = host)) +
@@ -711,6 +618,23 @@ my_plot_region_effect_twovar_side <- function(region){
           legend.position = "top")
   return(p)
 }
+```
+
+## P2ID:Cg_DBD:Sc fail
+Highlight the subset of the chimeras with P2ID:Cg + DBD:Sc, most of which are non functional
+```{r}
+my_scatter_plot("XXXXCS") +
+    labs(x = bquote(A[PHO2]), y = bquote(A[pho2]))
+ggsave(filename = "../img/20240214-Pho4-chimeras-scatter-P2ID_Cg-DBD_Sc.png",
+       plot = p, width = 6, height = 4, dpi = 300)
+```
+
+```{r}
+x <- my_data_select(pattern = "XXXXCS", Set = "M")
+my_data_prep(x) %>% 
+  mutate(group = fct_recode(group, "chimera" = "n.f.")) %>% 
+  my_plot_components()
+ggsave("../img/20240213-P2ID_Cg-DBD_Sc-components.png", width = 8, height = 5)
 ```
 
 ## Triangle heatmap

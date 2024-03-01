@@ -32,10 +32,12 @@ my_data_select <- function(pattern = NULL, Set = NULL){
                str_sub(symbol, 5, 5)),
         symbol
       )) %>% 
-    select(plasmid, Symbol)
+    select(plasmid, Symbol, set)
   # starting set
   if(length(Set) == 0)
     xim <- filter(tmp, !plasmid %in% refs)
+  else if (length(Set) == 1)
+    xim <- filter(tmp, set == Set, !plasmid %in% refs)
   else
     xim <- filter(tmp, set %in% Set, !plasmid %in% refs)
   # compare to the pattern
@@ -77,6 +79,7 @@ my_data_prep <- function(selection){
     filter(plasmid %in% c(refs, selection)) %>% 
     select(plasmid, symbol, group) %>% 
     inner_join(dat, by = "plasmid") %>% 
+    mutate(host = fct_recode(host, pho2 = "pho2∆"))
   return(tmp)
 }
 
@@ -106,7 +109,7 @@ my_plot_components <- function(dat){
                  names_to = "parameter", values_to = "value") %>% 
     mutate(parameter = factor(parameter, levels = c("R/G", "YL2.H", "BL1.H"),
                               labels = c("RFP/GFP", "PHO5pRFP", "Pho4-GFP"))
-    ) %>% # host = fct_recode(host, pho2 = "pho2∆")) %>% 
+    ) %>% 
     ggplot(aes(x = symbol, y = value, group = host)) + 
     stat_summary(aes(group = host), fun.data = "mean_cl_boot", geom = "errorbar",
                  position = position_dodge(0.6), width = 0.3) +
@@ -150,8 +153,8 @@ my_plot_summary <- function(selection){
 my_scatter_plot <- function(pattern){
   # plot all chimeras by their A_PHO2 and A_pho2∆, highlighting a subset of
   # the chimeras by their composition.
-  selection = my_data_select(pattern = pattern)
-  scatter.colors = c("ScPho4" = "forestgreen", "CgPho4" = "blue3", "cyan2", "other" = "gray20")
+  selection = my_data_select(pattern = pattern, Set = c("M", "S"))
+  scatter.colors = c("ScPho4" = "forestgreen", "CgPho4" = "blue3", "cyan2", "other" = "gray30")
   names(scatter.colors)[3] = pattern
   p <- ximera %>% 
     mutate(A_PHO2 = signif(A_PHO2, digits = 2),

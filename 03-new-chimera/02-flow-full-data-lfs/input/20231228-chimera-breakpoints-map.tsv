@@ -1,28 +1,28 @@
-set	origin	region	start	end	comment
-M	C	1	1	44	
-M	C	2	45	112	
-M	C	3	113	282	
-M	C	4	283	458	
-M	C	5	459	533	
-N	C	4a	283	463	new 4/5
-N	C	5a	464	533	new 4/5
-M	S	1	1	42	
-M	S	2	43	99	
-M	S	3	100	176	
-M	S	4	177	242	
-M	S	5	243	312	
-N	S	4a	177	250	new 4/5
-N	S	5a	251	312	new 4/5
-S	C	4i	283	327	split 4
-S	C	4ii	328	458	split 4
-SA	C	4iia	328	463	split 4 with new 4/5 bp
-S	S	4i	177	204	split 4
-S	S	4ii	205	242	split 4
-SA	S	4iia	205	250	split 4 with new 4/5 bp
-B	S	3i	100	153	split 3, only used once
-B	S	3b	100	156	alternative 3/4, not in use
-B	S	4b	157	247	alternative 3/4, not in use
-B	S	5b	248	312	alternative 4/5, not in use
-B	C	3b	113	252	alternative 3/4, not in use
-B	C	4b	253	463	alternative 3/4, not in use
-B	C	4c	283	470	alternative 4/5, used in Cg4ext series
+set	origin	region	start	end	length	comment
+M	C	1	1	44	44	
+M	C	2	45	112	68	
+M	C	3	113	282	170	
+M	C	4	283	458	176	
+M	C	5	459	533	75	
+N	C	4a	283	463	181	new 4/5
+N	C	5a	464	533	70	new 4/5
+M	S	1	1	42	42	
+M	S	2	43	99	57	
+M	S	3	100	176	77	
+M	S	4	177	242	66	
+M	S	5	243	312	70	
+N	S	4a	177	250	74	new 4/5
+N	S	5a	251	312	62	new 4/5
+S	C	4i	283	327	45	split 4
+S	C	4ii	328	458	131	split 4
+SA	C	4iia	328	463	136	split 4 with new 4/5 bp
+S	S	4i	177	204	28	split 4
+S	S	4ii	205	242	38	split 4
+SA	S	4iia	205	250	46	split 4 with new 4/5 bp
+B	S	3i	100	153	54	"split 3, only used once"
+B	S	3b	100	156	57	"alternative 3/4, not in use"
+B	S	4b	157	247	91	"alternative 3/4, not in use"
+B	S	5b	248	312	65	"alternative 4/5, not in use"
+B	C	3b	113	252	140	"alternative 3/4, not in use"
+B	C	4b	253	463	211	"alternative 3/4, not in use"
+B	C	4c	283	470	188	"alternative 4/5, used in Cg4ext series"

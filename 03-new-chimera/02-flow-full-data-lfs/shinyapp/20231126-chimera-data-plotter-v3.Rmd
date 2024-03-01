@@ -74,7 +74,7 @@ my_data_select <- function(pattern = NULL, Set = NULL){
                str_sub(symbol, 5, 5)),
         symbol
       )) %>% 
-    select(plasmid, Symbol)
+    select(plasmid, Symbol, set)
   # starting set
   if(length(Set) == 0)
     xim <- filter(tmp, !plasmid %in% refs)
@@ -298,10 +298,10 @@ my_plot_boost <- function(selection){
   return(p)
 }
 
-my_scatter_plot <- function(pattern){
+my_scatter_plot <- function(pattern, Set = NULL){
   # plot all chimeras by their A_PHO2 and A_pho2∆, highlighting a subset of
   # the chimeras by their composition.
-  selection = my_data_select(pattern = pattern)
+  selection = my_data_select(pattern = pattern, Set = Set)
   scatter.colors = c("ScPho4" = "forestgreen", "CgPho4" = "blue3", "cyan2", "other" = "gray20")
   names(scatter.colors)[3] = pattern
   p <- ximera %>% 
@@ -415,7 +415,13 @@ page_fillable(
     card_body(
       layout_column_wrap(
         width = 1/2,
-        textInput(inputId = "pattern", label = "Please enter a pattern, e.g., 'XXCXXC'", value = "CXXXXC")
+        textInput(inputId = "pattern", label = "Please enter a pattern, e.g., 'XXCXXC'", value = "CXXXXC"),
+        checkboxGroupInput(inputId = "set", label = "Please select the sets to include",
+                           choiceNames = c("Main (M)", "P2ID_split (S)", "Other (B)"), 
+                           choiceValues = c("M", "S", "B"),
+                           selected = c("M", "S", "B"),
+                           inline = TRUE),
+        gap = "5%"
       )
     )
   )
@@ -434,7 +440,7 @@ renderText({
 ```{r}
 # reactive function to produce the plot
 plot_boost <- reactive({
-    selection = my_data_select(input$pattern)
+    selection = my_data_select(pattern = input$pattern, Set = input$set)
     p <- my_plot_boost(selection)
     return(p)
 })
@@ -452,6 +458,7 @@ fluidPage(
       ggsave(file, plot_boost(), device = "pdf", width = 10, height = 7)
     }
   ),
+  #renderPrint({input$set}),
   renderPlot({
     plot_boost()
   },
@@ -468,7 +475,7 @@ fluidPage(
 #### Components
 ```{r}
 plot_ratio <- reactive({
-    selection = my_data_select(input$pattern)
+    selection = my_data_select(input$pattern, input$set)
     p <- my_plot_ratio(selection)
     return(p)
 })
@@ -501,7 +508,7 @@ fluidPage(
 #### Scatter plot
 ```{r}
 renderPlotly({
-  p4 <- my_scatter_plot(input$pattern)
+  p4 <- my_scatter_plot(input$pattern, input$set)
   ggplotly(p4, tooltip = c("label", "x", "y")) %>% 
     config(toImageButtonOptions = 
              list(format = "png",
