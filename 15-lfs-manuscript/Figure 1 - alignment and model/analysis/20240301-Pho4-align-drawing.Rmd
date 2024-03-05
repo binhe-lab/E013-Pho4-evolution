@@ -98,9 +98,8 @@ p <- dat %>%
   ) %>% 
   ggplot() +
   geom_tile(aes(x = pos_aln, y = 1.5, height = 0.1, color = Conservation)) +
-  geom_segment(aes(x = pos_aln, xend = pos_Scer, y = 1.55, yend = 1.95), color = "gray80") +
-  geom_segment(aes(x = pos_Cgla, xend = pos_aln, y = 1.05, yend = 1.45), color = "gray80") +
-  scale_color_fermenter(palette = "Greys", direction = 1) +
+  geom_segment(aes(x = pos_aln, xend = pos_Scer, y = 1.55, yend = 1.95), color = "gray90") +
+  geom_segment(aes(x = pos_Cgla, xend = pos_aln, y = 1.05, yend = 1.45), color = "gray90") +
   geom_segment(data = as_tibble(br),
                aes(x = aln - 547/2, xend = Scer - 312/2,  y = 1.55, yend = 1.95),
                color = "gray40", linewidth = lw, linetype = 3) +
@@ -114,8 +113,9 @@ p <- dat %>%
   geom_rect(data = regions,
             aes(xmin = begin_Cgla - 532/2, xmax = end_Cgla - 532/2,
                 ymin = 0.85, ymax = 1.05), 
-            fill = "steelblue", color = "gray90", linewidth = lw) +
+            fill = "steelblue2", color = "gray90", linewidth = lw) +
   #scale_y_continuous(expand = expansion(mult = 0.3)) +
+  scale_color_distiller(palette = "Greys", direction = 1) +
   theme_cowplot() +
   theme(legend.position = "none",
         axis.line = element_blank(),
