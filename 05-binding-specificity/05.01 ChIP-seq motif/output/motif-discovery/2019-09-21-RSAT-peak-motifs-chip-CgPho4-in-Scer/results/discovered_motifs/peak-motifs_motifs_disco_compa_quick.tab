@@ -1,0 +1,29 @@
+;mode: matches	thresholds:	cor=0.700000	ncor=0.400000	w=5	ncor1=-1.000000	ncor2=-1.000000
+#id1	id2	name1	name2	cor	Ncor	Ncor1	Ncor2	w1	w2	w	W	Wr	wr1	wr2	strand	offset	uncounted
+oligos_6nt_mkv3_m1	oligos_6nt_mkv3_m1	oligos_6nt_mkv3_m1	oligos_6nt_mkv3_m1	1.000000	1.000000	1.000000	1.000000	14	14	14	14	1.000000	1.000000	1.000000	D	0	1
+oligos_6nt_mkv3_m1	oligos_6nt_mkv3_m2	oligos_6nt_mkv3_m1	oligos_6nt_mkv3_m2	0.993753	0.922771	0.922771	0.993753	14	13	13	14	0.928571	0.928571	1.000000	D	0	1
+oligos_6nt_mkv3_m1	positions_6nt_m1	oligos_6nt_mkv3_m1	positions_6nt_m1	0.969372	0.830890	0.830890	0.969372	14	12	12	14	0.857143	0.857143	1.000000	R	1	1
+oligos_6nt_mkv3_m1	oligos_7nt_mkv4	oligos_6nt_mkv3_m1	oligos_7nt_mkv4	0.990690	0.849163	0.849163	0.990690	14	12	12	14	0.857143	0.857143	1.000000	D	1	1
+oligos_6nt_mkv3_m1	positions_7nt	oligos_6nt_mkv3_m1	positions_7nt	0.990690	0.849163	0.849163	0.990690	14	12	12	14	0.857143	0.857143	1.000000	D	1	1
+oligos_6nt_mkv3_m2	oligos_6nt_mkv3_m1	oligos_6nt_mkv3_m2	oligos_6nt_mkv3_m1	0.993753	0.922771	0.993753	0.922771	13	14	13	14	0.928571	1.000000	0.928571	D	0	1
+oligos_6nt_mkv3_m2	oligos_6nt_mkv3_m2	oligos_6nt_mkv3_m2	oligos_6nt_mkv3_m2	1.000000	1.000000	1.000000	1.000000	13	13	13	13	1.000000	1.000000	1.000000	D	0	1
+oligos_6nt_mkv3_m2	positions_6nt_m1	oligos_6nt_mkv3_m2	positions_6nt_m1	0.982905	0.907297	0.907297	0.982905	13	12	12	13	0.923077	0.923077	1.000000	R	1	1
+oligos_6nt_mkv3_m2	oligos_7nt_mkv4	oligos_6nt_mkv3_m2	oligos_7nt_mkv4	0.984340	0.908621	0.908621	0.984340	13	12	12	13	0.923077	0.923077	1.000000	D	1	1
+oligos_6nt_mkv3_m2	positions_7nt	oligos_6nt_mkv3_m2	positions_7nt	0.984340	0.908621	0.908621	0.984340	13	12	12	13	0.923077	0.923077	1.000000	D	1	1
+positions_6nt_m1	oligos_6nt_mkv3_m1	positions_6nt_m1	oligos_6nt_mkv3_m1	0.969372	0.830890	0.969372	0.830890	12	14	12	14	0.857143	1.000000	0.857143	R	-1	1
+positions_6nt_m1	oligos_6nt_mkv3_m2	positions_6nt_m1	oligos_6nt_mkv3_m2	0.982905	0.907297	0.982905	0.907297	12	13	12	13	0.923077	1.000000	0.923077	R	0	1
+positions_6nt_m1	positions_6nt_m1	positions_6nt_m1	positions_6nt_m1	1.000000	1.000000	1.000000	1.000000	12	12	12	12	1.000000	1.000000	1.000000	D	0	1
+positions_6nt_m1	oligos_7nt_mkv4	positions_6nt_m1	oligos_7nt_mkv4	0.956910	0.956910	0.956910	0.956910	12	12	12	12	1.000000	1.000000	1.000000	D	0	1
+positions_6nt_m1	positions_7nt	positions_6nt_m1	positions_7nt	0.956910	0.956910	0.956910	0.956910	12	12	12	12	1.000000	1.000000	1.000000	D	0	1
+positions_6nt_m2	positions_6nt_m2	positions_6nt_m2	positions_6nt_m2	1.000000	1.000000	1.000000	1.000000	10	10	10	10	1.000000	1.000000	1.000000	D	0	0
+oligos_7nt_mkv4	oligos_6nt_mkv3_m1	oligos_7nt_mkv4	oligos_6nt_mkv3_m1	0.990690	0.849163	0.990690	0.849163	12	14	12	14	0.857143	1.000000	0.857143	R	-1	1
+oligos_7nt_mkv4	oligos_6nt_mkv3_m2	oligos_7nt_mkv4	oligos_6nt_mkv3_m2	0.984340	0.908621	0.984340	0.908621	12	13	12	13	0.923077	1.000000	0.923077	R	0	1
+oligos_7nt_mkv4	positions_6nt_m1	oligos_7nt_mkv4	positions_6nt_m1	0.956910	0.956910	0.956910	0.956910	12	12	12	12	1.000000	1.000000	1.000000	D	0	1
+oligos_7nt_mkv4	oligos_7nt_mkv4	oligos_7nt_mkv4	oligos_7nt_mkv4	1.000000	1.000000	1.000000	1.000000	12	12	12	12	1.000000	1.000000	1.000000	D	0	1
+oligos_7nt_mkv4	positions_7nt	oligos_7nt_mkv4	positions_7nt	1.000000	1.000000	1.000000	1.000000	12	12	12	12	1.000000	1.000000	1.000000	D	0	1
+positions_7nt	oligos_6nt_mkv3_m1	positions_7nt	oligos_6nt_mkv3_m1	0.990690	0.849163	0.990690	0.849163	12	14	12	14	0.857143	1.000000	0.857143	R	-1	1
+positions_7nt	oligos_6nt_mkv3_m2	positions_7nt	oligos_6nt_mkv3_m2	0.984340	0.908621	0.984340	0.908621	12	13	12	13	0.923077	1.000000	0.923077	R	0	1
+positions_7nt	positions_6nt_m1	positions_7nt	positions_6nt_m1	0.956910	0.956910	0.956910	0.956910	12	12	12	12	1.000000	1.000000	1.000000	D	0	1
+positions_7nt	oligos_7nt_mkv4	positions_7nt	oligos_7nt_mkv4	1.000000	1.000000	1.000000	1.000000	12	12	12	12	1.000000	1.000000	1.000000	D	0	1
+positions_7nt	positions_7nt	positions_7nt	positions_7nt	1.000000	1.000000	1.000000	1.000000	12	12	12	12	1.000000	1.000000	1.000000	D	0	1
+;Analysis performed in 0.002437s

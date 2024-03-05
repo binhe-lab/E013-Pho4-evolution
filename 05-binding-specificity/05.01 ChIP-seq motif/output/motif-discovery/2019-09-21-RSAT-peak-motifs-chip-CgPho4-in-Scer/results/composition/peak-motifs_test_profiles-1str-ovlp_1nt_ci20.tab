@@ -1,0 +1,153 @@
+; position-analysis -v 1 -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000_purged_ml40_mis3.fasta -format fasta -sort -return html,chi,sig,distrib,graphs,rank,index -max_graphs 20 -1str -ovlp -seqtype dna -l 1 -ci 20 -img_format png -title CgPho4_ChIP_in_Scer -origin center -offset 0 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_profiles-1str-ovlp_1nt_ci20.tab
+; Citation: van Helden, et al. (2000).  Nucleic Acids Res 28, 1000-1010.
+; Sequence file                	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000_purged_ml40_mis3.fasta
+; Sequence format              	fasta
+; Sequence type                	dna
+; Output file                  	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_profiles-1str-ovlp_1nt_ci20.tab
+; Oligo length                 	1
+; Occurrences counted  on a single  strands
+; Conditions of applicability checked.
+; Background model estimation: homogeneous repartition
+; Sequence statistics:
+;	Nb of sequences              	118
+;	Sum of sequence lengths      	110392
+;	Min sequence length          	0
+;	Max sequence length          	1000
+;	Average sequence length      	935
+;	Possible positions           	110392
+; Oligonucleotide statistics:
+;	Total occurrences    	109700
+; Position interval parameters:
+;	Position interval    	20
+;	Number of windows    	50
+;	Total positions      	110392
+;	Degrees of freedom   	49
+; K-mer clustering parameters:
+;	Number of clusters   	0
+;	Clustering method    	complete
+; Position intervals:
+;	window	[min,max]	mid	seq	occ
+;	1	-25	[-499,-480]	-489.5	105	2100
+;	2	-24	[-479,-460]	-469.5	105	2100
+;	3	-23	[-459,-440]	-449.5	105	2100
+;	4	-22	[-439,-420]	-429.5	105	2100
+;	5	-21	[-419,-400]	-409.5	105	2100
+;	6	-20	[-399,-380]	-389.5	105	2100
+;	7	-19	[-379,-360]	-369.5	105	2100
+;	8	-18	[-359,-340]	-349.5	106	2111
+;	9	-17	[-339,-320]	-329.5	106	2120
+;	10	-16	[-319,-300]	-309.5	107	2128
+;	11	-15	[-299,-280]	-289.5	107	2140
+;	12	-14	[-279,-260]	-269.5	108	2141
+;	13	-13	[-259,-240]	-249.5	109	2171
+;	14	-12	[-239,-220]	-229.5	111	2192
+;	15	-11	[-219,-200]	-209.5	112	2232
+;	16	-10	[-199,-180]	-189.5	114	2254
+;	17	-9	[-179,-160]	-169.5	114	2280
+;	18	-8	[-159,-140]	-149.5	117	2289
+;	19	-7	[-139,-120]	-129.5	117	2340
+;	20	-6	[-119,-100]	-109.5	118	2356
+;	21	-5	[-99,-80]	-89.5	118	2360
+;	22	-4	[-79,-60]	-69.5	118	2360
+;	23	-3	[-59,-40]	-49.5	118	2360
+;	24	-2	[-39,-20]	-29.5	118	2360
+;	25	-1	[-19,0]	-9.5	118	2360
+;	26	0	[1,20]	10.5	118	2360
+;	27	1	[21,40]	30.5	118	2360
+;	28	2	[41,60]	50.5	118	2360
+;	29	3	[61,80]	70.5	118	2360
+;	30	4	[81,100]	90.5	118	2360
+;	31	5	[101,120]	110.5	118	2355
+;	32	6	[121,140]	130.5	117	2340
+;	33	7	[141,160]	150.5	116	2287
+;	34	8	[161,180]	170.5	114	2280
+;	35	9	[181,200]	190.5	114	2252
+;	36	10	[201,220]	210.5	112	2230
+;	37	11	[221,240]	230.5	111	2190
+;	38	12	[241,260]	250.5	109	2170
+;	39	13	[261,280]	270.5	107	2140
+;	40	14	[281,300]	290.5	107	2140
+;	41	15	[301,320]	310.5	107	2128
+;	42	16	[321,340]	330.5	106	2120
+;	43	17	[341,360]	350.5	106	2110
+;	44	18	[361,380]	370.5	105	2100
+;	45	19	[381,400]	390.5	105	2100
+;	46	20	[401,420]	410.5	105	2100
+;	47	21	[421,440]	430.5	105	2100
+;	48	22	[441,460]	450.5	105	2100
+;	49	23	[461,480]	470.5	105	2100
+;	50	24	[481,500]	490.5	105	1996
+;
+; Column headers
+;	1	seq            	pattern sequence
+;	2	id             	pattern identifier
+;	3	occ            	pattern occurrences
+;	4	chi2           	observed chi-square
+;	5	df             	degrees of freedom
+;	6	Pval           	P-value (probability for one word to be a false positive)
+;	7	Eval           	E-value; expected number of false positives (Eval = Pval * nb_tests)
+;	8	sig            	Significance (sig = -log10(Eval))
+;	9	rank           	rank of the pattern according to sorting criterion
+;	10	-489.5         	occurrences in window	1	[-499,-480]
+;	11	-469.5         	occurrences in window	2	[-479,-460]
+;	12	-449.5         	occurrences in window	3	[-459,-440]
+;	13	-429.5         	occurrences in window	4	[-439,-420]
+;	14	-409.5         	occurrences in window	5	[-419,-400]
+;	15	-389.5         	occurrences in window	6	[-399,-380]
+;	16	-369.5         	occurrences in window	7	[-379,-360]
+;	17	-349.5         	occurrences in window	8	[-359,-340]
+;	18	-329.5         	occurrences in window	9	[-339,-320]
+;	19	-309.5         	occurrences in window	10	[-319,-300]
+;	20	-289.5         	occurrences in window	11	[-299,-280]
+;	21	-269.5         	occurrences in window	12	[-279,-260]
+;	22	-249.5         	occurrences in window	13	[-259,-240]
+;	23	-229.5         	occurrences in window	14	[-239,-220]
+;	24	-209.5         	occurrences in window	15	[-219,-200]
+;	25	-189.5         	occurrences in window	16	[-199,-180]
+;	26	-169.5         	occurrences in window	17	[-179,-160]
+;	27	-149.5         	occurrences in window	18	[-159,-140]
+;	28	-129.5         	occurrences in window	19	[-139,-120]
+;	29	-109.5         	occurrences in window	20	[-119,-100]
+;	30	-89.5          	occurrences in window	21	[-99,-80]
+;	31	-69.5          	occurrences in window	22	[-79,-60]
+;	32	-49.5          	occurrences in window	23	[-59,-40]
+;	33	-29.5          	occurrences in window	24	[-39,-20]
+;	34	-9.5           	occurrences in window	25	[-19,0]
+;	35	10.5           	occurrences in window	26	[1,20]
+;	36	30.5           	occurrences in window	27	[21,40]
+;	37	50.5           	occurrences in window	28	[41,60]
+;	38	70.5           	occurrences in window	29	[61,80]
+;	39	90.5           	occurrences in window	30	[81,100]
+;	40	110.5          	occurrences in window	31	[101,120]
+;	41	130.5          	occurrences in window	32	[121,140]
+;	42	150.5          	occurrences in window	33	[141,160]
+;	43	170.5          	occurrences in window	34	[161,180]
+;	44	190.5          	occurrences in window	35	[181,200]
+;	45	210.5          	occurrences in window	36	[201,220]
+;	46	230.5          	occurrences in window	37	[221,240]
+;	47	250.5          	occurrences in window	38	[241,260]
+;	48	270.5          	occurrences in window	39	[261,280]
+;	49	290.5          	occurrences in window	40	[281,300]
+;	50	310.5          	occurrences in window	41	[301,320]
+;	51	330.5          	occurrences in window	42	[321,340]
+;	52	350.5          	occurrences in window	43	[341,360]
+;	53	370.5          	occurrences in window	44	[361,380]
+;	54	390.5          	occurrences in window	45	[381,400]
+;	55	410.5          	occurrences in window	46	[401,420]
+;	56	430.5          	occurrences in window	47	[421,440]
+;	57	450.5          	occurrences in window	48	[441,460]
+;	58	470.5          	occurrences in window	49	[461,480]
+;	59	490.5          	occurrences in window	50	[481,500]
+#seq	id	occ	chi2	df	Pval	Eval	sig	rank	-489.5	-469.5	-449.5	-429.5	-409.5	-389.5	-369.5	-349.5	-329.5	-309.5	-289.5	-269.5	-249.5	-229.5	-209.5	-189.5	-169.5	-149.5	-129.5	-109.5	-89.5	-69.5	-49.5	-29.5	-9.5	10.5	30.5	50.5	70.5	90.5	110.5	130.5	150.5	170.5	190.5	210.5	230.5	250.5	270.5	290.5	310.5	330.5	350.5	370.5	390.5	410.5	430.5	450.5	470.5	490.5
+t	t	32225	115.8	49	2.4e-07	9.8e-07	6.01	1	590	633	654	648	626	609	617	616	636	671	655	650	599	684	646	592	688	687	684	769	718	692	646	638	624	669	670	673	680	544	656	638	614	651	617	673	650	611	620	614	652	645	652	578	636	669	617	659	639	626
+c	c	22781	93.3	49	1.4e-04	0.00056	3.25	2	427	422	402	417	411	428	436	424	418	451	418	434	452	446	444	484	465	422	472	477	517	461	472	508	508	518	490	509	518	631	503	479	457	474	490	469	499	454	456	472	405	444	393	432	412	404	391	445	426	394
+g	g	22626	93.0	49	1.5e-04	0.00061	3.22	3	432	433	397	421	420	435	430	400	422	387	416	448	411	423	426	460	435	467	444	435	471	452	495	481	477	480	495	510	491	546	615	532	492	475	470	453	467	457	450	428	455	417	444	445	441	421	452	432	454	386
+a	a	32068	89.8	49	3.4e-04	0.0014	2.86	4	631	592	627	594	623	608	597	651	624	599	631	589	689	619	696	698	672	693	720	655	634	735	727	713	731	673	685	648	651	619	561	671	704	660	663	635	574	648	614	626	616	614	621	645	611	606	640	564	581	590
+; Host name	rsat-tagc
+; Job started	2019-09-21.214047
+; Job done	2019-09-21.214048
+; Seconds	1.74
+;	user	1.74
+;	system	0.07
+;	cuser	0
+;	csystem	0.02

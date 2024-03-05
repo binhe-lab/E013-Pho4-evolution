@@ -1,0 +1,180 @@
+; matrix-scan  -quick -v 1 -seq_format fasta -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/data/sequences/peak-motifs_test_maxlen1000.fasta -matrix_format transfac -m $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/discovered_motifs/oligos_7nt_mkv2_m1/peak-motifs_oligos_7nt_mkv2_m1.tf -bg_format inclusive -bgfile $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt -pseudo 1 -2str -decimals 1 -bg_pseudo 0.01 -n score -lth score 7.5 -origin center -offset 0 -return sites -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/discovered_motifs/oligos_7nt_mkv2_m1/peak-motifs_oligos_7nt_mkv2_m1_sites.tab
+; Quick counting mode           
+; Input files
+;	input	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/data/sequences/peak-motifs_test_maxlen1000.fasta
+;	bg	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt
+; Matrix files
+;	matrix 1	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/discovered_motifs/oligos_7nt_mkv2_m1/peak-motifs_oligos_7nt_mkv2_m1.tf
+; Sequence format      	fasta
+; Output files
+;	output	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/discovered_motifs/oligos_7nt_mkv2_m1/peak-motifs_oligos_7nt_mkv2_m1_sites.tab
+; Pseudo counts        	1
+; Background model
+;	Method        	file
+;	Markov order  	1
+;	Strand        	undef
+;	Background pseudo-frequency	0.01
+;	Residue probabilities
+;		a	0.29675
+;		c	0.20468
+;		g	0.20418
+;		t	0.29440
+; Thresholds	lower	upper
+;	score 	7.5  	NA
+; Output columns
+;	1	seq_id
+;	2	ft_type
+;	3	ft_name
+;	4	strand
+;	5	start
+;	6	end
+;	7	sequence
+;	8	weight
+#seq_id	ft_type	ft_name	strand	start	end	sequence	weight
+chr1:68474-69472	site	oligos_7nt_mkv2_m1	D	92	107	GGCTGCACGTGGCTTT	7.7
+chr1:68474-69472	site	oligos_7nt_mkv2_m1	R	92	107	AAAGCCACGTGCAGCC	7.8
+chr1:141266-142264	site	oligos_7nt_mkv2_m1	D	95	110	GCGCACACGTGCTTTA	8.2
+chr1:141266-142264	site	oligos_7nt_mkv2_m1	R	95	110	TAAAGCACGTGTGCGC	8.1
+chr10:191742-192740	site	oligos_7nt_mkv2_m1	D	95	110	GCCCGCACGTGCTCTT	11.3
+chr10:191742-192740	site	oligos_7nt_mkv2_m1	R	95	110	AAGAGCACGTGCGGGC	11.4
+chr10:412920-413918	site	oligos_7nt_mkv2_m1	D	95	110	GCAGCCACGTGCGGAT	8.7
+chr10:412920-413918	site	oligos_7nt_mkv2_m1	R	95	110	ATCCGCACGTGGCTGC	8.6
+chr10:544945-545943	site	oligos_7nt_mkv2_m1	D	95	110	GTTGCCACGTGCGAGT	8.4
+chr10:544945-545943	site	oligos_7nt_mkv2_m1	R	95	110	ACTCGCACGTGGCAAC	8.4
+chr10:547999-548997	site	oligos_7nt_mkv2_m1	D	88	103	TTATCCACGTGCTTAT	9.2
+chr10:547999-548997	site	oligos_7nt_mkv2_m1	R	88	103	ATAAGCACGTGGATAA	9.2
+chr10:703204-704202	site	oligos_7nt_mkv2_m1	D	92	107	AAGAGCACGTGCGACG	11.0
+chr10:703204-704202	site	oligos_7nt_mkv2_m1	R	92	107	CGTCGCACGTGCTCTT	10.9
+chr11:341603-342602	site	oligos_7nt_mkv2_m1	R	96	111	GATTCCACGTGGTTGA	7.5
+chr12:416455-417453	site	oligos_7nt_mkv2_m1	D	92	107	ACGAGCACGTGTTCGA	10.3
+chr12:416455-417453	site	oligos_7nt_mkv2_m1	R	92	107	TCGAACACGTGCTCGT	10.2
+chr12:677176-678174	site	oligos_7nt_mkv2_m1	D	-189	-174	TTGGGCACTTGCTCGA	7.7
+chr12:677176-678174	site	oligos_7nt_mkv2_m1	R	-189	-174	TCGAGCAAGTGCCCAA	7.7
+chr13:25610-26608	site	oligos_7nt_mkv2_m1	D	95	110	CGCCCCACGTGCTGGA	9.7
+chr13:25610-26608	site	oligos_7nt_mkv2_m1	R	95	110	TCCAGCACGTGGGGCG	9.8
+chr13:25610-26608	site	oligos_7nt_mkv2_m1	D	117	132	ACGTCCACGTGGAACT	7.5
+chr13:25610-26608	site	oligos_7nt_mkv2_m1	R	117	132	AGTTCCACGTGGACGT	7.6
+chr13:208605-209603	site	oligos_7nt_mkv2_m1	D	95	110	ACCCCCACGTGCCCTA	9.3
+chr13:208605-209603	site	oligos_7nt_mkv2_m1	R	95	110	TAGGGCACGTGGGGGT	9.3
+chr13:275124-275574	site	oligos_7nt_mkv2_m1	R	86	101	GAAGGCACGTGTTATT	7.5
+chr13:592377-593375	site	oligos_7nt_mkv2_m1	D	92	107	AGCAGCACGTGGGCAC	10.3
+chr13:592377-593375	site	oligos_7nt_mkv2_m1	R	92	107	GTGCCCACGTGCTGCT	10.2
+chr13:688656-689654	site	oligos_7nt_mkv2_m1	D	95	110	TGCACCACGTGCCTTA	9.2
+chr13:688656-689654	site	oligos_7nt_mkv2_m1	R	95	110	TAAGGCACGTGGTGCA	9.2
+chr13:777082-778080	site	oligos_7nt_mkv2_m1	D	92	107	TCTAGCACGTGGGAGG	9.5
+chr13:777082-778080	site	oligos_7nt_mkv2_m1	R	92	107	CCTCCCACGTGCTAGA	9.5
+chr13:777082-778080	site	oligos_7nt_mkv2_m1	D	266	281	ACGAGCACGTGATTTA	9.7
+chr13:777082-778080	site	oligos_7nt_mkv2_m1	R	266	281	TAAATCACGTGCTCGT	9.6
+chr15:68706-69704	site	oligos_7nt_mkv2_m1	D	95	110	ACTACCACGTGCCTAC	10.1
+chr15:68706-69704	site	oligos_7nt_mkv2_m1	R	95	110	GTAGGCACGTGGTAGT	10.2
+chr15:641997-642995	site	oligos_7nt_mkv2_m1	D	92	107	GCGAGCACGTGCGGCT	11.8
+chr15:641997-642995	site	oligos_7nt_mkv2_m1	R	92	107	AGCCGCACGTGCTCGC	11.8
+chr15:641997-642995	site	oligos_7nt_mkv2_m1	D	286	301	GACAGCACGTGAAGGA	8.3
+chr15:641997-642995	site	oligos_7nt_mkv2_m1	R	286	301	TCCTTCACGTGCTGTC	8.2
+chr15:911474-912472	site	oligos_7nt_mkv2_m1	D	92	107	ACAGGCACGTGGTGGG	9.6
+chr15:911474-912472	site	oligos_7nt_mkv2_m1	R	92	107	CCCACCACGTGCCTGT	9.5
+chr16:74483-75481	site	oligos_7nt_mkv2_m1	D	189	204	AAGAGAACGTGCAACC	7.5
+chr16:74483-75481	site	oligos_7nt_mkv2_m1	R	189	204	GGTTGCACGTTCTCTT	7.5
+chr16:214862-215860	site	oligos_7nt_mkv2_m1	D	92	107	ATTTGCACGTGCTCGT	10.8
+chr16:214862-215860	site	oligos_7nt_mkv2_m1	R	92	107	ACGAGCACGTGCAAAT	10.8
+chr16:344623-345621	site	oligos_7nt_mkv2_m1	R	-135	-120	TTTAGAACGTGCACAT	7.6
+chr16:453093-454091	site	oligos_7nt_mkv2_m1	D	92	107	GGGAGCACGTGGCGAG	10.0
+chr16:453093-454091	site	oligos_7nt_mkv2_m1	R	92	107	CTCGCCACGTGCTCCC	9.9
+chr16:516762-517760	site	oligos_7nt_mkv2_m1	D	58	73	GCATGCACGTGCTTGC	10.2
+chr16:516762-517760	site	oligos_7nt_mkv2_m1	R	58	73	GCAAGCACGTGCATGC	10.2
+chr16:640772-641770	site	oligos_7nt_mkv2_m1	D	92	107	CGCTGCACGTGCGGCC	9.8
+chr16:640772-641770	site	oligos_7nt_mkv2_m1	R	92	107	GGCCGCACGTGCAGCG	9.9
+chr2:91616-92614	site	oligos_7nt_mkv2_m1	D	92	107	TTAAGCACGTGCCGAT	10.7
+chr2:91616-92614	site	oligos_7nt_mkv2_m1	R	92	107	ATCGGCACGTGCTTAA	10.6
+chr2:91616-92614	site	oligos_7nt_mkv2_m1	D	228	243	TTGAGCATGTGGTAGA	7.7
+chr2:91616-92614	site	oligos_7nt_mkv2_m1	R	228	243	TCTACCACATGCTCAA	7.6
+chr2:798241-799239	site	oligos_7nt_mkv2_m1	D	95	110	TCTCCCACGTGCTGCA	9.5
+chr2:798241-799239	site	oligos_7nt_mkv2_m1	R	95	110	TGCAGCACGTGGGAGA	9.7
+chr3:50346-50636	site	oligos_7nt_mkv2_m1	D	-15	0	ATTATCACGTGCAGCC	8.5
+chr3:50346-50636	site	oligos_7nt_mkv2_m1	R	-15	0	GGCTGCACGTGATAAT	8.4
+chr3:136606-137604	site	oligos_7nt_mkv2_m1	D	92	107	TAAAGCACGTGGCCTC	9.1
+chr3:136606-137604	site	oligos_7nt_mkv2_m1	R	92	107	GAGGCCACGTGCTTTA	9.2
+chr3:163093-164091	site	oligos_7nt_mkv2_m1	D	92	107	GGGTGCACGTGGGATT	8.7
+chr3:163093-164091	site	oligos_7nt_mkv2_m1	R	92	107	AATCCCACGTGCACCC	8.7
+chr3:196713-197711	site	oligos_7nt_mkv2_m1	D	95	110	TTTCCCACGTGCGAAA	7.6
+chr3:196713-197711	site	oligos_7nt_mkv2_m1	R	95	110	TTTCGCACGTGGGAAA	7.6
+chr3:225625-226623	site	oligos_7nt_mkv2_m1	D	92	107	TAGTGCACGTGGCTCT	8.5
+chr3:225625-226623	site	oligos_7nt_mkv2_m1	R	92	107	AGAGCCACGTGCACTA	8.6
+chr3:298522-299520	site	oligos_7nt_mkv2_m1	R	49	64	AGCAGCACGTAGTAAT	7.6
+chr3:298522-299520	site	oligos_7nt_mkv2_m1	D	92	107	TCATGCACGTGCGCCG	9.7
+chr3:298522-299520	site	oligos_7nt_mkv2_m1	R	92	107	CGGCGCACGTGCATGA	9.7
+chr3:298522-299520	site	oligos_7nt_mkv2_m1	D	366	381	GATAGCATGTGCTTTT	8.0
+chr3:298522-299520	site	oligos_7nt_mkv2_m1	R	366	381	AAAAGCACATGCTATC	7.9
+chr4:273363-274361	site	oligos_7nt_mkv2_m1	D	92	107	TTGAGCACGTGCTTCA	11.7
+chr4:273363-274361	site	oligos_7nt_mkv2_m1	R	92	107	TGAAGCACGTGCTCAA	11.6
+chr4:366170-367168	site	oligos_7nt_mkv2_m1	D	95	110	TTCCCCACGTGCTTAT	9.6
+chr4:366170-367168	site	oligos_7nt_mkv2_m1	R	95	110	ATAAGCACGTGGGGAA	9.5
+chr4:410910-411140	site	oligos_7nt_mkv2_m1	D	-22	-7	ACACGCACGTGATGAC	9.0
+chr4:410910-411140	site	oligos_7nt_mkv2_m1	R	-22	-7	GTCATCACGTGCGTGT	8.9
+chr4:538716-539714	site	oligos_7nt_mkv2_m1	D	95	110	AGTTCCACGTGCGGAT	8.7
+chr4:538716-539714	site	oligos_7nt_mkv2_m1	R	95	110	ATCCGCACGTGGAACT	8.6
+chr4:562079-563077	site	oligos_7nt_mkv2_m1	D	92	107	TGCTGCACGTGGTTAG	9.0
+chr4:562079-563077	site	oligos_7nt_mkv2_m1	R	92	107	CTAACCACGTGCAGCA	9.0
+chr4:562079-563077	site	oligos_7nt_mkv2_m1	R	388	403	CATATCACGTGCATTA	7.5
+chr4:562079-563077	site	oligos_7nt_mkv2_m1	D	399	414	ATATGCACGTGGGAGC	8.5
+chr4:562079-563077	site	oligos_7nt_mkv2_m1	R	399	414	GCTCCCACGTGCATAT	8.5
+chr4:562386-563384	site	oligos_7nt_mkv2_m1	D	-215	-200	TGCTGCACGTGGTTAG	9.0
+chr4:562386-563384	site	oligos_7nt_mkv2_m1	R	-215	-200	CTAACCACGTGCAGCA	9.0
+chr4:562386-563384	site	oligos_7nt_mkv2_m1	R	81	96	CATATCACGTGCATTA	7.5
+chr4:562386-563384	site	oligos_7nt_mkv2_m1	D	92	107	ATATGCACGTGGGAGC	8.5
+chr4:562386-563384	site	oligos_7nt_mkv2_m1	R	92	107	GCTCCCACGTGCATAT	8.5
+chr4:1055402-1056400	site	oligos_7nt_mkv2_m1	D	95	110	AAAAACACGTGCTGTG	7.9
+chr4:1055402-1056400	site	oligos_7nt_mkv2_m1	R	95	110	CACAGCACGTGTTTTT	8.2
+chr4:1344830-1345828	site	oligos_7nt_mkv2_m1	D	92	107	AGACCCACGTGGCCGC	7.9
+chr4:1344830-1345828	site	oligos_7nt_mkv2_m1	R	92	107	GCGGCCACGTGGGTCT	7.8
+chr4:1420183-1421181	site	oligos_7nt_mkv2_m1	D	92	107	CGCTGCACGTGGCCCG	8.2
+chr4:1420183-1421181	site	oligos_7nt_mkv2_m1	R	92	107	CGGGCCACGTGCAGCG	8.3
+chr5:69102-69385	site	oligos_7nt_mkv2_m1	D	35	50	TGGGTCACGTGCTGCA	8.7
+chr5:69102-69385	site	oligos_7nt_mkv2_m1	R	35	50	TGCAGCACGTGACCCA	8.8
+chr5:152565-153563	site	oligos_7nt_mkv2_m1	D	95	110	CGTGCCACGTGCTTTT	8.4
+chr5:152565-153563	site	oligos_7nt_mkv2_m1	R	95	110	AAAAGCACGTGGCACG	8.4
+chr5:191432-192430	site	oligos_7nt_mkv2_m1	D	92	107	GTAAGCACGTGCTCAA	11.9
+chr5:191432-192430	site	oligos_7nt_mkv2_m1	R	92	107	TTGAGCACGTGCTTAC	12.0
+chr5:191432-192430	site	oligos_7nt_mkv2_m1	D	149	164	CCGATCACGTGGTCTC	8.8
+chr5:191432-192430	site	oligos_7nt_mkv2_m1	R	149	164	GAGACCACGTGATCGG	8.9
+chr5:302053-303051	site	oligos_7nt_mkv2_m1	D	92	107	ATTAGCACGTGTCTCG	8.0
+chr5:302053-303051	site	oligos_7nt_mkv2_m1	R	92	107	CGAGACACGTGCTAAT	8.0
+chr6:130900-131898	site	oligos_7nt_mkv2_m1	D	95	110	AAACCCACGTGCTGCT	9.3
+chr6:130900-131898	site	oligos_7nt_mkv2_m1	R	95	110	AGCAGCACGTGGGTTT	9.5
+chr6:254906-255904	site	oligos_7nt_mkv2_m1	D	95	110	GGGCACACGTGCGGGA	8.1
+chr6:254906-255904	site	oligos_7nt_mkv2_m1	R	95	110	TCCCGCACGTGTGCCC	8.0
+chr7:785202-786200	site	oligos_7nt_mkv2_m1	D	92	107	TTTGGCACGTGGAGGT	8.0
+chr7:785202-786200	site	oligos_7nt_mkv2_m1	R	92	107	ACCTCCACGTGCCAAA	7.9
+chr7:957950-958948	site	oligos_7nt_mkv2_m1	D	95	110	ATTCGCACGTGCCATA	9.5
+chr7:957950-958948	site	oligos_7nt_mkv2_m1	R	95	110	TATGGCACGTGCGAAT	9.5
+chr7:999675-1000673	site	oligos_7nt_mkv2_m1	D	92	107	GCCGGCACGTGCGATC	10.0
+chr7:999675-1000673	site	oligos_7nt_mkv2_m1	R	92	107	GATCGCACGTGCCGGC	10.0
+chr8:174731-175729	site	oligos_7nt_mkv2_m1	D	-476	-461	ATGATCACGTGCCGCG	8.8
+chr8:174731-175729	site	oligos_7nt_mkv2_m1	R	-476	-461	CGCGGCACGTGATCAT	8.8
+chr8:235578-236576	site	oligos_7nt_mkv2_m1	D	92	107	GGGTGCACGTGCACTG	9.8
+chr8:235578-236576	site	oligos_7nt_mkv2_m1	R	92	107	CAGTGCACGTGCACCC	9.9
+chr8:374530-375528	site	oligos_7nt_mkv2_m1	D	92	107	CTAGGCACGTGGCTGC	7.9
+chr8:374530-375528	site	oligos_7nt_mkv2_m1	R	92	107	GCAGCCACGTGCCTAG	8.0
+chr8:374530-375528	site	oligos_7nt_mkv2_m1	D	151	166	CGGAGCACGTGGGAAA	9.4
+chr8:374530-375528	site	oligos_7nt_mkv2_m1	R	151	166	TTTCCCACGTGCTCCG	9.4
+chr8:374530-375528	site	oligos_7nt_mkv2_m1	D	208	223	TCGCCCACGTGCGTAC	9.4
+chr8:374530-375528	site	oligos_7nt_mkv2_m1	R	208	223	GTACGCACGTGGGCGA	9.4
+;
+; Matrices
+;	matrix	name              	ncol	nrow	pseudo	Wmin	Wmax	Wrange
+;	1	oligos_7nt_mkv2_m1	16	4	0	-23.800	13.300	37.100	a:0.297 c:0.205 g:0.204 t:0.294 
+; Number of sequences scanned	74
+; Sum of sequence lengths	67358
+; N residues           	0
+; Matches per matrix
+;	matrix	name              	matches	scored
+;	1	oligos_7nt_mkv2_m1	128	0
+;		TOTAL          	128	0
+; Host name	rsat-tagc
+; Job started	2019-09-21.224150
+; Job done	2019-09-21.224151
+; Seconds	0.39
+;	user	0.39
+;	system	0.04
+;	cuser	0.26
+;	csystem	0.06

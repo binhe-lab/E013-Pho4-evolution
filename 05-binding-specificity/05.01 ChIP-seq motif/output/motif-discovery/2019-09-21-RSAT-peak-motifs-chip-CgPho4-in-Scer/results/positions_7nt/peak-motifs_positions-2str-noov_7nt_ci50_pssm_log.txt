@@ -1,0 +1,70 @@
+; matrix-from-patterns  -v 1 -sites -seq $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta -pl $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50.tab -bgfile $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt -toppat 100 -max_asmb_nb 2 -max_asmb_width 20 -subst 1 -prefix positions_7nt -flanks 2 -collect_method matrix-scan-quick -logo -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm
+; Input files
+;	sequence	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta
+;	patterns	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50.tab
+; Output files
+;	output	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm
+;	logo_basename	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices_logo
+;	err	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_err.txt
+;	count_matrices	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices.txt
+;	count_matrices_tf	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices.tf
+;	links	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices_links.txt
+;	sig_sites	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_sig_sites.ft
+;	gibbs_matrices	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_gibbs_matrices.txt
+;	sig_matrices	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_sig_matrices.tf
+;	sig_matrices_split	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_sig_matrices_split_matrix_list.tab
+;	assembly	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm.asmb
+;	log	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_log.txt
+; Number of patterns	1
+; patterns -> assemblies
+/workspace/rsat/perl-scripts/pattern-assembly -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50.tab -2str -maxfl 1 -subst 1 -max_asmb_width 20 -toppat 100 -max_asmb_size 50 -max_asmb_width 20 -max_asmb_nb 2 -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm.asmb
+
+
+/workspace/rsat/perl-scripts/pattern-assembly -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50.tab -2str -maxfl 1 -subst 1 -max_asmb_width 20 -toppat 100 -max_asmb_size 50 -max_asmb_width 20 -max_asmb_nb 2 -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm.asmb
+; Number of assemblies	1
+; Number of assembled patterns	2
+; assemblies -> significance matrices
+/workspace/rsat/perl-scripts/convert-matrix -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm.asmb -from assembly -to tf -return counts -flanks 2 -top 2 -prefix positions_7nt -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_sig_matrices.tf
+
+
+/workspace/rsat/perl-scripts/convert-matrix -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm.asmb -from assembly -to tf -return counts -flanks 2 -top 2 -prefix positions_7nt -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_sig_matrices.tf
+; Rescaling significance matrices
+/workspace/rsat/perl-scripts/convert-matrix -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_sig_matrices.tf -from tf -to tf -return counts -rescale 10 -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_sig_matrices_rescaled.tf
+
+
+/workspace/rsat/perl-scripts/convert-matrix -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_sig_matrices.tf -from tf -to tf -return counts -rescale 10 -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_sig_matrices_rescaled.tf
+
+
+/workspace/rsat/perl-scripts/convert-matrix  -from tf -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_sig_matrices_rescaled.tf -to tab -split  -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_sig_matrices_split; rm -f /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices.txt
+
+; significance matrices + sequences -> sites
+/workspace/rsat/bin/matrix-scan-quick -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta -m /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_sig_matrices_split_positions_7nt.tab -name positions_7nt_m1 -2str -t 5 -return sites -bgfile /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt >> /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_sig_sites.ft
+
+
+/workspace/rsat/bin/matrix-scan-quick -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta -m /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_sig_matrices_split_positions_7nt.tab -name positions_7nt_m1 -2str -t 5 -return sites -bgfile /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt >> /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_sig_sites.ft
+; sites -> transfac matrices
+/workspace/rsat/perl-scripts/convert-matrix -v 0 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_sig_sites.ft -from feature -to transfac -prefix positions_7nt -return counts -return sites -return logo -logo_format png  -logo_file /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices_logo -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices.tf
+
+
+/workspace/rsat/perl-scripts/convert-matrix -v 0 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_sig_sites.ft -from feature -to transfac -prefix positions_7nt -return counts -return sites -return logo -logo_format png  -logo_file /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices_logo -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices.tf
+; transfac-formatted -> tab-formatted matrices
+/workspace/rsat/perl-scripts/convert-matrix -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices.tf -from transfac -to tab -return counts -return sites -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices.txt
+
+
+/workspace/rsat/perl-scripts/convert-matrix -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices.tf -from transfac -to tab -return counts -return sites -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices.txt
+; sites -> count matrices
+/workspace/rsat/perl-scripts/convert-matrix -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices.tf -from tf -to tab -return counts -return sites -return logo -logo_format png -logo_file /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices_logo -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices_links.txt
+
+
+/workspace/rsat/perl-scripts/convert-matrix -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices.tf -from tf -to tab -return counts -return sites -return logo -logo_format png -logo_file /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices_logo -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices_links.txt
+
+
+rm -f /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_sig_sites.ft
+; Host name	rsat-tagc
+; Job started	2019-09-21.214145
+; Job done	2019-09-21.214149
+; Seconds	0.24
+;	user	0.24
+;	system	0.05
+;	cuser	3.76
+;	csystem	0.58

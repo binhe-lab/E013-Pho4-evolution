@@ -1,0 +1,137 @@
+---
+title: "Count CgPho4 binding motif flanking nucleotide frequency"
+output: html_notebook
+author: Bin He
+date: 17 mai 2017
+---
+
+input: tab-delimited spreadsheet containing motif and flanking sequences under the CgPho4 ChIP peaks
+
+## Background & Goal
+
+I want to know the nucleotide (A/T/C/G) frequencies at the flanking nucleotides surrounding the E-box motif. 
+
+In particular, we know that for ScPho4, the 5' T-CACGTG motifs are bound at much lower rate than the A/C/G-CACGTG ones, because Cbf1, another bHLH TF, binds to the 5' T version with high affinity. For CgPho4, we know that it binds to nearly all ScPho4 bound sites, and 50% more. The question is, do CgPho4-specific sites have a different sequence bias compared to the ScPho4-bound ones? 
+
+To answer this question, I first prepared a table with each row corresponding to an E-box motif underneath a CgPho4 ChIP peak. In that row, I included the DNA sequences of the E-box motif "CACGTG" (invariable) as well as the 5bp flanking sequences on each side.
+
+Now the goal is to parse that spreadsheet and output the count matrix at each flanking nucleotide position (we name them after Sebastian Maerkl's 2007 paper, i.e. position -3 ~ 3 represent the core motif, and the 5' flanking positions are called -4, -5, etc. and vice versa)
+
+## Analysis 
+
+```{r load_libraries, message=FALSE}
+library(data.table)
+library(GenomicRanges)
+library(RWebLogo)
+```
+
+```{r define_functions}
+myFreq <- function( seq, a=6, b=11 ){
+  # goal: count frequencies at flanking nucleotides
+  # input: a vector of sequences pre-aligned, with the 6bp E-box in the middle and 5 flanking nucleotides on each side
+  # parameter: a indicates the position in the sequence that corresponds to the beginning of the E-box, while b for the end
+  # output: a matrix with four rows and ten columns. Each row represents one nucleotide (a/t/c/g) and each column for one of the ten flanking nucleotides
+  split <- strsplit(seq, split = "") # a list of vectors of single letters
+  factor <- factor( unlist(split), levels = c("a","t","c","g") )
+  mat <- matrix( as.numeric(factor), nrow = length(seq), byrow = T )
+  mat <- mat[,-c(a:b)]
+  c <- apply( mat, 2, tabulate )
+  rownames(c) <- c("a","t","c","g")
+  colnames(c) <- as.character(c(-8:-4,4:8))
+  freq <- round(c / length(seq) * 100, 0)
+  return( freq )
+}
+
+```
+
+### CgPho4 binding sites in _S. cerevisiae_
+
+```{r CgPho4_sites_in_Scer}
+# load data
+chip <- fread("../data/20170107_ChIP_stats_in_Scer.txt")
+chip <- chip[-23] # remove an overlapping range
+motif.seq <- fread("../output/table_output/20170517_CgPho4_motif_seq_under_peak_in_Scer.txt", skip = "#")
+
+# map columns from chip to motif.seq using GRanges
+## build GRanges objects
+chip.gr <- with(chip, GRanges( seqnames = CHR, ranges = IRanges( start = START, end = END ) ))
+
+motif.gr <- with(motif.seq, GRanges( seqnames = SEQ_NAME, ranges = IRanges( start = START, end = END ) ))
+
+## find overlaps
+map <- findOverlaps( motif.gr, chip.gr, type = "within")
+
+## merge
+bound <- chip[subjectHits(map), .(ScPho4.bound, CgPho4.bound)]
+motif.tab <- cbind(motif.seq, bound)
+
+## Calculate flanking nucleotides frequency
+seq <- list( 
+  all.sc4 = motif.tab[CgPho4.bound & ScPho4.bound, SEQUENCE], 
+  all.cg4 = motif.tab[,SEQUENCE],
+  cg4.only = motif.tab[CgPho4.bound & !ScPho4.bound, SEQUENCE]
+  )
+
+freq <- lapply(seq, myFreq)
+print( freq )
+```
+> CgPho4-specific sites have even lower "A/T" ratio at the -4 and +4 sites compared to sites bound by both ScPho4 and CgPho4.
+
+```{r genome_wide_E-box_motif_comparison}
+# first I need to import Xu's mmc2 data
+xu.mmc2 <- read.table("./input/20160903_mmc2_Zhou_2011_data_in_Sac03.csv",header = TRUE, as.is = TRUE, sep = "\t")
+names(xu.mmc2)[32:33] <- paste(c("Pho4","Pho2"),"Recruitment.no.vs.hiPi",sep = ".")
+## remove rows with no ChIP data
+xu.mmc2 <- subset(xu.mmc2, Alignability != 0)
+
+# then I need to construct a location set based on the motif locations, expanding each to include the E-box and 5bp flanking sequences on both ends
+xu.gr <- with( xu.mmc2, GRanges(seqnames = CHR, ranges = IRanges(Location-2-5,Location+3+5), Bound4 = (Pho4.binding.No.Pi == 1)) ) # Location is set on N~4~, and the range is now expanded to include the whole E-box as well as 5bp flanking nucleotides
+
+## convert the GRanges object to a data.frame and write the result into a text file
+## allMotif <- data.frame(SEQ_NAME = seqnames(xu.gr), START = start(xu.gr), END = end(xu.gr)) # convert to data.frame
+## write.table(allMotif, "./table_output/20170518_all_CACGTG_motifs_in_Scer.txt", sep = "\t", row.names = FALSE, quote = FALSE)
+
+## In MochiView: import the file generated above and use the export->Locations function to export the sequences based on the locations
+## The output is then processed in Vim to make the flanking nucleotides appear as lower cases, to be compatible with myFreq()
+## It was additionally sorted in LibreOffice Calc to make the chromosome in natural order (Chr1, 2, etc. instead of Chr1, 10, 11, etc)
+
+# Re-import the sequence set
+allMotif.seq <- fread("./input/20170518_all_Ebox_with_5bp_flanking.txt")
+
+## merge into xu.mmc2
+allMotif.tab <- data.table(xu.mmc2, SEQUENCE = allMotif.seq$SEQ)
+
+seq$all.motif <- allMotif.seq$SEQ
+freq$all.motif <- myFreq(seq$all.motif)
+
+seq$nucleosome.low.25pc <- allMotif.tab[Nucleosome.High.Pi <= quantile(Nucleosome.High.Pi, prob = 0.25), SEQUENCE]
+freq$nucleosome.low.25pc <- myFreq(seq$nucleosome.low.25pc)
+
+seq$Cbf1 <- allMotif.tab[Nucleosome.High.Pi <= quantile(Nucleosome.High.Pi, prob = 0.25) & Cbf1.binding.High.Pi != 0, SEQUENCE]
+freq$Cbf1 <- myFreq(seq$Cbf1)
+
+## print result
+print(freq)
+```
+
+```{r plot_weblogo}
+# test with all CgPho4 bound sequences
+weblogo(seqs = seq$all.cg4, file.out = "./figure_output/20190223_CgPho4_all_Scer_weblogo.png", format = "png", errorbars = FALSE, yaxis = 2.4, composition = 'S. cerevisiae', fineprint = "CgPho4 all in Scer")
+
+# test with ScPho4 bound sequences
+weblogo(seqs = seq$all.sc4, file.out = "./figure_output/20190223_ScPho4_all_Scer_weblogo.png", format = "png", errorbars = FALSE, yaxis = 2.4, composition = 'S. cerevisiae', fineprint = "ScPho4 all in Scer")
+
+# test with CgPho4 specific binding sequences
+weblogo(seqs = seq$cg4.only, file.out = "./figure_output/20190223_CgPho4_specific_Scer_weblogo.png", format = "png", errorbars = FALSE, yaxis = 2.4, composition = 'S. cerevisiae', fineprint = "CgPho4 specific in Scer")
+
+# test with all E-box motifs
+weblogo(seqs = seq$all.motif, file.out = "./figure_output/20190223_all_motif_Scer_weblogo.png", format = "png", errorbars = FALSE, yaxis = 2.4, composition = 'S. cerevisiae', fineprint = "all E-box motif in Scer")
+
+# test with lower 2.45% nucleosome occupied sites
+weblogo(seqs = seq$nucleosome.low.25pc, file.out = "./figure_output/20190223_low_25pc_nucleosome_Scer_weblogo.png", format = "png", errorbars = FALSE, yaxis = 2.4, composition = 'S. cerevisiae', fineprint = "Lower 25% nucleosome occupied E-box in Scer")
+
+# test with Cbf1 bound sites
+weblogo(seqs = seq$Cbf1, file.out = "./figure_output/20190223_Cbf1_all_Scer_weblogo.png", format = "png", errorbars = FALSE, yaxis = 2.4, composition = 'S. cerevisiae', fineprint = "Cbf1 bound in Scer")
+```
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file).

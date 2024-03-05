@@ -1,0 +1,100 @@
+; matrix-scan  -quick -v 1 -seq_format fasta -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta -matrix_format transfac -m $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2.tf -bg_format inclusive -bgfile $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt -pseudo 1 -2str -decimals 1 -bg_pseudo 0.01 -n score -lth score 7.5 -origin center -offset 0 -return sites -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_sites.tab
+; Quick counting mode           
+; Input files
+;	input	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta
+;	bg	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt
+; Matrix files
+;	matrix 1	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2.tf
+; Sequence format      	fasta
+; Output files
+;	output	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_sites.tab
+; Pseudo counts        	1
+; Background model
+;	Method        	file
+;	Markov order  	1
+;	Strand        	undef
+;	Background pseudo-frequency	0.01
+;	Residue probabilities
+;		a	0.29151
+;		c	0.20851
+;		g	0.20711
+;		t	0.29287
+; Thresholds	lower	upper
+;	score 	7.5  	NA
+; Output columns
+;	1	seq_id
+;	2	ft_type
+;	3	ft_name
+;	4	strand
+;	5	start
+;	6	end
+;	7	sequence
+;	8	weight
+#seq_id	ft_type	ft_name	strand	start	end	sequence	weight
+chr1:141266-142264	site	positions_6nt_m2	R	241	250	TCTTCAAAGG	7.7
+chr1:141266-142264	site	positions_6nt_m2	R	439	448	GTTTCAAAGT	7.5
+chr10:159600-160598	site	positions_6nt_m2	D	59	68	TTTTCAAATG	7.6
+chr10:313049-314047	site	positions_6nt_m2	D	-152	-143	CCTTCAAATA	7.9
+chr10:544945-545943	site	positions_6nt_m2	R	394	403	GTTTCAAAGT	7.5
+chr11:341603-342602	site	positions_6nt_m2	D	215	224	TCTTCAAATA	7.9
+chr11:526478-527476	site	positions_6nt_m2	D	-442	-433	TTTTCAAATA	7.8
+chr12:416455-417453	site	positions_6nt_m2	R	194	203	GGTTCAAACG	7.6
+chr13:109660-110034	site	positions_6nt_m2	R	-8	1	TGTTCAAATA	7.6
+chr13:652499-653497	site	positions_6nt_m2	R	-173	-164	ACTTCAAAAG	7.5
+chr13:652499-653497	site	positions_6nt_m2	R	-100	-91	TGTTCAAATA	7.6
+chr13:688656-689654	site	positions_6nt_m2	D	75	84	GTTTCAAAAA	7.5
+chr13:773266-774264	site	positions_6nt_m2	D	48	57	ACTTCAAATG	7.6
+chr14:477612-478610	site	positions_6nt_m2	D	-404	-395	CCTTCAAATG	7.7
+chr14:727718-728716	site	positions_6nt_m2	D	-235	-226	GTTTCAAATA	8.1
+chr14:738508-739506	site	positions_6nt_m2	D	-370	-361	TTTTCAAACG	7.7
+chr15:49849-50847	site	positions_6nt_m2	D	-374	-365	ACTTCAAACG	7.7
+chr15:49849-50847	site	positions_6nt_m2	R	-46	-37	TTTTCAAATA	7.8
+chr15:49849-50847	site	positions_6nt_m2	D	394	403	CTTTCAAATA	8.0
+chr15:217094-218092	site	positions_6nt_m2	R	-236	-227	GTTTCAAATG	7.9
+chr15:677087-678085	site	positions_6nt_m2	D	451	460	GTTTCAAATG	7.9
+chr15:978654-979652	site	positions_6nt_m2	D	-341	-332	GTTTCAAAAG	7.8
+chr16:74483-75481	site	positions_6nt_m2	R	-332	-323	TTTTCAAACG	7.7
+chr16:344623-345621	site	positions_6nt_m2	D	475	484	CTTTCAAATA	8.0
+chr2:431047-431567	site	positions_6nt_m2	R	67	76	ACTTCAAACG	7.7
+chr3:136606-137604	site	positions_6nt_m2	D	-335	-326	CCTTCAAAGA	7.6
+chr3:136606-137604	site	positions_6nt_m2	D	372	381	CTTTCAAACA	7.6
+chr3:208385-209383	site	positions_6nt_m2	D	449	458	CCTTCAAAAG	7.6
+chr3:298522-299520	site	positions_6nt_m2	R	235	244	GTTTCAAAAG	7.8
+chr4:273363-274361	site	positions_6nt_m2	D	-337	-328	TTTTCAAATG	7.6
+chr4:538716-539714	site	positions_6nt_m2	R	480	489	TTTTCAAAAG	7.6
+chr4:562079-563077	site	positions_6nt_m2	D	434	443	TTTTCAAATG	7.6
+chr4:562386-563384	site	positions_6nt_m2	D	127	136	TTTTCAAATG	7.6
+chr4:622704-623702	site	positions_6nt_m2	D	-359	-350	CTTTCAAACA	7.6
+chr4:622704-623702	site	positions_6nt_m2	D	-185	-176	ACTTCAAAGG	7.5
+chr4:635451-636449	site	positions_6nt_m2	D	-206	-197	ATTTCAAAGA	7.5
+chr4:1386886-1387884	site	positions_6nt_m2	R	82	91	CCTTCAAATG	7.7
+chr4:1420183-1421181	site	positions_6nt_m2	D	-419	-410	CGTTCAAATA	7.8
+chr5:191432-192430	site	positions_6nt_m2	R	-106	-97	TCTTCAAATA	7.9
+chr5:257661-258659	site	positions_6nt_m2	D	-415	-406	ATTTCAAAAG	7.6
+chr5:265410-266408	site	positions_6nt_m2	D	-82	-73	TTTTCAAAGA	7.5
+chr5:562179-563177	site	positions_6nt_m2	R	-201	-192	TTTTCAAAGA	7.5
+chr6:73390-74388	site	positions_6nt_m2	R	227	236	CTTTCAAAAG	7.8
+chr6:254906-255904	site	positions_6nt_m2	D	111	120	GTTTCAAAGG	7.8
+chr7:999675-1000673	site	positions_6nt_m2	R	191	200	ATTTCAAACG	7.7
+chr8:174731-175729	site	positions_6nt_m2	R	138	147	TTTTCAAATG	7.6
+chr8:235578-236576	site	positions_6nt_m2	R	-107	-98	TCTTCAAAGG	7.7
+chr9:332767-333766	site	positions_6nt_m2	R	-15	-6	CGTTCAAATG	7.6
+;
+; Matrices
+;	matrix	name            	ncol	nrow	pseudo	Wmin	Wmax	Wrange
+;	1	positions_6nt_m2	10	4	0	-31.100	8.600	39.700	a:0.292 c:0.209 g:0.207 t:0.293 
+; Number of sequences scanned	118
+; Sum of sequence lengths	110392
+; N residues           	0
+; Matches per matrix
+;	matrix	name            	matches	scored
+;	1	positions_6nt_m2	48	0
+;		TOTAL          	48	0
+; Host name	rsat-tagc
+; Job started	2019-09-21.214214
+; Job done	2019-09-21.214214
+; Seconds	0.38
+;	user	0.38
+;	system	0.06
+;	cuser	0.25
+;	csystem	0.07

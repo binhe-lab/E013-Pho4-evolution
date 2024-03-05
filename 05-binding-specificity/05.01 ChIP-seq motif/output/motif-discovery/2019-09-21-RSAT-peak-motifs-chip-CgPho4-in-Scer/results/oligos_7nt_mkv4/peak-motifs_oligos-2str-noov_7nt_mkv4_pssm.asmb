@@ -1,0 +1,29 @@
+; pattern-assembly  -v 1 -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4.tab -2str -maxfl 1 -subst 1 -max_asmb_width 20 -toppat 100 -max_asmb_size 50 -max_asmb_width 20 -max_asmb_nb 2 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm.asmb
+; Input file	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4.tab
+; Output file	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm.asmb
+; Input score column           	8
+; Output score column          	0
+; Strand-insensitive assembly
+; Max flanking bases           	1
+; Max substitutions            	1
+; Min matches                  	0
+; Min weight                   	0
+; Max assembly size            	50
+; Max assembly width           	20
+; Top number of patterns       	100
+; Number of input patterns     	1
+;
+
+; assembly # 1	seed: cacgtgc	2 assembled patterns	length 8
+; alignt	 rev_cpl	score
+gcacgtg.	.cacgtgc	2.35
+.cacgtgc	gcacgtg.	2.35
+gcacgtgc	gcacgtgc	2.35	best consensus
+; Host name	rsat-tagc
+; Job started	2019-09-21.214112
+; Job done	2019-09-21.214112
+; Seconds	0.26
+;	user	0.26
+;	system	0.03
+;	cuser	0
+;	csystem	0

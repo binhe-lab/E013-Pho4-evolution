@@ -1,0 +1,457 @@
+; 2019-09-21.214042
+peak-motifs  -v 1 -title CgPho4_ChIP_in_Scer -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/peak-motifspeak_seq.masked -max_seq_len 1000 -markov auto -disco oligos,positions -nmotifs 2 -minol 6 -maxol 7 -no_merge_lengths -2str -origin center -scan_markov 1 -task purge,seqlen,composition,disco,merge_motifs,split_motifs,motifs_vs_motifs,timelog,archive,synthesis,small_summary,scan -prefix peak-motifs -noov -img_format png -outdir $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T
+
+
+
+; 2019-09-21.214042
+rsync -ruptl $RSAT/perl-scripts/lib/images/arrow*.gif $RSAT/perl-scripts/lib/images/UCSC_icon.jpg  $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/images_html
+
+
+; 2019-09-21.214042
+$RSAT/perl-scripts/convert-seq -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/peak-motifspeak_seq.masked -from fasta -to fasta -mask non-dna| $RSAT/perl-scripts/sub-sequence -origin center -from -500 -to 499 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta
+
+
+; 2019-09-21.214043
+$RSAT/perl-scripts/purge-sequence -dna -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta -ml 40 -mis 3 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000_purged_ml40_mis3.fasta
+
+
+; 2019-09-21.214043
+$RSAT/perl-scripts/sequence-lengths -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000_purged_ml40_mis3.fasta -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_seqlen.tab ; $RSAT/perl-scripts/classfreq -v 1 -col 2 -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_seqlen.tab -ci 20 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_seqlen_distrib.tab
+
+
+; 2019-09-21.214044
+$RSAT/perl-scripts/XYgraph -lines -pointsize 0 -format png -title 'Peak lengths; CgPho4_ChIP_in_Scer' -xsize 700 -xcol 3 -xleg1 'Peak length' -ysize 250 -ycol 4 -yleg1 'Number of peaks' -xmin 0 -ymin 0 -xgstep2 20 -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_seqlen_distrib.tab -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_seqlen_distrib.png
+
+
+; 2019-09-21.214044
+time -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_freq-1str-ovlp_1nt.tab_time.txt $RSAT/bin/count-words -v 1 -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000_purged_ml40_mis3.fasta -l 1 -1str > $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_freq-1str-ovlp_1nt.tab
+
+
+; 2019-09-21.214044
+$RSAT/perl-scripts/convert-background-model -from oligos -to inclusive  -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_freq-1str-ovlp_1nt.tab -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_1nt.txt; $RSAT/perl-scripts/convert-background-model -from oligos -to transitions  -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_freq-1str-ovlp_1nt.tab -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_transitions-1str-ovlp_1nt.tab ; cut -f 1-5,7 $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_transitions-1str-ovlp_1nt.tab | $RSAT/perl-scripts/draw-heatmap -min 0 -max 1 -digits 3 -out_format png -col_width 50 -rownames -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_heatmap-1str-ovlp_1nt.png
+
+
+; 2019-09-21.214045
+time -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_freq-1str-ovlp_2nt.tab_time.txt $RSAT/bin/count-words -v 1 -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000_purged_ml40_mis3.fasta -l 2 -1str > $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_freq-1str-ovlp_2nt.tab
+
+
+; 2019-09-21.214045
+$RSAT/perl-scripts/convert-background-model -from oligos -to inclusive  -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_freq-1str-ovlp_2nt.tab -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt; $RSAT/perl-scripts/convert-background-model -from oligos -to transitions  -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_freq-1str-ovlp_2nt.tab -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_transitions-1str-ovlp_2nt.tab ; cut -f 1-5,7 $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_transitions-1str-ovlp_2nt.tab | $RSAT/perl-scripts/draw-heatmap -min 0 -max 1 -digits 3 -out_format png -col_width 50 -rownames -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_heatmap-1str-ovlp_2nt.png
+
+
+; 2019-09-21.214046
+time -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_profiles-1str-ovlp_1nt_ci20.tab_time.txt $RSAT/perl-scripts/position-analysis -v 1 -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000_purged_ml40_mis3.fasta -format fasta -sort  -return html,chi,sig,distrib,graphs,rank,index -max_graphs 20 -1str -ovlp -seqtype dna -l 1 -ci 20 -img_format png -title 'CgPho4_ChIP_in_Scer' -origin center -offset 0 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_profiles-1str-ovlp_1nt_ci20.tab
+
+
+; 2019-09-21.214050
+grep -v ";" $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_profiles-1str-ovlp_1nt_ci20.tab | cut -f 1,10-10000 | $RSAT/perl-scripts/transpose-table | $RSAT/perl-scripts/XYgraph -xcol 1 -ycol 2-5 -xgstep2 20 -vline '#666666' 0 -xsize 700 -ysize 250 -format png -legend -lines -pointsize 0 -legend -header -colors $RSAT/perl-scripts/lib/color_palettes/1nt-1str_colors.tab -title 'Nucleotide composition profiles; test sequence; CgPho4_ChIP_in_Scer' -xleg1 'Position' -xsize 700 -yleg1 'Occurrences' -ysize 250  -ymin 0 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_profiles-1str-ovlp_1nt_ci20.png
+
+
+; 2019-09-21.214050
+time -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_profiles-1str-ovlp_2nt_ci20.tab_time.txt $RSAT/perl-scripts/position-analysis -v 1 -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000_purged_ml40_mis3.fasta -format fasta -sort  -return html,chi,sig,distrib,graphs,rank,index -max_graphs 20 -1str -ovlp -seqtype dna -l 2 -ci 20 -img_format png -title 'CgPho4_ChIP_in_Scer' -origin center -offset 0 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_profiles-1str-ovlp_2nt_ci20.tab
+
+
+; 2019-09-21.214059
+grep -v ";" $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_profiles-1str-ovlp_2nt_ci20.tab | cut -f 1,10-10000 | $RSAT/perl-scripts/transpose-table | $RSAT/perl-scripts/XYgraph -xcol 1 -ycol 2-17 -xgstep2 20 -vline '#666666' 0 -xsize 700 -ysize 250 -format png -legend -lines -pointsize 0 -legend -header -colors $RSAT/perl-scripts/lib/color_palettes/2nt-1str_colors.tab -title 'Dinucleotide composition profiles; test sequence; CgPho4_ChIP_in_Scer' -xleg1 'Position' -xsize 700 -yleg1 'Occurrences' -ysize 250  -ymin 0 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_profiles-1str-ovlp_2nt_ci20.png
+
+
+; 2019-09-21.214059
+time -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_6nt_mkv3/peak-motifs_oligos-2str-noov_6nt_mkv3.tab_time.txt $RSAT/perl-scripts/oligo-analysis -v 1 -quick -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000_purged_ml40_mis3.fasta -format fasta -sort -lth ratio 1 -lth occ_sig 0 -uth rank 100 -return occ,proba,rank -2str -noov -seqtype dna -l 6 -markov 3 -pseudo 0.01 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_6nt_mkv3/peak-motifs_oligos-2str-noov_6nt_mkv3.tab
+
+
+; 2019-09-21.214101
+time -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_6nt_mkv3/peak-motifs_oligos-2str-noov_6nt_mkv3_pssm_time.txt $RSAT/perl-scripts/matrix-from-patterns -v 1  -sites -seq $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta -pl $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_6nt_mkv3/peak-motifs_oligos-2str-noov_6nt_mkv3.tab -bgfile $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt -toppat 100 -max_asmb_nb 2 -max_asmb_width 20 -subst 1 -prefix oligos_6nt_mkv3 -flanks 2 -collect_method matrix-scan-quick -logo -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_6nt_mkv3/peak-motifs_oligos-2str-noov_6nt_mkv3_pssm
+
+
+; 2019-09-21.214108
+time -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4.tab_time.txt $RSAT/perl-scripts/oligo-analysis -v 1 -quick -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000_purged_ml40_mis3.fasta -format fasta -sort -lth ratio 1 -lth occ_sig 0 -uth rank 100 -return occ,proba,rank -2str -noov -seqtype dna -l 7 -markov 4 -pseudo 0.01 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4.tab
+
+
+; 2019-09-21.214111
+time -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_time.txt $RSAT/perl-scripts/matrix-from-patterns -v 1  -sites -seq $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta -pl $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4.tab -bgfile $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt -toppat 100 -max_asmb_nb 2 -max_asmb_width 20 -subst 1 -prefix oligos_7nt_mkv4 -flanks 2 -collect_method matrix-scan-quick -logo -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm
+
+
+; 2019-09-21.214116
+time -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50.tab_time.txt $RSAT/perl-scripts/position-analysis -v 1 -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000_purged_ml40_mis3.fasta -format fasta -sort  -return chi,sig,rank,distrib,index -max_graphs 100 -2str -noov -seqtype dna -l 6 -ci 50 -lth_occ 1 -lth_sig 0 -uth_rank 100 -img_format png -title 'CgPho4_ChIP_in_Scer' -origin center -offset 0 -max_graphs 20 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50.tab
+
+
+; 2019-09-21.214122
+time -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50_pssm_time.txt $RSAT/perl-scripts/matrix-from-patterns -v 1  -sites -seq $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta -pl $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50.tab -bgfile $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt -toppat 100 -max_asmb_nb 2 -max_asmb_width 20 -subst 1 -prefix positions_6nt -flanks 2 -collect_method matrix-scan-quick -logo -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50_pssm
+
+
+; 2019-09-21.214128
+time -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50.tab_time.txt $RSAT/perl-scripts/position-analysis -v 1 -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000_purged_ml40_mis3.fasta -format fasta -sort  -return chi,sig,rank,distrib,index -max_graphs 100 -2str -noov -seqtype dna -l 7 -ci 50 -lth_occ 1 -lth_sig 0 -uth_rank 100 -img_format png -title 'CgPho4_ChIP_in_Scer' -origin center -offset 0 -max_graphs 20 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50.tab
+
+
+; 2019-09-21.214145
+time -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_time.txt $RSAT/perl-scripts/matrix-from-patterns -v 1  -sites -seq $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta -pl $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50.tab -bgfile $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt -toppat 100 -max_asmb_nb 2 -max_asmb_width 20 -subst 1 -prefix positions_7nt -flanks 2 -collect_method matrix-scan-quick -logo -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm
+
+
+; 2019-09-21.214149
+rm -f $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_discovered.tf; cat $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_6nt_mkv3/peak-motifs_oligos-2str-noov_6nt_mkv3_pssm_count_matrices.tf >> $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_discovered.tf; cat $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50_pssm_count_matrices.tf >> $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_discovered.tf; cat $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices.tf >> $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_discovered.tf; cat $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices.tf >> $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_discovered.tf
+
+
+; 2019-09-21.214149
+$RSAT/perl-scripts/convert-matrix -v 0 -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1.tf -from transfac -to tab -return counts -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1.tab
+
+
+; 2019-09-21.214150
+$RSAT/perl-scripts/convert-matrix -v 0 -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2.tf -from transfac -to tab -return counts -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2.tab
+
+
+; 2019-09-21.214150
+$RSAT/perl-scripts/convert-matrix -v 0 -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1.tf -from transfac -to tab -return counts -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1.tab
+
+
+; 2019-09-21.214151
+$RSAT/perl-scripts/convert-matrix -v 0 -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2.tf -from transfac -to tab -return counts -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2.tab
+
+
+; 2019-09-21.214151
+$RSAT/perl-scripts/convert-matrix -v 0 -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4.tf -from transfac -to tab -return counts -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4.tab
+
+
+; 2019-09-21.214151
+$RSAT/perl-scripts/convert-matrix -v 0 -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt.tf -from transfac -to tab -return counts -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt.tab
+
+
+; 2019-09-21.214152
+$RSAT/perl-scripts/compare-matrices -v 1 -format transfac -file $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_discovered.tf -distinct -mode matches -strand DR -uth offset_rank 1 -lth w 5 -lth Wr 0.3 -lth cor 0.7 -lth Ncor 0.4 -return matrix_name,matrix_id,cor,Ncor,width,strand,offset,alignments_1ton -sort Ncor -quick -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_disco_compa.tab; $RSAT/perl-scripts/text-to-html -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_disco_compa.tab -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_disco_compa.html
+
+
+; 2019-09-21.214206
+$RSAT/perl-scripts/convert-graph -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_disco_compa.tab -ewidth -ecolors fire -layout spring -from tab -to gml -scol 3 -tcol 4 -wcol 5 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_disco_compa.gml
+
+
+; 2019-09-21.214206
+time -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_sites.tab_time.txt $RSAT/perl-scripts/matrix-scan -quick -v 1 -seq_format fasta -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta -matrix_format transfac -m $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1.tf -bg_format inclusive -bgfile $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt  -pseudo 1 -2str -decimals 1 -bg_pseudo 0.01 -n score  -lth score 7.5 -origin center -offset 0 -return sites -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_sites.tab
+
+
+; 2019-09-21.214207
+grep -v '^;' $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_sites.tab | grep -v '^#' | awk '{print ($6+$5)/2}' | $RSAT/perl-scripts/classfreq -v 1 -ci 20 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_site_distrib.tab
+
+
+; 2019-09-21.214208
+$RSAT/perl-scripts/XYgraph -format png -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_site_distrib.tab -lines -xcol 3 -ycol 4 -ysize 250 -ycol 4 -yleg1 'Number of sites' -xsize 600 -xcol 3 -xleg1 'Position relative to sequence center' -xgstep2 20 -vline '#666666' 0 -title1 'Predicted sites : oligos_6nt_mkv3_m1' -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_site_distrib.png
+
+
+; 2019-09-21.214208
+$RSAT/perl-scripts/contingency-table -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_sites.tab | $RSAT/perl-scripts/classfreq -v 1 -ci 1 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_sites_per_peak.tab
+
+
+; 2019-09-21.214208
+$RSAT/perl-scripts/XYgraph -format png -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_sites_per_peak.tab -lines -xcol 1 -ycol 4  -xsize 500 -xcol 1 -xleg1 'Number of sites' -ysize 250 -ycol 4,6 -yleg1 'Number of peaks' -legend -xgstep1 5 -xgstep2 1 -title1 'Nb predicted sites : oligos_6nt_mkv3_m1' -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_sites_per_peak.png
+
+
+; 2019-09-21.214209
+time -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_sites.tab_time.txt $RSAT/perl-scripts/matrix-scan -quick -v 1 -seq_format fasta -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta -matrix_format transfac -m $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2.tf -bg_format inclusive -bgfile $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt  -pseudo 1 -2str -decimals 1 -bg_pseudo 0.01 -n score  -lth score 7.5 -origin center -offset 0 -return sites -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_sites.tab
+
+
+; 2019-09-21.214210
+grep -v '^;' $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_sites.tab | grep -v '^#' | awk '{print ($6+$5)/2}' | $RSAT/perl-scripts/classfreq -v 1 -ci 20 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_site_distrib.tab
+
+
+; 2019-09-21.214210
+$RSAT/perl-scripts/XYgraph -format png -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_site_distrib.tab -lines -xcol 3 -ycol 4 -ysize 250 -ycol 4 -yleg1 'Number of sites' -xsize 600 -xcol 3 -xleg1 'Position relative to sequence center' -xgstep2 20 -vline '#666666' 0 -title1 'Predicted sites : oligos_6nt_mkv3_m2' -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_site_distrib.png
+
+
+; 2019-09-21.214210
+$RSAT/perl-scripts/contingency-table -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_sites.tab | $RSAT/perl-scripts/classfreq -v 1 -ci 1 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_sites_per_peak.tab
+
+
+; 2019-09-21.214211
+$RSAT/perl-scripts/XYgraph -format png -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_sites_per_peak.tab -lines -xcol 1 -ycol 4  -xsize 500 -xcol 1 -xleg1 'Number of sites' -ysize 250 -ycol 4,6 -yleg1 'Number of peaks' -legend -xgstep1 5 -xgstep2 1 -title1 'Nb predicted sites : oligos_6nt_mkv3_m2' -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_sites_per_peak.png
+
+
+; 2019-09-21.214211
+time -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_sites.tab_time.txt $RSAT/perl-scripts/matrix-scan -quick -v 1 -seq_format fasta -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta -matrix_format transfac -m $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1.tf -bg_format inclusive -bgfile $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt  -pseudo 1 -2str -decimals 1 -bg_pseudo 0.01 -n score  -lth score 7.5 -origin center -offset 0 -return sites -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_sites.tab
+
+
+; 2019-09-21.214212
+grep -v '^;' $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_sites.tab | grep -v '^#' | awk '{print ($6+$5)/2}' | $RSAT/perl-scripts/classfreq -v 1 -ci 20 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_site_distrib.tab
+
+
+; 2019-09-21.214212
+$RSAT/perl-scripts/XYgraph -format png -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_site_distrib.tab -lines -xcol 3 -ycol 4 -ysize 250 -ycol 4 -yleg1 'Number of sites' -xsize 600 -xcol 3 -xleg1 'Position relative to sequence center' -xgstep2 20 -vline '#666666' 0 -title1 'Predicted sites : positions_6nt_m1' -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_site_distrib.png
+
+
+; 2019-09-21.214213
+$RSAT/perl-scripts/contingency-table -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_sites.tab | $RSAT/perl-scripts/classfreq -v 1 -ci 1 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_sites_per_peak.tab
+
+
+; 2019-09-21.214213
+$RSAT/perl-scripts/XYgraph -format png -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_sites_per_peak.tab -lines -xcol 1 -ycol 4  -xsize 500 -xcol 1 -xleg1 'Number of sites' -ysize 250 -ycol 4,6 -yleg1 'Number of peaks' -legend -xgstep1 5 -xgstep2 1 -title1 'Nb predicted sites : positions_6nt_m1' -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_sites_per_peak.png
+
+
+; 2019-09-21.214214
+time -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_sites.tab_time.txt $RSAT/perl-scripts/matrix-scan -quick -v 1 -seq_format fasta -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta -matrix_format transfac -m $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2.tf -bg_format inclusive -bgfile $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt  -pseudo 1 -2str -decimals 1 -bg_pseudo 0.01 -n score  -lth score 7.5 -origin center -offset 0 -return sites -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_sites.tab
+
+
+; 2019-09-21.214215
+grep -v '^;' $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_sites.tab | grep -v '^#' | awk '{print ($6+$5)/2}' | $RSAT/perl-scripts/classfreq -v 1 -ci 20 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_site_distrib.tab
+
+
+; 2019-09-21.214215
+$RSAT/perl-scripts/XYgraph -format png -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_site_distrib.tab -lines -xcol 3 -ycol 4 -ysize 250 -ycol 4 -yleg1 'Number of sites' -xsize 600 -xcol 3 -xleg1 'Position relative to sequence center' -xgstep2 20 -vline '#666666' 0 -title1 'Predicted sites : positions_6nt_m2' -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_site_distrib.png
+
+
+; 2019-09-21.214215
+$RSAT/perl-scripts/contingency-table -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_sites.tab | $RSAT/perl-scripts/classfreq -v 1 -ci 1 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_sites_per_peak.tab
+
+
+; 2019-09-21.214216
+$RSAT/perl-scripts/XYgraph -format png -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_sites_per_peak.tab -lines -xcol 1 -ycol 4  -xsize 500 -xcol 1 -xleg1 'Number of sites' -ysize 250 -ycol 4,6 -yleg1 'Number of peaks' -legend -xgstep1 5 -xgstep2 1 -title1 'Nb predicted sites : positions_6nt_m2' -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_sites_per_peak.png
+
+
+; 2019-09-21.214216
+time -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_sites.tab_time.txt $RSAT/perl-scripts/matrix-scan -quick -v 1 -seq_format fasta -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta -matrix_format transfac -m $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4.tf -bg_format inclusive -bgfile $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt  -pseudo 1 -2str -decimals 1 -bg_pseudo 0.01 -n score  -lth score 7.5 -origin center -offset 0 -return sites -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_sites.tab
+
+
+; 2019-09-21.214217
+grep -v '^;' $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_sites.tab | grep -v '^#' | awk '{print ($6+$5)/2}' | $RSAT/perl-scripts/classfreq -v 1 -ci 20 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_site_distrib.tab
+
+
+; 2019-09-21.214217
+$RSAT/perl-scripts/XYgraph -format png -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_site_distrib.tab -lines -xcol 3 -ycol 4 -ysize 250 -ycol 4 -yleg1 'Number of sites' -xsize 600 -xcol 3 -xleg1 'Position relative to sequence center' -xgstep2 20 -vline '#666666' 0 -title1 'Predicted sites : oligos_7nt_mkv4' -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_site_distrib.png
+
+
+; 2019-09-21.214218
+$RSAT/perl-scripts/contingency-table -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_sites.tab | $RSAT/perl-scripts/classfreq -v 1 -ci 1 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_sites_per_peak.tab
+
+
+; 2019-09-21.214218
+$RSAT/perl-scripts/XYgraph -format png -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_sites_per_peak.tab -lines -xcol 1 -ycol 4  -xsize 500 -xcol 1 -xleg1 'Number of sites' -ysize 250 -ycol 4,6 -yleg1 'Number of peaks' -legend -xgstep1 5 -xgstep2 1 -title1 'Nb predicted sites : oligos_7nt_mkv4' -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_sites_per_peak.png
+
+
+; 2019-09-21.214218
+time -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_sites.tab_time.txt $RSAT/perl-scripts/matrix-scan -quick -v 1 -seq_format fasta -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta -matrix_format transfac -m $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt.tf -bg_format inclusive -bgfile $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt  -pseudo 1 -2str -decimals 1 -bg_pseudo 0.01 -n score  -lth score 7.5 -origin center -offset 0 -return sites -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_sites.tab
+
+
+; 2019-09-21.214219
+grep -v '^;' $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_sites.tab | grep -v '^#' | awk '{print ($6+$5)/2}' | $RSAT/perl-scripts/classfreq -v 1 -ci 20 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_site_distrib.tab
+
+
+; 2019-09-21.214220
+$RSAT/perl-scripts/XYgraph -format png -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_site_distrib.tab -lines -xcol 3 -ycol 4 -ysize 250 -ycol 4 -yleg1 'Number of sites' -xsize 600 -xcol 3 -xleg1 'Position relative to sequence center' -xgstep2 20 -vline '#666666' 0 -title1 'Predicted sites : positions_7nt' -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_site_distrib.png
+
+
+; 2019-09-21.214220
+$RSAT/perl-scripts/contingency-table -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_sites.tab | $RSAT/perl-scripts/classfreq -v 1 -ci 1 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_sites_per_peak.tab
+
+
+; 2019-09-21.214220
+$RSAT/perl-scripts/XYgraph -format png -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_sites_per_peak.tab -lines -xcol 1 -ycol 4  -xsize 500 -xcol 1 -xleg1 'Number of sites' -ysize 250 -ycol 4,6 -yleg1 'Number of peaks' -legend -xgstep1 5 -xgstep2 1 -title1 'Nb predicted sites : positions_7nt' -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_sites_per_peak.png
+
+
+; 2019-09-21.214221
+cat $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_sites.tab $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_sites.tab $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_sites.tab $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_sites.tab $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_sites.tab $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_sites.tab $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_sites.tab $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_sites.tab $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_sites.tab $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_sites.tab $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_sites.tab $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_sites.tab $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_sites.tab $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_sites.tab $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_sites.tab $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_sites.tab $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_sites.tab $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_sites.tab > $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/sites/peak-motifs_all_motifs_seqcoord.tab
+
+
+; 2019-09-21.214221
+$RSAT/perl-scripts/text-to-html -font variable -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/reports/peak-motifs_timelog.txt -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/reports/peak-motifs_timelog.html
+
+; peak-motifs  -v 1 -title CgPho4_ChIP_in_Scer -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/peak-motifspeak_seq.masked -max_seq_len 1000 -markov auto -disco oligos,positions -nmotifs 2 -minol 6 -maxol 7 -no_merge_lengths -2str -origin center -scan_markov 1 -task purge,seqlen,composition,disco,merge_motifs,split_motifs,motifs_vs_motifs,timelog,archive,synthesis,small_summary,scan -prefix peak-motifs -noov -img_format png -outdir $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T
+; Program version       	1.256
+; Parameter values
+;	seq_format            	fasta
+;	img_format            	png
+;	ref_motifs_format     	transfac
+;	purge_match_length    	40
+;	purge_mismatches      	3
+;	origin                	center
+;	offset                	0
+;	profiles_ci           	20
+;	profiles_max_graphs   	20
+;	profiles_strand       	-1str
+;	composition_oligo_lengths	1,2
+;	profiles_noov         	-ovlp
+;	strand                	-2str
+;	disco_noov            	-noov
+;	oligo_min_len         	6
+;	oligo_max_len         	7
+;	patterns_max_rank     	100
+;	min_ratio             	1
+;	min_zscore            	6
+;	min_sig               	0
+;	oligo_min_mkv         	-3
+;	oligo_max_mkv         	-3
+;	under_represented     	0
+;	positions_max_graphs  	20
+;	asmb_toppat           	100
+;	max_asmb_width        	20
+;	matrix_nmotifs        	2
+; Input files
+;	test_seq              	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/peak-motifspeak_seq.masked
+; Directories
+;	output                        	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/
+;	oligos_6nt_mkv3_m1            	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/
+;	oligos_6nt_mkv3_m2            	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/
+;	positions_6nt_m1              	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/
+;	positions_6nt_m2              	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/
+;	oligos_7nt_mkv4               	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/
+;	positions_7nt                 	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/
+; Output files
+;	1nt_test_freq                 	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_freq-1str-ovlp_1nt.tab
+;	1nt_test_heatmap              	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_heatmap-1str-ovlp_1nt.png
+;	1nt_test_inclusive            	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_1nt.txt
+;	1nt_test_profiles             	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_profiles-1str-ovlp_1nt_ci20.tab
+;	1nt_test_profiles_graph       	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_profiles-1str-ovlp_1nt_ci20.png
+;	1nt_test_profiles_index       	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_profiles-1str-ovlp_1nt_ci20_graph_index.html
+;	1nt_test_transitions          	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_transitions-1str-ovlp_1nt.tab
+;	2nt_test_freq                 	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_freq-1str-ovlp_2nt.tab
+;	2nt_test_heatmap              	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_heatmap-1str-ovlp_2nt.png
+;	2nt_test_inclusive            	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt
+;	2nt_test_profiles             	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_profiles-1str-ovlp_2nt_ci20.tab
+;	2nt_test_profiles_graph       	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_profiles-1str-ovlp_2nt_ci20.png
+;	2nt_test_profiles_index       	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_profiles-1str-ovlp_2nt_ci20_graph_index.html
+;	2nt_test_transitions          	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_transitions-1str-ovlp_2nt.tab
+;	archive                       	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/peak-motifs_archive.zip
+;	links                         	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/reports/peak-motifs_links.html
+;	log                           	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/reports/peak-motifs_log.txt
+;	merged_sites                  	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/sites/peak-motifs_all_motifs_seqcoord.tab
+;	merged_sites_bed              	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/sites/peak-motifs_all_motifs_seqcoord.bed
+;	merged_words                  	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/merged_words/peak-motifs_merged_words.tab
+;	merged_words_heatmap          	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/merged_words/peak-motifs_merged_words_heatmap.png
+;	merged_words_html             	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/merged_words/peak-motifs_merged_words.html
+;	motifs_disco_clusters         	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_discovered_clusters
+;	motifs_disco_clusters_html    	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_discovered_clusters_SUMMARY.html
+;	motifs_disco_compa            	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_disco_compa.tab
+;	motifs_disco_compa_alignments_1ton	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_disco_compa_alignments_1ton.tab
+;	motifs_disco_compa_alignments_1ton_html	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_disco_compa_alignments_1ton.html
+;	motifs_disco_compa_gml        	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_disco_compa.gml
+;	motifs_disco_compa_html       	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_disco_compa.html
+;	motifs_discovered             	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_discovered.tf
+;	motifs_discovered_table       	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/peak-motifs_motifs_discovered_table.tab
+;	oligos_6nt_mkv3               	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_6nt_mkv3/peak-motifs_oligos-2str-noov_6nt_mkv3.tab
+;	oligos_6nt_mkv3_2pssm         	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_6nt_mkv3/peak-motifs_oligos-2str-noov_6nt_mkv3_pssm_log.txt
+;	oligos_6nt_mkv3_asmb          	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_6nt_mkv3/peak-motifs_oligos-2str-noov_6nt_mkv3_pssm.asmb
+;	oligos_6nt_mkv3_m1_logo       	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_logo.png
+;	oligos_6nt_mkv3_m1_logo_rc    	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_logo_rc.png
+;	oligos_6nt_mkv3_m1_pssm_enrichment	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_scan_mkv1_enrichment.tab
+;	oligos_6nt_mkv3_m1_pssm_enrichment_png	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_scan_mkv1_enrichment.png
+;	oligos_6nt_mkv3_m1_pssm_site_distrib	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_site_distrib.tab
+;	oligos_6nt_mkv3_m1_pssm_site_distrib_graph	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_site_distrib.png
+;	oligos_6nt_mkv3_m1_pssm_sites 	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_sites.tab
+;	oligos_6nt_mkv3_m1_pssm_sites_per_peak	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_sites_per_peak.tab
+;	oligos_6nt_mkv3_m1_pssm_sites_per_peak_graph	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_sites_per_peak.png
+;	oligos_6nt_mkv3_m1_tab        	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1.tab
+;	oligos_6nt_mkv3_m1_tf         	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1.tf
+;	oligos_6nt_mkv3_m1_vs_ref     	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_vs_ref.tab
+;	oligos_6nt_mkv3_m1_vs_ref_html	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m1/peak-motifs_oligos_6nt_mkv3_m1_vs_ref.html
+;	oligos_6nt_mkv3_m2_logo       	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_logo.png
+;	oligos_6nt_mkv3_m2_logo_rc    	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_logo_rc.png
+;	oligos_6nt_mkv3_m2_pssm_enrichment	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_scan_mkv1_enrichment.tab
+;	oligos_6nt_mkv3_m2_pssm_enrichment_png	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_scan_mkv1_enrichment.png
+;	oligos_6nt_mkv3_m2_pssm_site_distrib	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_site_distrib.tab
+;	oligos_6nt_mkv3_m2_pssm_site_distrib_graph	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_site_distrib.png
+;	oligos_6nt_mkv3_m2_pssm_sites 	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_sites.tab
+;	oligos_6nt_mkv3_m2_pssm_sites_per_peak	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_sites_per_peak.tab
+;	oligos_6nt_mkv3_m2_pssm_sites_per_peak_graph	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_sites_per_peak.png
+;	oligos_6nt_mkv3_m2_tab        	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2.tab
+;	oligos_6nt_mkv3_m2_tf         	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2.tf
+;	oligos_6nt_mkv3_m2_vs_ref     	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_vs_ref.tab
+;	oligos_6nt_mkv3_m2_vs_ref_html	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_6nt_mkv3_m2/peak-motifs_oligos_6nt_mkv3_m2_vs_ref.html
+;	oligos_6nt_mkv3_pssm_counts   	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_6nt_mkv3/peak-motifs_oligos-2str-noov_6nt_mkv3_pssm_count_matrices.txt
+;	oligos_6nt_mkv3_pssm_logo1    	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_6nt_mkv3/peak-motifs_oligos-2str-noov_6nt_mkv3_pssm_count_matrices_logo_m1.png
+;	oligos_6nt_mkv3_pssm_logo2    	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_6nt_mkv3/peak-motifs_oligos-2str-noov_6nt_mkv3_pssm_count_matrices_logo_m2.png
+;	oligos_6nt_mkv3_pssm_logo_rc1 	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_6nt_mkv3/peak-motifs_oligos-2str-noov_6nt_mkv3_pssm_count_matrices_logo_m1_rc.png
+;	oligos_6nt_mkv3_pssm_logo_rc2 	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_6nt_mkv3/peak-motifs_oligos-2str-noov_6nt_mkv3_pssm_count_matrices_logo_m2_rc.png
+;	oligos_6nt_mkv3_pssm_sig      	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_6nt_mkv3/peak-motifs_oligos-2str-noov_6nt_mkv3_pssm_sig_matrices.tf
+;	oligos_6nt_mkv3_pssm_tf       	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_6nt_mkv3/peak-motifs_oligos-2str-noov_6nt_mkv3_pssm_count_matrices.tf
+;	oligos_7nt_mkv4               	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4.tab
+;	oligos_7nt_mkv4_2pssm         	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_log.txt
+;	oligos_7nt_mkv4_asmb          	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm.asmb
+;	oligos_7nt_mkv4_logo          	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_logo.png
+;	oligos_7nt_mkv4_logo_rc       	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_logo_rc.png
+;	oligos_7nt_mkv4_pssm_counts   	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices.txt
+;	oligos_7nt_mkv4_pssm_enrichment	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_scan_mkv1_enrichment.tab
+;	oligos_7nt_mkv4_pssm_enrichment_png	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_scan_mkv1_enrichment.png
+;	oligos_7nt_mkv4_pssm_logo1    	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices_logo_m1.png
+;	oligos_7nt_mkv4_pssm_logo2    	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices_logo_m2.png
+;	oligos_7nt_mkv4_pssm_logo_rc1 	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices_logo_m1_rc.png
+;	oligos_7nt_mkv4_pssm_logo_rc2 	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices_logo_m2_rc.png
+;	oligos_7nt_mkv4_pssm_sig      	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_sig_matrices.tf
+;	oligos_7nt_mkv4_pssm_site_distrib	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_site_distrib.tab
+;	oligos_7nt_mkv4_pssm_site_distrib_graph	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_site_distrib.png
+;	oligos_7nt_mkv4_pssm_sites    	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_sites.tab
+;	oligos_7nt_mkv4_pssm_sites_per_peak	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_sites_per_peak.tab
+;	oligos_7nt_mkv4_pssm_sites_per_peak_graph	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_sites_per_peak.png
+;	oligos_7nt_mkv4_pssm_tf       	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices.tf
+;	oligos_7nt_mkv4_tab           	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4.tab
+;	oligos_7nt_mkv4_tf            	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4.tf
+;	oligos_7nt_mkv4_vs_ref        	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_vs_ref.tab
+;	oligos_7nt_mkv4_vs_ref_html   	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/oligos_7nt_mkv4/peak-motifs_oligos_7nt_mkv4_vs_ref.html
+;	positions_6nt                 	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50.tab
+;	positions_6nt_2pssm           	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50_pssm_log.txt
+;	positions_6nt_asmb            	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50_pssm.asmb
+;	positions_6nt_m1_logo         	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_logo.png
+;	positions_6nt_m1_logo_rc      	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_logo_rc.png
+;	positions_6nt_m1_pssm_enrichment	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_scan_mkv1_enrichment.tab
+;	positions_6nt_m1_pssm_enrichment_png	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_scan_mkv1_enrichment.png
+;	positions_6nt_m1_pssm_site_distrib	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_site_distrib.tab
+;	positions_6nt_m1_pssm_site_distrib_graph	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_site_distrib.png
+;	positions_6nt_m1_pssm_sites   	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_sites.tab
+;	positions_6nt_m1_pssm_sites_per_peak	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_sites_per_peak.tab
+;	positions_6nt_m1_pssm_sites_per_peak_graph	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_sites_per_peak.png
+;	positions_6nt_m1_tab          	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1.tab
+;	positions_6nt_m1_tf           	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1.tf
+;	positions_6nt_m1_vs_ref       	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_vs_ref.tab
+;	positions_6nt_m1_vs_ref_html  	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m1/peak-motifs_positions_6nt_m1_vs_ref.html
+;	positions_6nt_m2_logo         	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_logo.png
+;	positions_6nt_m2_logo_rc      	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_logo_rc.png
+;	positions_6nt_m2_pssm_enrichment	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_scan_mkv1_enrichment.tab
+;	positions_6nt_m2_pssm_enrichment_png	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_scan_mkv1_enrichment.png
+;	positions_6nt_m2_pssm_site_distrib	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_site_distrib.tab
+;	positions_6nt_m2_pssm_site_distrib_graph	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_site_distrib.png
+;	positions_6nt_m2_pssm_sites   	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_sites.tab
+;	positions_6nt_m2_pssm_sites_per_peak	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_sites_per_peak.tab
+;	positions_6nt_m2_pssm_sites_per_peak_graph	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_sites_per_peak.png
+;	positions_6nt_m2_tab          	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2.tab
+;	positions_6nt_m2_tf           	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2.tf
+;	positions_6nt_m2_vs_ref       	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_vs_ref.tab
+;	positions_6nt_m2_vs_ref_html  	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_6nt_m2/peak-motifs_positions_6nt_m2_vs_ref.html
+;	positions_6nt_pssm_counts     	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50_pssm_count_matrices.txt
+;	positions_6nt_pssm_logo1      	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50_pssm_count_matrices_logo_m1.png
+;	positions_6nt_pssm_logo2      	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50_pssm_count_matrices_logo_m2.png
+;	positions_6nt_pssm_logo_rc1   	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50_pssm_count_matrices_logo_m1_rc.png
+;	positions_6nt_pssm_logo_rc2   	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50_pssm_count_matrices_logo_m2_rc.png
+;	positions_6nt_pssm_sig        	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50_pssm_sig_matrices.tf
+;	positions_6nt_pssm_tf         	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50_pssm_count_matrices.tf
+;	positions_7nt                 	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50.tab
+;	positions_7nt_2pssm           	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_log.txt
+;	positions_7nt_asmb            	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm.asmb
+;	positions_7nt_logo            	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_logo.png
+;	positions_7nt_logo_rc         	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_logo_rc.png
+;	positions_7nt_pssm_counts     	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices.txt
+;	positions_7nt_pssm_enrichment 	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_scan_mkv1_enrichment.tab
+;	positions_7nt_pssm_enrichment_png	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_scan_mkv1_enrichment.png
+;	positions_7nt_pssm_logo1      	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices_logo_m1.png
+;	positions_7nt_pssm_logo2      	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices_logo_m2.png
+;	positions_7nt_pssm_logo_rc1   	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices_logo_m1_rc.png
+;	positions_7nt_pssm_logo_rc2   	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices_logo_m2_rc.png
+;	positions_7nt_pssm_sig        	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_sig_matrices.tf
+;	positions_7nt_pssm_site_distrib	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_site_distrib.tab
+;	positions_7nt_pssm_site_distrib_graph	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_site_distrib.png
+;	positions_7nt_pssm_sites      	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_sites.tab
+;	positions_7nt_pssm_sites_per_peak	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_sites_per_peak.tab
+;	positions_7nt_pssm_sites_per_peak_graph	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_sites_per_peak.png
+;	positions_7nt_pssm_tf         	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_7nt/peak-motifs_positions-2str-noov_7nt_ci50_pssm_count_matrices.tf
+;	positions_7nt_tab             	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt.tab
+;	positions_7nt_tf              	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt.tf
+;	positions_7nt_vs_ref          	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_vs_ref.tab
+;	positions_7nt_vs_ref_html     	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/discovered_motifs/positions_7nt/peak-motifs_positions_7nt_vs_ref.html
+;	small_summary                 	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/peak-motifs_small_summary.html
+;	small_summary_txt             	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/reports/peak-motifs_small_summary.txt
+;	synthesis                     	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/peak-motifs_synthesis.html
+;	test_converted                	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta
+;	test_purged                   	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000_purged_ml40_mis3.fasta
+;	test_seqlen                   	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_seqlen.tab
+;	test_seqlen_distrib           	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_seqlen_distrib.tab
+;	test_seqlen_distrib_graph     	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_seqlen_distrib.png
+;	timelog                       	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/reports/peak-motifs_timelog.txt
+;	timelog_html                  	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/reports/peak-motifs_timelog.html
+;	timetable                     	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/reports/peak-motifs_timetable.txt
+
+; 2019-09-21.214221
+(cd $RSAT/public_html/tmp/www-data/2019/09/21 ;  zip -ryq peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/peak-motifs_archive.zip peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T -x peak-motifs_archive.zip)
+

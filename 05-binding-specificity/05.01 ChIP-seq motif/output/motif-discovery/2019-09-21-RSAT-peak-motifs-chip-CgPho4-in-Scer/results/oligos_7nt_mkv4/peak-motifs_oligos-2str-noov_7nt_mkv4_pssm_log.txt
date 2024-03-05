@@ -1,0 +1,70 @@
+; matrix-from-patterns  -v 1 -sites -seq $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta -pl $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4.tab -bgfile $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt -toppat 100 -max_asmb_nb 2 -max_asmb_width 20 -subst 1 -prefix oligos_7nt_mkv4 -flanks 2 -collect_method matrix-scan-quick -logo -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm
+; Input files
+;	patterns	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4.tab
+;	sequence	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta
+; Output files
+;	assembly	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm.asmb
+;	gibbs_matrices	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_gibbs_matrices.txt
+;	count_matrices	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices.txt
+;	sig_matrices	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_sig_matrices.tf
+;	log	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_log.txt
+;	count_matrices_tf	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices.tf
+;	sig_matrices_split	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_sig_matrices_split_matrix_list.tab
+;	links	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices_links.txt
+;	err	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_err.txt
+;	output	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm
+;	logo_basename	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices_logo
+;	sig_sites	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_sig_sites.ft
+; Number of patterns	1
+; patterns -> assemblies
+/workspace/rsat/perl-scripts/pattern-assembly -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4.tab -2str -maxfl 1 -subst 1 -max_asmb_width 20 -toppat 100 -max_asmb_size 50 -max_asmb_width 20 -max_asmb_nb 2 -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm.asmb
+
+
+/workspace/rsat/perl-scripts/pattern-assembly -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4.tab -2str -maxfl 1 -subst 1 -max_asmb_width 20 -toppat 100 -max_asmb_size 50 -max_asmb_width 20 -max_asmb_nb 2 -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm.asmb
+; Number of assemblies	1
+; Number of assembled patterns	2
+; assemblies -> significance matrices
+/workspace/rsat/perl-scripts/convert-matrix -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm.asmb -from assembly -to tf -return counts -flanks 2 -top 2 -prefix oligos_7nt_mkv4 -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_sig_matrices.tf
+
+
+/workspace/rsat/perl-scripts/convert-matrix -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm.asmb -from assembly -to tf -return counts -flanks 2 -top 2 -prefix oligos_7nt_mkv4 -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_sig_matrices.tf
+; Rescaling significance matrices
+/workspace/rsat/perl-scripts/convert-matrix -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_sig_matrices.tf -from tf -to tf -return counts -rescale 10 -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_sig_matrices_rescaled.tf
+
+
+/workspace/rsat/perl-scripts/convert-matrix -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_sig_matrices.tf -from tf -to tf -return counts -rescale 10 -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_sig_matrices_rescaled.tf
+
+
+/workspace/rsat/perl-scripts/convert-matrix  -from tf -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_sig_matrices_rescaled.tf -to tab -split  -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_sig_matrices_split; rm -f /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices.txt
+
+; significance matrices + sequences -> sites
+/workspace/rsat/bin/matrix-scan-quick -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta -m /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_sig_matrices_split_oligos_7nt_mkv4.tab -name oligos_7nt_mkv4_m1 -2str -t 5 -return sites -bgfile /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt >> /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_sig_sites.ft
+
+
+/workspace/rsat/bin/matrix-scan-quick -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/data/sequences/peak-motifs_test_maxlen1000.fasta -m /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_sig_matrices_split_oligos_7nt_mkv4.tab -name oligos_7nt_mkv4_m1 -2str -t 5 -return sites -bgfile /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/composition/peak-motifs_test_inclusive-1str-ovlp_2nt.txt >> /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_sig_sites.ft
+; sites -> transfac matrices
+/workspace/rsat/perl-scripts/convert-matrix -v 0 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_sig_sites.ft -from feature -to transfac -prefix oligos_7nt_mkv4 -return counts -return sites -return logo -logo_format png  -logo_file /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices_logo -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices.tf
+
+
+/workspace/rsat/perl-scripts/convert-matrix -v 0 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_sig_sites.ft -from feature -to transfac -prefix oligos_7nt_mkv4 -return counts -return sites -return logo -logo_format png  -logo_file /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices_logo -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices.tf
+; transfac-formatted -> tab-formatted matrices
+/workspace/rsat/perl-scripts/convert-matrix -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices.tf -from transfac -to tab -return counts -return sites -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices.txt
+
+
+/workspace/rsat/perl-scripts/convert-matrix -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices.tf -from transfac -to tab -return counts -return sites -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices.txt
+; sites -> count matrices
+/workspace/rsat/perl-scripts/convert-matrix -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices.tf -from tf -to tab -return counts -return sites -return logo -logo_format png -logo_file /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices_logo -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices_links.txt
+
+
+/workspace/rsat/perl-scripts/convert-matrix -v 1 -i /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices.tf -from tf -to tab -return counts -return sites -return logo -logo_format png -logo_file /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices_logo -o /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_count_matrices_links.txt
+
+
+rm -f /workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/oligos_7nt_mkv4/peak-motifs_oligos-2str-noov_7nt_mkv4_pssm_sig_sites.ft
+; Host name	rsat-tagc
+; Job started	2019-09-21.214111
+; Job done	2019-09-21.214116
+; Seconds	0.25
+;	user	0.25
+;	system	0.04
+;	cuser	3.75
+;	csystem	0.56

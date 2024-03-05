@@ -1,0 +1,28 @@
+;mode: matches	thresholds:	cor=0.700000	ncor=0.400000	w=5	ncor1=-1.000000	ncor2=-1.000000
+#id1	id2	name1	name2	cor	Ncor	Ncor1	Ncor2	w1	w2	w	W	Wr	wr1	wr2	strand	offset	uncounted
+oligos_6nt_mkv2_m1	oligos_6nt_mkv2_m1	oligos_6nt_mkv2_m1	oligos_6nt_mkv2_m1	1.000000	1.000000	1.000000	1.000000	12	12	12	12	1.000000	1.000000	1.000000	D	0	1
+oligos_6nt_mkv2_m1	oligos_6nt_mkv2_m2	oligos_6nt_mkv2_m1	oligos_6nt_mkv2_m2	0.977667	0.902462	0.977667	0.902462	12	13	12	13	0.923077	1.000000	0.923077	R	-1	1
+oligos_6nt_mkv2_m1	positions_6nt	oligos_6nt_mkv2_m1	positions_6nt	0.931079	0.775900	0.775900	0.931079	12	10	10	12	0.833333	0.833333	1.000000	D	2	1
+oligos_6nt_mkv2_m1	oligos_7nt_mkv2_m1	oligos_6nt_mkv2_m1	oligos_7nt_mkv2_m1	0.964087	0.723065	0.964087	0.723065	12	16	12	16	0.750000	1.000000	0.750000	D	-2	1
+oligos_6nt_mkv2_m1	oligos_7nt_mkv2_m2	oligos_6nt_mkv2_m1	oligos_7nt_mkv2_m2	0.943787	0.707840	0.943787	0.707840	12	16	12	16	0.750000	1.000000	0.750000	R	-2	1
+oligos_6nt_mkv2_m2	oligos_6nt_mkv2_m1	oligos_6nt_mkv2_m2	oligos_6nt_mkv2_m1	0.977667	0.902462	0.902462	0.977667	13	12	12	13	0.923077	0.923077	1.000000	R	0	1
+oligos_6nt_mkv2_m2	oligos_6nt_mkv2_m2	oligos_6nt_mkv2_m2	oligos_6nt_mkv2_m2	1.000000	1.000000	1.000000	1.000000	13	13	13	13	1.000000	1.000000	1.000000	D	0	1
+oligos_6nt_mkv2_m2	positions_6nt	oligos_6nt_mkv2_m2	positions_6nt	0.951137	0.731644	0.731644	0.951137	13	10	10	13	0.769231	0.769231	1.000000	R	0	1
+oligos_6nt_mkv2_m2	oligos_7nt_mkv2_m1	oligos_6nt_mkv2_m2	oligos_7nt_mkv2_m1	0.931073	0.756497	0.931073	0.756497	13	16	13	16	0.812500	1.000000	0.812500	D	-2	1
+oligos_6nt_mkv2_m2	oligos_7nt_mkv2_m2	oligos_6nt_mkv2_m2	oligos_7nt_mkv2_m2	0.987576	0.802406	0.987576	0.802406	13	16	13	16	0.812500	1.000000	0.812500	D	-2	1
+positions_6nt	oligos_6nt_mkv2_m1	positions_6nt	oligos_6nt_mkv2_m1	0.931079	0.775900	0.931079	0.775900	10	12	10	12	0.833333	1.000000	0.833333	D	-2	1
+positions_6nt	oligos_6nt_mkv2_m2	positions_6nt	oligos_6nt_mkv2_m2	0.951137	0.731644	0.951137	0.731644	10	13	10	13	0.769231	1.000000	0.769231	R	-3	1
+positions_6nt	positions_6nt	positions_6nt	positions_6nt	1.000000	1.000000	1.000000	1.000000	10	10	10	10	1.000000	1.000000	1.000000	D	0	1
+positions_6nt	oligos_7nt_mkv2_m1	positions_6nt	oligos_7nt_mkv2_m1	0.926678	0.579174	0.926678	0.579174	10	16	10	16	0.625000	1.000000	0.625000	D	-4	1
+positions_6nt	oligos_7nt_mkv2_m2	positions_6nt	oligos_7nt_mkv2_m2	0.942365	0.588978	0.942365	0.588978	10	16	10	16	0.625000	1.000000	0.625000	R	-4	1
+oligos_7nt_mkv2_m1	oligos_6nt_mkv2_m1	oligos_7nt_mkv2_m1	oligos_6nt_mkv2_m1	0.964087	0.723065	0.723065	0.964087	16	12	12	16	0.750000	0.750000	1.000000	R	2	1
+oligos_7nt_mkv2_m1	oligos_6nt_mkv2_m2	oligos_7nt_mkv2_m1	oligos_6nt_mkv2_m2	0.931073	0.756497	0.756497	0.931073	16	13	13	16	0.812500	0.812500	1.000000	R	1	1
+oligos_7nt_mkv2_m1	positions_6nt	oligos_7nt_mkv2_m1	positions_6nt	0.926678	0.579174	0.579174	0.926678	16	10	10	16	0.625000	0.625000	1.000000	R	2	1
+oligos_7nt_mkv2_m1	oligos_7nt_mkv2_m1	oligos_7nt_mkv2_m1	oligos_7nt_mkv2_m1	1.000000	1.000000	1.000000	1.000000	16	16	16	16	1.000000	1.000000	1.000000	D	0	1
+oligos_7nt_mkv2_m1	oligos_7nt_mkv2_m2	oligos_7nt_mkv2_m1	oligos_7nt_mkv2_m2	0.912297	0.912297	0.912297	0.912297	16	16	16	16	1.000000	1.000000	1.000000	D	0	1
+oligos_7nt_mkv2_m2	oligos_6nt_mkv2_m1	oligos_7nt_mkv2_m2	oligos_6nt_mkv2_m1	0.943787	0.707840	0.707840	0.943787	16	12	12	16	0.750000	0.750000	1.000000	R	2	1
+oligos_7nt_mkv2_m2	oligos_6nt_mkv2_m2	oligos_7nt_mkv2_m2	oligos_6nt_mkv2_m2	0.987576	0.802406	0.802406	0.987576	16	13	13	16	0.812500	0.812500	1.000000	D	2	1
+oligos_7nt_mkv2_m2	positions_6nt	oligos_7nt_mkv2_m2	positions_6nt	0.942365	0.588978	0.588978	0.942365	16	10	10	16	0.625000	0.625000	1.000000	R	2	1
+oligos_7nt_mkv2_m2	oligos_7nt_mkv2_m1	oligos_7nt_mkv2_m2	oligos_7nt_mkv2_m1	0.912297	0.912297	0.912297	0.912297	16	16	16	16	1.000000	1.000000	1.000000	D	0	1
+oligos_7nt_mkv2_m2	oligos_7nt_mkv2_m2	oligos_7nt_mkv2_m2	oligos_7nt_mkv2_m2	1.000000	1.000000	1.000000	1.000000	16	16	16	16	1.000000	1.000000	1.000000	D	0	1
+;Analysis performed in 0.001775s

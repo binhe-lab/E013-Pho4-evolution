@@ -1,0 +1,12 @@
+positions_6nt	NA
+positions_6nt_pssm	NA
+positions_7nt	NA
+positions_7nt_pssm	NA
+oligos_6nt_mkv2	NA
+oligos_6nt_mkv2_pssm	NA
+positions_6nt	NA
+positions_6nt_pssm	NA
+oligos_7nt_mkv2	NA
+oligos_7nt_mkv2_pssm	NA
+positions_7nt	NA
+positions_7nt_pssm	NA

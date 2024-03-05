@@ -1,0 +1,36 @@
+; classfreq  -v 1 -ci 1 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/discovered_motifs/positions_6nt/peak-motifs_positions_6nt_sites_per_peak.tab
+;	min                 	minimum of class interval (inclusive)
+;	max                 	maximum of class interval (exclusive)
+;	center              	center of class interval
+;	n                   	occurrences
+;	n_cum               	cumulative occurrences (inclusive)
+;	n_dcum              	decreasing cumulative occurrences (inclusive)
+;	f                   	frequencies
+;	f_cum               	cumulative frequencies (inclusive)
+;	f_dcum              	decreasing cumulative frequencies (inclusive)
+#[min	max[	center	n	n_cum	n_dcum	f	f_cum	f_dcum
+1	2	1.5	35	35	58	0.60345	0.60345	1.00000
+2	3	2.5	12	47	23	0.20690	0.81034	0.39655
+3	4	3.5	10	57	11	0.17241	0.98276	0.18966
+4	5	4.5	1	58	1	0.01724	1.00000	0.01724
+; Statistics:
+; -----------
+; class interval     	1
+; classes            	4
+; count              	58
+; sum                	93
+; mean               	1.60345
+; median class       	[2..3[
+; var                	0.688
+; std                	0.829201
+; min                	1
+; max                	4
+; range              	3
+; Host name	rsat-tagc
+; Job started	2019-09-21.224150
+; Job done	2019-09-21.224150
+; Seconds	0.24
+;	user	0.24
+;	system	0.03
+;	cuser	0
+;	csystem	0

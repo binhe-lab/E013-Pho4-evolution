@@ -1,0 +1,38 @@
+; classfreq  -v 1 -ci 1 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/discovered_motifs/oligos_6nt_mkv2_m2/peak-motifs_oligos_6nt_mkv2_m2_sites_per_peak.tab
+;	min                 	minimum of class interval (inclusive)
+;	max                 	maximum of class interval (exclusive)
+;	center              	center of class interval
+;	n                   	occurrences
+;	n_cum               	cumulative occurrences (inclusive)
+;	n_dcum              	decreasing cumulative occurrences (inclusive)
+;	f                   	frequencies
+;	f_cum               	cumulative frequencies (inclusive)
+;	f_dcum              	decreasing cumulative frequencies (inclusive)
+#[min	max[	center	n	n_cum	n_dcum	f	f_cum	f_dcum
+1	2	1.5	16	16	67	0.23881	0.23881	1.00000
+2	3	2.5	39	55	51	0.58209	0.82090	0.76119
+3	4	3.5	4	59	12	0.05970	0.88060	0.17910
+4	5	4.5	4	63	8	0.05970	0.94030	0.11940
+5	6	5.5	3	66	4	0.04478	0.98507	0.05970
+6	7	6.5	1	67	1	0.01493	1.00000	0.01493
+; Statistics:
+; -----------
+; class interval     	1
+; classes            	6
+; count              	67
+; sum                	143
+; mean               	2.13433
+; median class       	[2..3[
+; var                	1.16
+; std                	1.07753
+; min                	1
+; max                	6
+; range              	5
+; Host name	rsat-tagc
+; Job started	2019-09-21.224147
+; Job done	2019-09-21.224147
+; Seconds	0.26
+;	user	0.26
+;	system	0.02
+;	cuser	0
+;	csystem	0

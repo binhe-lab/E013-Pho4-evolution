@@ -1,0 +1,76 @@
+; compare-matrices  -v 1 -format transfac -file $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/discovered_motifs/peak-motifs_motifs_discovered.tf -distinct -mode matches -strand DR -uth offset_rank 1 -lth w 5 -lth Wr 0.3 -lth cor 0.7 -lth Ncor 0.4 -return matrix_name,matrix_id,cor,Ncor,width,strand,offset,alignments_1ton -sort Ncor -quick -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/discovered_motifs/peak-motifs_motifs_disco_compa.tab
+; Program version       	1.118
+; Quick mode 
+; Input files
+;	file1 	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/discovered_motifs/peak-motifs_motifs_discovered.tf
+;	file2 	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/discovered_motifs/peak-motifs_motifs_discovered.tf
+; Output files
+;	alignments_1ton_html	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/discovered_motifs/peak-motifs_motifs_disco_compa_alignments_1ton.html
+;	match_table_html	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/discovered_motifs/peak-motifs_motifs_disco_compa.html
+;	html_index   	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/discovered_motifs/peak-motifs_motifs_disco_compa_index.html
+;	match_table_txt	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/discovered_motifs/peak-motifs_motifs_disco_compa.tab
+;	prefix       	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/discovered_motifs/peak-motifs_motifs_disco_compa
+;	alignments_1ton	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/discovered_motifs/peak-motifs_motifs_disco_compa_alignments_1ton.tab
+; Matrices
+;	file1	5 matrices	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/discovered_motifs/peak-motifs_motifs_discovered.tf
+;		file1	1	12	208
+;		file1	2	13	177
+;		file1	3	10	136
+;		file1	4	16	170
+;		file1	5	16	147
+;	file2	5 matrices	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.224027_2019-09-21.224027_vuiQvA/results/discovered_motifs/peak-motifs_motifs_discovered.tf
+;		file2		1		12		208
+;		file2		2		13		177
+;		file2		3		10		136
+;		file2		4		16		170
+;		file2		5		16		147
+; Column content
+;	1	id1          	Identifier of the first matrix
+;	2	id2          	Identifier of the second matrix
+;	3	name1        	Name of the first matrix
+;	4	name2        	Name of the second matrix
+;	5	cor          	Pearson coefficient of correlation between frequency matrices
+;	6	Ncor         	Normalized correlation. Ncor = cor * Wr
+;	7	w1           	Width of the first matrix
+;	8	w2           	Width of the second matrix
+;	9	w            	Alignment length (number of overlapping columns between matrix 1 and matrix 2, as a function of the offset)
+;	10	W            	Total alignment length (overlapping + non-overlapping columns). W = w1 + w2 - w
+;	11	Wr           	Relative alignment length (overlap divided by the total alignemnt length). Wr = w/W
+;	12	wr1          	Alignment length relative to the width of the first matrix. wr1 = w/w1
+;	13	wr2          	Alignment length relative to the width of the second matrix. wr2 = w/w2
+;	14	strand       	"strand", i.e. orientation of matrix 2 relative to matrix 1 (D=direct;  R=reverse)
+;	15	offset       	shift of the second matrix relative to the first matrix (negative:left; positive: right)
+#id1	id2	name1	name2	cor	Ncor	w1	w2	w	W	Wr	wr1	wr2	strand	offset
+oligos_6nt_mkv2_m1	oligos_6nt_mkv2_m1	oligos_6nt_mkv2_m1	oligos_6nt_mkv2_m1	1.000	1.000	12	12	12	12	1.0000	1.0000	1.0000	D	0
+oligos_7nt_mkv2_m2	oligos_7nt_mkv2_m2	oligos_7nt_mkv2_m2	oligos_7nt_mkv2_m2	1.000	1.000	16	16	16	16	1.0000	1.0000	1.0000	D	0
+positions_6nt	positions_6nt	positions_6nt	positions_6nt	1.000	1.000	10	10	10	10	1.0000	1.0000	1.0000	D	0
+oligos_7nt_mkv2_m1	oligos_7nt_mkv2_m1	oligos_7nt_mkv2_m1	oligos_7nt_mkv2_m1	1.000	1.000	16	16	16	16	1.0000	1.0000	1.0000	D	0
+oligos_6nt_mkv2_m2	oligos_6nt_mkv2_m2	oligos_6nt_mkv2_m2	oligos_6nt_mkv2_m2	1.000	1.000	13	13	13	13	1.0000	1.0000	1.0000	D	0
+oligos_7nt_mkv2_m2	oligos_7nt_mkv2_m1	oligos_7nt_mkv2_m2	oligos_7nt_mkv2_m1	0.912	0.912	16	16	16	16	1.0000	1.0000	1.0000	D	0
+oligos_7nt_mkv2_m1	oligos_7nt_mkv2_m2	oligos_7nt_mkv2_m1	oligos_7nt_mkv2_m2	0.912	0.912	16	16	16	16	1.0000	1.0000	1.0000	D	0
+oligos_6nt_mkv2_m2	oligos_6nt_mkv2_m1	oligos_6nt_mkv2_m2	oligos_6nt_mkv2_m1	0.978	0.902	13	12	12	13	0.9231	0.9231	1.0000	R	0
+oligos_6nt_mkv2_m1	oligos_6nt_mkv2_m2	oligos_6nt_mkv2_m1	oligos_6nt_mkv2_m2	0.978	0.902	12	13	12	13	0.9231	1.0000	0.9231	R	-1
+oligos_7nt_mkv2_m2	oligos_6nt_mkv2_m2	oligos_7nt_mkv2_m2	oligos_6nt_mkv2_m2	0.988	0.802	16	13	13	16	0.8125	0.8125	1.0000	D	2
+oligos_6nt_mkv2_m2	oligos_7nt_mkv2_m2	oligos_6nt_mkv2_m2	oligos_7nt_mkv2_m2	0.988	0.802	13	16	13	16	0.8125	1.0000	0.8125	D	-2
+positions_6nt	oligos_6nt_mkv2_m1	positions_6nt	oligos_6nt_mkv2_m1	0.931	0.776	10	12	10	12	0.8333	1.0000	0.8333	D	-2
+oligos_6nt_mkv2_m1	positions_6nt	oligos_6nt_mkv2_m1	positions_6nt	0.931	0.776	12	10	10	12	0.8333	0.8333	1.0000	D	2
+oligos_7nt_mkv2_m1	oligos_6nt_mkv2_m2	oligos_7nt_mkv2_m1	oligos_6nt_mkv2_m2	0.931	0.756	16	13	13	16	0.8125	0.8125	1.0000	R	1
+oligos_6nt_mkv2_m2	oligos_7nt_mkv2_m1	oligos_6nt_mkv2_m2	oligos_7nt_mkv2_m1	0.931	0.756	13	16	13	16	0.8125	1.0000	0.8125	D	-2
+oligos_6nt_mkv2_m2	positions_6nt	oligos_6nt_mkv2_m2	positions_6nt	0.951	0.732	13	10	10	13	0.7692	0.7692	1.0000	R	0
+positions_6nt	oligos_6nt_mkv2_m2	positions_6nt	oligos_6nt_mkv2_m2	0.951	0.732	10	13	10	13	0.7692	1.0000	0.7692	R	-3
+oligos_7nt_mkv2_m1	oligos_6nt_mkv2_m1	oligos_7nt_mkv2_m1	oligos_6nt_mkv2_m1	0.964	0.723	16	12	12	16	0.7500	0.7500	1.0000	R	2
+oligos_6nt_mkv2_m1	oligos_7nt_mkv2_m1	oligos_6nt_mkv2_m1	oligos_7nt_mkv2_m1	0.964	0.723	12	16	12	16	0.7500	1.0000	0.7500	D	-2
+oligos_7nt_mkv2_m2	oligos_6nt_mkv2_m1	oligos_7nt_mkv2_m2	oligos_6nt_mkv2_m1	0.944	0.708	16	12	12	16	0.7500	0.7500	1.0000	R	2
+oligos_6nt_mkv2_m1	oligos_7nt_mkv2_m2	oligos_6nt_mkv2_m1	oligos_7nt_mkv2_m2	0.944	0.708	12	16	12	16	0.7500	1.0000	0.7500	R	-2
+positions_6nt	oligos_7nt_mkv2_m2	positions_6nt	oligos_7nt_mkv2_m2	0.942	0.589	10	16	10	16	0.6250	1.0000	0.6250	R	-4
+oligos_7nt_mkv2_m2	positions_6nt	oligos_7nt_mkv2_m2	positions_6nt	0.942	0.589	16	10	10	16	0.6250	0.6250	1.0000	R	2
+positions_6nt	oligos_7nt_mkv2_m1	positions_6nt	oligos_7nt_mkv2_m1	0.927	0.579	10	16	10	16	0.6250	1.0000	0.6250	D	-4
+oligos_7nt_mkv2_m1	positions_6nt	oligos_7nt_mkv2_m1	positions_6nt	0.927	0.579	16	10	10	16	0.6250	0.6250	1.0000	R	2
+; Host name	rsat-tagc
+; Job started	2019-09-21.224130
+; Job done	2019-09-21.224142
+; Seconds	0.55
+;	user	0.55
+;	system	0.31
+;	cuser	10.16
+;	csystem	1.27

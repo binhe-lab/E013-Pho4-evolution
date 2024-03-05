@@ -1,0 +1,6 @@
+#Motif	Logo	3 Top hits in databases
+oligos_6nt_mkv2_m1	<img border='1' height='50' src='results/oligos_6nt_mkv2/peak-motifs_oligos-2str-noov_6nt_mkv2_pssm_count_matrices_logo_m1.png'>	
+oligos_6nt_mkv2_m2	<img border='1' height='50' src='results/oligos_6nt_mkv2/peak-motifs_oligos-2str-noov_6nt_mkv2_pssm_count_matrices_logo_m2.png'>	
+positions_6nt		
+oligos_7nt_mkv2_m1	<img border='1' height='50' src='results/oligos_7nt_mkv2/peak-motifs_oligos-2str-noov_7nt_mkv2_pssm_count_matrices_logo_m1.png'>	
+oligos_7nt_mkv2_m2	<img border='1' height='50' src='results/oligos_7nt_mkv2/peak-motifs_oligos-2str-noov_7nt_mkv2_pssm_count_matrices_logo_m2.png'>	

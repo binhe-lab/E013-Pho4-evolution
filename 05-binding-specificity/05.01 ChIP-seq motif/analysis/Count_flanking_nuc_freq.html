@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Background &amp; Goal</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<style type="text/css">
+/* Set the main font to Calibri, same
+   as My Word 2010 uses. Also set the
+   default font size to 11pt.
+ 
+   The maximum width to 35em enhances
+   readability through optimal line
+   length. Note: this setting is ignored
+   by Word/Libre Office*/
+body  {
+   font-family: Calibri;
+   font-size: 12pt;
+   background-color: white;
+   padding-top: 1em;
+   margin: auto;
+   max-width: 45em;
+}
+ 
+/* Set the paragraph margin and
+   padding to 0 except for the bottom */
+p {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 10pt;
+}
+ 
+/* Center the table and add top/bottom margins */
+table{
+  margin: auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border: none;
+}
+ 
+/* The tr padding/margin 0 is important for table
+   import, while the font needs to be specified as
+   font and not font-family/font-size due to limiations
+   in Libre Office */
+td, tr{
+  font: 10pt Arial;
+  padding: 0px;
+  margin: 0px;
+}
+ 
+/* The cell should have a little space to easy reading
+   although this section is mostly ignored by the
+   Libre Office import */
+td {
+  padding: 4px;
+  padding-bottom: 2px;
+}
+ 
+/* Set the headings to correspond to Word-style */
+h1, h2, h3, h4, h5, h6 {
+  margin: 10pt 10pt 0pt 0pt;
+  font-family: Cambria;
+  font-weight: bold;
+}
+ 
+/* h1 has a slightly larger top margins
+   so we re-set that from the other*/
+h1 {
+  margin: 24pt 10pt 0pt 0pt;
+  font-size: 20pt;
+  color: #365F91;
+}
+ 
+ 
+h2 {
+  font-size: 16pt;
+  color: #4F81BD;
+}
+ 
+h3 {
+  font-size: 12pt;
+  color: #4F81BD;
+}
+ 
+h4 {
+  font-size: 12pt;
+  font-weight: bold;
+  font-style: italic;
+  color: #4F81BD;
+}
+ 
+h5 {
+  font-size: 12pt;
+  font-weight: normal;
+  color: #243F5D;
+}
+ 
+h6 {
+  font-size: 12pt;
+  font-weight: normal;
+  font-style: italic;
+  color: #243F5D;
+}
+ 
+/* The following sections are mostly
+   unrelated to Word/Libre Office imports */
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+ 
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+ 
+pre {
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+ 
+pre code {
+   display: block; padding: 0.5em;
+}
+ 
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+ 
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+ 
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+ 
+@media print {
+   * {
+	  background: transparent !important;
+	  color: black !important;
+	  filter: none !important;
+	  -ms-filter: none !important;
+   }
+ 
+   body {
+	  font-size:12pt;
+	  max-width:100%;
+   }
+ 
+   a, a:visited {
+	  text-decoration: underline;
+   }
+ 
+   hr {
+	  visibility: hidden;
+	  page-break-before: always;
+   }
+ 
+   pre, blockquote {
+	  padding-right: 1em;
+	  page-break-inside: avoid;
+   }
+ 
+   tr, img {
+	  page-break-inside: avoid;
+   }
+ 
+   img {
+	  max-width: 100% !important;
+   }
+ 
+   @page {
+	  margin-top: 2cm;
+	  margin-bottom: 1.5cm;
+	  margin-left: 3cm;
+	  margin-right: 3cm;
+   }
+ 
+   p, h2, h3 {
+	  orphans: 3; widows: 3;
+   }
+ 
+   h2, h3 {
+	  page-break-after: avoid;
+   }
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+<p>input: tab-delimited spreadsheet containing motif and flanking sequences under the CgPho4 ChIP peaks</p>
+
+<p>This is an <a href="http://rmarkdown.rstudio.com">R Markdown</a> Notebook. When you execute code within the notebook, the results appear beneath the code. </p>
+
+<p>Try executing this chunk by clicking the <em>Run</em> button within the chunk or by placing your cursor inside it and pressing <em>Cmd+Shift+Enter</em>. </p>
+
+<h2>Background &amp; Goal</h2>
+
+<p>I want to know the nucleotide (A/T/C/G) frequencies at the flanking nucleotides surrounding the E-box motif. </p>
+
+<p>In particular, we know that for ScPho4, the 5&#39; T-CACGTG motifs are bound at much lower rate than the A/C/G-CACGTG ones, because Cbf1, another bHLH TF, binds to the 5&#39; T version with high affinity. For CgPho4, we know that it binds to nearly all ScPho4 bound sites, and 50% more. The question is, do CgPho4-specific sites have a different sequence bias compared to the ScPho4-bound ones? </p>
+
+<p>To answer this question, I first prepared a table with each row corresponding to an E-box motif underneath a CgPho4 ChIP peak. In that row, I included the DNA sequences of the E-box motif &ldquo;CACGTG&rdquo; (invariable) as well as the 5bp flanking sequences on each side.</p>
+
+<p>Now the goal is to parse that spreadsheet and output the count matrix at each flanking nucleotide position (we name them after Sebastian Maerkl&#39;s 2007 paper, i.e. position -3 ~ 3 represent the core motif, and the 5&#39; flanking positions are called -4, -5, etc. and vice versa)</p>
+
+<h2>Analysis</h2>
+
+<pre><code class="r">library(data.table)
+library(GenomicRanges)
+</code></pre>
+
+<pre><code>## Loading required package: BiocGenerics
+</code></pre>
+
+<pre><code>## Loading required package: parallel
+</code></pre>
+
+<pre><code>## 
+## Attaching package: &#39;BiocGenerics&#39;
+</code></pre>
+
+<pre><code>## The following objects are masked from &#39;package:parallel&#39;:
+## 
+##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+##     clusterExport, clusterMap, parApply, parCapply, parLapply,
+##     parLapplyLB, parRapply, parSapply, parSapplyLB
+</code></pre>
+
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     IQR, mad, xtabs
+</code></pre>
+
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     anyDuplicated, append, as.data.frame, as.vector, cbind,
+##     colnames, do.call, duplicated, eval, evalq, Filter, Find, get,
+##     grep, grepl, intersect, is.unsorted, lapply, lengths, Map,
+##     mapply, match, mget, order, paste, pmax, pmax.int, pmin,
+##     pmin.int, Position, rank, rbind, Reduce, rownames, sapply,
+##     setdiff, sort, table, tapply, union, unique, unlist, unsplit
+</code></pre>
+
+<pre><code>## Loading required package: S4Vectors
+</code></pre>
+
+<pre><code>## Loading required package: stats4
+</code></pre>
+
+<pre><code>## Loading required package: IRanges
+</code></pre>
+
+<pre><code>## 
+## Attaching package: &#39;IRanges&#39;
+</code></pre>
+
+<pre><code>## The following object is masked from &#39;package:data.table&#39;:
+## 
+##     shift
+</code></pre>
+
+<pre><code>## Loading required package: GenomeInfoDb
+</code></pre>
+
+<pre><code class="r">myFreq &lt;- function( seq, a=6, b=11 ){
+  # goal: count frequencies at flanking nucleotides
+  # input: a vector of sequences pre-aligned, with the 6bp E-box in the middle and 5 flanking nucleotides on each side
+  # parameter: a indicates the position in the sequence that corresponds to the beginning of the E-box, while b for the end
+  # output: a matrix with four rows and ten columns. Each row represents one nucleotide (a/t/c/g) and each column for one of the ten flanking nucleotides
+  split &lt;- strsplit(seq, split = &quot;&quot;) # a list of vectors of single letters
+  factor &lt;- factor( unlist(split), levels = c(&quot;a&quot;,&quot;t&quot;,&quot;c&quot;,&quot;g&quot;) )
+  mat &lt;- matrix( as.numeric(factor), nrow = length(seq), byrow = T )
+  mat &lt;- mat[,-c(a:b)]
+  c &lt;- apply( mat, 2, tabulate )
+  rownames(c) &lt;- c(&quot;a&quot;,&quot;t&quot;,&quot;c&quot;,&quot;g&quot;)
+  colnames(c) &lt;- as.character(c(-8:-4,4:8))
+  freq &lt;- round(c / length(seq) * 100, 0)
+  return( freq )
+}
+</code></pre>
+
+<h3>CgPho4 binding sites in <em>S. cerevisiae</em></h3>
+
+<pre><code class="r"># load data
+chip &lt;- fread(&quot;./input/20170107_ChIP_stats_in_Scer.txt&quot;)
+chip &lt;- chip[-23] # remove an overlapping range
+motif.seq &lt;- fread(&quot;./table_output/20170517_CgPho4_motif_seq_under_peak_in_Scer.txt&quot;, skip = &quot;#&quot;)
+
+# map columns from chip to motif.seq using GRanges
+## build GRanges objects
+chip.gr &lt;- with(chip, GRanges( seqnames = CHR, ranges = IRanges( start = START, end = END ) ))
+
+motif.gr &lt;- with(motif.seq, GRanges( seqnames = SEQ_NAME, ranges = IRanges( start = START, end = END ) ))
+
+## find overlaps
+map &lt;- findOverlaps( motif.gr, chip.gr, type = &quot;within&quot;)
+
+## merge
+bound &lt;- chip[subjectHits(map), .(ScPho4.bound, CgPho4.bound)]
+motif.tab &lt;- cbind(motif.seq, bound)
+
+## Calculate flanking nucleotides frequency
+freq &lt;- list( 
+  all.sc4 = myFreq( motif.tab[CgPho4.bound &amp; ScPho4.bound, SEQUENCE] ), 
+  all.cg4 = myFreq( motif.tab[,SEQUENCE] ),
+  cg4.only = myFreq( motif.tab[CgPho4.bound &amp; !ScPho4.bound, SEQUENCE] )
+  )
+print( freq )
+</code></pre>
+
+<pre><code>## $all.sc4
+##   -8 -7 -6 -5 -4  4  5  6  7  8
+## a 32 18 32 28 16  6 14 25 28 28
+## t 31 22 24 33 14 18 35 31 24 26
+## c 15 35 15 21 32 44 24 21 22 22
+## g 22 25 29 18 38 33 27 24 26 24
+## 
+## $all.cg4
+##   -8 -7 -6 -5 -4  4  5  6  7  8
+## a 30 24 32 32 13 10 18 20 28 27
+## t 30 22 24 26 13 15 30 34 24 30
+## c 19 27 17 19 33 47 25 24 23 21
+## g 22 27 27 24 42 28 27 21 25 23
+## 
+## $cg4.only
+##   -8 -7 -6 -5 -4  4  5  6  7  8
+## a 26 34 32 38  6 18 24 12 28 24
+## t 28 22 26 14 10 10 20 40 24 36
+## c 24 14 20 14 34 52 28 30 24 18
+## g 22 30 22 34 50 20 28 18 24 22
+</code></pre>
+
+<blockquote>
+<p>CgPho4-specific sites have even lower &ldquo;A/T&rdquo; ratio at the -4 and +4 sites compared to sites bound by both ScPho4 and CgPho4.</p>
+</blockquote>
+
+<pre><code class="r"># first I need to import Xu&#39;s mmc2 data
+xu.mmc2 &lt;- read.table(&quot;./input/20160903_mmc2_Zhou_2011_data_in_Sac03.csv&quot;,header = TRUE, as.is = TRUE, sep = &quot;\t&quot;)
+names(xu.mmc2)[32:33] &lt;- paste(c(&quot;Pho4&quot;,&quot;Pho2&quot;),&quot;Recruitment.no.vs.hiPi&quot;,sep = &quot;.&quot;)
+## remove rows with no ChIP data
+xu.mmc2 &lt;- subset(xu.mmc2, Alignability != 0)
+
+# then I need to construct a location set based on the motif locations, expanding each to include the E-box and 5bp flanking sequences on both ends
+xu.gr &lt;- with( xu.mmc2, GRanges(seqnames = CHR, ranges = IRanges(Location-2-5,Location+3+5), Bound4 = (Pho4.binding.No.Pi == 1)) ) # Location is set on N~4~, and the range is now expanded to include the whole E-box as well as 5bp flanking nucleotides
+
+## convert the GRanges object to a data.frame and write the result into a text file
+## allMotif &lt;- data.frame(SEQ_NAME = seqnames(xu.gr), START = start(xu.gr), END = end(xu.gr)) # convert to data.frame
+## write.table(allMotif, &quot;./table_output/20170518_all_CACGTG_motifs_in_Scer.txt&quot;, sep = &quot;\t&quot;, row.names = FALSE, quote = FALSE)
+
+## In MochiView: import the file generated above and use the export-&gt;Locations function to export the sequences based on the locations
+## The output is then processed in Vim to make the flanking nucleotides appear as lower cases, to be compatible with myFreq()
+
+# Re-import the sequence set
+allMotif.seq &lt;- fread(&quot;./input/20170518_all_Ebox_with_5bp_flanking.txt&quot;)
+## merge into xu.mmc2
+allMotif.tab &lt;- data.table(xu.mmc2, SEQUENCE = allMotif.seq$SEQ)
+freq$all.motif &lt;- myFreq(allMotif.seq$SEQ)
+freq$nucleosome.low.25pc &lt;- myFreq(allMotif.tab[Nucleosome.High.Pi &lt;= quantile(Nucleosome.High.Pi, prob = 0.25), SEQUENCE])
+## print result
+print(freq)
+</code></pre>
+
+<pre><code>## $all.sc4
+##   -8 -7 -6 -5 -4  4  5  6  7  8
+## a 32 18 32 28 16  6 14 25 28 28
+## t 31 22 24 33 14 18 35 31 24 26
+## c 15 35 15 21 32 44 24 21 22 22
+## g 22 25 29 18 38 33 27 24 26 24
+## 
+## $all.cg4
+##   -8 -7 -6 -5 -4  4  5  6  7  8
+## a 30 24 32 32 13 10 18 20 28 27
+## t 30 22 24 26 13 15 30 34 24 30
+## c 19 27 17 19 33 47 25 24 23 21
+## g 22 27 27 24 42 28 27 21 25 23
+## 
+## $cg4.only
+##   -8 -7 -6 -5 -4  4  5  6  7  8
+## a 26 34 32 38  6 18 24 12 28 24
+## t 28 22 26 14 10 10 20 40 24 36
+## c 24 14 20 14 34 52 28 30 24 18
+## g 22 30 22 34 50 20 28 18 24 22
+## 
+## $all.motif
+##   -8 -7 -6 -5 -4  4  5  6  7  8
+## a 31 31 30 32 22 24 33 27 29 30
+## t 31 28 29 29 27 23 29 30 29 31
+## c 20 19 20 18 26 28 19 20 20 19
+## g 19 22 21 21 25 26 19 23 22 20
+## 
+## $nucleosome.low.25pc
+##   -8 -7 -6 -5 -4  4  5  6  7  8
+## a 33 30 26 32 25 25 32 28 30 27
+## t 34 36 31 26 28 24 32 28 28 32
+## c 16 17 18 16 24 20 16 21 19 21
+## g 18 17 24 26 22 30 19 24 24 20
+</code></pre>
+
+<blockquote>
+</blockquote>
+
+<p>When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the <em>Preview</em> button or press <em>Cmd+Shift+K</em> to preview the HTML file).</p>
+
+</body>
+
+</html>

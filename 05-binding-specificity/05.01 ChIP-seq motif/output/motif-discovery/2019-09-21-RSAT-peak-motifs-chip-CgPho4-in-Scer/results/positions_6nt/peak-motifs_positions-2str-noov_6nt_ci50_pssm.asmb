@@ -1,0 +1,35 @@
+; pattern-assembly  -v 1 -i $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50.tab -2str -maxfl 1 -subst 1 -max_asmb_width 20 -toppat 100 -max_asmb_size 50 -max_asmb_width 20 -max_asmb_nb 2 -o $RSAT/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50_pssm.asmb
+; Input file	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50.tab
+; Output file	/workspace/rsat/public_html/tmp/www-data/2019/09/21/peak-motifs.2019-09-21.214041_2019-09-21.214041_D9j03T/results/positions_6nt/peak-motifs_positions-2str-noov_6nt_ci50_pssm.asmb
+; Input score column           	9
+; Output score column          	0
+; Strand-insensitive assembly
+; Max flanking bases           	1
+; Max substitutions            	1
+; Min matches                  	0
+; Min weight                   	0
+; Max assembly size            	50
+; Max assembly width           	20
+; Top number of patterns       	100
+; Number of input patterns     	4
+;
+
+; assembly # 1	seed: acgtgc	3 assembled patterns	length 8
+; alignt	 rev_cpl	score
+ccacgt..	..acgtgg	300
+.cacgtg.	.cacgtg.	300
+..acgtgc	gcacgt..	300
+ccacgtgc	gcacgtgg	300	best consensus
+
+; assembly # 2	seed: ttcaaa	1 assembled patterns	length 6
+;alignt	rev_cpl	score
+ttcaaa	tttgaa	1.79
+ttcaaa	tttgaa	1.79	best consensus
+; Host name	rsat-tagc
+; Job started	2019-09-21.214122
+; Job done	2019-09-21.214122
+; Seconds	0.29
+;	user	0.29
+;	system	0.04
+;	cuser	0
+;	csystem	0
