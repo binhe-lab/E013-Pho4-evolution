@@ -1,6 +1,13 @@
+# mac os
 .DS_Store
+# Jalview backup files
+*.jvp.bak*
+# Rstudio related
 .Rhistory
 .RData
 .Rproj.user
-*.jvp.bak*
+# RPubs
 rsconnect/
+# notebook checkpoints
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
