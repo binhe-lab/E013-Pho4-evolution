@@ -13,6 +13,7 @@ output:
 require(tidyverse)
 require(cowplot)
 require(seqinr)
+require(ggnewscale)
 #require(ggtext)
 #require(RColorBrewer)
 ```
@@ -97,35 +98,103 @@ p <- dat %>%
     pos_Cgla = ifelse(char_Cgla == "-", NA, pos_Cgla - 1/2*max(pos_Cgla))
   ) %>% 
   ggplot() +
-  geom_tile(aes(x = pos_aln, y = 1.5, height = 0.1, color = Conservation)) +
+  geom_tile(aes(x = pos_aln, y = 1.5, height = 0.1, fill = Conservation), 
+            width = 1.5, linewidth = 0) +
   geom_segment(aes(x = pos_aln, xend = pos_Scer, y = 1.55, yend = 1.95), color = "gray90") +
   geom_segment(aes(x = pos_Cgla, xend = pos_aln, y = 1.05, yend = 1.45), color = "gray90") +
+  geom_rect(data = regions,
+            aes(xmin = begin_Scer - 312/2, xmax = end_Scer - 312/2,
+                ymin = 1.95, ymax = 2.15), 
+            fill = "forestgreen", color = "gray90", linewidth = lw) +
+  geom_rect(data = regions,
+            aes(xmin = begin_Cgla - 533/2, xmax = end_Cgla - 533/2,
+                ymin = 0.85, ymax = 1.05), 
+            fill = "steelblue2", color = "gray90", linewidth = lw) +
   geom_segment(data = as_tibble(br),
                aes(x = aln - 547/2, xend = Scer - 312/2,  y = 1.55, yend = 1.95),
                color = "gray40", linewidth = lw, linetype = 3) +
   geom_segment(data = as_tibble(br),
                aes(xend = aln - 547/2, x = Cgla - 532/2,  y = 1.05, yend = 1.45),
                color = "gray40", linewidth = lw, linetype = 3) +
-  geom_rect(data = regions,
-            aes(xmin = begin_Scer - 312/2, xmax = end_Scer - 312/2,
-                ymin = 1.95, ymax = 2.15), 
-            fill = "forestgreen", color = "gray90", linewidth = lw) +
-  geom_rect(data = regions,
-            aes(xmin = begin_Cgla - 532/2, xmax = end_Cgla - 532/2,
-                ymin = 0.85, ymax = 1.05), 
-            fill = "steelblue2", color = "gray90", linewidth = lw) +
   #scale_y_continuous(expand = expansion(mult = 0.3)) +
-  scale_color_distiller(palette = "Greys", direction = 1) +
+  scale_fill_distiller(palette = "Greys", direction = 1, breaks = c(-0.1,5,10,12))
+p +
   theme_cowplot() +
   theme(legend.position = "none",
         axis.line = element_blank(),
         axis.text = element_blank(),
         axis.title = element_blank(),
         axis.ticks = element_blank())
-print(p)
 ```
 ```{r}
 ggsave(filename = "../output/20240302-ScPho4-CgPho4-align-region-graph.png",
        width = 5, height = 2)
+```
+
+## Add activation domain prediction result
+Read data. Note the following instructions from the PADDLE ipython notebook script:
+
+> Run predictions on all 53 amino acid long tiles across the protein.
+> This function requires matching protein sequence and secondary structure scores.
+> Returns a Numpy array of size (protein_length-52) which gives the
+> predicted activation Z-score for the 53aa tiles starting at positions
+> 1, 2, 3, ..., protein_length-52.
+> High-strength ADs can be called by finding >=5 consecutive positions with Z-score > 6.
+> Medium-strength ADs can be called by finding >=5 consecutive positions with Z-score > 4.
+
+```{r}
+paddle.Sc <- read_csv("../input/paddle-prediction/20240305-ScPho4-PADDLE-prediction.csv") %>% 
+  mutate(
+    strong = Z_score >= 6,
+    medium = Z_score >= 4
+  )
+
+# extend the prediction score to the N-terminus and C-terminus
+paddle.Sc <- paddle.Sc[c(rep(1, 26), 1:nrow(paddle.Sc), rep(nrow(paddle.Sc), 26)),] %>% 
+  mutate(Pos = 1:n())
+  
+
+paddle.Cg <- read_csv("../input/paddle-prediction/20240305-CgPho4-PADDLE-prediction.csv") %>% 
+  mutate(
+    strong = Z_score >= 6,
+    medium = Z_score >= 4
+  )
+
+# extend the prediction score to the N-terminus and C-terminus
+paddle.Cg <- paddle.Cg[c(rep(1, 26), 1:nrow(paddle.Cg), rep(nrow(paddle.Cg), 26)),] %>% 
+  mutate(Pos = 1:n())
+```
+
+```{r}
+act.colors <- RColorBrewer::brewer.pal(n = 3, name = "Blues")
+act.colors[1] = "gray50"
+p1 <- p + 
+  new_scale_fill() +
+  geom_tile(data = paddle.Sc,
+            aes(x = Pos - 312/2, y = 2.25, height = 0.05, fill = Z_score),
+            width = 2, linewidth = 0) +
+  geom_tile(data = paddle.Cg,
+            aes(x = Pos - 533/2, y = 0.75, height = 0.05, fill = Z_score),
+            width = 2, linewidth = 0) +
+  scale_fill_stepsn("Activation", colors = act.colors,
+                       breaks = c(-0.5, 4, 6, 10))
+
+p1 <- p1 + theme_cowplot() +
+  theme(legend.position = "bottom",
+        legend.direction = "vertical",
+        legend.box = "horizontal",
+        legend.justification = "center",
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks = element_blank())
+
+print(p1)
+```
+
+for the paper
+```{r}
+ggsave(filename = "../output/20240306-ScPho4-CgPho4-align-region-with-activation.png",
+       width = 5, height = 3.5)
 ```
 
