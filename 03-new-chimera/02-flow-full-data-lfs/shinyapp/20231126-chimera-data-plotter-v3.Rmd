@@ -123,7 +123,7 @@ my_calc_region_effect <- function(region, variable){
   # interest, pivots it wider after grouping by the background composition.
   
   # prepare the data by mutating the symbol column into fg and bg
-  valid.var <- c("A_PHO2", "A_pho2", "s_PHO2", "spho2", "boost")
+  valid.var <- c("A_PHO2", "A_pho2", "rA_PHO2", "rA_pho2", "boost")
   if(!variable %in% valid.var)
     stop(paste0("Please specify one of the valid variable names:", 
                 paste(valid.var, collapse = ", ")))
@@ -278,12 +278,12 @@ my_plot_boost <- function(selection){
   tmp <- filter(ximera, plasmid %in% c(refs, selection)) %>% 
     mutate(perc_pho2 = A_pho2/A_PHO2, 
            symbol = paste(symbol, set, sep = "-")) %>% 
-    pivot_longer(cols = c(s_PHO2, boost, s_pho2), 
+    pivot_longer(cols = c(rA_PHO2, boost, rA_pho2), 
                  names_to = "parameter", values_to = "ratio")
   # labeller
   par.explain <- c(
-    s_PHO2 = "Rel. A<sub>PHO2</sub>",
-    s_pho2 = "Rel. A<sub>pho2</sub>",
+    rA_PHO2 = "Rel. A<sub>PHO2</sub>",
+    rA_pho2 = "Rel. A<sub>pho2</sub>",
     boost = "Boost",
     perc_pho2 = "%A<sub>pho2</sub>"
   )
@@ -369,7 +369,7 @@ my_plot_combined_triangle_heatmap <- function(alt){
   my_title <- paste("Epistasis between regions on", ref, "background")
   test <- my_combined_triangular_mat(alt = alt)
   paletteLength = 50
-  myColors <- colorRampPalette(c("steelblue4", "gray90", "red"))(paletteLength)
+  myColors <- colorRampPalette(c("steelblue", "gray90", "red"))(paletteLength)
   rng <- max(abs(test), na.rm = TRUE)
   myBreaks <- c(seq(-rng, 0, length.out=ceiling(paletteLength/2) + 1), 
                 seq(rng/paletteLength, rng,
@@ -419,7 +419,7 @@ page_fillable(
         checkboxGroupInput(inputId = "set", label = "Please select the sets to include",
                            choiceNames = c("Main (M)", "P2ID_split (S)", "Other (B)"), 
                            choiceValues = c("M", "S", "B"),
-                           selected = c("M", "S", "B"),
+                           selected = c("M"),
                            inline = TRUE),
         gap = "5%"
       )
