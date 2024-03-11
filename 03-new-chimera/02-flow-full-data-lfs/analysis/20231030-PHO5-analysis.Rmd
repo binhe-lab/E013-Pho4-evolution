@@ -503,7 +503,7 @@ my_plot_subset_ximera <- function(symbols){
                  values_to = "value") %>% 
     mutate(parameter = fct_relevel(parameter, "PHO2"),
            symbol = factor(symbol, levels = 
-                             unique(c("CCCCC", "SSSSS", symbols)))) %>% 
+                             unique(c("SSSSS", "CCCCC", symbols)))) %>% 
   select(-c(A_PHO2:boost))
     
   # labeller
@@ -566,10 +566,12 @@ We have so far focused on the main set with the 5 region design. In the scatter 
 ![scatter](../img/20231220-all-chimera-scatter-color-by-P2ID.png)
 ```{r}
 selected <- as.character(
-  expression(CSSSS, SCSSS, CCSSS, SSCSS, CSCSS, SCCSS, CCCSS, SSSSC, SSCSC, CSCSC, CSScC))
+  expression(CCCSC, CCCcsC, CCCscC,
+    CSSCC, CSSSC, CSScsC, CSSscC
+             ))
 #selected <- filter(meta, symbol %in% selected) %>% pull(plasmid)
 my_plot_subset_ximera(selected)
-ggsave("../img/20240308-selected-chimera-rel-activity.png", width = 4, height = 4)
+ggsave("../img/20240310-P2ID-split-rel-activity.png", width = 3.5, height = 3.5)
 ```
 
 ## Region main effect

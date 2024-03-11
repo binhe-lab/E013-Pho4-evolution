@@ -442,26 +442,27 @@ datsum <- dat1 %>%
     se = sqrt(vr),
     .groups = "drop"
   ) %>% 
-  select(-s2, -vr)
+  select(-s2, -r, -vr)
 ```
 
 ... merge the data for plotting
 ```{r}
 ximera <- datsum %>%
-  pivot_wider(id_cols = plasmid, names_from = host, values_from = A, names_prefix = "A_") %>% 
+  pivot_wider(id_cols = plasmid, names_from = host,
+              values_from = c(A, se)) %>% 
   mutate(
-    s_PHO2 = A_PHO2 / A_PHO2[plasmid == "194"],
-    s_pho2 = A_pho2 / A_pho2[plasmid == "194"],
+    rA_PHO2 = A_PHO2 / A_PHO2[plasmid == "194"],
+    rA_pho2 = A_pho2 / A_pho2[plasmid == "194"],
     boost = A_PHO2 / A_pho2,
     group = case_when(
       plasmid %in% c("188", "194") ~ "ref",
-      s_PHO2 < 0.2                 ~ "n.f.",
+      rA_PHO2 < 0.2                ~ "n.f.",
       .default = "chimera"
     ),
     group = fct_relevel(group, "ref", "chimera", "n.f.")
   ) %>% 
   left_join(select(meta, plasmid, set, symbol), by = "plasmid") %>% 
-  mutate(symbol = fct_reorder(symbol, s_PHO2, .desc = TRUE)) %>% 
+  mutate(symbol = fct_reorder(symbol, rA_PHO2, .desc = TRUE)) %>% 
   relocate(c(set, symbol, group), .after = plasmid)
 ```
 
@@ -502,3 +503,67 @@ ggsave("../img/20240212-Sc45-Cg4ext-test-components.png", width = 8, height = 5)
 > 2. There is very little change in the activity without Pho2. This is again consistent with the interpretation above, i.e., for full functionality of the TF, il faut le trio: P2ID:Sc + DBD:Sc + Pho2
 >
 > 3. Lindsey also tested if extending P2ID:Cg to a.a. 470 makes any difference. The answer is no.
+
+Use a different way of visualization for the figures
+```{r}
+my_plot_subset_ximera <- function(symbols){
+  # this function plots a subset of the chimeras as horizontal bar plots
+  # showing the Rel. A_PHO2 and %A_pho2∆ values
+  # it takes as input a vector containing the symbols for the chimeras for 
+  # plotting. the order in the vector determines the plot order
+  # the endogenous ScPho4 and CgPho4 are implied
+  missing <- setdiff(symbols, ximera$symbol)
+  if(length(missing) != 0)
+    stop(paste(missing, "are not found", sep = " "))
+  
+  tmp <- filter(ximera, symbol %in% c("SSSSS", "CCCCC", symbols)) %>% 
+    mutate(
+      rSE_PHO2 = se_PHO2 / A_PHO2[symbol == "SSSSS"],
+      rSE_pho2 = se_pho2 / A_pho2[symbol == "SSSSS"]
+    ) %>% 
+    pivot_longer(cols = c(rA_PHO2, rA_pho2, rSE_PHO2, rSE_pho2), 
+                 names_to = c(".value", "parameter"), names_sep = "_",
+                 values_to = "value") %>% 
+    mutate(parameter = fct_relevel(parameter, "PHO2"),
+           symbol = factor(symbol, levels = 
+                             unique(c("SSSSS", "CCCCC", symbols)))) %>% 
+  select(-c(A_PHO2:boost))
+    
+  # labeller
+  par.explain <- c(
+    PHO2 = "Rel. A<sub>PHO2</sub>",
+    #boost = "Boost",
+    pho2 = "Rel. A<sub>pho2∆</sub>"
+  )
+  
+  p <- ggplot(tmp, aes(y = symbol, x = rA)) +
+    geom_col(width = 0.5, color = "black", fill = "gray80") +
+    geom_vline(xintercept = 1, linetype = 2, color = "gray30") +
+    geom_errorbar(aes(xmin = rA - rSE, xmax = rA + rSE), width = 0.2) +
+    facet_wrap(~parameter, scales = "free_x",# switch = "x",
+              labeller = labeller(parameter = par.explain)) +
+    scale_y_discrete(limits = rev) + 
+    scale_x_continuous(expand = expansion(mult = c(0.02, 0.05))) +
+    theme_cowplot() + panel_border(color = "gray30") +
+    background_grid(major = "y", minor = "none") +
+    theme(axis.text.y = element_text(family = "courier"),
+          axis.title = element_blank(),
+          axis.line = element_blank(),
+          strip.placement = "outside",
+          strip.background = element_blank(),
+          strip.text = element_markdown())
+  return(p)
+}
+```
+
+```{r}
+selected <- as.character(
+  expression(SCCCS, CSCCS, CCSCS, SSCCS, SSSCS, 
+             SCCCW, CSCCW, CCSCW, SSCCW, SSSCW))
+#selected <- filter(meta, symbol %in% selected) %>% pull(plasmid)
+my_plot_subset_ximera(selected) +
+  scale_y_discrete(limits = rev, labels = my_symbol_colors) +
+  theme(axis.text.y = element_markdown())
+ggsave("../img/20240310-Sc45ext-compare-rel-activity.png", width = 3.5, height = 4)
+```
+```
