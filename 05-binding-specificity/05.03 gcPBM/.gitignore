@@ -1,0 +1,2 @@
+# ignore GPR image scan files
+*.gpr

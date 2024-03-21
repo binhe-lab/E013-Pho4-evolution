@@ -1,0 +1,1 @@
+the two excel files contains the median intensity values per probe. the tsv file is a merge of the two dataset, leaving just the probe ID, category and intensities from the two arrays. it was generated using R.
