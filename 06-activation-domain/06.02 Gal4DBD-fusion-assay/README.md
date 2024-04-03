@@ -1,0 +1,1 @@
+Lindsey set up a Yeast One-Hybrid assay, where the candidate regions were fused to the Gal4 DBD and used to drive a genome-integrated _GAL1pr-mCherry_ in an _S. cerevisiae_ host strain, to test the activation potential for the regions predicted by PADDLE.
