@@ -564,6 +564,6 @@ selected <- as.character(
 my_plot_subset_ximera(selected) +
   scale_y_discrete(limits = rev, labels = my_symbol_colors) +
   theme(axis.text.y = element_markdown())
-ggsave("../img/20240310-Sc45ext-compare-rel-activity.png", width = 3.5, height = 4)
+ggsave("../img/20240310-Sc45ext-compare-rel-activity.png", width = 4, height = 4)
 ```
 ```
