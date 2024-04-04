@@ -546,18 +546,100 @@ my_plot_subset_ximera(selected)
 ggsave("../img/20240308-selected-chimera-rel-activity.png", width = 4, height = 4)
 ```
 
-==Region 1-3 main effects and interactions==
+### Region 1-3 main effects and interactions
 
 ```{r}
-split <- c(1,1,1,1,1); names(split) <- paste0("P", 1:5)
-tmp <- dat %>%
-  filter(!is.na(plasmid)) %>% 
+# select the chimeras
+selected <- as.character(
+  expression(SSSSS, CSSSS, SCSSS, SSCSS, CCSSS, CSCSS, SCCSS, CCCSS)
+)
+
+# extract the data
 tmp <- ximera %>% 
-  filter(set == "M", group != "n.f.") %>% 
+  filter(symbol %in% selected, set == "M") %>% 
+  select(plasmid, symbol, group) %>% 
+  inner_join(dat, by = "plasmid") %>% 
+  mutate( `R/G` = YL2.H / BL1.H ) %>%
+  filter(flag == "pass") %>% 
+  select(-nRFP, -nGFP, -well, -flag)
+
+# prepare the factor levels
+split <- c(1,1,1,2); names(split) <- c("R1", "AD", "NLS")
+
+tmp <- tmp %>% 
   separate_wider_position(symbol, split) %>% 
-  mutate(across(P1:P5, ~factor(.x, levels = c("S", "C"))))
-lm <- lm(A_PHO2 ~ (P1+P2+P3+P4+P5), data = tmp)
-summary(lm)
+  mutate(across(R1:NLS, ~factor(.x, levels = c("S", "C"))))
+
+# test A_PHO2
+print("Testing A_PHO2")
+lm.res <- tmp %>% 
+  filter(host == "PHO2") %>% 
+  lm(`R/G` ~ (R1*AD*NLS), data = .) %>% 
+  summary()
+# adding adjusted P-value
+lm.res$coefficients <- cbind(
+  coef(lm.res),
+  "P.adj" = p.adjust(coef(lm.res)[,'Pr(>|t|)'], method = "holm")
+)
+print(lm.res)
+# store the test results for plotting
+res.PHO2 <- coef(lm.res)[-1,] %>% as_tibble(rownames = "component")
+
+# test A_pho2
+print("Testing A_pho2∆")
+lm.res <- tmp %>% 
+  filter(host == "pho2") %>% 
+  lm(`R/G` ~ (R1*AD*NLS), data = .) %>% 
+  summary()
+# adding adjusted P-value
+lm.res$coefficients <- cbind(
+  coef(lm.res),
+  "P.adj" = p.adjust(coef(lm.res)[,'Pr(>|t|)'], method = "holm")
+)
+print(lm.res)
+# store the test results for plotting
+res.pho2 <- coef(lm.res)[-1,] %>% as_tibble(rownames = "component")
+
+# combine the results
+test.res <- bind_rows(
+  "A_PHO2" = res.PHO2, "A_pho2" = res.pho2, .id = "parameter"
+)
+```
+Plot the result
+```{r}
+par.explain <- c(
+  A_PHO2 = "A<sub>PHO2</sub>",
+  A_pho2 = "A<sub>pho2∆</sub>"
+)
+
+p <- test.res %>% 
+  rename(estimate = Estimate, se = `Std. Error`) %>% 
+  mutate(
+    component = gsub("C", "", component) %>% fct_inorder(),
+    parameter = factor(parameter, levels = c("A_PHO2", "A_pho2")),
+    sig = P.adj < 0.05
+  ) %>% 
+  ggplot(aes(x = component, y = estimate)) +
+  geom_hline(yintercept = 0, linetype = 1, color = "gray50") +
+  geom_col(aes(fill = P.adj < 0.05), width = 0.5, color = "black") +
+  geom_pointrange(aes(ymin = estimate-se, ymax = estimate+se), size = 0.2) +
+  facet_wrap(~parameter, scales = "free_y", nrow = 2,
+             labeller = labeller(parameter = par.explain)) +
+  scale_x_discrete() + 
+  scale_y_continuous() +
+  scale_fill_manual(NULL, 
+                    values = c("gray90", "gray50")) +
+  theme_cowplot() + panel_border(color = "gray30") +
+  background_grid(major = "y", minor = "y") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, size = rel(1)),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.position = "bottom",
+        strip.placement = "outside",
+        strip.background = element_blank(),
+        strip.text = element_markdown(size = rel(1)))
+p
+ggsave("../img/20240404-region1-3-epistasis-plot.png", width = 3.5, height = 4.5)
 ```
 
 ### Region 4 splits
