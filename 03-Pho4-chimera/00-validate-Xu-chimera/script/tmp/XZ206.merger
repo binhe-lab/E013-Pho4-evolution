@@ -1,0 +1,174 @@
+########################################
+# Program: merger
+# Rundate: Sun  7 Oct 2018 13:28:28
+# Commandline: merger
+#    [-asequence] ./tmp/fwd.fa
+#    [-bsequence] ./tmp/rev.fa
+#    -outseq ./tmp/XZ206.fa
+#    -outfile ./tmp/XZ206.merger
+# Align_format: simple
+# Report_file: ./tmp/XZ206.merger
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: XZ206-p355
+# 2: XZ206-p077
+# Matrix: EDNAFULL
+# Gap_penalty: 50.0
+# Extend_penalty: 5.0
+#
+# Length: 1666
+# Identity:     173/1666 (10.4%)
+# Similarity:   173/1666 (10.4%)
+# Gaps:        1483/1666 (89.0%)
+# Score: 845.0
+# 
+#
+#=======================================
+
+XZ206-p355         1 gannggtagaggnnntggacnagctgtatgagacgccgatagacatgcag     50
+                                                                       
+XZ206-p077         1 --------------------------------------------------      0
+
+XZ206-p355        51 actacaatctttgaccaagtagataactatctgcatatggtgaacagcgg    100
+                                                                       
+XZ206-p077         1 --------------------------------------------------      0
+
+XZ206-p355       101 attacagcacgatgagaaagaagatttcaacgagcaaaacgacgagctga    150
+                                                                       
+XZ206-p077         1 --------------------------------------------------      0
+
+XZ206-p355       151 acagtcaagagaaccacaacagcagtgagaatgggaacgagaatgaaaat    200
+                                                                       
+XZ206-p077         1 --------------------------------------------------      0
+
+XZ206-p355       201 gaacaagacagtctcgcgttggacgacctagaccgcgcctttgagctggt    250
+                                                                       
+XZ206-p077         1 --------------------------------------------------      0
+
+XZ206-p355       251 ggaaggtatggatatggactggatgatgccctcgcatgcgcaccactccc    300
+                                                                       
+XZ206-p077         1 --------------------------------------------------      0
+
+XZ206-p355       301 cagctacaactgctacaatcaagccgcggctattatattcgccgctaata    350
+                                                                       
+XZ206-p077         1 --------------------------------------------------      0
+
+XZ206-p355       351 cacacgcaaagtgcggttcccgtaaccatttcgccgaacttggtcgctac    400
+                                                                       
+XZ206-p077         1 --------------------------------------------------      0
+
+XZ206-p355       401 tgctacttccaccacatccgctaacaaagtcactaaaaacaagagtaata    450
+                                                                       
+XZ206-p077         1 --------------------------------------------------      0
+
+XZ206-p355       451 gtagtccgtatttgaacaagcgcagaggtaaacccgggccggattcggcc    500
+                                                                       
+XZ206-p077         1 --------------------------------------------------      0
+
+XZ206-p355       501 acttcgctgttcgaattgcccgacagcgttatcccaactccgaaaccgaa    550
+                                                                       
+XZ206-p077         1 --------------------------------------------------      0
+
+XZ206-p355       551 accgaaaccaaagcaatatccgaaagttattctgccgtcgaacagcacaa    600
+                                                                       
+XZ206-p077         1 --------------------------------------------------      0
+
+XZ206-p355       601 gacgcgtatcaccggtcacggccaagaccagcagcagcgcagaaggcgtg    650
+                                                                       
+XZ206-p077         1 --------------------------------------------------      0
+
+XZ206-p355       651 gtcgtagcaagtgagtctcctgtaatcgcgccgcacggatcgagccattc    700
+                                                                       
+XZ206-p077         1 --------------------------------------------------      0
+
+XZ206-p355       701 gcggtcgctgagtaagcgacggtcatcgggcgcgctcgtggacgatgaca    750
+                                                                       
+XZ206-p077         1 --------------------------------------------------      0
+
+XZ206-p355       751 agcgcgaatcacacaagcatgcagagcaagcacggcgtaatcgattagcg    800
+                          |||||||...||||||||||||||||.||||||||||||||||||
+XZ206-p077         1 -----gaatcacnnnagcatgcagagcaagcncggcgtaatcgattagcg     45
+
+XZ206-p355       801 gtcgcgctgcacgaactggcgtctttaatccccgcggagtggaaacagca    850
+                     ||||||||||||||||||||||||||||.|||||||||||||||||||||
+XZ206-p077        46 gtcgcgctgcacgaactggcgtctttaanccccgcggagtggaaacagca     95
+
+XZ206-p355       851 aaatgtgtcggccgcgccgtccaaagcgaccaccgtggaggcggcctgcc    900
+                     ||||||.||||||||||||||||||||||||.||||||||||||||||||
+XZ206-p077        96 aaatgtntcggccgcgccgtccaaagcgaccnccgtggaggcggcctgcc    145
+
+XZ206-p355       901 ggtacatccgtcacctacagcagaacgngagcacggnt------------    938
+                     ||||||||||||||.|||||||||||| |||||||| |            
+XZ206-p077       146 ggtacatccgtcacntacagcagaacgtgagcacgggttctggttcttta    195
+
+XZ206-p355       939 --------------------------------------------------    938
+                                                                       
+XZ206-p077       196 attaacatgtctaagggtgaagaattgttcactggtgttgttccaatctt    245
+
+XZ206-p355       939 --------------------------------------------------    938
+                                                                       
+XZ206-p077       246 ggttgaattggacggtgacgttaacggtcacaagttctctgtttctggtg    295
+
+XZ206-p355       939 --------------------------------------------------    938
+                                                                       
+XZ206-p077       296 aaggtgaaggtgacgctacttacggtaagttgactttgaagttcatctgt    345
+
+XZ206-p355       939 --------------------------------------------------    938
+                                                                       
+XZ206-p077       346 actactggtaagttgccagttccatggccaactttggttactactttggg    395
+
+XZ206-p355       939 --------------------------------------------------    938
+                                                                       
+XZ206-p077       396 ttacggtttgatgtgtttcgctagatacccagaccacatgaagcaacacg    445
+
+XZ206-p355       939 --------------------------------------------------    938
+                                                                       
+XZ206-p077       446 acttcttcaagtctgctatgccagaaggttacgttcaagaaagaactatc    495
+
+XZ206-p355       939 --------------------------------------------------    938
+                                                                       
+XZ206-p077       496 ttcttcaaggacgacggtaactacaagactagagctgaagttaagttcga    545
+
+XZ206-p355       939 --------------------------------------------------    938
+                                                                       
+XZ206-p077       546 aggtgacactttggttaacagaatcgaattgaagggtatcgacttcaagg    595
+
+XZ206-p355       939 --------------------------------------------------    938
+                                                                       
+XZ206-p077       596 aagacggtaacatcttgggtcacaagttggaatacaactacaactctcac    645
+
+XZ206-p355       939 --------------------------------------------------    938
+                                                                       
+XZ206-p077       646 aacgtttacatcatggctgacaagcaaaagaacggtatcaaggttaactt    695
+
+XZ206-p355       939 --------------------------------------------------    938
+                                                                       
+XZ206-p077       696 caagatcagacacaacatcgaagacggttctgttcaattggctgaccact    745
+
+XZ206-p355       939 --------------------------------------------------    938
+                                                                       
+XZ206-p077       746 accaacaaaacactccaatcggtgacggtccagttttgttgccagacaac    795
+
+XZ206-p355       939 --------------------------------------------------    938
+                                                                       
+XZ206-p077       796 cactacttgtcttaccaatctaagttgtctaaggacccaaacgaaaagag    845
+
+XZ206-p355       939 --------------------------------------------------    938
+                                                                       
+XZ206-p077       846 agaccacatggttttgttggaattcgttactgctgctggtntcactcacg    895
+
+XZ206-p355       939 ----------------    938
+                                     
+XZ206-p077       896 gtanngangaannnnc    911
+
+
+#---------------------------------------
+#
+# Conflicts:      XZ206-p355      XZ206-p077
+#              position base   position base Using
+# 
+#
+#---------------------------------------

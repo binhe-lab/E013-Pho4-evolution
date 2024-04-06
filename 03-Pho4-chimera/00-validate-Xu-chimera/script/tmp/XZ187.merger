@@ -1,0 +1,189 @@
+########################################
+# Program: merger
+# Rundate: Sun  7 Oct 2018 13:28:27
+# Commandline: merger
+#    [-asequence] ./tmp/fwd.fa
+#    [-bsequence] ./tmp/rev.fa
+#    -outseq ./tmp/XZ187.fa
+#    -outfile ./tmp/XZ187.merger
+# Align_format: simple
+# Report_file: ./tmp/XZ187.merger
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: XZ187-p355
+# 2: XZ187-p077
+# Matrix: EDNAFULL
+# Gap_penalty: 50.0
+# Extend_penalty: 5.0
+#
+# Length: 1817
+# Identity:       7/1817 ( 0.4%)
+# Similarity:     6/1817 ( 0.3%)
+# Gaps:        1803/1817 (99.2%)
+# Score: 9.0
+# 
+#
+#=======================================
+
+XZ187-p355         1 gnntgannggtagagganatggacaagctgtatgagacgccgatagacat     50
+                                                                       
+XZ187-p077         1 --------------------------------------------------      0
+
+XZ187-p355        51 gcagactacaatctttgaccaagtagataactatctgcatatggtgaaca    100
+                                                                       
+XZ187-p077         1 --------------------------------------------------      0
+
+XZ187-p355       101 gcggattacagcacgatgagaaagaagatttcaacgagcaaaacgacgag    150
+                                                                       
+XZ187-p077         1 --------------------------------------------------      0
+
+XZ187-p355       151 ctgaacagtcaagagaaccacaacagcagtgagaatgggaacgagaatga    200
+                                                                       
+XZ187-p077         1 --------------------------------------------------      0
+
+XZ187-p355       201 aaatgaacaagacagtctcgcgttggacgacctagaccgcgcctttgagc    250
+                                                                       
+XZ187-p077         1 --------------------------------------------------      0
+
+XZ187-p355       251 tggtggaaggtatggatatggactggatgatgccctcgcatgcgcaccac    300
+                                                                       
+XZ187-p077         1 --------------------------------------------------      0
+
+XZ187-p355       301 tccccagctacaactgctacaatcaagccgcggctattatattcgccgct    350
+                                                                       
+XZ187-p077         1 --------------------------------------------------      0
+
+XZ187-p355       351 aatacacacgcaaagtgcggttcccgtaaccatttcgccgaacttggtcg    400
+                                                                       
+XZ187-p077         1 --------------------------------------------------      0
+
+XZ187-p355       401 ctactgctacttccaccacatccgctaacaaagtcactaaaaacaagagt    450
+                                                                       
+XZ187-p077         1 --------------------------------------------------      0
+
+XZ187-p355       451 aatagtagtccgtatttgaacaagcgcagaggtaaacccgggccggattc    500
+                                                                       
+XZ187-p077         1 --------------------------------------------------      0
+
+XZ187-p355       501 ggccacttcgctgttcgaattgcccgacagcgttatcccaactccgaaac    550
+                                                                       
+XZ187-p077         1 --------------------------------------------------      0
+
+XZ187-p355       551 cgaaaccgaaaccaaagcaatatccgaaagttattctgccgtcgaacagc    600
+                                                                       
+XZ187-p077         1 --------------------------------------------------      0
+
+XZ187-p355       601 acaagacgcgtatcaatggaaacggataactatgagagggccagcttgct    650
+                                                                       
+XZ187-p077         1 --------------------------------------------------      0
+
+XZ187-p355       651 agaggactcacaaccagacgagacacagaacaataacccacagaacaata    700
+                                                                       
+XZ187-p077         1 --------------------------------------------------      0
+
+XZ187-p355       701 atccacatagcaatggctctagtatcagtcctgttggcaaaaacgactcg    750
+                                                                       
+XZ187-p077         1 --------------------------------------------------      0
+
+XZ187-p355       751 gtgatgctagccagtggctcacctgtgttgaaaccccaaaattcaagttc    800
+                                                                       
+XZ187-p077         1 --------------------------------------------------      0
+
+XZ187-p355       801 taatattttgcananaccttactcatctaaaagagttttcnngtcgccag    850
+                                                                       
+XZ187-p077         1 --------------------------------------------------      0
+
+XZ187-p355       851 cgganntttcaagcactgnanaaactgcagacgaggcttccnncgatgca    900
+                                                         .|||.  ..|.|.|
+XZ187-p077         1 ------------------------------------gttcaannnangaa     14
+
+XZ187-p355       901 --------------------------------------------------    900
+                                                                       
+XZ187-p077        15 nnngntgcataagtanncagancnngaaagnnnnancaggctgancaacg     64
+
+XZ187-p355       901 --------------------------------------------------    900
+                                                                       
+XZ187-p077        65 cgnttagcgatttgaactctttacttcnncaagactggaaagacgctgtc    114
+
+XZ187-p355       901 --------------------------------------------------    900
+                                                                       
+XZ187-p077       115 acanncccatntaaggctatcacagctgaactcgcttgcaaatacataag    164
+
+XZ187-p355       901 --------------------------------------------------    900
+                                                                       
+XZ187-p077       165 gacactgctcgaagagcttgagcagtacnagaaaggttctggttctttaa    214
+
+XZ187-p355       901 --------------------------------------------------    900
+                                                                       
+XZ187-p077       215 ttaacatgtctaagggtgaagaattgttcactggtgttgttccaatcttg    264
+
+XZ187-p355       901 --------------------------------------------------    900
+                                                                       
+XZ187-p077       265 gttgaattggacggtgacgttaacggtcacaagttctctgtttctggtga    314
+
+XZ187-p355       901 --------------------------------------------------    900
+                                                                       
+XZ187-p077       315 aggtgaaggtgacgctacttacggtaagttgactttgaagttcatctgta    364
+
+XZ187-p355       901 --------------------------------------------------    900
+                                                                       
+XZ187-p077       365 ctactggtaagttgccagttccatggccaactttggttactactttgggt    414
+
+XZ187-p355       901 --------------------------------------------------    900
+                                                                       
+XZ187-p077       415 tacggtttgatgtgtttcgctagatacccagaccacatgaagcaacacga    464
+
+XZ187-p355       901 --------------------------------------------------    900
+                                                                       
+XZ187-p077       465 cttcttcaagtctgctatgccagaaggttacgttcaagaaagaactatct    514
+
+XZ187-p355       901 --------------------------------------------------    900
+                                                                       
+XZ187-p077       515 tcttcaaggacgacggtaactacaagactagagctgaagttaagttcgaa    564
+
+XZ187-p355       901 --------------------------------------------------    900
+                                                                       
+XZ187-p077       565 ggtgacactttggttaacagaatcgaattgaagggtatcgacttcaagga    614
+
+XZ187-p355       901 --------------------------------------------------    900
+                                                                       
+XZ187-p077       615 agacggtaacatcttgggtcacaagttggaatacaactacaactctcaca    664
+
+XZ187-p355       901 --------------------------------------------------    900
+                                                                       
+XZ187-p077       665 acgtttacatcatggctgacaagcaaaagaacggtatcaaggttaacttc    714
+
+XZ187-p355       901 --------------------------------------------------    900
+                                                                       
+XZ187-p077       715 aagatcagacacaacatcgaagacggttctgttcaattggctgaccacta    764
+
+XZ187-p355       901 --------------------------------------------------    900
+                                                                       
+XZ187-p077       765 ccaacaaaacactccaatcggtgacggtccagttttgttgccagacaacc    814
+
+XZ187-p355       901 --------------------------------------------------    900
+                                                                       
+XZ187-p077       815 actacttgtcttaccaatctaagttgtctaaggacccaaacgaaaagaga    864
+
+XZ187-p355       901 --------------------------------------------------    900
+                                                                       
+XZ187-p077       865 gaccacatggttttgttggaattcgttactgctgctggtatcactcacgg    914
+
+XZ187-p355       901 -----------------    900
+                                      
+XZ187-p077       915 tanngacgaatntncaa    931
+
+
+#---------------------------------------
+#
+# Conflicts:      XZ187-p355      XZ187-p077
+#              position base   position base Using
+#                   887  'C'          1  'g'   'C'
+#                   891  'C'          5  'a'   'C'
+#                   899  'C'         13  'a'   'C'
+# 
+#
+#---------------------------------------

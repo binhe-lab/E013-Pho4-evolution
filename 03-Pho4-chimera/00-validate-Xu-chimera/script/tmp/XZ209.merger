@@ -1,0 +1,206 @@
+########################################
+# Program: merger
+# Rundate: Sun  7 Oct 2018 13:28:29
+# Commandline: merger
+#    [-asequence] ./tmp/fwd.fa
+#    [-bsequence] ./tmp/rev.fa
+#    -outseq ./tmp/XZ209.fa
+#    -outfile ./tmp/XZ209.merger
+# Align_format: simple
+# Report_file: ./tmp/XZ209.merger
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: XZ209-p355
+# 2: XZ209-p077
+# Matrix: EDNAFULL
+# Gap_penalty: 50.0
+# Extend_penalty: 5.0
+#
+# Length: 2072
+# Identity:     163/2072 ( 7.9%)
+# Similarity:   163/2072 ( 7.9%)
+# Gaps:        1895/2072 (91.5%)
+# Score: 788.0
+# 
+#
+#=======================================
+
+XZ209-p355         1 gnnngannggtagaggnatggacaagctgtatgagacgccgatagacang     50
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355        51 cagactacaatctttgaccaagtagataactatctgcatatggtgaacag    100
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355       101 cggattacagcacgatgagaaagaagatgaacatagggaacatgaagatg    150
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355       151 cgattgatggtggggccagtctgaacatgcacctttacaatattaatgat    200
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355       201 acattaaatggtgtttctactgataacggtcatttcgacatggttgattt    250
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355       251 acatttcgggcccacattgactacagatgacgacccaaccaaaatggccg    300
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355       301 aactacagcataccacgatacatcatggccatctagacgtcaatggaaac    350
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355       351 cgcagtgatagtttattctcgccattcgattctccattagtacatgacac    400
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355       401 tccatcattggaggctaggaatagtatacaacttacaaatgagggttcca    450
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355       451 catcagctcttacaacaccatttctgagcggcaagaaccactatgacgac    500
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355       501 cacgggaactctataaattcccagagctttaactaccataacagaaactc    550
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355       551 aagtctctccaaagttagtggtaaattctccccaatatcgtcaccgaact    600
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355       601 tggtcgctactgctacttccaccacatccgctaacaaagtcactaaaaac    650
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355       651 aagagtaatagtagtccgtatttgaacaagcgcagaggtaaacccgggcc    700
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355       701 ggattcggccacttcgctgttcgaattgcccgacagcgttatcccaactc    750
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355       751 cgaaaccgaaaccgaaaccaaagcaatatccgaaagttattctgccgtcg    800
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355       801 aacagcacaagacgcgtatcaccggtcacggccaagaccagcagcagcgc    850
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355       851 agaaggcgtggtcgtagcaagtgagtctcctgtgttgaaaccccaaaatt    900
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355       901 caagttctaatattttgcagacaccttactcatctaaaagagttttcaag    950
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355       951 tcgccagcggatatttcaagcactgaacaaactgcagacgaggcttccaa   1000
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355      1001 cgatgcaagtaatgatgctaagtcgaaggacaagaaacaaaggaaacctt   1050
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355      1051 catccagtggacccaataagctaaagagaactaatactggtggcagcatc   1100
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355      1101 gggagagtacgatcagacagtgccagccaaaacagcgactatgttcaaag   1150
+                                                                       
+XZ209-p077         1 --------------------------------------------------      0
+
+XZ209-p355      1151 aaagaaagaggtgcataagtacgcagaacaagaaagaasaaacaggctga   1200
+                                     ||||||||||..|..|.||||. ||.||||||||
+XZ209-p077         1 ----------------aagtacgcagnncnngnaagannaancaggctga     34
+
+XZ209-p355      1201 acaacgcgcttagcgatttgaactctttacttccacaagactggaaagac   1250
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ209-p077        35 acaacgcgcttagcgatttgaactctttacttccacaagactggaaagac     84
+
+XZ209-p355      1251 gctgtcacagtcccatctaaggctatcacagnngaactcgcttgcaaata   1300
+                     |||||||||||.||||.||||||||||||||  |||||||||||||||||
+XZ209-p077        85 gctgtcacagtnccatntaaggctatcacagctgaactcgcttgcaaata    134
+
+XZ209-p355      1301 cataaggacactgctcgaagagcttgagcagtacaagaaannt-------   1343
+                     ||||||||||||||||||||||||||||||||||||||||  |       
+XZ209-p077       135 cataaggacactgctcgaagagcttgagcagtacaagaaaggttctggtt    184
+
+XZ209-p355      1344 --------------------------------------------------   1343
+                                                                       
+XZ209-p077       185 ctttaattaacatgtctaagggtgaagaattgttcactggtgttgttnca    234
+
+XZ209-p355      1344 --------------------------------------------------   1343
+                                                                       
+XZ209-p077       235 atcttggttgaattggacggtgacgttaacggtcacaagttctctgtttc    284
+
+XZ209-p355      1344 --------------------------------------------------   1343
+                                                                       
+XZ209-p077       285 tggtgaaggtgaaggtgacgctacttacggtaagttgactttgaagttca    334
+
+XZ209-p355      1344 --------------------------------------------------   1343
+                                                                       
+XZ209-p077       335 tctgtactactggtaagttgccagttccatggccaactttggttactact    384
+
+XZ209-p355      1344 --------------------------------------------------   1343
+                                                                       
+XZ209-p077       385 ttgggttacggtttgatgtgtttcgctagatacccagaccacatgaagca    434
+
+XZ209-p355      1344 --------------------------------------------------   1343
+                                                                       
+XZ209-p077       435 acacgacttcttcaagtctgctatgccagaaggttacgttcaagaaagaa    484
+
+XZ209-p355      1344 --------------------------------------------------   1343
+                                                                       
+XZ209-p077       485 ctatcttcttcaaggacgacggtaactacaagactagagctgaagttaag    534
+
+XZ209-p355      1344 --------------------------------------------------   1343
+                                                                       
+XZ209-p077       535 ttcgaaggtgacactttggttaacagaatcgaattgaagggtatcgactt    584
+
+XZ209-p355      1344 --------------------------------------------------   1343
+                                                                       
+XZ209-p077       585 caaggaagacggtaacatcttgggtcacaagttggaatacaactacaact    634
+
+XZ209-p355      1344 --------------------------------------------------   1343
+                                                                       
+XZ209-p077       635 ctcacaacgtttacatcatggctgacaagcaaaagaacggtatcaaggtt    684
+
+XZ209-p355      1344 --------------------------------------------------   1343
+                                                                       
+XZ209-p077       685 aacttcaagatcagacacaacatcgaagacggttctgttcaattggctga    734
+
+XZ209-p355      1344 --------------------------------------------------   1343
+                                                                       
+XZ209-p077       735 ccactaccaacaaaacactccaatcggtgacggtccagttttgttgccag    784
+
+XZ209-p355      1344 --------------------------------------------------   1343
+                                                                       
+XZ209-p077       785 acaaccactacttgtcttaccaatctaagttgtctaaggacccaaacgaa    834
+
+XZ209-p355      1344 --------------------------------------------------   1343
+                                                                       
+XZ209-p077       835 aagagagaccacatggttttgttggnntcgttactgctgctggtatcact    884
+
+XZ209-p355      1344 ----------------------   1343
+                                           
+XZ209-p077       885 cacggtanggacgaatntacaa    906
+
+
+#---------------------------------------
+#
+# Conflicts:      XZ209-p355      XZ209-p077
+#              position base   position base Using
+# 
+#
+#---------------------------------------

@@ -1,0 +1,442 @@
+---
+title: "E013 Pho4 chimera activity analysis using PHO5 reporter, pool and QC"
+author: "Bin He"
+date: "2023-10-19 updated `r Sys.Date()`"
+output:
+  html_notebook:
+    toc: yes
+    toc_float: yes
+    code_folding: hide
+  pdf_document:
+    toc: yes
+---
+
+```{r message=FALSE}
+require(plotly)
+require(tidyverse)
+require(ggridges)
+require(cowplot)
+require(RColorBrewer)
+```
+
+```{r}
+old <- theme_set(theme_bw(base_size = 16))
+```
+
+
+# Goal
+- Analyze the full chimera set flow results for _PHO5pr_-mCherry reporter.
+- Develop an analysis pipeline to perform QC, correction (if needed) and plotting the results.
+
+# Data
+Import the data
+```{r}
+files <- list.files(path = ".", pattern = "*-gated-median-out.txt")
+names(files) <- gsub("-gated-median-out.txt", "", files)
+raw <- map_dfr(files, ~read_tsv(.x, col_types = cols()), .id = "date") %>% 
+  mutate(
+    flag = ifelse(is.na(flag), # if no flag was recorded in the original gated median data 
+                  ifelse(n_induction < 1000, "fail", "pass"), # fail if fewer than 1000 events
+                  flag), # if the original data (one) has flag, use it
+    date = format(ymd(date), "%m/%d")
+  ) %>% 
+  filter(!grepl("bead", sample)) %>% 
+  separate(col = sample, sep = "-", into = c("plasmid", "host", "rep"))
+```
+
+Sample information
+```{r}
+sample <- read_tsv("../20230208-chimera-Pho4-makeup.txt", col_types = "ccccc")
+```
+
+# QC
+## 1. Number of events per sample
+Blank wells are indeed blank
+```{r}
+raw %>% filter(host == "blank") %>% 
+  group_by(date) %>%
+  ggplot(aes(x = date, y = n_cells)) + geom_point(aes(shape = well)) +
+  stat_summary(fun.data = "mean_se", geom = "pointrange", color = "red", 
+               position = position_nudge(x = 0.1)) +
+  theme_bw(base_size = 16) + theme(axis.text.x = element_text(size = rel(0.8), angle = 90))
+```
+> there are some cell like events in the blank wells, especially in one well on 02/21 and another on 3/31.
+> 02/08 and 02/10 also have more events than other days. checking the pre-processing R notebook
+> outputs, I think there may be some carry over between wells. No wide spread contamination though.
+
+Below, we will remove the blank wells from further consideration
+```{r}
+tmp <- filter(raw, host != "blank")
+```
+
+```{r}
+tmp %>% 
+  ggplot(aes(x = n_induction)) + 
+  #geom_histogram(bins = 30, fill = "forestgreen") + facet_grid(host~date) + 
+  geom_density_ridges(aes(y = date)) +
+  facet_wrap(~host) + theme_minimal(base_size = 14) #+ panel_border()
+```
+> Majority of the experimental wells (not blank) have > 5000 events, with the exception of a few samples
+
+```{r}
+tmp %>% filter(n_induction < 1000)
+```
+> for now, I plan to let any sample with > 1000 events pass. This would exclude 20 samples that have extremely low counts, likely indicating issues. later I plan to revisit the remaining low count samples, e.g., n_induction between 1000 and 3000.
+
+Remove low event count and a few experiments with "fail" flag.
+```{r}
+dat <- filter(raw, host != "blank", flag == "pass")
+```
+
+
+## 2. Background subtraction
+
+Check the background fluorescence levels across different days.
+```{r}
+dat %>% filter(host == "156") %>% 
+  pivot_longer(BL1.H:nRFP, names_to = "parameter", values_to = "intensity") %>% 
+  mutate(parameter = ordered(parameter, levels = c("BL1.H", "YL2.H", "nGFP", "nRFP"))) %>% 
+  ggplot(aes(x = date, y = intensity)) + geom_point(aes(shape = well)) +
+  stat_summary(fun.data = "mean_se", geom = "pointrange", color = "red", 
+               position = position_nudge(x = 0.1)) +
+  facet_wrap(~parameter) +
+  theme_bw(base_size = 16) + theme(axis.text.x = element_text(size = rel(0.8), angle = 90))
+```
+
+> 02/18 and 02/21 YFP has relatively high background. I checked the original gated data and 
+> found that indeed those samples have a higher RFP. It is not, however, a systematic shift up,
+> as the other samples don't appear to have higher RFP levels during those runs (days).
+> similarly, 02/10 showed higher BL1.H background, and there is no indication that a systematic 
+> shift explains the higher background (which can be caused by a voltage difference).
+
+```{r}
+tmp <- dat %>% filter(host == "156")
+lm(BL1.H ~ date, data = tmp) %>% anova()
+```
+
+> ANOVA above does reveal significant variation in GFP background fluorescence between yH156 across days.
+
+Is there any relationship between the background BL1.H level from yH156 and mNeon levels from the experimental strains?
+```{r}
+test.strain = "194"
+tmp <- dat %>% 
+  filter(grepl(paste0("NA-156|", test.strain, "-373"), name)) %>% 
+  group_by(date, plasmid) %>% 
+  summarize(meanGFP = mean(BL1.H), .groups = "drop") %>% 
+  pivot_wider(id_cols = date, names_from = plasmid, names_prefix = "p", values_from = meanGFP)
+
+lm(p194 ~ pNA, data = tmp) %>% summary()
+
+p <- ggplot(tmp, aes(x = pNA, y = p194)) + 
+  geom_point(size = 2) + 
+  geom_text(data = filter(tmp, p194 < 1800), aes(label = date), nudge_x = -20) +
+  stat_smooth(method = "lm", formula = y~x) +
+  xlab("background BL1.H (yH156)") + ylab(paste0("Pho4-mNeon (pH", test.strain, ")")) +
+  theme_minimal(base_size = 16)
+
+p
+
+```
+
+> No strong correlation between the background and the mNeon levels
+
+Given the results above, I propose to do the following:
+
+    I assume the variation in the non-fluorescent strain's reading is due to idiosynchractic behavior
+    of that strain and not characteristic of the days. Therefore, I plan to avearage the background
+    fluorescence to get a more accurate estimate, which implicitly assumes that variation in the
+    background is minimal between days.
+
+
+Subtract the background
+```{r}
+bg <- dat %>% 
+  filter(host == "156") %>% 
+  group_by(date) %>% 
+  # average based on dates
+  summarize(across(BL1.H:nRFP, ~ round(mean(.x),1)), .groups = "drop") %>% 
+  # median of day averages
+  summarize(across(BL1.H:nRFP, ~median(.))) %>% 
+  unlist() # turn into a named vector storing background readings
+  #column_to_rownames(var = "date")
+
+bg.rm <- dat %>% 
+  select(date:host, events = n_induction, FSC.H:nRFP, flag) %>%
+  mutate(
+    BL1.H = BL1.H - bg["BL1.H"],
+    YL2.H = YL2.H - bg["YL2.H"],
+    nGFP = nGFP - bg["nGFP"],
+    nRFP = nRFP - bg["nRFP"],
+  )
+```
+
+Double check that the subtraction worked correctly
+```{r}
+bg.rm %>% filter(host == "156") %>% 
+  pivot_longer(BL1.H:nRFP, names_to = "parameter", values_to = "intensity") %>% 
+  mutate(parameter = ordered(parameter, levels = c("BL1.H", "YL2.H", "nGFP", "nRFP"))) %>% 
+  ggplot(aes(x = date, y = intensity)) + geom_point(aes(shape = well)) +
+  stat_summary(fun.data = "mean_se", geom = "pointrange", color = "red", position = position_nudge(x = 0.1)) +
+  facet_wrap(~parameter, scale = "free_y") +
+  theme_bw(base_size = 14) + theme(axis.text.x = element_text(angle = 90))
+```
+
+Determine if any sample had very low mNeon levels despite having a Pho4 chimera plasmid. I observed such samples when doing the pre-processing, and would like to identify and remove them now.
+
+```{r}
+mycolors = c(brewer.pal(name="Paired", n = 8), brewer.pal(name="Dark2", n = 6))
+
+no.exn.th <- 250
+ggplot(bg.rm, aes(x = plasmid, y = abs(BL1.H))) +
+  geom_hline(yintercept = no.exn.th, color = "grey50", linetype = 2, size = 0.2) +
+  geom_point(aes(color = date)) + 
+  scale_y_log10(breaks = c(100, 1000, 10000)) + ylab("BL1.H") +
+  scale_color_manual(values = mycolors) + theme_cowplot() + 
+  theme(axis.text.x = element_text(angle = 90, size = rel(0.7), vjust = 0.5),
+        legend.position = "top")
+```
+
+```{r}
+# assign "fail" to the non-expressing ones
+bg.rm[bg.rm$plasmid != "NA" & bg.rm$BL1.H < no.exn.th, "flag"] = "fail"
+filter(bg.rm, flag == "fail")
+```
+> the above samples will be exported for archiving, but won't be used in subsequent analyses.
+
+Lastly, pH231 assayed on 2/18 and 2/19 exhibited abnormal behaviors.
+![pH231 on 2/18, 2/19](../../img/20231116-pH231-problem.png)
+The existing one replicate from each day is from biological replicate 2, in which the majority of the cells were not inducing. Lindsey repeated this strain on 3/30 and 3/31, and obtained properly behaving data. Therefore, we will remove the single replicate for pH231 from 2/18 and 2/19
+```{r}
+bg.rm[bg.rm$plasmid == "231" & bg.rm$host == "555" & bg.rm$date %in% c("02/18", "02/19"), "flag"] = "fail"
+filter(bg.rm, flag == "fail")
+```
+
+Export the background-subtracted values for later use with the shinyapp
+```{r}
+# remove the yH156 samples
+dat.export <- bg.rm %>% 
+  filter(host != "156") %>% 
+  mutate(
+    host = ordered(host, levels = c("555", "373", "529"), labels = c("PHO2", "pho2∆", "PHO84"))
+  )
+write_tsv(dat.export, "../20231023-PHO5-bg-subtracted-data.tsv")
+```
+
+## 3. Consistency across plates.
+
+Check the background-subtracted fluorescence values for the host strains (yH373 and yH555) as well as the positive control strain (pH188 in yH373 or yH555 backgrounds), both of which are present on each plate.
+
+```{r}
+dat.export %>% 
+  filter(host != "PHO84", flag == "pass", plasmid %in% c("188", "194", "NA")) %>% 
+  pivot_longer(BL1.H:YL2.H, names_to = "parameter", values_to = "intensity") %>% 
+  #mutate(parameter = ordered(parameter, levels = c("BL1.H", "YL2.H", "nGFP", "nRFP"))) %>% 
+  ggplot(aes(x = plasmid, y = intensity, group = date)) + 
+  geom_point(aes(color = date), position = position_dodge(0.7)) + 
+  scale_color_manual(values = mycolors) +
+  facet_grid(parameter~host, scale = "free_y") +
+  theme_bw(base_size = 14)# +
+  #theme(axis.text.x = element_text(face = 3))
+```
+
+> 1. The host strain fluorescence levels appear to be consistent across the days. Additionally, their GFP levels are zero, as expected.
+> 2. The positive control strain has strong BL1.H and correspondingly has strong YL2.H.
+> 3. 02/10 batch has strange BL1 values. Since we have three identical sets (02/10, 11, 16), we can ignore this batch in the downstream analysis
+
+```{r}
+dat.wide.fil <- filter(dat.export, host != "PHO84", flag == "pass", date != "02/10")
+```
+
+Number of replicates left for each sample
+```{r, fig.width=10, fig.height=6}
+expt <- dat.wide.fil %>% 
+  filter(host %in% c("PHO2", "pho2∆"), !plasmid %in% c("188", "194")) %>% 
+  group_by(date, plasmid, host) %>% 
+  summarize(n = n(), .groups = "drop")
+
+expt %>% 
+  ggplot(aes(x = plasmid, y = n)) +
+  geom_col(aes(fill = host)) + 
+  facet_grid(date ~ .) +
+  scale_fill_manual(values = c("PHO2" = "gray30", "pho2∆" = "gray70")) +
+  theme_minimal() + background_grid(major = "none") + panel_border(size = 0.5) +
+  scale_y_continuous(name = "Replicates", breaks = c(0, 3, 6)) + xlab(NULL) +
+  theme(axis.text.x = element_text(angle = 90),
+        legend.position = "top")
+```
+
+How many plasmid-host combination have < 3 replicates after removing samples with low event counts?
+```{r}
+dat.wide.fil %>%
+  count(plasmid, host) %>% 
+  filter(n < 3)
+```
+
+## 4. Well position
+
+**_Rationale_**
+
+- In my original plate design, I placed a positive control strain (envisioned CgPho4-mNeon in _PHO2_ background for example) in the control columns (1, 5, 9) on every other row (A, C, E, G). The reason for this is to use it to identify any well position effect on the fluorescence readings.
+- In Emily's implementation, she instead put **a pair** of strains, namely pH188-yH323 and pH188-yH555 in these wells. This means I cannot use the positive control wells exactly the way as I designed them. But I can still use them to spot any trend.
+    
+```{r}
+tmp <- dat.wide.fil %>% 
+  filter(plasmid == "194", host == "PHO2") %>% 
+  separate(well, into = c("row", "col"), sep = 1) %>% 
+  pivot_longer(BL1.H:YL2.H, names_to = "parameter", values_to = "intensity")
+
+p0 <- list(
+  geom_point(aes(color = date), size = 1), 
+  #geom_line(aes(color = date), size = 0.4),
+  stat_summary(aes(color = date), geom = "line", fun = mean, linewidth = 0.5),
+  scale_color_manual(values = mycolors),
+  #scale_color_brewer(type = "qual", palette = 2),
+  facet_wrap(~parameter, scales = "free_y"),
+  xlab(NULL),
+  guides(color = guide_legend(title.position = "left", nrow = 2, byrow = TRUE)),
+  theme_bw(base_size = 14),
+  theme(legend.text = element_text(size = rel(0.8)))
+)
+
+p1 <- ggplot(tmp, aes(x = row, y = intensity, group = date)) + p0 +
+  labs(subtitle = "Variation over rows")
+
+p2 <- ggplot(tmp, aes(x = col, y = intensity, group = date)) + p0 +
+  labs(subtitle = "Variation over columns")
+
+p.legend <- get_legend(p1)
+
+plot_grid(p1 + guides(color = "none"), p2 + guides(color = "none"), p.legend,
+          nrow = 3, rel_heights = c(1,1,0.3))
+```
+
+> - no obivous trend between the rows; there seems to be downward trend for BL1 going from column 1 to 9
+> - a clear correlation between YL2.H and BL1.H. at least part of this is due to the cell size differences -- see size normalized data below:
+
+- What we care about is the ratio between Pho4-mNeon and _PHO5pr_-mCherry
+
+```{r}
+tmp <- dat.wide.fil %>% 
+  filter(plasmid == "194", host == "PHO2") %>% 
+  separate(well, into = c("row", "col"), sep = 1)
+
+tmp %>% 
+  ggplot(aes(x = BL1.H, y = YL2.H)) + 
+  stat_smooth(aes(color = date, group = date), 
+              method = "lm", formula = y ~ 0 + x, 
+              se = FALSE, size = 0.5) +
+  geom_point(aes(color = date, shape = col), size = 1.5) + 
+  #scale_color_manual(values = mycolors) +
+  scale_shape_manual(values = 17:19) +
+  facet_wrap(~ date) +
+  theme_minimal(base_size = 16) + 
+  theme(axis.text = element_blank(),
+        legend.position = "right",
+        legend.box = "horizontal")
+```
+
+> There is variation in BL1.H and correspondingly in YL2.H, but the ratio between the two are very consistent
+> 02/20 data is a bit of an outlier
+
+Let's check both ScPho4 (pH194) and CgPho4 (pH188) to see if their behaviors are consistent across the days.
+```{r}
+dat.wide.fil %>% 
+  filter(plasmid %in% c("188", "194"), host != "PHO84") %>% 
+  mutate(`YL2.H/BL1.H` = YL2.H/BL1.H,
+         Pho4 = factor(plasmid, levels = c("194", "188"), 
+                       labels = c("ScPho4", "CgPho4"))) %>% 
+  separate(well, into = c("row", "col"), sep = 1) %>% 
+  ggplot(aes(x = date, y = `YL2.H/BL1.H`)) + 
+  geom_bar(aes(fill = host), stat = "summary", fun = "mean", 
+           position = position_dodge(0.9)) +
+  geom_point(aes(group = host), size = 1, shape = 3,
+             position = position_dodge(width = 0.9)) + 
+  scale_fill_manual(values = c("PHO2" = "gray60", "pho2∆" = "orange")) +
+  #stat_summary(fun.data = "mean_se", geom = "pointrange", color = "red") +
+  facet_grid(Pho4 ~ .) +
+  theme_bw(base_size = 16) + background_grid(major = "none") +
+  theme(axis.text.x = element_text(size = rel(.8), angle = 45, vjust = 0.5))
+```
+
+> 2/20 data is more variable (also see the figure above the one immediately above)
+
+## 5. High variance samples
+
+Summarize the background subtracted data by calculating the means and cv for each strain.
+```{r}
+cv <- dat.wide.fil %>% 
+  select(-nGFP, -nRFP) %>%
+  pivot_longer(FSC.H:YL2.H, names_to = "parameter", values_to = "intensity") %>% 
+  group_by(date, plasmid, host, parameter) %>% 
+  summarize(
+    n = n(),
+    mean = mean(intensity),
+    cv = sd(intensity)/mean(intensity),
+    .groups = "drop"
+  ) %>% 
+  arrange(desc(cv))
+```
+
+```{r}
+cv %>% 
+  filter(plasmid != "NA", parameter != "FSC.H") %>% 
+  ggplot(aes(x = cv)) + geom_histogram(aes(y = after_stat(density)/8), bins = 30) + 
+  stat_ecdf() + 
+  geom_hline(yintercept = 0.8, linetype = 2) +
+  geom_vline(xintercept = 0.2, linetype = 3, color = "red3") +
+  scale_y_continuous(breaks = seq(0, 1, by = 0.2)) +
+  ylab("cumulative density") + 
+  facet_wrap(~parameter) +
+  theme_cowplot()
+```
+
+> The histogram's y-axis is not shown. The line graph represents the empirical CDF, and the dotted horizontal line is at 80%. GFP is more variable than RFP, likely because the absolute values of the former is lower. For both, ~80% of the samples have a CV < 20%.
+
+Do the same for the cell size-normalized values
+```{r}
+cv.n <- dat.wide.fil %>% 
+  select(-BL1.H, -YL2.H) %>% 
+  pivot_longer(nGFP:nRFP, names_to = "parameter", values_to = "intensity") %>% 
+  group_by(date, plasmid, host, parameter) %>% 
+  summarize(
+    n = n(),
+    mean = num(mean(intensity), digits = 0),
+    cv = num(sd(intensity)/mean(intensity), digits = 2),
+    .groups = "drop"
+  ) %>% 
+  arrange(desc(cv))
+```
+
+```{r}
+cv.n %>% 
+  filter(plasmid != "NA", parameter != "FSC.H") %>% 
+  ggplot(aes(x = cv)) + geom_histogram(aes(y = after_stat(density)/10), bins = 30) + 
+  stat_ecdf() + 
+  geom_hline(yintercept = 0.8, linetype = 2) +
+  geom_vline(xintercept = 0.2, linetype = 3, color = "red3") +
+  scale_y_continuous(breaks = seq(0, 1, by = 0.2)) +
+  ylab("cumulative density") + 
+  facet_wrap(~parameter) +
+  theme_cowplot()
+```
+
+> CV is about the same for the size normalized data.
+
+Identify the high variance samples
+```{r}
+high.var.list <- cv %>% 
+  mutate(CV = round(abs(cv), 3)) %>% 
+  pivot_wider(id_cols = c(date, plasmid, host), 
+              names_from = parameter, names_prefix = "CV_",
+              values_from = CV) %>%
+  filter(CV_BL1.H > 0.2 | CV_YL2.H > 0.2) %>% 
+  arrange(date, plasmid, host)
+dat.high.var <- left_join(high.var.list, dat.wide.fil) %>% select(-flag) %>% arrange(date, plasmid) 
+
+write_tsv(dat.high.var, "20231027-high-var-samples.tsv")
+
+dat.high.var %>% filter((CV_BL1.H > 1 & plasmid != "NA") | CV_YL2.H > 1)
+```
+
+> plasmid 233 replicates 1 & 2 repeatedly showed no RFP induction, while replicate 3 did show induction.
+

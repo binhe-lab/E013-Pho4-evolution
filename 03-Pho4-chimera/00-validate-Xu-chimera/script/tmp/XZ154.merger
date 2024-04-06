@@ -1,0 +1,125 @@
+########################################
+# Program: merger
+# Rundate: Sun  7 Oct 2018 13:28:26
+# Commandline: merger
+#    [-asequence] ./tmp/fwd.fa
+#    [-bsequence] ./tmp/rev.fa
+#    -outseq ./tmp/XZ154.fa
+#    -outfile ./tmp/XZ154.merger
+# Align_format: simple
+# Report_file: ./tmp/XZ154.merger
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: XZ154-p355
+# 2: XZ154-p077
+# Matrix: EDNAFULL
+# Gap_penalty: 50.0
+# Extend_penalty: 5.0
+#
+# Length: 952
+# Identity:     872/952 (91.6%)
+# Similarity:   872/952 (91.6%)
+# Gaps:          55/952 ( 5.8%)
+# Score: 4200.0
+# 
+#
+#=======================================
+
+XZ154-p355         1 -------------------------anngtagaggnatggacaagctgta     25
+                                              |  .....|. ||||||||||||||
+XZ154-p077         1 gagtagcagaaagtcatgggnnaacaggtagnggatatggacaagctgta     50
+
+XZ154-p355        26 tgagacgccgatagacatgcagactacaatctttgaccaagtagataact     75
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ154-p077        51 tgagacgccgatagacatgcagactacaatctttgaccaagtagataact    100
+
+XZ154-p355        76 atctgcatatggtgaacagcggattacagcacgatgagaaagaagatgaa    125
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ154-p077       101 atctgcatatggtgaacagcggattacagcacgatgagaaagaagatgaa    150
+
+XZ154-p355       126 catagggaacatgaagatgcgattgatggtggggccagtctgaacatgca    175
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ154-p077       151 catagggaacatgaagatgcgattgatggtggggccagtctgaacatgca    200
+
+XZ154-p355       176 cctttacaatattaatgatacattaaatggtgtttctactgataacggtc    225
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ154-p077       201 cctttacaatattaatgatacattaaatggtgtttctactgataacggtc    250
+
+XZ154-p355       226 atttcgacatggttgatttacatttcgggcccacattgactacagatgac    275
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ154-p077       251 atttcgacatggttgatttacatttcgggcccacattgactacagatgac    300
+
+XZ154-p355       276 gacccaaccaaaatgtccccagctacaactgctacaatcaagccgcggct    325
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ154-p077       301 gacccaaccaaaatgtccccagctacaactgctacaatcaagccgcggct    350
+
+XZ154-p355       326 attatattcgccgctaatacacacgcaaagtgcggttcccgtaaccattt    375
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ154-p077       351 attatattcgccgctaatacacacgcaaagtgcggttcccgtaaccattt    400
+
+XZ154-p355       376 cgccgaacttggtcgctactgctacttccaccacatccgctaacaaagtc    425
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ154-p077       401 cgccgaacttggtcgctactgctacttccaccacatccgctaacaaagtc    450
+
+XZ154-p355       426 actaaaaacaagagtaatagtagtccgtatttgaacaagcgcagaggtaa    475
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ154-p077       451 actaaaaacaagagtaatagtagtccgtatttgaacaagcgcagaggtaa    500
+
+XZ154-p355       476 acccgggccggattcggccacttcgctgttcgaattgcccgacagcgtta    525
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ154-p077       501 acccgggccggattcggccacttcgctgttcgaattgcccgacagcgtta    550
+
+XZ154-p355       526 tcccaactccgaaaccgaaaccgaaaccaaagcaatatccgaaagttatt    575
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ154-p077       551 tcccaactccgaaaccgaaaccgaaaccaaagcaatatccgaaagttatt    600
+
+XZ154-p355       576 ctgccgtcgaacagcacaagacgcgtatcaccggtcacggccaagaccag    625
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ154-p077       601 ctgccgtcgaacagcacaagacgcgtatcaccggtcacggccaagaccag    650
+
+XZ154-p355       626 cagcagcgcagaaggcgtggtcgtagcaagtgagtctcctgtaatcgcgc    675
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ154-p077       651 cagcagcgcagaaggcgtggtcgtagcaagtgagtctcctgtaatcgcgc    700
+
+XZ154-p355       676 cgcacggatcgagccattcgcggtcgctgantaagcgacggtcatcgggc    725
+                     |||||||||||||||||||||||||||||| |||||||||||||||||||
+XZ154-p077       701 cgcacggatcgagccattcgcggtcgctgagtaagcgacggtcatcgggc    750
+
+XZ154-p355       726 gcgctcgtggacgatgacaagcgcgaatcacacaagcatgcanagcaagc    775
+                     |||||||||||||||||||||||||||||||||||||||||| |||||||
+XZ154-p077       751 gcgctcgtggacgatgacaagcgcgaatcacacaagcatgcagagcaagc    800
+
+XZ154-p355       776 acggcgtaatcgattagcggtcgcgctgcacgaannggngtctttaatcc    825
+                     ||||||||||||||||||||||||||||||||||  || |||||||||||
+XZ154-p077       801 acggcgtaatcgattagcggtcgcgctgcacgaactggcgtctttaatcc    850
+
+XZ154-p355       826 ccgcggantggaaacagc-aantgtgtcggccgcgccgtccaangcgacc    874
+                     ||||||| |||||||||| || ||||||||||||||||||||| ||||||
+XZ154-p077       851 ccgcggagtggaaacagcaaaatgtgtcggccgcgccgtccaaagcgacc    900
+
+XZ154-p355       875 acngnnga-nnggnctgncggnac--------------------------    897
+                     || |  ||   || ||| ||| ||                          
+XZ154-p077       901 accgtggaggcggcctgccggtacatccgtcacctacagcagaacgngag    950
+
+XZ154-p355       898 --    897
+                       
+XZ154-p077       951 ca    952
+
+
+#---------------------------------------
+#
+# Conflicts:      XZ154-p355      XZ154-p077
+#              position base   position base Using
+#                     4  'g'         29  'T'   'T'
+#                     5  't'         30  'A'   'A'
+#                     6  'a'         31  'G'   'G'
+#                     8  'a'         33  'G'   'G'
+#                    10  'g'         35  'A'   'A'
+#                   844  '.'        869  'A'   'A'
+#                   883  '.'        909  'G'   'G'
+# 
+#
+#---------------------------------------

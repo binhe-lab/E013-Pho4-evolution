@@ -1,0 +1,195 @@
+########################################
+# Program: merger
+# Rundate: Sun  7 Oct 2018 13:28:27
+# Commandline: merger
+#    [-asequence] ./tmp/fwd.fa
+#    [-bsequence] ./tmp/rev.fa
+#    -outseq ./tmp/XZ188.fa
+#    -outfile ./tmp/XZ188.merger
+# Align_format: simple
+# Report_file: ./tmp/XZ188.merger
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: XZ188-p355
+# 2: XZ188-p077
+# Matrix: EDNAFULL
+# Gap_penalty: 50.0
+# Extend_penalty: 5.0
+#
+# Length: 1909
+# Identity:       3/1909 ( 0.2%)
+# Similarity:     3/1909 ( 0.2%)
+# Gaps:        1904/1909 (99.7%)
+# Score: 9.0
+# 
+#
+#=======================================
+
+XZ188-p355         1 gannggtagaggnnatggacnagctgtatgagacgccgatagacatgcag     50
+                                                                       
+XZ188-p077         1 --------------------------------------------------      0
+
+XZ188-p355        51 actacaatctttgaccaagtagataactatctgcatatggtgaacagcgg    100
+                                                                       
+XZ188-p077         1 --------------------------------------------------      0
+
+XZ188-p355       101 attatagcacgatgagaaagaagatttcaacgagcaaaacgacgagctga    150
+                                                                       
+XZ188-p077         1 --------------------------------------------------      0
+
+XZ188-p355       151 acagtcaagagaaccacaacagcagtgagaatgggaacgagaatgaaaat    200
+                                                                       
+XZ188-p077         1 --------------------------------------------------      0
+
+XZ188-p355       201 gaacaagacagtctcgcgttggacgacctagaccgcgcctttgagctggt    250
+                                                                       
+XZ188-p077         1 --------------------------------------------------      0
+
+XZ188-p355       251 ggaaggtatggatatggactggatgatgccctcgcatgcgcaccactccc    300
+                                                                       
+XZ188-p077         1 --------------------------------------------------      0
+
+XZ188-p355       301 cagctacaactgctacaatcaagccgcggctattatattcgccgctaata    350
+                                                                       
+XZ188-p077         1 --------------------------------------------------      0
+
+XZ188-p355       351 cacacgcaaagtgcggttcccgtaaccatttcgccgaacttggtcgctac    400
+                                                                       
+XZ188-p077         1 --------------------------------------------------      0
+
+XZ188-p355       401 tgctacttccaccacatccgctaacaaagtcactaaaaacaagagtaata    450
+                                                                       
+XZ188-p077         1 --------------------------------------------------      0
+
+XZ188-p355       451 gtagtccgtatttgaacaagcgcagaggtaaacccgggccggattcggcc    500
+                                                                       
+XZ188-p077         1 --------------------------------------------------      0
+
+XZ188-p355       501 acttcgctgttcgaattgcccgacagcgttatcccaactccgaaaccgaa    550
+                                                                       
+XZ188-p077         1 --------------------------------------------------      0
+
+XZ188-p355       551 accgaaaccaaagcaatatccgaaagttattctgccgtcgaacagcacaa    600
+                                                                       
+XZ188-p077         1 --------------------------------------------------      0
+
+XZ188-p355       601 gacgcgtatcaatggaaacggataactatgagagggccagcttgctagag    650
+                                                                       
+XZ188-p077         1 --------------------------------------------------      0
+
+XZ188-p355       651 gactcacaaccagacgagacacagaacaataacccacagaacaataatcc    700
+                                                                       
+XZ188-p077         1 --------------------------------------------------      0
+
+XZ188-p355       701 acatagcaatggctctagtatcagtcctgttggcaaaaacgactcggtga    750
+                                                                       
+XZ188-p077         1 --------------------------------------------------      0
+
+XZ188-p355       751 tgctagccagtggctcacctgtgttgaaaccccnaaattcaagttctaat    800
+                                                                       
+XZ188-p077         1 --------------------------------------------------      0
+
+XZ188-p355       801 attttgcagacnccttactcatctaaaagagttttcnagtcgccagcgga    850
+                                                                       
+XZ188-p077         1 --------------------------------------------------      0
+
+XZ188-p355       851 tatttcnngcactgaacaaactgcanacgagncttccaacgatgcangta    900
+                                                                       
+XZ188-p077         1 --------------------------------------------------      0
+
+XZ188-p355       901 atgatgctaantcgaagnacaagaaacnaannannnttcatccnnnggnn    950
+                                                                       
+XZ188-p077         1 --------------------------------------------------      0
+
+XZ188-p355       951 ccnatnagctaa--------------------------------------    962
+                            ||.|.                                      
+XZ188-p077         1 -------gccanccaaaacagcgnntatnttnaangaaagaaanngntgc     43
+
+XZ188-p355       963 --------------------------------------------------    962
+                                                                       
+XZ188-p077        44 ataagtacgcagnncnagaaagaagaancaggctgaacaacgcgnntagc     93
+
+XZ188-p355       963 --------------------------------------------------    962
+                                                                       
+XZ188-p077        94 gatttgaactctttacttccacaagactggaaagacgctgtcacagtccc    143
+
+XZ188-p355       963 --------------------------------------------------    962
+                                                                       
+XZ188-p077       144 atntaaggctatcacagctgaactcgcttgcaaatacataaggacactgc    193
+
+XZ188-p355       963 --------------------------------------------------    962
+                                                                       
+XZ188-p077       194 tcgaagagcttgagcagtacaagaaaggttctggttctttaattaacatg    243
+
+XZ188-p355       963 --------------------------------------------------    962
+                                                                       
+XZ188-p077       244 tctaagggtgaagaattgttcactggtgttgttccaatcttggttgaatt    293
+
+XZ188-p355       963 --------------------------------------------------    962
+                                                                       
+XZ188-p077       294 ggacggtgacgttaacggtcacaagttctctgtttctggtgaaggtgaag    343
+
+XZ188-p355       963 --------------------------------------------------    962
+                                                                       
+XZ188-p077       344 gtgacgctacttacggtaagttgactttgaagttcatctgtactactggt    393
+
+XZ188-p355       963 --------------------------------------------------    962
+                                                                       
+XZ188-p077       394 aagttgccagttccatggccaactttggttactactttgggttacggttt    443
+
+XZ188-p355       963 --------------------------------------------------    962
+                                                                       
+XZ188-p077       444 gatgtgtttcgctagatacccagaccacatgaagcaacacgacttcttca    493
+
+XZ188-p355       963 --------------------------------------------------    962
+                                                                       
+XZ188-p077       494 agtctgctatgccagaaggttacgttcaagaaagaactatcttcttcaag    543
+
+XZ188-p355       963 --------------------------------------------------    962
+                                                                       
+XZ188-p077       544 gacgacggtaactacaagactagagctgaagttaagttcgaaggtgacac    593
+
+XZ188-p355       963 --------------------------------------------------    962
+                                                                       
+XZ188-p077       594 tttggttaacagaatcgaattgaagggtatcgacttcaaggaagacggta    643
+
+XZ188-p355       963 --------------------------------------------------    962
+                                                                       
+XZ188-p077       644 acatcttgggtcacaagttggaatacaactacaactctcacaacgtttac    693
+
+XZ188-p355       963 --------------------------------------------------    962
+                                                                       
+XZ188-p077       694 atcatggctgacaagcaaaagaacggtatcaaggttaacttcaagatcag    743
+
+XZ188-p355       963 --------------------------------------------------    962
+                                                                       
+XZ188-p077       744 acacaacatcgaagacggttctgttcaattggctgaccactaccaacaaa    793
+
+XZ188-p355       963 --------------------------------------------------    962
+                                                                       
+XZ188-p077       794 acactccaatcggtgacggtccagttttgttgccagacaaccactacttg    843
+
+XZ188-p355       963 --------------------------------------------------    962
+                                                                       
+XZ188-p077       844 tcttaccaatctaagttgtctaaggacccaaacgaaaagagagaccacat    893
+
+XZ188-p355       963 --------------------------------------------------    962
+                                                                       
+XZ188-p077       894 ggttttgttggaattcgttactgctgctggtatcactcacggtanngacg    943
+
+XZ188-p355       963 ---------    962
+                              
+XZ188-p077       944 aatntncaa    952
+
+
+#---------------------------------------
+#
+# Conflicts:      XZ188-p355      XZ188-p077
+#              position base   position base Using
+#                   960  't'          3  'C'   'C'
+# 
+#
+#---------------------------------------

@@ -1,0 +1,23 @@
+SP2	f61026
+alpha-helix in Cg	979d6c
+Activation	3acea0
+SP1	f50b1c
+Nuclear localization signal	155d84
+DNA binding	1cd430
+SP6	ed0a15
+SP5	ee1015
+SP4	ef1023
+SP3	f60a10
+
+STARTGROUP	Uniprot
+Uniprot  	Scer	-1	250	306	DNA binding	0.0
+Uniprot  	Scer	-1	1	40	alpha-helix in Cg	0.0
+Uniprot  	Scer	-1	1	128	Activation	0.0
+Uniprot  	Scer	-1	140	166	Nuclear localization signal	0.0
+Uniprot  	Scer	-1	100	100	SP1	0.0
+Uniprot  	Scer	-1	114	114	SP2	0.0
+Uniprot  	Scer	-1	128	128	SP3	0.0
+Uniprot  	Scer	-1	152	152	SP4	0.0
+Uniprot  	Scer	-1	204	204	SP5	0.0
+Uniprot  	Scer	-1	223	223	SP6	0.0
+ENDGROUP	Uniprot

@@ -1,0 +1,154 @@
+########################################
+# Program: merger
+# Rundate: Sun  7 Oct 2018 13:28:27
+# Commandline: merger
+#    [-asequence] ./tmp/fwd.fa
+#    [-bsequence] ./tmp/rev.fa
+#    -outseq ./tmp/fwd.fa
+#    -outfile ./tmp/XZ196-p400.merger
+# Align_format: simple
+# Report_file: ./tmp/XZ196-p400.merger
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: XZ196-p355
+# 2: XZ196-p400
+# Matrix: EDNAFULL
+# Gap_penalty: 50.0
+# Extend_penalty: 5.0
+#
+# Length: 1313
+# Identity:     405/1313 (30.8%)
+# Similarity:   405/1313 (30.8%)
+# Gaps:         868/1313 (66.1%)
+# Score: 1785.0
+# 
+#
+#=======================================
+
+XZ196-p355         1 tangnnanatgaagangcgattgatggtggggccagtctgaacatgcacc     50
+                                                                       
+XZ196-p400         1 --------------------------------------------------      0
+
+XZ196-p355        51 tttacaatattaatgatacattaaatggtgtttctactgataacggtcat    100
+                                                                       
+XZ196-p400         1 --------------------------------------------------      0
+
+XZ196-p355       101 ttcgacatggttgatttacatttcgggcccacattgactacagatgacga    150
+                                                                       
+XZ196-p400         1 --------------------------------------------------      0
+
+XZ196-p355       151 cccaaccaaaatggccgaactacagcataccacgatacatcatggccatc    200
+                                                                       
+XZ196-p400         1 --------------------------------------------------      0
+
+XZ196-p355       201 tagacgtcaatggaaaccgcagtgatagtttattctcgccattcgattct    250
+                                                                       
+XZ196-p400         1 --------------------------------------------------      0
+
+XZ196-p355       251 ccattagtacatgacactccatcattggaggctaggaatagtatacaact    300
+                                                                       
+XZ196-p400         1 --------------------------------------------------      0
+
+XZ196-p355       301 tacaaatgagggttccacatcagctcttacaacaccatttctgagcggca    350
+                                                                       
+XZ196-p400         1 --------------------------------------------------      0
+
+XZ196-p355       351 agaaccactatgacgaccacgggaactctataaattcccagagctttaac    400
+                                                                       
+XZ196-p400         1 --------------------------------------------------      0
+
+XZ196-p355       401 taccataacagaaactcaagtctctccaaagttagtggtaaattctcccc    450
+                                                          |..||.|...|||
+XZ196-p400         1 -------------------------------------ggtaanttntccc     13
+
+XZ196-p355       451 aatatcgtcaccgaacttggtcgctactgctacttccaccacatccgcta    500
+                     .|..|.||...||||||.|||||.||||||||||.||.||||||.|||||
+XZ196-p400        14 canntngtnnncgaactnggtcgntactgctactnccnccacatncgcta     63
+
+XZ196-p355       501 acaaagtcactaaaaacaagagtaatagtagtccgtatttgaacaagcgc    550
+                     ||||||||||||||||||||||||||||||||.|.|| ||||||||||||
+XZ196-p400        64 acaaagtcactaaaaacaagagtaatagtagtncnta-ttgaacaagcgc    112
+
+XZ196-p355       551 agaggtaaacccgggccggattcggccacttcgctgttcgaattgcccga    600
+                     ||||||||||||||.||||.||||..||||||||||||.|||||||||||
+XZ196-p400       113 agaggtaaacccggnccggnttcgnncacttcgctgttngaattgcccga    162
+
+XZ196-p355       601 cagcgttatcccaactccgaaaccgaaaccgaaaccaaagcaatatccga    650
+                     |||||||||||||||||||||||.||||||||||||||||||||||||||
+XZ196-p400       163 cagcgttatcccaactccgaaacngaaaccgaaaccaaagcaatatccga    212
+
+XZ196-p355       651 aagttattctgccgtcnaacagcacaagacgcgtatcaatggaaacggat    700
+                     |||||||||||||||| |||||||||||||||||||||||||||||||||
+XZ196-p400       213 aagttattctgccgtcgaacagcacaagacgcgtatcaatggaaacggat    262
+
+XZ196-p355       701 aactatgagagggccagcttgctagaggactcacaaccagacgagacaca    750
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+XZ196-p400       263 aactatgagagggccagcttgctagaggactcacaaccagacgagacaca    312
+
+XZ196-p355       751 gaacaataacccacagaacaataatccacatagcaanggctctagtatca    800
+                     |||||||||||||||||||||||||||||||||||| |||||||||||||
+XZ196-p400       313 gaacaataacccacagaacaataatccacatagcaatggctctagtatca    362
+
+XZ196-p355       801 gtcctgttggc-aaaacnactcngtgatgctagccngtggctcacctgtg    849
+                     ||||||||||| ||||| |||| |||||||||||| ||||||||||||||
+XZ196-p400       363 gtcctgttggcaaaaacgactcggtgatgctagccagtggctcacctgtg    412
+
+XZ196-p355       850 ntgaaa-cccnaanntnnngttctnntattttgca---------------    883
+                      ||||| ||| ||  |   |||||  |||||||||               
+XZ196-p400       413 ttgaaaccccaaaattcaagttctaatattttgcagacaccttactcatc    462
+
+XZ196-p355       884 --------------------------------------------------    883
+                                                                       
+XZ196-p400       463 taaaagagttttcaagtcgccagcggatatttcaagcactgaacaaactg    512
+
+XZ196-p355       884 --------------------------------------------------    883
+                                                                       
+XZ196-p400       513 cagacgaggcttccaacgatgcaagtaatgatgctaagtcgaaggacaag    562
+
+XZ196-p355       884 --------------------------------------------------    883
+                                                                       
+XZ196-p400       563 aaacaaaggaaaccttcatccagtggacccaataagctaaagagaactaa    612
+
+XZ196-p355       884 --------------------------------------------------    883
+                                                                       
+XZ196-p400       613 tactggtggcagcatcgggagagtacgatcagacagtgccagccaaaaca    662
+
+XZ196-p355       884 --------------------------------------------------    883
+                                                                       
+XZ196-p400       663 gcgactatgttcaaagaaagaaagaggtgcataagtacgcagaacaagaa    712
+
+XZ196-p355       884 --------------------------------------------------    883
+                                                                       
+XZ196-p400       713 agaagaaacaggctgaacaacgcgcttagcgatttgaactctttacttcc    762
+
+XZ196-p355       884 --------------------------------------------------    883
+                                                                       
+XZ196-p400       763 acaagactggaaagacgctgtcacagtcccatctaaggctatcacagctg    812
+
+XZ196-p355       884 --------------------------------------------------    883
+                                                                       
+XZ196-p400       813 aactcgcttgcaaatacataaggacactgctcgaagagcttgagcagtac    862
+
+XZ196-p355       884 -------------    883
+                                  
+XZ196-p400       863 aagaaannnnnnt    875
+
+
+#---------------------------------------
+#
+# Conflicts:      XZ196-p355      XZ196-p400
+#              position base   position base Using
+#                   439  'T'          2  'g'   'T'
+#                   440  'A'          3  't'   'A'
+#                   445  'C'          8  't'   'C'
+#                   447  'C'         10  't'   'C'
+#                   451  'A'         14  'c'   'A'
+#                   538  'T'        101  '.'   'T'
+#                   812  '.'        374  'A'   'A'
+#                   856  '.'        419  'C'   'C'
+# 
+#
+#---------------------------------------

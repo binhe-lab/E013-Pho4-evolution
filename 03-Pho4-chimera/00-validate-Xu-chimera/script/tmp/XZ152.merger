@@ -1,0 +1,163 @@
+########################################
+# Program: merger
+# Rundate: Sun  7 Oct 2018 13:28:26
+# Commandline: merger
+#    [-asequence] ./tmp/fwd.fa
+#    [-bsequence] ./tmp/rev.fa
+#    -outseq ./tmp/XZ152.fa
+#    -outfile ./tmp/XZ152.merger
+# Align_format: simple
+# Report_file: ./tmp/XZ152.merger
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: XZ152-p355
+# 2: XZ152-p077
+# Matrix: EDNAFULL
+# Gap_penalty: 50.0
+# Extend_penalty: 5.0
+#
+# Length: 1529
+# Identity:     251/1529 (16.4%)
+# Similarity:   251/1529 (16.4%)
+# Gaps:        1252/1529 (81.9%)
+# Score: 1153.0
+# 
+#
+#=======================================
+
+XZ152-p355         1 ttgnnnnnnnnnatnacnnnnngcatnnggtgaacagcggattacagcac     50
+                                                                       
+XZ152-p077         1 --------------------------------------------------      0
+
+XZ152-p355        51 gatgagaaagaagatgaacatagggaacatgaagatgcgattgatggtgg    100
+                                                                       
+XZ152-p077         1 --------------------------------------------------      0
+
+XZ152-p355       101 ggccagtctgaacatgcacctttacaatattaatgatacattaaatggtg    150
+                                                                       
+XZ152-p077         1 --------------------------------------------------      0
+
+XZ152-p355       151 tttctactgataacggtcatttcgacatggttgatttacatttcgggccc    200
+                                                                       
+XZ152-p077         1 --------------------------------------------------      0
+
+XZ152-p355       201 acattgactacagatgacgacccaaccaaaatggccgaactacagcatac    250
+                                                                       
+XZ152-p077         1 --------------------------------------------------      0
+
+XZ152-p355       251 cacgatacatcatggccatctagacgtcaatggaaaccgcagtgatagtt    300
+                                                                       
+XZ152-p077         1 --------------------------------------------------      0
+
+XZ152-p355       301 tattctcgccattcgattctccattagtacatgacactccatcattggag    350
+                                                                       
+XZ152-p077         1 --------------------------------------------------      0
+
+XZ152-p355       351 gctaggaatagtatacaacttacaaatgagggttccacatcagctcttac    400
+                                                                       
+XZ152-p077         1 --------------------------------------------------      0
+
+XZ152-p355       401 aacaccatttctgagcggcaagaaccactatgacgaccacgggaactcta    450
+                                                                       
+XZ152-p077         1 --------------------------------------------------      0
+
+XZ152-p355       451 taaattcccagagctttaactaccataacagaaactcaagtctctccaaa    500
+                                                                       
+XZ152-p077         1 --------------------------------------------------      0
+
+XZ152-p355       501 gttagtggtaaattctccccaatatcgtcaccagcactgacttctactaa    550
+                                                                       
+XZ152-p077         1 --------------------------------------------------      0
+
+XZ152-p355       551 tcaggaacagcaacactggaacacatcctctagaagggcttcaaacagtt    600
+                                                                       
+XZ152-p077         1 --------------------------------------------------      0
+
+XZ152-p355       601 cctctagatcaaaaagagtgctaccgagtggtaattcatctgtttcttct    650
+                                                   ||||||||||| ..|.||.|
+XZ152-p077         1 ------------------------------gtaattcatct-nntnttnt     19
+
+XZ152-p355       651 acttcaaacaaggttataaagaatagtccgtacatgaacgccagttctag    700
+                     |||||||||||||||||||||||||||.|.||||||||||||||||.|||
+XZ152-p077        20 acttcaaacaaggttataaagaatagtncntacatgaacgccagttntag     69
+
+XZ152-p355       701 gagattacaaaagancataagtaatgggaactcaangagggatgagtggg    750
+                     |||||||||||||| |||||||||||||||||||| ||||||||||||||
+XZ152-p077        70 gagattacaaaagaccataagtaatgggaactcaaagagggatgagtggg    119
+
+XZ152-p355       751 acgaattcatgttctctttaccgganagtagtttagctaatgacttaaca    800
+                     ||||||||||||||||||||||||| ||||||||||||||||||||||||
+XZ152-p077       120 acgaattcatgttctctttaccggagagtagtttagctaatgacttaaca    169
+
+XZ152-p355       801 actggaaatgatgaaaacatggntattagcttgccagcgggacactcacc    850
+                     |||||||||||||||||||||| |||||||||||||||||||||||||||
+XZ152-p077       170 actggaaatgatgaaaacatggatattagcttgccagcgggacactcacc    219
+
+XZ152-p355       851 cactaaagagtannntagctacccnnnnntantattannntctcatgcnn    900
+                     ||||||||||||   ||||||||.     || |||||   ||||||||  
+XZ152-p077       220 cactaaagagtacaatagctaccntaaggtaatattaccatctcatgcag    269
+
+XZ152-p355       901 ctgaaaac------------------------------------------    908
+                     ||||||||                                          
+XZ152-p077       270 ctgaaaacgagagtatggaaacggataactatgagagggccagcttgcta    319
+
+XZ152-p355       909 --------------------------------------------------    908
+                                                                       
+XZ152-p077       320 gaggactcacaaccagacgagacacagaacaataacccacagaacaataa    369
+
+XZ152-p355       909 --------------------------------------------------    908
+                                                                       
+XZ152-p077       370 tccacatagcaatggctctagtatcagtcctgttggcaaaaacgactcgg    419
+
+XZ152-p355       909 --------------------------------------------------    908
+                                                                       
+XZ152-p077       420 tgatgctagccagtggctcacctgtgttgaaaccccaaaattcaagttct    469
+
+XZ152-p355       909 --------------------------------------------------    908
+                                                                       
+XZ152-p077       470 aatattttgcagacaccttactcatctaaaagagttttcaagtcgccagc    519
+
+XZ152-p355       909 --------------------------------------------------    908
+                                                                       
+XZ152-p077       520 ggatatttcaagcactgaacaaactgcagacgaggcttccaacgatgcaa    569
+
+XZ152-p355       909 --------------------------------------------------    908
+                                                                       
+XZ152-p077       570 gtaatgatgctaagtcgaaggacaagaaacaaaggaaaccttcatccagt    619
+
+XZ152-p355       909 --------------------------------------------------    908
+                                                                       
+XZ152-p077       620 ggacccaataagctaaagagaactaatactggtggcagcatcgggagagt    669
+
+XZ152-p355       909 --------------------------------------------------    908
+                                                                       
+XZ152-p077       670 acgatcagacagtgccagccaaaacagcgactatgttcaaagaaagaaag    719
+
+XZ152-p355       909 --------------------------------------------------    908
+                                                                       
+XZ152-p077       720 aggtgcataagtacgcagaacaagaaagaagaaacaggctgaacaacgcg    769
+
+XZ152-p355       909 --------------------------------------------------    908
+                                                                       
+XZ152-p077       770 cttagcgatttgaactctttacttccacaagactggaaagacgctgtcac    819
+
+XZ152-p355       909 --------------------------------------------------    908
+                                                                       
+XZ152-p077       820 agtcccatctaaggctatcacagctgaactcgcttnnaaatacatnanga    869
+
+XZ152-p355       909 -----------------------------    908
+                                                  
+XZ152-p077       870 cactnntngaagagnnnancantacanna    898
+
+
+#---------------------------------------
+#
+# Conflicts:      XZ152-p355      XZ152-p077
+#              position base   position base Using
+#                   642  'G'         12  '.'   'G'
+# 
+#
+#---------------------------------------
