@@ -12,6 +12,7 @@ output:
 ```{r setup, message=FALSE}
 library(tidyverse)
 library(cowplot)
+library(ggtext)
 library(scales)
 require(broom)
 ```
@@ -181,10 +182,11 @@ datC %>%
   geom_point(position = position_jitterdodge(jitter.width = 0.6, dodge.width = 0.9), shape = 21, size = 3) +
   stat_summary(fun = mean, geom = "crossbar", color = "red", width = 0.4, size = 0.3,
                position = position_dodge(0.9), show.legend = FALSE) +
-  ylab("Kd [nM]") + xlab("Half site mutants (other half == GTG)") +
+  ylab("K<sub>D</sub> [nM]") + xlab("Half site mutants (other half == GTG)") +
   scale_y_log10(breaks = c(10/3, 10, 100/3, 100, 1000/3, 1000), labels = c(300, 100, 30, 10, 3, 1)) +
   scale_fill_manual(values=c("yellowgreen", "royalblue3")) + 
-  theme_cowplot() + theme(legend.position = "top") + background_grid(major = "y")
+  theme_cowplot() + background_grid(major = "y") + 
+  theme(legend.position = "top", axis.title.y = element_markdown())
 ggsave("imgs/20220202-summarize-compare-Kd-for-Sc-Cg-Pho4.png")
 ```
 
