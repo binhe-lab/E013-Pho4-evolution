@@ -276,13 +276,13 @@ All chimera (ScPho4 and CgPho4 removed) protein levels by host
 tmp <- dat %>% 
   filter(plasmid == "194", host == "PHO2")
 
-lm <- lm(YL2.H ~ BL1.H + 0, data = tmp)
+lm <- lm(YL2.H ~ BL1.H, data = tmp)
 summary(lm)
 
 p2 <- tmp %>% 
   ggplot(aes(x = BL1.H, y = YL2.H)) +
   geom_point(size = 1.5) + 
-  stat_smooth(method = "lm", formula = y ~ 0 + x) +
+  stat_smooth(method = "lm", formula = y ~ x) +
   xlab("Pho4-mNeon") + ylab("PHO5pr-mCherry") +
   theme_cowplot() + 
   panel_border(color = "gray30", size = 1.2) +
@@ -652,10 +652,100 @@ selected <- as.character(
     CSSCC, CSSSC, CSScsC, CSSscC
              ))
 #selected <- filter(meta, symbol %in% selected) %>% pull(plasmid)
-my_plot_subset_ximera(selected)
+my_plot_subset_ximera(selected) + scale_x_continuous(expand = expansion(mult = c(0.02, 0.15)))
 ggsave("../img/20240310-P2ID-split-rel-activity.png", width = 3.5, height = 3.5)
 ```
+Statistical tests for group 1
+```{r}
+# select the chimeras
+selected <- as.character(
+  expression(CCCCC, CCCSC, CCCcsC, CCCscC)
+)
 
+# extract the data
+tmp <- ximera %>% 
+  filter(symbol %in% selected) %>% 
+  select(plasmid, symbol, group) %>% 
+  inner_join(dat, by = "plasmid") %>% 
+  mutate( `R/G` = YL2.H / BL1.H ) %>%
+  filter(flag == "pass") %>% 
+  select(-nRFP, -nGFP, -well, -flag) %>% 
+  mutate(symbol = factor(symbol, levels = !!selected))
+
+# test A_PHO2
+print("Testing A_PHO2")
+lm.res <- tmp %>% 
+  filter(host == "PHO2") %>% 
+  lm(`R/G` ~ symbol, data = .) %>% 
+  summary()
+# adding adjusted P-value
+lm.res$coefficients <- cbind(
+  coef(lm.res),
+  "P.adj" = p.adjust(coef(lm.res)[,'Pr(>|t|)'], method = "holm")
+)
+print(lm.res)
+# store the test results for plotting
+#res.PHO2 <- coef(lm.res)[-1,] %>% as_tibble(rownames = "component")
+
+# test A_pho2
+print("Testing A_pho2∆")
+lm.res <- tmp %>% 
+  filter(host == "pho2") %>% 
+  lm(`R/G` ~ symbol, data = .) %>% 
+  summary()
+# adding adjusted P-value
+lm.res$coefficients <- cbind(
+  coef(lm.res),
+  "P.adj" = p.adjust(coef(lm.res)[,'Pr(>|t|)'], method = "holm")
+)
+print(lm.res)
+```
+
+Statistical tests for group 2
+```{r}
+# select the chimeras
+selected <- as.character(
+  expression( CSSCC, CSSSC, CSScsC, CSSscC )
+)
+
+# extract the data
+tmp <- ximera %>% 
+  filter(symbol %in% selected) %>% 
+  select(plasmid, symbol, group) %>% 
+  inner_join(dat, by = "plasmid") %>% 
+  mutate( `R/G` = YL2.H / BL1.H ) %>%
+  filter(flag == "pass") %>% 
+  select(-nRFP, -nGFP, -well, -flag) %>% 
+  mutate(symbol = factor(symbol, levels = !!selected))
+
+# test A_PHO2
+print("Testing A_PHO2")
+lm.res <- tmp %>% 
+  filter(host == "PHO2") %>% 
+  lm(`R/G` ~ symbol, data = .) %>% 
+  summary()
+# adding adjusted P-value
+lm.res$coefficients <- cbind(
+  coef(lm.res),
+  "P.adj" = p.adjust(coef(lm.res)[,'Pr(>|t|)'], method = "holm")
+)
+print(lm.res)
+# store the test results for plotting
+#res.PHO2 <- coef(lm.res)[-1,] %>% as_tibble(rownames = "component")
+
+# test A_pho2
+print("Testing A_pho2∆")
+lm.res <- tmp %>% 
+  filter(host == "pho2") %>% 
+  lm(`R/G` ~ symbol, data = .) %>% 
+  summary()
+# adding adjusted P-value
+lm.res$coefficients <- cbind(
+  coef(lm.res),
+  "P.adj" = p.adjust(coef(lm.res)[,'Pr(>|t|)'], method = "holm")
+)
+print(lm.res)
+```
 ## Region main effect
 ```{r}
 split <- c(1,1,1,1,1); names(split) <- paste0("P", 1:5)
