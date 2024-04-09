@@ -1,0 +1,1 @@
+These are processed ratios from the raw ImageJ quantifications. See RDSS for the Excel files used for obtaining these ratios. The tsv files in the parent folder are the raw files and should be used for the analyses.

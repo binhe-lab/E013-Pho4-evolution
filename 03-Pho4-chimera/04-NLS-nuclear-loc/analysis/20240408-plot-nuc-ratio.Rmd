@@ -1,0 +1,129 @@
+---
+title: "Pho4-mNeon plasmids nuc vs wc or nuc vs cyto"
+author: "JY, modified by HB"
+date: "02/05/2024"
+output: 
+  html_notebook:
+    toc: yes
+    code_folding: hide
+---
+
+```{r message=FALSE}
+library(tidyverse)
+library(cowplot)
+library(ggtext)
+```
+
+## Goal
+
+The goal is to test whether the identity of the NLS region (region 3) affects the nuclear vs cytoplasmic ratio of the Pho4 constructs.
+
+## Method
+Mid-log phase _S.cerevisiae_ strains carrying Pho4 constructs with NLS:Sc or NLS:Cg were grown in SC complete medium. Live fluorescence microscopy waas performed on a Leica epi-fluorescence microscope (Bright Field, GFP, DAPI). The TIFF image files were loaded into FIJI. Nuclei and cell boundaries were manually traced. Integrated intensities in the nucleus vs whole cell were quantified. Non fluorescent cells were included in the second attempt to provide background correction (for autofluorescence). The ratio of nuclear vs cytoplasmic (= whole cell - nuclear) were used for comparisons.
+
+
+## Data and analysis
+Two biological replicates with Pho2: d013024 and d020624; two biological replicates w/o Pho2: d021424 and d021624
+
+File format:
+
+- Pair_No: id for cell nested within "Group"
+- Area: area in pixels
+- Mean: mean fluorescence intensity, = RawIntDen / Area
+- IntDen: Mean * area in scaled units, ignore for this analysis
+- Median: median fluorescence intensity
+- RawIntDen: sum of pixel values in the selected area
+- Group: genotype
+- Locus: area selected
+
+```{r}
+my_data_import <- function(file){
+  # the goal is to calculate nuclear-vs-whole-cell ratio of the integrated GFP signal
+  # also of interest is the nuclear concentration (mean or median of nucleus)
+  # read the raw file
+  raw <- read_tsv(file)
+  # calculate the quantity of interest
+  ratio <- raw %>% 
+    # remove the cytoplasm rows, which can be calculated from the wc and nuclei
+    filter(Locus != "cytoplasm") %>% 
+    rename(Sum = RawIntDen) %>% 
+    pivot_wider(id_cols = c(Group, Pair_No),
+                names_from = Locus, values_from = c(Area, Sum)) %>% 
+    mutate(Nuc_frac = Sum_nuclei / Sum_wc)
+  
+  median <- raw %>% 
+    filter(Locus == "nuclei") %>% 
+    select(Group, Pair_No, Median_nuc = Median)
+  
+  dat <- full_join(ratio, median, by = c("Group", "Pair_No"))
+}
+```
+
+```{r message=FALSE}
+samples <- read_tsv("../input/sample-list.txt", col_types = "cccc")
+files <- dir("../input", pattern = "*.tsv")
+tmp <- str_split(files, pattern = "-", simplify = TRUE)
+files <- paste0("../input/", files)
+names(files) <- paste(tmp[,1], tmp[,2], sep = "_")
+dat <- map_dfr(files,
+               \(f) my_data_import(f), .id = "file") %>% 
+  separate(file, into = c("Date", "Host"), sep = "_") %>% 
+  left_join(samples, by = c("Date", "Host", "Group")) %>% 
+  mutate(
+    Pho4 = fct_relevel(Pho4, "SSSSS", "CCSCC", "SSSCC",
+                       "CCCCC", "SSCCS", "SSCSS"),
+    NLS = substr(Pho4, 3, 3) %>% fct_relevel("S"),
+    Host = fct_relevel(Host, "PHO2")
+    #Rep = fct_recode(Date, A = "20240130", B = "20240206", A = "20240214", B = "20240216")
+  )
+
+# all sample names match?
+all(!is.na(dat$Pho4))
+```
+
+Plot
+```{r}
+# labeller
+host.name <- c(
+  PHO2 = "PHO2",
+  #boost = "Boost",
+  pho2 = "pho2∆"
+)
+my_symbol_colors <- function(symbols){
+  x = str_sub(symbols, 3, 3) # NLS identity
+  str_sub(symbols, 3, 3) <- ifelse(
+    x == "C", 
+    "<b style='color:blue'>C</b>", 
+    "<b style='color:forestgreen'>S</b>")
+  return(symbols)
+}
+p <- ggplot(dat, aes(y = Pho4, x = Nuc_frac)) +
+  geom_boxplot() +
+  geom_hline(yintercept = 3.5, linetype = 3, linewidth = 1.2, color = "gray40") +
+  facet_wrap(~Host, labeller = labeller(Host = host.name)) +
+  xlab("Nuclear fraction") +
+  scale_y_discrete(labels = my_symbol_colors, limits = rev) +
+  theme_cowplot() + panel_border(color = "gray30") +
+  background_grid(major = "x", minor = "none") +
+  theme(axis.text.y = element_markdown(family = "courier"),
+        axis.title.y = element_blank(),
+        axis.line = element_blank(),
+        strip.placement = "outside",
+        strip.background = element_blank(),
+        strip.text = element_text(face = 3, size = rel(1)))
+p
+ggsave("../output/20240407-NLS-identity-not-impact-nuc-frac.png", width = 5, height = 4)
+```
+Statistical test
+```{r}
+lm <- lm(Nuc_frac ~ NLS + Host, data = dat)
+anova(lm)
+```
+Non-parametric test
+```{r}
+print("Kruskal-Wallis test for PHO2 background")
+kruskal.test(Nuc_frac ~ NLS, data = dat, subset = dat$Host == "PHO2")
+print("Kruskal-Wallis test for pho2∆ background")
+kruskal.test(Nuc_frac ~ NLS, data = dat, subset = dat$Host == "pho2")
+```
+
