@@ -1,0 +1,141 @@
+---
+title: merge median intensity data for gcPBM
+author: Bin He
+date: 2024-03-05
+output: html_notebook
+---
+
+# Goal:
+merge the median intensity data from the two array scans and plot
+
+```{r}
+require(tidyverse)
+require(readxl)
+require(cowplot)
+```
+
+# Date wrangling
+Load files into memory
+```{r}
+rawSc = read_excel("../output/20230322_ScHigh_550_5_median_new.xlsx")
+rawCg = read_excel("../output/20230322_CgHigh_550_10_median_new.xlsx")
+names(rawSc)[1] = "index"
+names(rawCg)[1] = "index"
+```
+
+reformat the datasets for ScPho4
+```{r}
+name_pattern = c(group = "^[^_]*_[^_]*", "_",  name = ".*", rep = "_o\\d_r\\d$")
+name_pattern_neg = c(group = "Cg_neg", "_", name = "\\d+", "_", rep = "\\d$")
+datSc <- rawSc %>% 
+  filter(!grepl("Cg_neg", Name)) %>% 
+  # split the name column to create a group and a probe name
+  separate_wider_regex(Name, patterns = name_pattern) %>% 
+  mutate(
+    consensus = grepl("CACGTG", Sequence),
+    group = ifelse(group == "sc_Probes",
+                   ifelse(consensus, "Sc_consensus", "Sc_nonconsensus"),
+                   group)) %>% 
+  select(index, group, name, rep, #starts_with("Name"),
+         sequence = Sequence,
+         starts_with("Alexa"), median_six_rows) %>% 
+  arrange(index)
+
+datSc <- rbind(
+  datSc,
+  filter(rawSc, grepl("Cg_neg", Name)) %>% 
+  # split the name column to create a group and a probe name
+  separate_wider_regex(Name, patterns = name_pattern_neg) %>% 
+  select(index, group, name, rep, #starts_with("Name"),
+         sequence = Sequence,
+         starts_with("Alexa"), median_six_rows) %>% 
+  arrange(index)
+)
+
+medSc <- datSc %>% 
+  group_by(group, name) %>% 
+  summarize(
+    sequence = first(sequence),
+    my_median = median(Alexa488Adjusted),
+    median_six_rows = last(median_six_rows)
+  )
+```
+
+reformat the datasets for CgPho4
+```{r}
+datCg <- rawCg %>% 
+  filter(!grepl("Cg_neg", Name)) %>% 
+  # split the name column to create a group and a probe name
+  separate_wider_regex(Name, patterns = name_pattern) %>% 
+  mutate(
+    consensus = grepl("CACGTG", Sequence),
+    group = ifelse(group == "sc_Probes",
+                   ifelse(consensus, "Sc_consensus", "Sc_nonconsensus"),
+                   group)) %>% 
+  select(index, group, name, rep, #starts_with("Name"),
+         sequence = Sequence,
+         starts_with("Alexa"), median_six_rows) %>% 
+  arrange(index)
+
+datCg <- rbind(
+  datCg,
+  filter(rawCg, grepl("Cg_neg", Name)) %>% 
+  # split the name column to create a group and a probe name
+  separate_wider_regex(Name, patterns = name_pattern_neg) %>% 
+  select(index, group, name, rep, #starts_with("Name"),
+         sequence = Sequence,
+         starts_with("Alexa"), median_six_rows) %>% 
+  arrange(index)
+)
+
+medCg <- datCg %>% 
+  group_by(group, name) %>% 
+  summarize(
+    sequence = first(sequence),
+    my_median = median(Alexa488Adjusted),
+    median_six_rows = last(median_six_rows)
+  )
+```
+
+join the two datasets
+```{r}
+medJoin <- inner_join(medCg, medSc, by = c("group", "name", "sequence"), 
+                      suffix = c("_Cg", "_Sc"))
+medJoin$group = factor(medJoin$group,
+                       levels = c("BLI_UASp2", "MitomiProbe_mut", "Cg_consensus",
+                                  "Cg_nonconsensus", "Sc_consensus",
+                                  "Sc_nonconsensus", "sc_NegCtrl", "Cg_neg"),
+                       labels = c("BLI_UASp2", "MitomiProbe_mut", "Cg_consensus",
+                                  "Cg_nonconsensus", "Sc_consensus", 
+                                  "Sc_nonconsensus", "Sc_negative", "Cg_negative")
+                       )
+```
+
+# Plot
+Scatter plot
+```{r}
+grp.color = c("Cg_consensus" = "blue2", "Cg_nonconsensus" = "skyblue",
+              "Sc_consensus" = "forestgreen", "Sc_nonconsensus" = "palegreen",
+              "Sc_negative" = "gray30", "Cg_negative" = "gray")
+p <- medJoin %>% 
+  filter(grepl("^Cg|^Sc", group)) %>% 
+  mutate(lnSc = log(my_median_Sc), lnCg = log(my_median_Cg)) %>% 
+  ggplot(aes(x = lnSc, y = lnCg)) +
+  geom_point(aes(color = group), alpha = 0.8) +
+  #geom_abline(slope = 1, intercept = 0, color = "red", linetype = 3) +
+  scale_color_manual("Probe group:", values = grp.color) +
+  xlab("ScPho4 log signal intensity") +
+  ylab("CgPho4 log signal intensity") +
+  theme_cowplot() + panel_border(color = "gray30", size = 1.5) +
+  theme(
+    axis.line = element_blank(),
+    axis.text = element_text(size = rel(1.1)),
+    legend.position = c(0.05, 0.75),
+    legend.title = element_text(size = rel(0.7)),
+    legend.text = element_text(size = rel(0.6)),
+    legend.background = element_rect(fill = alpha("white", 0.5))
+  )
+p
+ggsave("../output/20240305-gcPBM-genomic-probes-and-nc-only.png", width = 4.2, height = 4)
+```
+

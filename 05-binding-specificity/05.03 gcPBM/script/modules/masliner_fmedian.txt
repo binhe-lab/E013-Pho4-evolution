@@ -1,0 +1,1104 @@
+#!/usr/bin/perl
+#
+# Modified by TWSiggers 2/11/2008: Data column is now F488 Median  -- not F488Median - B488Median
+#
+#
+# masliner: microarray scaling through linera regression
+# takes as parameters:
+#  two genepix files (-g1 -g2)
+#  linear range (-ll -lh) (i.e., linear low and linear high)
+#  fluorophores (-f1 -f2)
+#  mode (-m) (type of linear regression estimate)
+#  for some modes: -inc (increment from -ll and -hl to be processed)
+# Copyright (c) John Aach and the President and Fellows of Harvard University
+# created: 03/26/2001-04/02/2001,10/25/2001-10/30/2001 by John Aach
+# modified: 11/13/2001 - minor fix: use -ll and -lh consistently in messages.
+# modified: 11/29/2001-11/30/2001 - REGERR computed from stdev background, format changes
+# modified: 02/04/2002 - modify comments, help messages
+# modified: 03/25/2002 - support for Axon vs. GSI scanners (fluors denoted differently)
+
+$VERSION = 1.02;  # v1.01 = 11/29/2001, v1.02 = 03/25/2002
+
+# mode identifiers
+$MODE_STRAIGHT = 0;
+$MODE_DYNOPT = 1;
+$MODE_LABEL[$MODE_STRAIGHT] = "straight";
+$MODE_LABEL[$MODE_DYNOPT] = "dynopt";
+$MODE_DESC[$MODE_STRAIGHT] = 
+   "      $MODE_LABEL[$MODE_STRAIGHT]: -lh and -ll considered to define linear range directly";
+$MODE_DESC[$MODE_DYNOPT] = 
+   "      $MODE_LABEL[$MODE_DYNOPT]: -lh and -ll considered to be within linear range but are\n".
+   "         extended dynamically to a larger range using -inc and -q parameters.";
+
+# status identifiers
+$STATUS_NEWFILE = 0;
+$STATUS_ADJFILE = 1;
+
+# parameter defaults
+
+$Dlinlow = 2000;    # default linear range low
+$Dlinhigh = 60000;  # default linear range high
+$Dfluor1 = 1;       # default fluorophore file 1
+$Dfluor2 = 1;       # default fluorophore file 2
+$Dmode = $MODE_STRAIGHT;
+$Dinc = 1000;
+$Dq = .05;
+
+# DEBUG mode
+$DEBUG = 0;
+
+my $w; #TWS 2/11/08
+
+AnalyzeParameters(@ARGV);  # sets $linlow, $linhigh, $fluor1, $fluor2, $gfile1 $gfile2, 
+                           # $mode, $q, $inc, and $outfile
+
+# 11/29/2001
+($id1,$scanbsi1,$bkg1,$adjbsi1,$status1,$adjcount1,$regerr1,$satflag1) = 
+   ReadGenepixFile($gfile1,$fluor1);
+($id2,$scanbsi2,$bkg2,$adjbsi2,$status2,$adjcount2,$regerr2,$satflag2) = 
+   ReadGenepixFile($gfile2,$fluor2);
+
+# validate files 
+while (($blkcolrow1,$name1) = each %$id1) {
+  if ($$id2{$blkcolrow1} ne $name1) {
+    print "Error: Genepix files disagree on gene in spot ($blkcolrow): $name1 vs. $$id2{$blkcolrow}.\n";
+    print "Program terminating.\n";
+    exit;
+  }
+}
+while (($blkcolrow2,$name2) = each %$id2) {
+  if ($$id1{$blkcolrow2} ne $name2) {
+    print "Error: Genepix files disagree on gene in spot ($blkcolrow): $$id1{$blkcolrow} vs. $name2.\n";
+    print "Program terminating.\n";
+    exit;
+  }
+}
+
+# get total scan intensity of both slides and rename as required to make the 
+# lower scan intensity slide "1" vs. "2";
+$sum1 = $sum2 = 0;
+while (($blkcolrow,$scanbsi) = each %$scanbsi1) {
+  $sum1 += $scanbsi;
+  $sum2 += $$scanbsi2{$blkcolrow};
+}
+if ($sum1 > $sum2) { # don't both to interchange $id hashes since just verified they are identical
+  # use Exchange procedure 11/29/2001
+  Exchange($scanbsi1,$scanbsi2);  # added 11/29/2001
+  Exchange($bkg1,$bkg2);          # added 11/29/2001
+  Exchange($adjbsi1,$adjbsi2);
+  Exchange($gfile1,$gfile2);
+  Exchange($fluor1,$fluor2);
+  Exchange($adjcount1,$adjcount2);
+  Exchange($regerr1,$regerr2);
+  Exchange($satflag1,$satflag2);
+  Exchange($status1,$status2);  
+}
+
+# check status of files -- higher adjbsi file should be unadjusted
+if ($status2 == $STATUS_ADJFILE) {
+  print "\nWARNING: Higher adjbsi scan file $gfile2 has been previously adjusted.\n".
+          "         Results of previous adjustment will be overwritten.\n";  # 11/29/2001
+}
+
+if($DEBUG==1){
+  print "\nLow intensity scan file background standard deviation = $bkgstdev1.\n".
+        "\nHigh intensity scan file background standard deviation = $bkgstdev2.\n\n";
+}
+
+print "\nCommencing regression analysis and adjustment.\n";
+PerformAdjustment();
+
+print "\nProgram complete.\n";
+
+sub ComputeStDev {
+  my $data = $_[0];
+  my $n = 0;
+  my $sum = 0;
+  my $sum2 = 0;
+  my $blkcolrow;
+  my $value;
+  my $avg;
+  my $stdev;
+  foreach $value (@$data){
+    if ($value ne "") {
+      ++$n;
+      $sum+=$value;
+      $sum2+=$value*$value;
+    }
+  }
+  if ($n<=1) {
+    $stdev = 0;
+  }
+  else {
+    $avg = $sum/$n;
+    $stdev = sqrt(($sum2-$n*$avg*$avg)/($n-1));
+  }
+  return $stdev;
+}
+
+
+sub PerformAdjustment {
+
+  my $i;
+  my $blkcolrow;
+  my $reginfo;
+  my %adjvals=();
+  my $numadjcount;
+  my $scanbsi;
+  my $adjust_ind;
+  my $new_linlow;
+  my $new_linhigh;
+  my @lbkg1 = ();
+  my @lbkg2 = ();
+ 
+  # do regression analysis
+
+  if ($mode == $MODE_STRAIGHT) {
+    $reginfo = PerformStraightRegression();
+    $new_linlow = $linlow;
+    $new_linhigh = $linhigh;
+  }
+  elsif ($mode == $MODE_DYNOPT) {
+    ($reginfo,$new_linlow,$new_linhigh) = PerformDynoptRegression();
+  }
+  else {
+    print "\nPerformAdjustment internal error: Unrecognized regression mode $mode.\n";
+    print "Program terminating.\n";
+    exit;
+  }
+
+  # Now compute stdev background in linear range for both scans 1 and 2.
+  # These values are used in computing initial regerr values. 11/29/2001
+
+  foreach $blkrowcol (keys %$id1){
+    if($$scanbsi1{$blkrowcol}>=$new_linlow &&
+       $$scanbsi1{$blkrowcol}<=$new_linhigh) {
+      push @lbkg1,$$bkg1{$blkrowcol};
+    }
+    if($$scanbsi2{$blkrowcol}>=$new_linlow &&
+       $$scanbsi2{$blkrowcol}<=$new_linhigh) {
+      push @lbkg2,$$bkg2{$blkrowcol};
+    }
+  }
+
+  $bkgstdev1 = ComputeStDev(\@lbkg1);
+  $bkgstdev2 = ComputeStDev(\@lbkg2);  # used in WriteAdjustedFile()
+
+  # extrapolate using regression and generate output, saving adjusted values in %adjbsi2.
+  # %regerr2, %adjcount2, %satflag2 modified for any generated %adjvals entry.
+  # 11/29/2001 - logic reformulated.  Now trigger for adjustment is %scanbsi2 value
+  #   and %adjbsi2 gets (a) all adjusted values, (b) copies of unadjusted values with
+  #  %adjcount set to 0.
+
+  if ($DEBUG==1) {
+    print "adjusted?\tblkcolrow\tid\tlow-scan-scanbsi\tlow-scan-adjcount\tlow-scan-adjbsi\t".
+          "low-scan-regerr\thigh-scan-scanbsi\thigh-scan-adjcount\thigh-scan-adjbsi\t".
+          "high-scan-regerr\n";
+  }
+
+  $numadjcount = 0;
+  while (($blkcolrow,$scanbsi) = each %$scanbsi2) {
+    if ($scanbsi > $new_linhigh || $$adjcount1{$blkcolrow} > 0 ) {
+      if($$adjcount1{$blkcolrow}>0){
+        ($$adjbsi2{$blkcolrow},$$regerr2{$blkcolrow}) = 
+           RegressionPrediction($reginfo,$$adjbsi1{$blkcolrow},$regerr1{$blkcolrow});
+        $$adjcount2{$blkcolrow} = $$adjcount1{$blkcolrow}+1;
+        if ($$satflag1{$blkcolrow} == 1) {
+          $$satflag2{$blkcolrow} = 1;
+        }
+      }
+      else {
+        ($$adjbsi2{$blkcolrow},$$regerr2{$blkcolrow}) = 
+           RegressionPrediction($reginfo,$$scanbsi1{$blkcolrow},$bkgstdev1);
+        $$adjcount2{$blkcolrow} = 1;
+        if($$scanbsi1{$blkcolrow} > $new_linhigh) {
+          $$satflag2{$blkcolrow} = 1;
+        }
+      }
+      $$adjbsi2{$blkcolrow} = int($$adjbsi2{$blkcolrow}+.5);
+      $numadjcount++;
+      $adjust_ind = 1;
+    }
+    else {
+      $$adjbsi2{$blkcolrow} = $$scanbsi2{$blkcolrow};
+      $$regerr2{$blkcolrow} = $bkgstdev2;
+      $adjust_ind = 0;
+    }
+    if ($DEBUG==1) {
+      print "$adjust_ind\t$blkcolrow\t$$id2{$blkcolrow}\t$$scanbsi1{$blkcolrow}\t".
+            "$$adjcount1{$blkcolrow}\t$$adjbsi1{$blkcolrow}\t$$regerr1{$blkcolrow}\t".
+            "$$scanbsi2{$blkcolrow}\t$$adjcount2{$blkcolrow}\t$$adjbsi2{$blkcolrow}\t".
+            "$$regerr2{$blkcolrow}\n";
+    }
+  }
+  print "\n$numadjcount high intensity scan BSI values adjusted.\n\n";
+  print "\nRewriting high intensity scan array file with adjusted values.\n";
+
+  WriteAdjustedFile();  
+
+}
+ 
+sub PerformStraightRegression {
+
+  my $num_adjcount_in_range = 0;
+  my @x = ();
+  my @y = ();
+  my $blkcolrow;
+  my $N = 0;
+  my $reginfo;
+
+  print "\nPerforming linear regression of data points with intensities between $linlow and $linhigh.\n";
+
+  # collect genes within low and high range in both slides
+  $num_adjcount_in_range = 0;
+  foreach $blkcolrow (sort keys %$id1) {
+    # logic changed 11/29/2001
+    if ($$scanbsi2{$blkcolrow} >= $linlow &&
+        $$scanbsi2{$blkcolrow} <= $linhigh) {
+      if ($$adjcount1{$blkcolrow}==0 &&
+          $$scanbsi1{$blkcolrow} >= $linlow &&
+          $$scanbsi1{$blkcolrow} <= $linhigh) {
+        push @x,$$scanbsi1{$blkcolrow};
+        push @y,$$scanbsi2{$blkcolrow};
+      }
+      elsif ($$adjcount1{$blkcolrow}>0 &&
+          $$adjbsi1{$blkcolrow} >= $linlow &&
+          $$adjbsi1{$blkcolrow} <= $linhigh) {
+        push @x,$$adjbsi1{$blkcolrow};
+        push @y,$$adjbsi2{$blkcolrow};
+        $num_adjcount_in_range++;
+      }
+    }
+  }
+  $N = scalar @x;
+  if ($N <= 3) {
+    print "Too few spots ($N) in linear range to perform regression (N<=3).\n";
+    print "Program terminating.\n";
+    exit;
+  }
+  print "\n$N spots will be used to perform interpolation. $num_adjcount_in_range ".
+        "were previously adjusted.\n";
+  if ($N <= 10) {
+    print "Warning: Number of spots ($N) in linear range is small (N<=10).\n";
+  }
+
+  # perform regression
+  $reginfo = CalcRegression(\@x,\@y);
+  PrintRegressionInfo($reginfo);
+
+  return $reginfo;  
+  
+}
+
+sub PerformDynoptRegression {
+
+  my $num_adjcount_in_range;
+  my @x = ();
+  my @y = ();
+  my $blkcolrow;
+  my $N;
+  my $reginfo;
+  my $curr_linlow;
+  my $curr_linhigh;
+  my @regstorage = ();
+  my @regrangedata = ();
+  my $maxint;
+  my $minint;
+  my $i;
+  my $start_linlow;
+  my $end_linhigh;
+  my $num_regressions_N_too_small = 0;
+  my $num_regressions_failing_q_thresh = 0;
+  my $num_regressions = 0;
+  my $lowest_q_over_thresh = -1;
+  my $intrange;
+  my $regqual;
+  my $val1;  # 11/29/2001
+
+  print "\nAnalyzing data for largest BSI range of regression containing $linlow to $linhigh\n".
+           "  meeting regression quality threshold $q.\n";
+
+  # find maximum and minimum intensities >= 0
+
+  # logic changed 11/29/2001 to accommodate scanbsi vs. adjbsi structures
+  
+  $maxint=$minint="";
+  foreach $blkcolrow (keys %$id1) {
+    if($$adjcount1{$blkcolrow}>0) {
+      $val1 = $$adjbsi1{$blkcolrow};
+    }
+    else {
+      $val1 = $$scanbsi1{$blkcolrow};
+    }
+    if($val1<=0||$$scanbsi2{$blkcolrow}<=0) {
+      next;
+    } 
+    $maxint=Max($maxint,Max($val1,$$scanbsi2{$blkcolrow}));
+    $minint=Min($minint,Min($val1,$$scanbsi2{$blkcolrow}));
+  }
+  $minint=Max($minint,0);
+  $maxint=Max($maxint,0);
+  if($linlow<$minint){
+    $start_linlow=$linlow;
+  }
+  else {
+    if(($linlow-$minint)%$inc==0){
+      $start_linlow=$minint;
+    }
+    else{
+      $start_linlow=$linlow-(int(($linlow-$minint)/$inc)+1)*$inc;
+    }
+  }
+  if($maxint<$linhigh){
+    $end_linhigh=$linhigh;
+  }
+  else {
+    if(($maxint-$linhigh)%$inc==0){
+      $end_linhigh=$maxint;
+    }
+    else{
+      $end_linhigh=$linhigh+(int(($maxint-$linhigh)/$inc)+1)*$inc;
+    }
+  }
+  # get statistics
+  for($curr_linlow=$start_linlow;$curr_linlow<=$linlow;$curr_linlow+=$inc) {
+    for($curr_linhigh=$linhigh;$curr_linhigh<=$end_linhigh;$curr_linhigh+=$inc) {
+      @x = @y = ();
+      $num_adjcount_in_range = 0;
+      foreach $blkcolrow (%$id1) {
+        if($$adjcount1{$blkcolrow}>0){
+          $val1 = $$adjbsi1{$blkcolrow};
+        }
+        else {
+          $val1 = $$scanbsi1{$blkcolrow};
+        }
+        if ($val1>=$curr_linlow&&$val1<=$curr_linhigh &&
+           $$scanbsi2{$blkcolrow}>=$curr_linlow&&$$scanbsi2{$blkcolrow}<=$curr_linhigh) {
+          push @x,$val1;
+          push @y,$$scanbsi2{$blkcolrow};
+          if ($$adjcount1{$blkcolrow} > 0) { 
+            $num_adjcount_in_range++;
+          }
+        }
+      }
+      $num_regressions++;
+      if (@x<=3) {
+        $num_regressions_N_too_small++;
+      }
+      else {
+        $reginfo=CalcRegression(\@x,\@y);
+        if ($$reginfo{mse_over_avgy} > $q) {
+           $num_regressions_failing_q_thresh++;
+           if($lowest_q_over_thresh==-1) {
+             $lowest_q_over_thresh = $$reginfo{mse_over_avgy};
+           }
+           elsif ($lowest_q_over_thresh > $$reginfo{mse_over_avgy}){
+             $lowest_q_over_thresh = $$reginfo{mse_over_avgy};
+           }
+        }
+        else { 
+          push @regstorage, $reginfo;
+          $intrange = $curr_linhigh-$curr_linlow;
+          $regqual = $$reginfo{mse_over_avgy};
+          push @regrangedata, "$intrange\t$regqual\t$num_adjcount_in_range\t".
+            "$curr_linlow\t$curr_linhigh\t$#regstorage";
+        }
+      }
+    }
+  }  
+
+  print "\nOptimal regression range analysis complete:\n";
+  print "    $num_regressions ranges considered.\n";
+  print "    $num_regressions_N_too_small could not be computed (N<=3).\n";
+  print "    $num_regressions_failing_q_thresh failed regression quality test.\n";
+  print "    ".(scalar @regstorage)." regressions passed regression quality test.\n";
+
+  if (@regstorage==0) {
+    print "\nNo suitable linear regressions found.\n";
+    if ($num_regressions_failing_q_thresh > 0 && $lowest_q_over_thresh > -1) {
+      print "Best quality measure for any regression considered was $lowest_q_over_thresh.\n";
+    }
+    print "\nProgram terminating.\n";
+    exit;
+  }
+
+  @regrangedata = sort byrangeandqual @regrangedata;
+
+  ($intrange,$regqual,$num_adjcount_in_range,$curr_linlow,$curr_linhigh,$i) = split /\t/,$regrangedata[0];
+  $reginfo = $regstorage[$i];
+
+  print "\nRegression range adjcount to $curr_linlow to $curr_linhigh.\n";
+  print "\n$$reginfo{N} spots used to perform interpolation. $num_adjcount_in_range ".
+        "were previously adjusted.\n";
+  if ($$reginfo{N}<=10) {
+    print "Warning: Number of spots ($$reginfo{N}) in linear range is small (N<=10).\n";
+  }    
+
+  PrintRegressionInfo($reginfo);
+
+  return ($reginfo,$curr_linlow,$curr_linhigh);  
+  
+}
+
+sub byrangeandqual {
+  my @adata = split /\t/,$a;
+  my @bdata = split /\t/,$b;
+  if($adata[0]==$bdata[0]) {
+    return $adata[1]<=>$bdata[1];
+  }
+  else {
+    return $bdata[0]<=>$adata[0];
+  }
+}
+
+sub Max {
+  if($_[0] eq "" && $_[1] eq "") {
+    return "";
+  }
+  elsif ($_[0] eq "" && $_[1] ne "") {
+    return $_[1];
+  }
+  elsif ($_[0] ne "" && $_[1] eq "") {
+    return $_[0];
+  }
+  return ($_[0]>$_[1]?$_[0]:$_[1]);
+}
+
+sub Min {
+  if($_[0] eq "" && $_[1] eq "") {
+    return "";
+  }
+  elsif ($_[0] eq "" && $_[1] ne "") {
+    return $_[1];
+  }
+  elsif ($_[0] ne "" && $_[1] eq "") {
+    return $_[0];
+  }
+  return ($_[0]<$_[1]?$_[0]:$_[1]);
+}
+
+sub ReadGenepixFile {
+  my $gfile = $_[0];
+  my $fluor = $_[1];
+  my $line;
+  my @cols;
+  my $status;
+  my $datacol;
+  my $datalabel;
+  my $bkgcol;
+  my $bkglabel;
+  my $labels_found = 0;
+  my $i;
+  my $blkcolrow;
+  my $id = GetHash();
+  my $adjbsi = GetHash();
+  my $adjcount = GetHash();
+  my $regerr = GetHash();
+  my $satflag = GetHash();
+  my $bkg = GetHash();      # 11/29/2001
+  my $scanbsi = GetHash();  # 11/29/2001
+  my $adjcountcol;
+  my $adjcountlabel = "ADJCOUNT"; # label for adjustment count column added during prior masliner run
+  my $adjbsicol;
+  my $adjbsilabel = "ADJBSI"; # label for adjusted BSI column added during prior masliner run
+  my $regerrcol;
+  my $regerrlabel = "REGERR"; # label for regression error column added during prior run
+  my $satflagcol;
+  my $satflaglabel = "SATURATION-FLAG"; # label for saturation flag column added prior run
+  my $extracols_present;
+
+  my $w; #TWS 2/11/2008
+
+  open (G,$gfile);
+  $line = <G>;
+  while($line ne "" && $labels_found == 0) {
+    if ($line=~/^"?Block"?\t"?Column"?\t"?Row"?\t"?Name"?/) { # 03/25/2002 (make "" optional)
+      $labels_found = 1;
+    }
+    else {
+      $line = <G>;
+    }
+  }
+
+  if ($labels_found == 0) {
+    print "Error: Genepix file $gfile has invalid format (no label line).\n";
+    print "Program terminating.\n";
+    exit;
+  }
+  $datalabel = "F$fluor Median"; # 03/25/2002
+  $bkglabel = "B$fluor Median";  # 03/25/2002
+
+  $line=~s/\s*$//; #$line is the Column Title row 
+
+
+  @cols = split /[ ]*\t[ ]*/,$line;
+  $i=0;
+  while ($i<@cols && $cols[$i]!~/^"?$datalabel"?$/) {++$i;} # 03/25/2002
+  if ($i >= @cols) {
+    print "Error: Genepix file $gfile has invalid format (no $datalabel column).\n";
+    print "Program terminating.\n";
+    exit;
+  }
+
+  $datacol = $i; #Set index for the DATA COLUMN - here "F488 Median"
+  $i=0;
+  while ($i<@cols && $cols[$i]!~/^"?$bkglabel"?$/) {++$i;} # 03/25/2002
+  if ($i >= @cols) {
+    print "Error: Genepix file $gfile has invalid format (no $bkglabel column).\n";
+    print "Program terminating.\n";
+    exit;
+  }
+  $bkgcol = $i; #Set index for the BKG COLUMN - here "B488 Median"
+  # 11/29/2001
+  #
+  # Check is the last four columns match
+  # ADJCOUNT  ADJBSI  REGERR  SATURATION-FLAG  -- if so, status is ADJFILE 
+  #
+  if ($cols[$#cols-3] eq $adjcountlabel && $cols[$#cols-2] eq $adjbsilabel && 
+      $cols[$#cols-1] eq $regerrlabel && $cols[$#cols] eq $satflaglabel) {
+    $adjcountcol = $#cols-3;
+    $adjbsicol = $#cols-2;  # 11/20/2001
+    $regerrcol = $#cols-1;
+    $satflagcol = $#cols;
+    $extracols_present = 1;
+    $status = $STATUS_ADJFILE;
+  }
+  else {
+    $extracols_present = 0;
+    $status = $STATUS_NEWFILE;
+  }
+
+  while ($line = <G>) {
+    if ($line=~/^\s*$/) {
+      next;
+    }
+    $line=~s/\s*//;
+    @cols = split /[ ]*\t[ ]*/, $line;
+    $blkcolrow = "$cols[0],$cols[1],$cols[2]";
+    $$id{$blkcolrow} = $cols[4];
+    $$id{$blkcolrow}=~s/^"//;
+    $$id{$blkcolrow}=~s/"$//;
+
+#    $$scanbsi{$blkcolrow} = $cols[$datacol]-$cols[$bkgcol];  # 11/29/2001  //Modified TWS 2/11/2008 Fmedian-Bmedian to Fmedian
+    $$scanbsi{$blkcolrow} = $cols[$datacol];  # TWS 2/11/2008, don't use BG subtracted value
+
+    $$bkg{$blkcolrow} = $cols[$bkgcol]; # 11/29/2001
+    if ($extracols_present == 1) {
+      $$adjcount{$blkcolrow} = $cols[$adjcountcol];
+      $$adjbsi{$blkcolrow} = $cols[$adjbsicol];  # 11/29/2001
+      $$regerr{$blkcolrow} = $cols[$regerrcol];
+      $$satflag{$blkcolrow} = $cols[$satflagcol];
+    }
+    else {
+      $$adjcount{$blkcolrow} = 0;
+      $$adjbsi{$blkcolrow} = 0;  # 11/29/2001
+      $$regerr{$blkcolrow} = 0;  # 11/29/2001
+      $$satflag{$blkcolrow} = 0;
+    }
+  }
+  close (G);
+ 
+  return ($id,$scanbsi,$bkg,$adjbsi,$status,$adjcount,$regerr,$satflag); # 11/29/2001
+}
+
+sub GetHash() {
+  my %hash = ();
+  return \%hash;
+}
+
+# writes out a version of $gfile2 that has adusted values.
+# Revised: 11/29/2001
+# Four extra columns at the end maintain the adjusted values and indicators
+sub WriteAdjustedFile {
+  my $line;
+  my $newline;
+  my @cols;
+  my $labels_found = 0;
+  my $i;
+  my $blkcolrow;
+  my $endws;
+  my $adjbsicol;
+  my $adjcountcol;
+  my $regerrcol;
+  my $satflagrcol;
+
+  open (O,">$outfile");
+  open (G,$gfile2);
+ 
+  $line = <G>;
+  while($line ne "" && $labels_found == 0) {
+    if ($line=~/^"?Block"?\t"?Column"?\t"?Row"?\t"?Name"?/) { # 03/35/2002 - make "" optional
+      $labels_found = 1;
+    }
+    else {
+      print O $line;
+      $line = <G>;
+    }
+  }
+
+  $newlabelline = $line;
+  $newlabelline=~/(\s*)$/;
+  $endws = $1;
+  $newlabelline=~s/\s*$//;
+
+  @cols = split /[ ]*\t[ ]*/,$line;
+
+  if ($status2 == $STATUS_ADJFILE) {
+    $adjcountcol = $#cols-3;
+    $adjbsicol = $#cols-2;
+    $regerrcol = $#cols-1;
+    $satflagcol = $#cols;
+  }
+  elsif($status2 == $STATUS_NEWFILE) {
+    $adjcountcol = @cols;
+    $adjbsicol = @cols+1;
+    $regerrcol = @cols+2;
+    $satflagcol = @cols+3;
+  }
+  else {
+    print "\nWriteAdjustedFile internal error: Unrecognized high intensity scan ".
+          "column status $status2.\n";
+    print "Program terminating.\n";
+    exit();
+  }
+
+  if ($status2==$STATUS_NEWFILE) {
+    $newlabelline.="\tADJCOUNT\tADJBSI\tREGERR\tSATURATION-FLAG$endws";
+    print O $newlabelline;
+  }
+  else {
+    print O "$newlabelline$endws";
+  }
+
+  while ($line = <G>) {
+    if ($line=~/^\s*$/) {
+      print O $line;
+    }
+    $line=~s/\s*$//;
+
+    @cols = split /[ ]*\t[ ]*/, $line;
+    $blkcolrow = "$cols[0],$cols[1],$cols[2]";
+    $cols[$adjcountcol] = $$adjcount2{$blkcolrow};
+    $cols[$regerrcol] = $$regerr2{$blkcolrow};
+    $cols[$adjbsicol] = $$adjbsi2{$blkcolrow};
+    $cols[$satflagcol]= $$satflag2{$blkcolrow};
+    $newline = join "\t", @cols;
+    chomp $newline; #ADDED TWS 103009 -- was getting extra returns
+    print O "$newline$endws";
+
+  }
+  close (G);
+  close (O);
+ 
+}
+
+# regression calculations are based on Sokal. R.R. and Rohlf, 1995, F.J.
+#  Biometry, 3rd ed., (Freeman and Company, NY), chapter 14.
+#
+sub CalcRegression {
+  my $x = $_[0];
+  my $y = $_[1];
+  my %reginfo = ();
+  my $i;
+  my $N;
+  my $sumx;
+  my $sumy;
+  my $avgx;
+  my $avgy;
+  my $sumxm2;
+  my $sumym2;
+  my $sumxym;
+  my $ssexp=0;
+  my $ssnexp=0;
+  my $b;
+  my $a;
+  my $df;
+  my $stdevx;
+  my $stdevy;
+  my $mse;
+  my $stdevb;
+  my $r;
+  my $r2;
+  my $F;
+  my %reginfo;
+
+  $reginfo{N} = $N = 0;
+  $reginfo{sumx} = $sumx = 0;
+  $reginfo{sumy} = $sumy = 0;
+  $reginfo{avgx} = 0;
+  $reginfo{avgy} = 0;
+  $reginfo{stdevx} = 0;
+  $reginfo{stdevy} = 0;
+  $reginfo{sumx2} = $sumx2 = 0;
+  $reginfo{sumy2} = $sumy2 = 0;
+  $reginfo{sumxy} = $sumxy = 0;
+
+  for($i=0;$i<@$x;++$i) {
+    $sumx+=$$x[$i];
+    $sumx2+=$$x[$i]*$$x[$i];
+    $sumy+=$$y[$i];  
+    $sumy2+=$$y[$i]*$$y[$i];
+    $sumxy+=$$x[$i]*$$y[$i];
+    $N++;
+  }
+  $df=$N-2;
+  if($N<1) {
+    return;
+  }
+  $avgx=$sumx/$N;
+  $avgy=$sumy/$N;
+  if ($N<2) {
+    return;
+  }
+  $sumxm2=$sumx2-$N*$avgx*$avgx;
+  $sumym2=$sumy2-$N*$avgy*$avgy;
+  $sumxym=$sumxy-$N*$avgx*$avgy;
+  $stdevx=sqrt($sumxm2/($N-1));
+  $stdevy=sqrt($sumym2/($N-1));
+  $r=$sumxym/($stdevx*$stdevy*($N-1));
+  $r2=$r*$r;
+  $b=$sumxym/$sumxm2;
+  $a=$avgy-$b*$avgx;
+  $ssnexp =
+    $sumy2 + 
+    $N*$a*$a + 
+    $sumx2*$b*$b -
+    2*$b*$sumxy - 
+    2*$a*$sumy + 
+    2*$a*$b*$sumx;
+  $ssexp = 
+    $N*($a-$avgy)*($a-$avgy) +
+    $b*$b*$sumx2 + 
+    2*($a-$avgy)*$b*$sumx;  
+  
+  $mse=sqrt($ssnexp/$df);
+  $F=($ssexp/($ssnexp/$df));
+
+  $reginfo{N} = $N;
+  $reginfo{sumx} = $sumx;
+  $reginfo{sumy} = $sumy;
+  $reginfo{avgx} = $avgx;
+  $reginfo{avgy} = $avgy;
+  $reginfo{stdevx} = $stdevx;
+  $reginfo{stdevy} = $stdevy;
+  $reginfo{sumx2} = $sumx2;
+  $reginfo{sumxm2} = $sumxm2;
+  $reginfo{sumy2} = $sumy2;
+  $reginfo{sumym2} = $sumym2;
+  $reginfo{sumxy} = $sumxy;
+  $reginfo{sumxym} = $sumxym;
+  $reginfo{a} = $a;
+  $reginfo{b} = $b;
+  $reginfo{mse} = $mse;
+  $reginfo{mse_over_avgy} = $mse/$avgy;
+  $reginfo{r} = $r;
+  $reginfo{R^2} = $r2;
+  $reginfo{ssexp} = $ssexp;
+  $reginfo{ssnexp} = $ssnexp;
+  $reginfo{stdevb} = sqrt($ssnexp/($df*$sumxm2));
+  $reginfo{stdeva} = sqrt($ssnexp*((1/$N)+($avgx*$avgx/$sumxm2))/$df);
+  $reginfo{F} = $F;
+  $reginfo{df} = $df;
+
+  return \%reginfo;
+}
+
+sub PrintRegressionInfo {
+  my $reginfo = $_[0];
+  print "\nRegression information:\n";
+  print "  N=$$reginfo{N}\n";
+  print "  a=$$reginfo{a} (regression y-intercept)\n";
+  print "  b=$$reginfo{b} (regression slope)\n";
+  print "  stdevb=$$reginfo{stdevb}\n";
+  print "  stdeva=$$reginfo{stdeva}\n";
+  print "  r=$$reginfo{r}\n";
+  print "  mse=$$reginfo{mse} (mean unexplained error)\n";
+  print "  mse/avgy=$$reginfo{mse_over_avgy} (quality indicator [cf. -q parameter])\n";
+  print "  R^2=$$reginfo{R^2} (coefficient of determination)\n";
+  print "  ssexp=$$reginfo{ssexp} (explained sum of squares)\n";
+  print "  ssnexp=$$reginfo{ssnexp} (unexplained sum of squares)\n";
+  print "  df=$$reginfo{df}\n";
+  print "  F=$$reginfo{F}\n"; 
+  print "  avgx=$$reginfo{avgx}\n";
+  print "  stdevx=$$reginfo{stdevx}\n";
+  print "  sumx2=$$reginfo{sumx2} (sum x^2)\n";
+  print "  sumxm2=$$reginfo{sumxm2} (sum (x-avgx)^2)\n";
+  print "  avgy=$$reginfo{avgy}\n";
+  print "  stdevy=$$reginfo{stdevy}\n";
+  print "  sumy2=$$reginfo{sumy2} (sum y^2)\n";
+  print "  sumym2=$$reginfo{sumym2} (sum (y-avgy)^2)\n";
+  print "  sumxy=$$reginfo{sumxy} (sum xy)\n";
+  print "  sumxym=$$reginfo{sumxym} (sum (x-avgx)*(y-avgy))\n";
+  print "\n";
+}
+
+    
+sub RegressionPrediction {
+  my $reginfo = $_[0];
+  my $x = $_[1];
+  my $stdevx = $_[2];
+  my $y = $$reginfo{b}*$x + $$reginfo{a};
+ 
+  # stdevy is adapted from Sokal & Rohlf (1995), Biometry, 3rd ed., 
+  #  box 14.2 (p. 468) for standard error of prediction from linear
+  #  regression.  This formula differs by incorporating a term for
+  #  the variance of the x term on which the prediction is 
+  #  calculated.  This is the $stdevx*$stdevx term.  This formula
+  #  may be derived by considering the expected value of the variance
+  #  of the prediction given by box 14.2.
+
+  my $stdevy = 
+     $$reginfo{mse} * 
+     sqrt((1+1/$$reginfo{N}+($stdevx*$stdevx+($x-$$reginfo{avgx})*($x-$$reginfo{$avgx}))/$$reginfo{sumxm2}));
+  return ($y,$stdevy); 
+}
+
+# 11/29/2001 
+sub Exchange {
+  my $temp;
+  $temp = $_[0];
+  $_[0] = $_[1];
+  $_[1] = $temp;
+}
+
+sub AnalyzeParameters {
+  my $i;
+  my $modestr;
+
+  if (@_ == 0) {
+    Usage();
+    exit;
+  }
+  
+  for ($i=0;$i<@_;++$i) {
+
+    if ($_[$i] eq "-g1") {
+      $gfile1 = $_[$i+1];
+      ++$i;
+    }
+    elsif ($_[$i] eq "-g2") {
+      $gfile2 = $_[$i+1];
+      ++$i;
+    }
+    elsif ($_[$i] eq "-f1") {
+      $fluor1 = $_[$i+1];
+      ++$i;
+    }
+    elsif ($_[$i] eq "-f2") {
+      $fluor2 = $_[$i+1];
+      ++$i;
+    }
+    elsif ($_[$i] eq "-ll") {
+      $linlow = $_[$i+1];
+      ++$i;
+    }
+    elsif ($_[$i] eq "-lh") {
+      $linhigh = $_[$i+1];
+      ++$i;
+    }
+    elsif ($_[$i] eq "-inc") {
+      $inc = $_[$i+1];
+      ++$i;
+    }
+    elsif ($_[$i] eq "-m") {
+      $modestr = $_[$i+1];
+      ++$i;
+    }
+    elsif ($_[$i] eq "-q") {
+      $q = $_[$i+1];
+      ++$i;
+    }
+    elsif ($_[$i] eq "-o") {
+      $outfile = $_[$i+1];
+      ++$i;
+    }
+    elsif ($_[$i] eq "-debug") {
+      $DEBUG=1;
+    }
+    else {
+      print "Error: Unrecognized parameter $_[$i].  Please correct and retry.\n";
+      exit;
+    }
+  }
+ 
+  if ($linlow eq "") {
+    $linlow = $Dlinlow;
+  }
+  if ($linhigh eq "") {
+    $linhigh = $Dlinhigh;
+  }
+  if ($fluor1 eq "") {
+    $fluor1 = $Dfluor1;
+  }
+  if ($fluor2 eq "") {
+    $fluor2 = $Dfluor2;
+  }
+  if ($intlimit eq "") {
+    $intlimit = $Dintlimit;
+  }
+  if ($inc eq "") {
+    $inc = $Dinc;
+  }
+  if ($q eq "") {
+    $q = $Dq;
+  }
+
+  if ($modestr ne "") {
+    for($i=0;$i<@MODE_LABEL;++$i) {
+      if ((lc $modestr) eq (lc $MODE_LABEL[$i])){
+        $mode = $i;
+      }
+    }
+    if ($mode eq "") {
+      print "Error: Unrecognized regression mode (-m): $modestr.\n";
+      print "Program terminating.\n";
+      exit;
+    }
+  }
+  else {
+    $mode = $Dmode;
+  }
+
+  if ($outfile eq "") {
+    print "Error: No output file specified (-o).\n";
+    print "Program terminating.\n";
+    exit;
+  }
+  if ($linlow > $linhigh) {
+    print "Error: linear range low parameter $linlow value exceeds linear range high value $linhigh.\n";
+    print "Program terminating.\n";
+    exit;
+  }
+  if ($gfile1 eq "") {
+    print "Error: genepix file 1 has not been provided.\n";
+    print "Program terminating.\n";
+    exit;
+  }
+  if ($gfile2 eq "") {
+    print "Error: genepix file 2 has not been provided.\n";
+    print "Program terminating.\n";
+    exit;
+  }
+#  commented out 03/25/2002 to allow support for non-Scanarray scanners.
+#  if ($fluor1 != 1 && $fluor1 != 2) {
+#    print "Error: fluorophore specification $fluor1 for genepix file 1 is not 1 or 2.\n";
+#    print "Program terminating.\n";
+#    exit;
+#  }
+#  if ($fluor2 != 1 && $fluor2 != 2) {
+#    print "Error: fluorophore specification $fluor2 for genepix file 2 is not 1 or 2.\n";
+#    print "Program terminating.\n";
+#    exit;
+#  }
+  if (!(-e $gfile1)) {
+    print "Error: genepix file 1 $gfile1 does not exist.\n";
+    print "Program terminating.\n";
+    exit;
+  }
+  if (!(-e $gfile2)) {
+    print "Error: genepix file 2 $gfile2 does not exist.\n";
+    print "Program terminating.\n";
+    exit;
+  }
+  if ($mode < 0 || $mode >= @MODE_LABEL) {
+    print "Internal error: Unrecognized mode code $mode for -m.\n";
+    print "Program terminating.\n";
+    exit;
+  }
+  if ($inc=~/^\d+$/ && $inc > 0) {}
+  else {
+    print "Error: -lh/-ll increment value (-inc) $inc not > 0.\n";
+    print "Program terminating.\n";
+    exit;
+  }
+  if ($q=~/^\d+\.?\d*$/ || $q=~/^\d*\.?\d+$/ || 
+      $q=~/^\d+\.?\d*[eE][+-]?\d+$/ || $q=~/^\d*\.?\d+[eE][+-]?\d+$/) {}
+  else {
+    print "Error: regression quality value (-q) $q not numeric.\n";
+    print "Program terminating.\n";
+    exit;
+  }
+  if ($q == 0) { 
+    print "Error: regression quality value (-q) $q not > 0.\n";
+    print "Program terminating.\n";
+    exit;
+  }
+
+  print <<_MSGS
+
+Parameters for current masliner execution:
+  -g1: $gfile1 (genepix file 1)
+  -g2: $gfile2 (genepix file 2)
+  -f1: $fluor1 (fluor used in genepix file 1)
+  -f2: $fluor2 (fluor used in genepix file 2)
+  -m:  $MODE_LABEL[$mode] (regression calculation mode) 
+  -ll: $linlow (low limit of linear adjbsi range)
+  -lh: $linhigh (high limit of linear adjbsi range)
+  -inc: $inc (dynamic regression range increment)
+  -q:  $q (dynamic regression range quality)
+  -o:  $outfile (output adjusted high intensity scan file)
+
+_MSGS
+  ;
+}
+    
+sub Usage {
+
+  my $i;
+  my $modelabels = join ", ",@MODE_LABEL;
+  my $modedescs = join "\n",@MODE_DESC;
+
+  print <<_HELP
+masliner: MicroArray Spot LINEar Regression.  Takes two microarray genepix
+  output files and uses linear regression to compute adjusted background-
+  subtracted intensity (BSI) values for spots above the scanner's linear
+  range on the higher intensity scan on the basis of the BSI values for 
+  these spots on the lower intensity scan array, thereby correcting for 
+  saturation and constructing a common linear scale for a broader intensity
+  range.  Output is an adjusted genepix-format file for the higher 
+  intensity scan  that can be used as input to masliner to adjust scans 
+  that are even more intense.  Adjusted BSI values and related information
+  are placed in four extra columns of each row of the output file:
+
+    ADJCOUNT: the number of masliner adjustments performed for this spot
+    ADJBSI:   adjusted BSI value computed by masliner
+    REGERR:   estimated error for computed ADJBSI value (or standard 
+              deviation of background for unadjusted values)
+    SATURATION-FLAG: 1 if ADJBSI was computed based on a lower intensity
+              scan value that was itself saturated; 0 otherwise.
+
+Version: $VERSION
+
+Syntax:
+  masliner -g1 genepix-file-1 -g2 genepix-file-2 -o output-file
+     [-m calibration-mode] 
+     [-f1 fluor-genepix-file-1] [-f2 fluor-genepix-file-2]
+     [-ll linear-range-low-limit] [-lh linear-range-high-limit]
+     [-inc rangelimit-increment-factor] [-q regression-quality]
+
+Notes:
+  output-file: adjusted genepix-value for higher BSI array with values 
+    above -lh reomputed recomputed based on linear regression. 
+  fluor-genepix-file-1 (2): Indicates whether BSI values in 
+    genepix-file-1 (2) are from the "F1" or "F2" columns.  Defaults are 
+    $Dfluor1 and $Dfluor2, respectively (used by ScanArray [GSI Lumonics]).
+  linear-range-low-limit, linear-range-high-limit: BSI values 
+    considered to be within linear range of scanner. Defaults are $Dlinlow
+    and $Dlinhigh, respectively.
+  calibration-mode: $modelabels
+$modedescs
+    Default = $MODE_LABEL[$Dmode].
+  rangelimit-increment-factor: increments of -lh and decrements of -ll
+    that are considered when extending linear range for regression for
+    "$MODE_LABEL[$MODE_DYNOPT]" processing.  Largest range that meets
+    the quality thresholds in -q is selected. Default = $Dinc.
+  regression_quality: threshold for RMS error of regression over 
+    average BSI of higher BSI values in -ll to -ll range (an
+    estimate of coefficient of variation of unexplained regression error).  
+    Default = $Dq
+  Regression calculations are based on Sokal, R.R., and Rohlf, F.S., 1995
+    Biometry, 3rd ed., (W.H. Freeman and Company, New York), chapter 14.
+_HELP
+ ;
+}
+
