@@ -1,26 +1,24 @@
 ---
 title: merge median intensity data for gcPBM
 author: Bin He
-date: 2024-03-05
+date: 2024-04-18
 output: html_notebook
 ---
 
 # Goal:
-merge the median intensity data from the two array scans and plot
+Yuning gave us a modified perl script, which actually does the detrending and calculates the median intensity for each probe.
 
 ```{r}
 require(tidyverse)
-require(readxl)
+#require(readxl)
 require(cowplot)
 ```
 
 # Date wrangling
 Load files into memory
 ```{r}
-rawSc = read_excel("../output/20230322_ScHigh_550_5_median_new.xlsx")
-rawCg = read_excel("../output/20230322_CgHigh_550_10_median_new.xlsx")
-names(rawSc)[1] = "index"
-names(rawCg)[1] = "index"
+rawSc = read_tsv("../input/normalized-intensities/20240418-ScHigh_alldata_ctrl_M_removed.txt.gz")
+rawCg = read_tsv("../input/normalized-intensities/20240418-CgHigh_alldata_ctrl_M_removed.txt.gz")
 ```
 
 reformat the datasets for ScPho4
@@ -28,72 +26,70 @@ reformat the datasets for ScPho4
 name_pattern = c(group = "^[^_]*_[^_]*", "_",  name = ".*", rep = "_o\\d_r\\d$")
 name_pattern_neg = c(group = "Cg_neg", "_", name = "\\d+", "_", rep = "\\d$")
 datSc <- rawSc %>% 
-  filter(!grepl("Cg_neg", Name)) %>% 
+  filter(!grepl("Cg_neg", Name), !is.na(Name)) %>% 
   # split the name column to create a group and a probe name
-  separate_wider_regex(Name, patterns = name_pattern) %>% 
+  separate_wider_regex(Name, patterns = name_pattern, too_few = "debug") %>% 
+  # I manually inspected, and found all the Name_ok == FALSE ones are 
+  # Agilent control probes, like DarkCorner. remove those are fine
+  filter(Name_ok) %>% 
   mutate(
     consensus = grepl("CACGTG", Sequence),
     group = ifelse(group == "sc_Probes",
                    ifelse(consensus, "Sc_consensus", "Sc_nonconsensus"),
                    group)) %>% 
-  select(index, group, name, rep, #starts_with("Name"),
+  select(ID, group, name, rep,
          sequence = Sequence,
-         starts_with("Alexa"), median_six_rows) %>% 
-  arrange(index)
+         starts_with("Alexa"))
 
 datSc <- rbind(
   datSc,
   filter(rawSc, grepl("Cg_neg", Name)) %>% 
   # split the name column to create a group and a probe name
   separate_wider_regex(Name, patterns = name_pattern_neg) %>% 
-  select(index, group, name, rep, #starts_with("Name"),
+  select(ID, group, name, rep,
          sequence = Sequence,
-         starts_with("Alexa"), median_six_rows) %>% 
-  arrange(index)
+         starts_with("Alexa"))
 )
 
 medSc <- datSc %>% 
   group_by(group, name) %>% 
   summarize(
     sequence = first(sequence),
-    my_median = median(Alexa488Adjusted),
-    median_six_rows = last(median_six_rows)
+    my_median = median(Alexa488Adjusted)
   )
 ```
 
 reformat the datasets for CgPho4
 ```{r}
 datCg <- rawCg %>% 
-  filter(!grepl("Cg_neg", Name)) %>% 
+  filter(!grepl("Cg_neg", Name), !is.na(Name)) %>% 
   # split the name column to create a group and a probe name
-  separate_wider_regex(Name, patterns = name_pattern) %>% 
+  separate_wider_regex(Name, patterns = name_pattern, too_few = "debug") %>% 
+  filter(Name_ok) %>% 
   mutate(
     consensus = grepl("CACGTG", Sequence),
     group = ifelse(group == "sc_Probes",
                    ifelse(consensus, "Sc_consensus", "Sc_nonconsensus"),
                    group)) %>% 
-  select(index, group, name, rep, #starts_with("Name"),
+  select(ID, group, name, rep,
          sequence = Sequence,
-         starts_with("Alexa"), median_six_rows) %>% 
-  arrange(index)
+         starts_with("Alexa"))
 
 datCg <- rbind(
   datCg,
   filter(rawCg, grepl("Cg_neg", Name)) %>% 
   # split the name column to create a group and a probe name
   separate_wider_regex(Name, patterns = name_pattern_neg) %>% 
-  select(index, group, name, rep, #starts_with("Name"),
+  select(ID, group, name, rep,
          sequence = Sequence,
-         starts_with("Alexa"), median_six_rows) %>% 
-  arrange(index)
+         starts_with("Alexa"))
 )
 
 medCg <- datCg %>% 
   group_by(group, name) %>% 
   summarize(
     sequence = first(sequence),
-    my_median = median(Alexa488Adjusted),
-    median_six_rows = last(median_six_rows)
+    my_median = median(Alexa488Adjusted)
   )
 ```
 
@@ -109,19 +105,26 @@ medJoin$group = factor(medJoin$group,
                                   "Cg_nonconsensus", "Sc_consensus", 
                                   "Sc_nonconsensus", "Sc_negative", "Cg_negative")
                        )
+table(medJoin$group)
 ```
 
 # Plot
 Scatter plot
 ```{r}
-grp.color = c("Cg_consensus" = "blue2", "Cg_nonconsensus" = "skyblue",
-              "Sc_consensus" = "forestgreen", "Sc_nonconsensus" = "palegreen",
+grp.color = c("Sc_consensus" = "forestgreen", "Sc_nonconsensus" = "palegreen",
+              "Cg_consensus" = "blue2", "Cg_nonconsensus" = "skyblue",
               "Sc_negative" = "gray30", "Cg_negative" = "gray")
+#grp.color = c("consensus" = "palegreen", "nonconsensus" = "forestgreen",
+#              "negative" = "gray30")
 p <- medJoin %>% 
-  filter(grepl("^Cg|^Sc", group)) %>% 
-  mutate(lnSc = log(my_median_Sc), lnCg = log(my_median_Cg)) %>% 
+  filter(grepl("Sc|Cg", group)) %>%
+  #separate(group, into = c("species","group"), sep = "_") %>% 
+  mutate(lnSc = log(my_median_Sc), lnCg = log(my_median_Cg),
+         sps = str_sub(group, 1, 2)) %>% 
   ggplot(aes(x = lnSc, y = lnCg)) +
-  geom_point(aes(color = group), alpha = 0.8) +
+  geom_point(aes(color = group, alpha = sps, size = sps), shape = 19) +
+  scale_alpha_manual(values = c("Sc" = 0.5, "Cg" = 1), guide = "none") +
+  scale_size_manual(values = c("Sc" = 1, "Cg" = 1.3), guide = "none") +
   #geom_abline(slope = 1, intercept = 0, color = "red", linetype = 3) +
   scale_color_manual("Probe group:", values = grp.color) +
   xlab("ScPho4 log signal intensity") +
@@ -136,6 +139,6 @@ p <- medJoin %>%
     legend.background = element_rect(fill = alpha("white", 0.5))
   )
 p
-ggsave("../output/20240305-gcPBM-genomic-probes-and-nc-only.png", width = 4.2, height = 4)
+ggsave("../output/20240418-gcPBM-genomic-probes-and-nc-only.png", width = 4.2, height = 4)
 ```
 
