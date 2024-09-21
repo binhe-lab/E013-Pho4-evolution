@@ -1,0 +1,1 @@
+use Yeast 2 Hybrid to determine the ability of ScPho4 and CgPho4 to physically interact with either ScPho2 or CgPho2. Use truncation constructs to additionally identify the region(s) involved in the interaction if the result from the first test is positive. Initiated by Lindsey and continued by Emily O'Brien.
