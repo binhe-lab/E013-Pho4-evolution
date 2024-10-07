@@ -16,16 +16,19 @@ rawSc = map_dfr(files.Sc, \(f) read_tsv(f, skip = 1, col_names = header))
 rawCg = map_dfr(files.Cg, \(f) read_tsv(f, skip = 1, col_names = header))
 dat <- inner_join(rawSc, rawCg, by = c("7mer", "7mer_comp"),
                  suffix = c(".Sc", ".Cg")) %>% 
-  mutate(group = ifelse(E.Sc > 0.35 | E.Cg > 0.35, "bound", "unbound"))
+  mutate(
+    group = ifelse(E.Sc > 0.35 | E.Cg > 0.35, "bound", "unbound"),
+    Ebox = grepl("CACGTG", `7mer`)
+  )
 
 # Plot
 p <- dat %>% 
   ggplot(aes(x = E.Sc, y = E.Cg)) +
   #geom_point(data = filter(dat, group == "bound"), size = 0.3) +
   geom_hex(color = NA, bins = 128) +
+  geom_point(data = filter(dat, Ebox), color = "red", size = 0.8) +
   geom_vline(xintercept = 0.35, color = "red", linetype = 3) +
   geom_hline(yintercept = 0.35, color = "red", linetype = 3) +
-  #scale_color_manual(NULL, values = grp.color) +
   scale_x_continuous(breaks = c(-0.5, 0, 0.35, 0.5)) +
   scale_y_continuous(breaks = c(-0.5, 0, 0.35, 0.5)) +
   xlab("ScPho4 E-score") +
