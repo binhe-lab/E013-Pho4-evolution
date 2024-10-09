@@ -7,6 +7,7 @@
 
 require(tidyverse)
 require(cowplot)
+require(ggpubr)
 
 # Date wrangling
 header <- c("7mer", "7mer_comp", "E", "Median", "Z")
@@ -20,6 +21,9 @@ dat <- inner_join(rawSc, rawCg, by = c("7mer", "7mer_comp"),
     group = ifelse(E.Sc > 0.35 | E.Cg > 0.35, "bound", "unbound"),
     Ebox = grepl("CACGTG", `7mer`)
   )
+
+# Calculating correlation coefficient
+corr <- with(dat, cor(E.Sc, E.Cg, method = "spearman"))
 
 # Plot
 p <- dat %>% 
@@ -42,4 +46,6 @@ p <- dat %>%
     legend.text = element_text(size = rel(0.6)),
     legend.background = element_rect(fill = alpha("white", 0.5))
   )
-ggsave("../output/20240321-uPBM-E-score-compare.png", width = 5, height = 4)
+p
+ggsave("../img/20240321-uPBM-E-score-compare.png", width = 5, height = 4)
+

@@ -1,0 +1,2 @@
+# genomic context Protein Binding Microarray (gcPBM)
+the universal PBM (uPBM) covers all possible 9-mers. the goal of this experiment is to extend the flanking sequence further than contained in the uPBM library. using a 36-bp oligo library, we can examine the much longer sequence context, but we won't be able to look at all possible 36-mers. in practice, we selected the 36-mers from the genomic sequences known to be bound by CgPho4 and ScPho4 in _C. glabrata_ genome.

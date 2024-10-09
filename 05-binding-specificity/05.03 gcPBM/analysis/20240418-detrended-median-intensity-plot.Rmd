@@ -8,15 +8,15 @@ output: html_notebook
 # Goal:
 Yuning gave us a modified perl script, which actually does the detrending and calculates the median intensity for each probe.
 
-```{r}
+```{r, message=FALSE}
 require(tidyverse)
-#require(readxl)
 require(cowplot)
+require(ggpubr)
 ```
 
 # Date wrangling
 Load files into memory
-```{r}
+```{r, message=FALSE}
 rawSc = read_tsv("../input/normalized-intensities/20240418-ScHigh_alldata_ctrl_M_removed.txt.gz")
 rawCg = read_tsv("../input/normalized-intensities/20240418-CgHigh_alldata_ctrl_M_removed.txt.gz")
 ```
@@ -109,7 +109,7 @@ table(medJoin$group)
 ```
 
 # Plot
-Scatter plot
+Scatter plot for both consensus and nonconsensus sequences
 ```{r}
 grp.color = c("Sc_consensus" = "forestgreen", "Sc_nonconsensus" = "palegreen",
               "Cg_consensus" = "blue2", "Cg_nonconsensus" = "skyblue",
@@ -138,7 +138,88 @@ p <- medJoin %>%
     legend.text = element_text(size = rel(0.6)),
     legend.background = element_rect(fill = alpha("white", 0.5))
   )
-p
+p + stat_cor(method = "spearman", label.x.npc = 0.6, label.y.npc = "bottom")
 ggsave("../output/20240418-gcPBM-genomic-probes-and-nc-only.png", width = 4.2, height = 4)
 ```
 
+Only show sequences with the E-box consensus
+```{r}
+grp.color.sub = c("Sc_consensus" = "forestgreen", "Cg_consensus" = "blue2")
+              #"Sc_negative" = "gray30", "Cg_negative" = "gray")
+#grp.color = c("consensus" = "palegreen", "nonconsensus" = "forestgreen",
+#              "negative" = "gray30")
+tmp <- medJoin %>% 
+  filter(
+    grepl("Sc|Cg", group),
+    grepl("_consensus", group),
+  ) %>%
+  #separate(group, into = c("species","group"), sep = "_") %>% 
+  mutate(lnSc = log(my_median_Sc), lnCg = log(my_median_Cg),
+         sps = str_sub(group, 1, 2))
+
+corr <- with(tmp, cor(lnSc, lnCg, method = "spearman"))
+p <- tmp %>% 
+  ggplot(aes(x = lnSc, y = lnCg)) +
+  geom_point(aes(color = group), alpha = 0.9, shape = 16, size = 0.7) +
+  #geom_abline(slope = 1, intercept = 0, color = "steelblue") +
+  #scale_alpha_manual(values = c("Sc" = 0.5, "Cg" = 1), guide = "none") +
+  #scale_size_manual(values = c("Sc" = 1, "Cg" = 1.3), guide = "none") +
+  #geom_abline(slope = 1, intercept = 0, color = "red", linetype = 3) +
+  scale_color_manual("Genomic context:", values = grp.color.sub,
+                     labels = c("S. cerevisiae", "C. glabrata")) +
+  xlab("ScPho4 log signal intensity") +
+  ylab("CgPho4 log signal intensity") +
+  theme_cowplot() + panel_border(color = "gray30", size = 1.5) +
+  theme(
+    axis.line = element_blank(),
+    axis.text = element_text(size = rel(1.1)),
+    legend.position = "top",
+    legend.title = element_text(size = rel(0.8)),
+    legend.text = element_text(size = rel(0.6), face = 3)
+  )
+p + stat_cor(method = "spearman")
+ggsave("../output/20241007-gcPBM-genomic-consensus-only.png", width = 4, height = 4)
+```
+
+_**Discussion**_
+
+The absolute values of the log intensity are not directly comparable, as that can be influenced by the effective concentrations of the two proteins hybridized on the chips. Instead, pay attention to the Spearman's correlation coefficient. A high level of correlation indicates very similar specificities.
+
+Only show sequences with  non-consensus motifs
+```{r}
+grp.color.sub = c("Sc_nonconsensus" = "forestgreen", "Cg_nonconsensus" = "blue2")
+              #"Sc_negative" = "gray30", "Cg_negative" = "gray")
+#grp.color = c("consensus" = "palegreen", "nonconsensus" = "forestgreen",
+#              "negative" = "gray30")
+tmp <- medJoin %>% 
+  filter(
+    grepl("Sc|Cg", group),
+    grepl("_nonconsensus", group),
+  ) %>%
+  #separate(group, into = c("species","group"), sep = "_") %>% 
+  mutate(lnSc = log(my_median_Sc), lnCg = log(my_median_Cg),
+         sps = str_sub(group, 1, 2))
+
+corr <- with(tmp, cor(lnSc, lnCg, method = "spearman"))
+p <- tmp %>% 
+  ggplot(aes(x = lnSc, y = lnCg)) +
+  geom_point(aes(color = group, alpha = sps), shape = 16, size = 0.7) +
+  #geom_abline(slope = 1, intercept = 0, color = "steelblue") +
+  scale_alpha_manual(values = c("Sc" = 0.5, "Cg" = 1), guide = "none") +
+  #scale_size_manual(values = c("Sc" = 1, "Cg" = 1.3), guide = "none") +
+  #geom_abline(slope = 1, intercept = 0, color = "red", linetype = 3) +
+  scale_color_manual("Genomic context:", values = grp.color.sub,
+                     labels = c("S. cerevisiae", "C. glabrata")) +
+  xlab("ScPho4 log signal intensity") +
+  ylab("CgPho4 log signal intensity") +
+  theme_cowplot() + panel_border(color = "gray30", size = 1.5) +
+  theme(
+    axis.line = element_blank(),
+    axis.text = element_text(size = rel(1.1)),
+    legend.position = "top",
+    legend.title = element_text(size = rel(0.8)),
+    legend.text = element_text(size = rel(0.6), face = 3)
+  )
+p + stat_cor(method = "spearman")
+ggsave("../output/20241008-gcPBM-genomic-nonconsensus-only.png", width = 4, height = 4)
+```
