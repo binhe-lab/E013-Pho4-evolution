@@ -14,16 +14,22 @@ library(cowplot)
 library(ggtext)
 ```
 
-## Goal
+# Goal
 
 The goal is to test whether the identity of the NLS region (region 3) affects the nuclear vs cytoplasmic ratio of the Pho4 constructs.
 
-## Method
-Mid-log phase _S.cerevisiae_ strains carrying Pho4 constructs with NLS:Sc or NLS:Cg were grown in SC complete medium. Live fluorescence microscopy waas performed on a Leica epi-fluorescence microscope (Bright Field, GFP, DAPI). The TIFF image files were loaded into FIJI. Nuclei and cell boundaries were manually traced. Integrated intensities in the nucleus vs whole cell were quantified. Non fluorescent cells were included in the second attempt to provide background correction (for autofluorescence). The ratio of nuclear vs cytoplasmic (= whole cell - nuclear) were used for comparisons.
+# Method
+Mid-log phase _S.cerevisiae_ strains carrying Pho4 constructs with NLS:Sc or NLS:Cg were grown in SC complete medium. Live fluorescence microscopy was performed on a Leica epi-fluorescence microscope (Bright Field, GFP, DAPI). The TIFF image files were loaded into FIJI. Nuclei and cell boundaries were manually traced. Two quantities were calculated:
 
+1. Fraction of nuclear Pho4 molecules.
+    Integrated intensities in the nucleus vs whole cell were quantified. Non fluorescent cells were included in the second attempt to provide background correction (for autofluorescence). The ratio of nuclear vs cytoplasmic (= whole cell - nuclear) were used for comparisons.
+2. Nuclear Pho4 concentration.
+    The average gray intensity within the nucleus is quantified, and background was subtracted.
 
-## Data and analysis
+# Data and analysis
 Two biological replicates with Pho2: d013024 and d020624; two biological replicates w/o Pho2: d021424 and d021624
+
+The first replicate with Pho2 on d013024 didn't have a non-fluorescent cell control. In some of the analyses, we will use just one replicate.
 
 File format:
 
@@ -36,6 +42,7 @@ File format:
 - Group: genotype
 - Locus: area selected
 
+## data import
 ```{r}
 my_data_import <- function(file){
   # the goal is to calculate nuclear-vs-whole-cell ratio of the integrated GFP signal
@@ -81,9 +88,14 @@ dat <- map_dfr(files,
 all(!is.na(dat$Pho4))
 ```
 
-Plot
+## Plot
 ```{r}
 # labeller
+par.name <- c(
+  Nuc_frac = "Nuclear fraction",
+  Median_nuc = "Nuclear concentration (a.u.)"
+)
+
 host.name <- c(
   PHO2 = "PHO2",
   #boost = "Boost",
@@ -97,33 +109,59 @@ my_symbol_colors <- function(symbols){
     "<b style='color:forestgreen'>S</b>")
   return(symbols)
 }
-p <- ggplot(dat, aes(y = Pho4, x = Nuc_frac)) +
-  geom_boxplot() +
+p <- dat %>%
+  filter(Date %in% c("20240206", "20240216")) %>% 
+  select(Date, Host, Group, Nuc_frac, Median_nuc, Pho4, NLS) %>% 
+  pivot_longer(cols = c(Nuc_frac, Median_nuc), 
+               names_to = "Parameter", values_to = "Value") %>% 
+  ggplot(aes(y = Pho4, x = Value)) +
+  geom_boxplot(outliers = FALSE) +
+  geom_point(color = "salmon",
+             position = position_jitter(height = 0.1), 
+             alpha = 0.8, size = 0.7) +
   geom_hline(yintercept = 3.5, linetype = 3, linewidth = 1.2, color = "gray40") +
-  facet_wrap(~Host, labeller = labeller(Host = host.name)) +
-  xlab("Nuclear fraction") +
+  #facet_wrap(~Host, labeller = labeller(Host = host.name)) +
+  facet_grid(Host ~ Parameter, scales = "free_x",
+             labeller = labeller(Parameter = par.name, Host = host.name)) +
   scale_y_discrete(labels = my_symbol_colors, limits = rev) +
   theme_cowplot() + panel_border(color = "gray30") +
   background_grid(major = "x", minor = "none") +
   theme(axis.text.y = element_markdown(family = "courier"),
-        axis.title.y = element_blank(),
+        axis.title = element_blank(),
         axis.line = element_blank(),
         strip.placement = "outside",
         strip.background = element_blank(),
         strip.text = element_text(face = 3, size = rel(1)))
 p
-ggsave("../output/20240407-NLS-identity-not-impact-nuc-frac.png", width = 5, height = 4)
+ggsave("../output/20241012-NLS-identity-not-impact-nuc-frac.png", width = 6, height = 4)
 ```
-Statistical test
+## Statistical test
+### all data, nuclear concentration (median_nuc)
+ANOVA
 ```{r}
-lm <- lm(Nuc_frac ~ NLS + Host, data = dat)
+lm <- lm(Median_nuc ~ NLS + Host, data = dat)
+anova(lm)
+```
+
+Non-parametric test
+```{r}
+print("Kruskal-Wallis test for PHO2 background")
+kruskal.test(Median_nuc ~ NLS, data = dat, subset = dat$Host == "PHO2")
+print("Kruskal-Wallis test for pho2∆ background")
+kruskal.test(Median_nuc ~ NLS, data = dat, subset = dat$Host == "pho2")
+```
+### one day only
+ANOVA
+```{r}
+tmp <- dat %>% filter(Date %in% c("20240206", "20240216"))
+lm <- lm(Nuc_frac ~ NLS + Host, data = tmp)
 anova(lm)
 ```
 Non-parametric test
 ```{r}
 print("Kruskal-Wallis test for PHO2 background")
-kruskal.test(Nuc_frac ~ NLS, data = dat, subset = dat$Host == "PHO2")
+kruskal.test(Nuc_frac ~ NLS, data = tmp, subset = dat$Host == "PHO2")
 print("Kruskal-Wallis test for pho2∆ background")
-kruskal.test(Nuc_frac ~ NLS, data = dat, subset = dat$Host == "pho2")
+kruskal.test(Nuc_frac ~ NLS, data = tmp, subset = dat$Host == "pho2")
 ```
 
