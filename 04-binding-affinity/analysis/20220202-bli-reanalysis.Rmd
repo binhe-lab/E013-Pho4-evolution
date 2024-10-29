@@ -61,7 +61,9 @@ Reanalyze earlier batches of BLI data using the curve fitting method, and compar
 ### Load data
 
 ```{r,message=FALSE, results='asis'}
-datK <- read_tsv("../data/BLI/20220202-kinetic-curve-Kd-estimates-all.tsv") %>% 
+rawK <- read_tsv("../data/BLI/20220202-kinetic-curve-Kd-estimates-all.tsv")
+
+datK <- rawK %>% 
   filter(!is.na(Model), grepl("UASp2", Ligand)) %>% 
   mutate(Half_site = factor(str_sub(Ligand,7,9), 
                             levels = c("CAC","AAC","TAC","GAC","CTC","CCC","CGC","CAA","CAT","CAG")),
@@ -69,7 +71,8 @@ datK <- read_tsv("../data/BLI/20220202-kinetic-curve-Kd-estimates-all.tsv") %>%
                           labels = c("ScPho4-DBD", "CgPho4-DBD")))
 cat("Loaded Kd estimates based on kinetic curve fitting ")
 
-datS <- read_tsv("../data/BLI/20220202-steady-state-Kd-estimates-consensus.tsv") %>% 
+rawS <- read_tsv("../data/BLI/20220202-steady-state-Kd-estimates-consensus.tsv")
+datS <- rawS %>% 
   filter(grepl("UASp2", Ligand)) %>% 
   mutate(Half_site = factor(str_sub(Ligand,7,9), 
                             levels = c("CAC","AAC","TAC","GAC","CTC","CCC","CGC","CAA","CAT","CAG")),
@@ -153,11 +156,12 @@ datC %>%
 Now let's remove those experiments with $\chi^2$ values greater than 3, and then pool the different batches for each of the two DBD since the estimates are very similar. This would allow us to compare the two proteins.
 
 ```{r}
+protein.colors <- c("ScPho4-DBD" = "yellowgreen", "CgPho4-DBD" = "royalblue3")
 datC %>% 
   filter(!flag) %>% 
   ggplot(aes(x = Half_site, y = Ka, fill = Protein)) +
   geom_col(position = position_dodge2(0.7)) +
-  scale_fill_manual(values=c("yellowgreen", "royalblue3")) + 
+  scale_fill_manual(values=protein.colors) + 
   labs(title = "Kd estimates", y = "Kd [nM]") +
   scale_y_continuous(trans = "log10", breaks = c(10, 100, 1000), labels = c(100, 10, 1), 
                      expand = expansion(mult = c(0, 0.05))) +
@@ -205,6 +209,51 @@ datC %>% filter(!flag) %>%
   #filter(term == "proteinCgPho4") %>% 
   mutate(fold_diff = round(10^estimate, 3), p.adj = p.adjust(p.value, method = "holm")) %>% 
   select(Half_site, fold_diff, statistic, p.value, p.adj)
+```
+
+### Steady state fractional binding plot
+In the reviews we received from Nature Communications, we got a number of questions/concerns regarding the affinity differences we observed. One criticism was that the affinity difference was relatively small (3-4 fold) for the consensus. We fully agree with this and actually commented on it in the manuscript. In the revision, we plan to further de-emphasize the affinity difference result. Another category of criticism raise doubts even on the modest Kd difference we observed. One major reason is because among the consensus and nine one-bp-off variants, two showed a significant difference while the rest didn't. The reviewer questioned the validity of the affinity difference due to the expectation that any real difference should be observed across all oligos. We don't agree with that -- TF uses individual amino acid residues to make contact with the bases, which is the core basis of its sequence specificity. It's entirely expected that two orthologous TF's, due to differences either in those critical residues, or in our case, changes in other residues that may have resulted in differences in the positioning of those residues, can alter the affinity for *specific* variants but not all DNA sequences.
+
+Nonetheless, after our discussion, we felt that presenting the 9 one-bp-off variants didn't significantly add to the story, while complicating the picture. In the revision, we decided to present just the consensus. We originally planned to include UASp1 as it both shows another variant and also is physiologically relevant. Upon inspecting the data, however, I found we only had three replicates for the oligo. The trend is very much the same, but it is not worth plotting.
+
+```{r}
+tmp <- read_tsv("../data/BLI/20241015-steady-state-response-consensus.tsv")
+steady_response <- left_join(
+  select(datS, Exp, Protein, Batch, Bmax, Kd), tmp, by = "Exp"
+) %>% 
+  mutate(Frac_bound = Response / Bmax)
+```
+Plotting is now done in Prism (analysis file [here](prism-analyses/20241015-reanalysis-Sc-Cg-consensus-only.prism)). The reason is because we did the one-site specific binding with Hill coefficient analysis using Prism. The non-linear regression curve is already in Prism.
+
+Here, I'll replot the $K_d$ estimates for just the consensus oligo.
+```{r}
+datS %>% 
+  ggplot(aes(x = Protein, y = Kd, group = Protein)) +
+  geom_bar(aes(fill = Protein), stat = "summary", fun = "mean", alpha = 0.9) +
+  geom_point(position = position_jitter(0.1), color = "gray10", size = 2) +
+  stat_summary(fun.data = "mean_cl_boot", geom = "pointrange",
+               color = "red", size = 0.6) +
+  scale_fill_manual(values = c("yellowgreen", "royalblue1"), guide = "none") + 
+  ylab("K<sub>D</sub> [nM]") + xlab(NULL) + ylim(0, NA) +
+  scale_x_discrete(labels = c("ScPho4-DBD" = "ScPho4\nDBD",
+                              "CgPho4-DBD" = "CgPho4\nDBD")) +
+  #scale_y_log10(breaks = c(10/3, 10, 100/3, 100, 1000/3, 1000), labels = c(300, 100, 30, 10, 3, 1)) +
+  coord_flip() +
+  theme_cowplot(font_size = 20) +# background_grid(major = "y") + 
+  theme(
+    legend.position = "right", 
+    axis.title.x = element_markdown(),
+    axis.line = element_line(linewidth = rel(1.5)))
+ggsave("imgs/20241015-compare-Kd-ScPho4-CgPho4-CAC.png", width = 5, height = 2.5)
+```
+
+Statistical test
+```{r}
+datS %>% group_by(Protein) %>% summarize(mean = mean(Kd))
+# t-distribution based
+t.test(log10(Kd) ~ Protein, data = datS)
+# rank order test
+wilcox.test(Kd ~ Protein, data = datS)
 ```
 
 ### Kinetic parameter ($k_{on}$ and $k_{off}$) comparison between batches and between proteins
