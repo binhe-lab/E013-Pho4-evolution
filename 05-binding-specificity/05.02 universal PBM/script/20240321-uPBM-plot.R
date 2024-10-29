@@ -40,12 +40,14 @@ p <- dat %>%
   theme_cowplot() + panel_border(color = "gray30", size = 1.5) +
   theme(
     axis.line = element_blank(),
-    axis.text = element_text(size = rel(1.1)),
-    legend.position = "right",
-    legend.title = element_text(size = rel(0.7)),
-    legend.text = element_text(size = rel(0.6)),
+    #axis.text = element_text(size = rel(1)),
+    legend.position = "top",
+    legend.title = element_text(size = rel(0.9)),
+    legend.text = element_text(size = rel(0.7)),
+    legend.key.width = unit(1, "cm"),
+    legend.
     legend.background = element_rect(fill = alpha("white", 0.5))
   )
 p
-ggsave("../img/20240321-uPBM-E-score-compare.png", width = 5, height = 4)
+ggsave("../img/20240321-uPBM-E-score-compare.png", width = 4, height = 4.2)
 
