@@ -1,0 +1,583 @@
+# hmmscan :: search sequence(s) against a profile database
+# HMMER 3.3.2 (Nov 2020); http://hmmer.org/
+# Copyright (C) 2020 Howard Hughes Medical Institute.
+# Freely distributed under the BSD open source license.
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# query sequence file:             ../input/Pho4-alignment/20241031-Pho4-16sps.aa.fa
+# target HMM database:             ../input/domain-hmm-profile/PF00010.hmm
+# output directed to file:         20241031-hmmscan.log
+# per-dom hits tabular output:     ../output/20241031-Pho4-ortholog-bHLH-hmmscan.txt
+# domain reporting threshold:      E-value <= 0.001
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Query:       Scer  [L=312]
+Description: S. cerevisiae
+Scores for complete sequence (score includes all domains):
+   --- full sequence ---   --- best 1 domain ---    -#dom-
+    E-value  score  bias    E-value  score  bias    exp  N  Model    Description
+    ------- ------ -----    ------- ------ -----   ---- --  -------- -----------
+    9.9e-16   43.7   0.4    3.2e-15   42.0   0.4    2.0  1  HLH       Helix-loop-helix DNA-binding domain
+
+
+Domain annotation for each model (and alignments):
+>> HLH  Helix-loop-helix DNA-binding domain
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   42.0   0.4   3.2e-15   3.2e-15       1      53 []     251     307 ..     251     307 .. 0.98
+
+  Alignments for each domain:
+  == domain 1  score: 42.0 bits;  conditional E-value: 3.2e-15
+           HHHHHHHHHHHHHHHHHHHHHHHHHHST....CSTTSSECSHHHHHHHHHHHHHHHH CS
+   HLH   1 rreahnerERrRrdriNdafdeLrellP....tlppdkKlsKaeiLrlAieYIkqLq 53 
+           +re+h ++E+ Rr+r+  a+ eL +l+P    +++ ++  sKa++++ A++YI++Lq
+  Scer 251 KRESHKHAEQARRNRLAVALHELASLIPaewkQQNVSAAPSKATTVEAACRYIRHLQ 307
+           79*****************************9999999******************9 PP
+
+
+
+Internal pipeline statistics summary:
+-------------------------------------
+Query sequence(s):                         1  (312 residues searched)
+Target model(s):                           1  (53 nodes)
+Passed MSV filter:                         1  (1); expected 0.0 (0.02)
+Passed bias filter:                        1  (1); expected 0.0 (0.02)
+Passed Vit filter:                         1  (1); expected 0.0 (0.001)
+Passed Fwd filter:                         1  (1); expected 0.0 (1e-05)
+Initial search space (Z):                  1  [actual number of targets]
+Domain search space  (domZ):               1  [number of targets reported over threshold]
+# CPU time: 0.00u 0.00s 00:00:00.00 Elapsed: 00:00:00.00
+# Mc/sec: 5.99
+//
+Query:       Smik  [L=311]
+Description: S. mikatae
+Scores for complete sequence (score includes all domains):
+   --- full sequence ---   --- best 1 domain ---    -#dom-
+    E-value  score  bias    E-value  score  bias    exp  N  Model    Description
+    ------- ------ -----    ------- ------ -----   ---- --  -------- -----------
+    5.7e-15   41.2   1.8    7.7e-15   40.8   0.3    2.1  1  HLH       Helix-loop-helix DNA-binding domain
+
+
+Domain annotation for each model (and alignments):
+>> HLH  Helix-loop-helix DNA-binding domain
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   40.8   0.3   7.7e-15   7.7e-15       1      53 []     250     306 ..     250     306 .. 0.98
+
+  Alignments for each domain:
+  == domain 1  score: 40.8 bits;  conditional E-value: 7.7e-15
+           HHHHHHHHHHHHHHHHHHHHHHHHHHST....CSTTSSECSHHHHHHHHHHHHHHHH CS
+   HLH   1 rreahnerERrRrdriNdafdeLrellP....tlppdkKlsKaeiLrlAieYIkqLq 53 
+           +re+h  +E+ Rr+r+  a+ eL +l+P    +++ ++  sKa++++ A++YI++Lq
+  Smik 250 KRESHKYAEQARRNRLAVALHELASLIPaewkQQNVSAAPSKATTVEAACRYIRHLQ 306
+           79*****************************9999999******************9 PP
+
+
+
+Internal pipeline statistics summary:
+-------------------------------------
+Query sequence(s):                         1  (311 residues searched)
+Target model(s):                           1  (53 nodes)
+Passed MSV filter:                         1  (1); expected 0.0 (0.02)
+Passed bias filter:                        1  (1); expected 0.0 (0.02)
+Passed Vit filter:                         1  (1); expected 0.0 (0.001)
+Passed Fwd filter:                         1  (1); expected 0.0 (1e-05)
+Initial search space (Z):                  1  [actual number of targets]
+Domain search space  (domZ):               1  [number of targets reported over threshold]
+# CPU time: 0.00u 0.00s 00:00:00.00 Elapsed: 00:00:00.00
+# Mc/sec: 14.88
+//
+Query:       Spar  [L=314]
+Description: S. paradoxus
+Scores for complete sequence (score includes all domains):
+   --- full sequence ---   --- best 1 domain ---    -#dom-
+    E-value  score  bias    E-value  score  bias    exp  N  Model    Description
+    ------- ------ -----    ------- ------ -----   ---- --  -------- -----------
+    4.9e-16   44.7   0.4    1.9e-15   42.8   0.4    2.1  1  HLH       Helix-loop-helix DNA-binding domain
+
+
+Domain annotation for each model (and alignments):
+>> HLH  Helix-loop-helix DNA-binding domain
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   42.8   0.4   1.9e-15   1.9e-15       1      53 []     253     309 ..     253     309 .. 0.98
+
+  Alignments for each domain:
+  == domain 1  score: 42.8 bits;  conditional E-value: 1.9e-15
+           HHHHHHHHHHHHHHHHHHHHHHHHHHST....CSTTSSECSHHHHHHHHHHHHHHHH CS
+   HLH   1 rreahnerERrRrdriNdafdeLrellP....tlppdkKlsKaeiLrlAieYIkqLq 53 
+           +re+h ++E+ Rr+r+  a+ eL +l+P    +++ ++  sKa++++ A++YI++Lq
+  Spar 253 KRESHKHAEQARRNRLAVALHELSSLIPaewkQQNVSAAPSKATTVEAACRYIRHLQ 309
+           79*****************************9999999******************9 PP
+
+
+
+Internal pipeline statistics summary:
+-------------------------------------
+Query sequence(s):                         1  (314 residues searched)
+Target model(s):                           1  (53 nodes)
+Passed MSV filter:                         1  (1); expected 0.0 (0.02)
+Passed bias filter:                        1  (1); expected 0.0 (0.02)
+Passed Vit filter:                         1  (1); expected 0.0 (0.001)
+Passed Fwd filter:                         1  (1); expected 0.0 (1e-05)
+Initial search space (Z):                  1  [actual number of targets]
+Domain search space  (domZ):               1  [number of targets reported over threshold]
+# CPU time: 0.00u 0.00s 00:00:00.00 Elapsed: 00:00:00.00
+# Mc/sec: 18.42
+//
+Query:       Ndel  [L=464]
+Description: N. delphensis
+Scores for complete sequence (score includes all domains):
+   --- full sequence ---   --- best 1 domain ---    -#dom-
+    E-value  score  bias    E-value  score  bias    exp  N  Model    Description
+    ------- ------ -----    ------- ------ -----   ---- --  -------- -----------
+      2e-13   36.3   0.9    3.9e-13   35.3   0.9    1.5  1  HLH       Helix-loop-helix DNA-binding domain
+
+
+Domain annotation for each model (and alignments):
+>> HLH  Helix-loop-helix DNA-binding domain
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   35.3   0.9   3.9e-13   3.9e-13       1      53 []     402     456 ..     402     456 .. 0.93
+
+  Alignments for each domain:
+  == domain 1  score: 35.3 bits;  conditional E-value: 3.9e-13
+           HHHHHHHHHHHHHHHHHHHHHHHHHHST..CSTTSSECSHHHHHHHHHHHHHHHH CS
+   HLH   1 rreahnerERrRrdriNdafdeLrellP..tlppdkKlsKaeiLrlAieYIkqLq 53 
+           ++e h  +E+ Rr+r+N+a++eL +llP   +   +  sKa++ +lA++YI++L+
+  Ndel 402 KKEVHKNAEQERRNRLNNALSELNSLLPkeWKDAVAIPSKATTAQLACKYIRKLE 456
+           6899************************87777778****************995 PP
+
+
+
+Internal pipeline statistics summary:
+-------------------------------------
+Query sequence(s):                         1  (464 residues searched)
+Target model(s):                           1  (53 nodes)
+Passed MSV filter:                         1  (1); expected 0.0 (0.02)
+Passed bias filter:                        1  (1); expected 0.0 (0.02)
+Passed Vit filter:                         1  (1); expected 0.0 (0.001)
+Passed Fwd filter:                         1  (1); expected 0.0 (1e-05)
+Initial search space (Z):                  1  [actual number of targets]
+Domain search space  (domZ):               1  [number of targets reported over threshold]
+# CPU time: 0.00u 0.00s 00:00:00.00 Elapsed: 00:00:00.00
+# Mc/sec: 27.83
+//
+Query:       Cniv  [L=475]
+Description: C. nivariensis
+Scores for complete sequence (score includes all domains):
+   --- full sequence ---   --- best 1 domain ---    -#dom-
+    E-value  score  bias    E-value  score  bias    exp  N  Model    Description
+    ------- ------ -----    ------- ------ -----   ---- --  -------- -----------
+    1.2e-12   33.8   1.0    2.6e-12   32.7   1.0    1.6  1  HLH       Helix-loop-helix DNA-binding domain
+
+
+Domain annotation for each model (and alignments):
+>> HLH  Helix-loop-helix DNA-binding domain
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   32.7   1.0   2.6e-12   2.6e-12       1      53 []     413     467 ..     413     467 .. 0.93
+
+  Alignments for each domain:
+  == domain 1  score: 32.7 bits;  conditional E-value: 2.6e-12
+           HHHHHHHHHHHHHHHHHHHHHHHHHHST..CSTTSSECSHHHHHHHHHHHHHHHH CS
+   HLH   1 rreahnerERrRrdriNdafdeLrellP..tlppdkKlsKaeiLrlAieYIkqLq 53 
+           ++e h  +E+ Rr+r+N+a++eL +llP   +   +  sKa + +lA++YI++L+
+  Cniv 413 KKEVHKNAEQERRNRLNNALSELNSLLPkeWKDAVAIPSKAITAQLACKYIRKLE 467
+           6899************************87777778****************995 PP
+
+
+
+Internal pipeline statistics summary:
+-------------------------------------
+Query sequence(s):                         1  (475 residues searched)
+Target model(s):                           1  (53 nodes)
+Passed MSV filter:                         1  (1); expected 0.0 (0.02)
+Passed bias filter:                        1  (1); expected 0.0 (0.02)
+Passed Vit filter:                         1  (1); expected 0.0 (0.001)
+Passed Fwd filter:                         1  (1); expected 0.0 (1e-05)
+Initial search space (Z):                  1  [actual number of targets]
+Domain search space  (domZ):               1  [number of targets reported over threshold]
+# CPU time: 0.00u 0.00s 00:00:00.00 Elapsed: 00:00:00.00
+# Mc/sec: 28.95
+//
+Query:       Cbra  [L=488]
+Description: C. bracarensis
+Scores for complete sequence (score includes all domains):
+   --- full sequence ---   --- best 1 domain ---    -#dom-
+    E-value  score  bias    E-value  score  bias    exp  N  Model    Description
+    ------- ------ -----    ------- ------ -----   ---- --  -------- -----------
+    9.9e-14   37.3   0.9    2.1e-13   36.3   0.9    1.6  1  HLH       Helix-loop-helix DNA-binding domain
+
+
+Domain annotation for each model (and alignments):
+>> HLH  Helix-loop-helix DNA-binding domain
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   36.3   0.9   2.1e-13   2.1e-13       1      53 []     425     479 ..     425     479 .. 0.94
+
+  Alignments for each domain:
+  == domain 1  score: 36.3 bits;  conditional E-value: 2.1e-13
+           HHHHHHHHHHHHHHHHHHHHHHHHHHST..CSTTSSECSHHHHHHHHHHHHHHHH CS
+   HLH   1 rreahnerERrRrdriNdafdeLrellP..tlppdkKlsKaeiLrlAieYIkqLq 53 
+           ++e h  +E+ Rr+r+N+a++eL +llP   + + +  sKa++ +lA++YI++L+
+  Cbra 425 KKEVHKNAEQERRNRLNNALSELNSLLPkeWKDSVAIPSKATTAQLACKYIRKLE 479
+           6899************************98888888****************995 PP
+
+
+
+Internal pipeline statistics summary:
+-------------------------------------
+Query sequence(s):                         1  (488 residues searched)
+Target model(s):                           1  (53 nodes)
+Passed MSV filter:                         1  (1); expected 0.0 (0.02)
+Passed bias filter:                        1  (1); expected 0.0 (0.02)
+Passed Vit filter:                         1  (1); expected 0.0 (0.001)
+Passed Fwd filter:                         1  (1); expected 0.0 (1e-05)
+Initial search space (Z):                  1  [actual number of targets]
+Domain search space  (domZ):               1  [number of targets reported over threshold]
+# CPU time: 0.00u 0.00s 00:00:00.00 Elapsed: 00:00:00.00
+# Mc/sec: 31.37
+//
+Query:       Cgla  [L=533]
+Description: C. glabrata
+Scores for complete sequence (score includes all domains):
+   --- full sequence ---   --- best 1 domain ---    -#dom-
+    E-value  score  bias    E-value  score  bias    exp  N  Model    Description
+    ------- ------ -----    ------- ------ -----   ---- --  -------- -----------
+    5.7e-12   31.6   0.2    1.2e-11   30.6   0.2    1.6  1  HLH       Helix-loop-helix DNA-binding domain
+
+
+Domain annotation for each model (and alignments):
+>> HLH  Helix-loop-helix DNA-binding domain
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   30.6   0.2   1.2e-11   1.2e-11       1      52 [.     471     524 ..     471     525 .. 0.93
+
+  Alignments for each domain:
+  == domain 1  score: 30.6 bits;  conditional E-value: 1.2e-11
+           HHHHHHHHHHHHHHHHHHHHHHHHHHST..CSTTSSECSHHHHHHHHHHHHHHH CS
+   HLH   1 rreahnerERrRrdriNdafdeLrellP..tlppdkKlsKaeiLrlAieYIkqL 52 
+           ++e h  +E+ Rr+r+N+a++ L +llP   +   +  sKa + +lA++YI+ L
+  Cgla 471 KKEVHKYAEQERRNRLNNALSDLNSLLPqdWKDAVTVPSKAITAELACKYIRTL 524
+           6899************************88778888***************988 PP
+
+
+
+Internal pipeline statistics summary:
+-------------------------------------
+Query sequence(s):                         1  (533 residues searched)
+Target model(s):                           1  (53 nodes)
+Passed MSV filter:                         1  (1); expected 0.0 (0.02)
+Passed bias filter:                        1  (1); expected 0.0 (0.02)
+Passed Vit filter:                         1  (1); expected 0.0 (0.001)
+Passed Fwd filter:                         1  (1); expected 0.0 (1e-05)
+Initial search space (Z):                  1  [actual number of targets]
+Domain search space  (domZ):               1  [number of targets reported over threshold]
+# CPU time: 0.00u 0.00s 00:00:00.00 Elapsed: 00:00:00.00
+# Mc/sec: 30.35
+//
+Query:       Nbac  [L=541]
+Description: N. bacillisporus
+Scores for complete sequence (score includes all domains):
+   --- full sequence ---   --- best 1 domain ---    -#dom-
+    E-value  score  bias    E-value  score  bias    exp  N  Model    Description
+    ------- ------ -----    ------- ------ -----   ---- --  -------- -----------
+    2.8e-12   32.6   1.3    1.8e-11   30.1   0.2    2.7  1  HLH       Helix-loop-helix DNA-binding domain
+
+
+Domain annotation for each model (and alignments):
+>> HLH  Helix-loop-helix DNA-binding domain
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   30.1   0.2   1.8e-11   1.8e-11       1      52 [.     468     521 ..     468     522 .. 0.92
+
+  Alignments for each domain:
+  == domain 1  score: 30.1 bits;  conditional E-value: 1.8e-11
+           HHHHHHHHHHHHHHHHHHHHHHHHHHST..CSTTSSECSHHHHHHHHHHHHHHH CS
+   HLH   1 rreahnerERrRrdriNdafdeLrellP..tlppdkKlsKaeiLrlAieYIkqL 52 
+           ++e h ++E+ Rr+r+N+a++ L +llP   ++  +  sKa++ +l ++YI++L
+  Nbac 468 KKEVHKAAEQERRNRLNNALNDLNSLLPedWKKAVAIPSKATTAELGCKYIRSL 521
+           6899************************7766777789*************998 PP
+
+
+
+Internal pipeline statistics summary:
+-------------------------------------
+Query sequence(s):                         1  (541 residues searched)
+Target model(s):                           1  (53 nodes)
+Passed MSV filter:                         1  (1); expected 0.0 (0.02)
+Passed bias filter:                        1  (1); expected 0.0 (0.02)
+Passed Vit filter:                         1  (1); expected 0.0 (0.001)
+Passed Fwd filter:                         1  (1); expected 0.0 (1e-05)
+Initial search space (Z):                  1  [actual number of targets]
+Domain search space  (domZ):               1  [number of targets reported over threshold]
+# CPU time: 0.01u 0.01s 00:00:00.02 Elapsed: 00:00:00.00
+# Mc/sec: 32.00
+//
+Query:       Ncas  [L=522]
+Description: N. castellii
+Scores for complete sequence (score includes all domains):
+   --- full sequence ---   --- best 1 domain ---    -#dom-
+    E-value  score  bias    E-value  score  bias    exp  N  Model    Description
+    ------- ------ -----    ------- ------ -----   ---- --  -------- -----------
+    2.9e-11   29.4   0.5    7.7e-11   28.0   0.2    1.9  1  HLH       Helix-loop-helix DNA-binding domain
+
+
+Domain annotation for each model (and alignments):
+>> HLH  Helix-loop-helix DNA-binding domain
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   28.0   0.2   7.7e-11   7.7e-11       1      52 [.     456     509 ..     456     510 .. 0.92
+
+  Alignments for each domain:
+  == domain 1  score: 28.0 bits;  conditional E-value: 7.7e-11
+           HHHHHHHHHHHHHHHHHHHHHHHHHHST..CSTTSSECSHHHHHHHHHHHHHHH CS
+   HLH   1 rreahnerERrRrdriNdafdeLrellP..tlppdkKlsKaeiLrlAieYIkqL 52 
+           ++e h ++E+ Rr+r+N+a++ L +llP   + + +  sKa + +l ++YI++L
+  Ncas 456 KKEVHKAAEQERRNRLNNALNDLSSLLPqeWKAEIAVPSKAITAELGCRYIRDL 509
+           6899************************88778888999999999999999998 PP
+
+
+
+Internal pipeline statistics summary:
+-------------------------------------
+Query sequence(s):                         1  (522 residues searched)
+Target model(s):                           1  (53 nodes)
+Passed MSV filter:                         1  (1); expected 0.0 (0.02)
+Passed bias filter:                        1  (1); expected 0.0 (0.02)
+Passed Vit filter:                         1  (1); expected 0.0 (0.001)
+Passed Fwd filter:                         1  (1); expected 0.0 (1e-05)
+Initial search space (Z):                  1  [actual number of targets]
+Domain search space  (domZ):               1  [number of targets reported over threshold]
+# CPU time: 0.00u 0.00s 00:00:00.00 Elapsed: 00:00:00.00
+# Mc/sec: 26.31
+//
+Query:       Klac  [L=689]
+Description: K. lactis
+Scores for complete sequence (score includes all domains):
+   --- full sequence ---   --- best 1 domain ---    -#dom-
+    E-value  score  bias    E-value  score  bias    exp  N  Model    Description
+    ------- ------ -----    ------- ------ -----   ---- --  -------- -----------
+    1.9e-13   36.4   0.4    3.7e-13   35.4   0.4    1.5  1  HLH       Helix-loop-helix DNA-binding domain
+
+
+Domain annotation for each model (and alignments):
+>> HLH  Helix-loop-helix DNA-binding domain
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   35.4   0.4   3.7e-13   3.7e-13       1      52 [.     629     682 ..     629     683 .. 0.91
+
+  Alignments for each domain:
+  == domain 1  score: 35.4 bits;  conditional E-value: 3.7e-13
+           HHHHHHHHHHHHHHHHHHHHHHHHHHST..CSTTSSECSHHHHHHHHHHHHHHH CS
+   HLH   1 rreahnerERrRrdriNdafdeLrellP..tlppdkKlsKaeiLrlAieYIkqL 52 
+           +++ h  +E+ Rr+r+N+a++ L +l+P   +   +  sKa++++lA +YI+qL
+  Klac 629 QKQVHKVAEQGRRNRLNNALKDLESLIPkeLKDVAAIPSKATTVELAAQYIRQL 682
+           5789************************765566669***************98 PP
+
+
+
+Internal pipeline statistics summary:
+-------------------------------------
+Query sequence(s):                         1  (689 residues searched)
+Target model(s):                           1  (53 nodes)
+Passed MSV filter:                         1  (1); expected 0.0 (0.02)
+Passed bias filter:                        1  (1); expected 0.0 (0.02)
+Passed Vit filter:                         1  (1); expected 0.0 (0.001)
+Passed Fwd filter:                         1  (1); expected 0.0 (1e-05)
+Initial search space (Z):                  1  [actual number of targets]
+Domain search space  (domZ):               1  [number of targets reported over threshold]
+# CPU time: 0.00u 0.00s 00:00:00.00 Elapsed: 00:00:00.00
+# Mc/sec: 36.21
+//
+Query:       Dhan  [L=498]
+Description: D. hansenii DEHA2C07656g
+Scores for complete sequence (score includes all domains):
+   --- full sequence ---   --- best 1 domain ---    -#dom-
+    E-value  score  bias    E-value  score  bias    exp  N  Model    Description
+    ------- ------ -----    ------- ------ -----   ---- --  -------- -----------
+    4.5e-14   38.4   0.3    8.8e-14   37.4   0.3    1.5  1  HLH       Helix-loop-helix DNA-binding domain
+
+
+Domain annotation for each model (and alignments):
+>> HLH  Helix-loop-helix DNA-binding domain
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   37.4   0.3   8.8e-14   8.8e-14       1      52 [.     431     484 ..     431     485 .. 0.90
+
+  Alignments for each domain:
+  == domain 1  score: 37.4 bits;  conditional E-value: 8.8e-14
+           HHHHHHHHHHHHHHHHHHHHHHHHHHSTCSTTSS..ECSHHHHHHHHHHHHHHH CS
+   HLH   1 rreahnerERrRrdriNdafdeLrellPtlppdk..KlsKaeiLrlAieYIkqL 52 
+           ++++h  +E+ Rr+r+N a +eL +l+P+  +d+    sKa++ +lA +YI++L
+  Dhan 431 KKASHKLAEQGRRNRMNMAVQELSNLIPQAYHDEvsIPSKATTIELASKYIRDL 484
+           6899************************555555559***************98 PP
+
+
+
+Internal pipeline statistics summary:
+-------------------------------------
+Query sequence(s):                         1  (498 residues searched)
+Target model(s):                           1  (53 nodes)
+Passed MSV filter:                         1  (1); expected 0.0 (0.02)
+Passed bias filter:                        1  (1); expected 0.0 (0.02)
+Passed Vit filter:                         1  (1); expected 0.0 (0.001)
+Passed Fwd filter:                         1  (1); expected 0.0 (1e-05)
+Initial search space (Z):                  1  [actual number of targets]
+Domain search space  (domZ):               1  [number of targets reported over threshold]
+# CPU time: 0.00u 0.00s 00:00:00.00 Elapsed: 00:00:00.00
+# Mc/sec: 29.91
+//
+Query:       Calb  [L=659]
+Description: C. albicans orf19.1253
+Scores for complete sequence (score includes all domains):
+   --- full sequence ---   --- best 1 domain ---    -#dom-
+    E-value  score  bias    E-value  score  bias    exp  N  Model    Description
+    ------- ------ -----    ------- ------ -----   ---- --  -------- -----------
+    8.8e-14   37.4   1.7      9e-14   37.4   0.1    1.9  1  HLH       Helix-loop-helix DNA-binding domain
+
+
+Domain annotation for each model (and alignments):
+>> HLH  Helix-loop-helix DNA-binding domain
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   37.4   0.1     9e-14     9e-14       1      52 [.     595     648 ..     595     649 .. 0.90
+
+  Alignments for each domain:
+  == domain 1  score: 37.4 bits;  conditional E-value: 9e-14
+           HHHHHHHHHHHHHHHHHHHHHHHHHHSTCSTTSS..ECSHHHHHHHHHHHHHHH CS
+   HLH   1 rreahnerERrRrdriNdafdeLrellPtlppdk..KlsKaeiLrlAieYIkqL 52 
+           ++++h  +E+ Rr+r+N+a +eL +l+P++ +d+    sKa++++lA +YI  L
+  Calb 595 KKASHKLAEQGRRNRMNNAVQELGRLIPQSYHDEvsIPSKATTVELASKYITAL 648
+           6899************************666665669**************876 PP
+
+
+
+Internal pipeline statistics summary:
+-------------------------------------
+Query sequence(s):                         1  (659 residues searched)
+Target model(s):                           1  (53 nodes)
+Passed MSV filter:                         1  (1); expected 0.0 (0.02)
+Passed bias filter:                        1  (1); expected 0.0 (0.02)
+Passed Vit filter:                         1  (1); expected 0.0 (0.001)
+Passed Fwd filter:                         1  (1); expected 0.0 (1e-05)
+Initial search space (Z):                  1  [actual number of targets]
+Domain search space  (domZ):               1  [number of targets reported over threshold]
+# CPU time: 0.00u 0.00s 00:00:00.00 Elapsed: 00:00:00.00
+# Mc/sec: 37.20
+//
+Query:       Lwal  [L=479]
+Description: L. waltii Kwal55.20403
+Scores for complete sequence (score includes all domains):
+   --- full sequence ---   --- best 1 domain ---    -#dom-
+    E-value  score  bias    E-value  score  bias    exp  N  Model    Description
+    ------- ------ -----    ------- ------ -----   ---- --  -------- -----------
+    4.9e-16   44.6   0.2    9.3e-16   43.8   0.2    1.5  1  HLH       Helix-loop-helix DNA-binding domain
+
+
+Domain annotation for each model (and alignments):
+>> HLH  Helix-loop-helix DNA-binding domain
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   43.8   0.2   9.3e-16   9.3e-16       1      52 [.     418     471 ..     418     472 .. 0.91
+
+  Alignments for each domain:
+  == domain 1  score: 43.8 bits;  conditional E-value: 9.3e-16
+           HHHHHHHHHHHHHHHHHHHHHHHHHHSTCSTTSS..ECSHHHHHHHHHHHHHHH CS
+   HLH   1 rreahnerERrRrdriNdafdeLrellPtlppdk..KlsKaeiLrlAieYIkqL 52 
+           ++e h ++E+ Rrdr+N+a++eL++l+Pt  +++    sKa++ ++A+ YI+qL
+  Lwal 418 KKEVHKAAEQGRRDRLNNALAELHSLIPTEMKESvlIPSKATTIEMACAYIRQL 471
+           6899************************6666656689***************9 PP
+
+
+
+Internal pipeline statistics summary:
+-------------------------------------
+Query sequence(s):                         1  (479 residues searched)
+Target model(s):                           1  (53 nodes)
+Passed MSV filter:                         1  (1); expected 0.0 (0.02)
+Passed bias filter:                        1  (1); expected 0.0 (0.02)
+Passed Vit filter:                         1  (1); expected 0.0 (0.001)
+Passed Fwd filter:                         1  (1); expected 0.0 (1e-05)
+Initial search space (Z):                  1  [actual number of targets]
+Domain search space  (domZ):               1  [number of targets reported over threshold]
+# CPU time: 0.00u 0.00s 00:00:00.00 Elapsed: 00:00:00.00
+# Mc/sec: 34.87
+//
+Query:       Lklu  [L=482]
+Description: L. kluyveri SAKL0F07392g
+Scores for complete sequence (score includes all domains):
+   --- full sequence ---   --- best 1 domain ---    -#dom-
+    E-value  score  bias    E-value  score  bias    exp  N  Model    Description
+    ------- ------ -----    ------- ------ -----   ---- --  -------- -----------
+    1.8e-14   39.6   0.2    4.9e-14   38.2   0.2    1.8  1  HLH       Helix-loop-helix DNA-binding domain
+
+
+Domain annotation for each model (and alignments):
+>> HLH  Helix-loop-helix DNA-binding domain
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   38.2   0.2   4.9e-14   4.9e-14       1      52 [.     420     473 ..     420     474 .. 0.88
+
+  Alignments for each domain:
+  == domain 1  score: 38.2 bits;  conditional E-value: 4.9e-14
+           HHHHHHHHHHHHHHHHHHHHHHHHHHSTCSTTSS..ECSHHHHHHHHHHHHHHH CS
+   HLH   1 rreahnerERrRrdriNdafdeLrellPtlppdk..KlsKaeiLrlAieYIkqL 52 
+           ++e h  +E+ Rr+r+N+a+ eL++l+P+  +++    sKa++++lA++YIk L
+  Lklu 420 KKEVHKVAEQGRRNRLNNALTELHALIPQDLKETvlIPSKATTVELACQYIKIL 473
+           6899************************5555555589*************977 PP
+
+
+
+Internal pipeline statistics summary:
+-------------------------------------
+Query sequence(s):                         1  (482 residues searched)
+Target model(s):                           1  (53 nodes)
+Passed MSV filter:                         1  (1); expected 0.0 (0.02)
+Passed bias filter:                        1  (1); expected 0.0 (0.02)
+Passed Vit filter:                         1  (1); expected 0.0 (0.001)
+Passed Fwd filter:                         1  (1); expected 0.0 (1e-05)
+Initial search space (Z):                  1  [actual number of targets]
+Domain search space  (domZ):               1  [number of targets reported over threshold]
+# CPU time: 0.00u 0.00s 00:00:00.00 Elapsed: 00:00:00.00
+# Mc/sec: 33.81
+//
+Query:       Ylip  [L=716]
+Description: Y. lipolitica
+Scores for complete sequence (score includes all domains):
+   --- full sequence ---   --- best 1 domain ---    -#dom-
+    E-value  score  bias    E-value  score  bias    exp  N  Model    Description
+    ------- ------ -----    ------- ------ -----   ---- --  -------- -----------
+    6.8e-16   44.2   0.4    1.2e-15   43.4   0.4    1.5  1  HLH       Helix-loop-helix DNA-binding domain
+
+
+Domain annotation for each model (and alignments):
+>> HLH  Helix-loop-helix DNA-binding domain
+   #    score  bias  c-Evalue  i-Evalue hmmfrom  hmm to    alifrom  ali to    envfrom  env to     acc
+ ---   ------ ----- --------- --------- ------- -------    ------- -------    ------- -------    ----
+   1 !   43.4   0.4   1.2e-15   1.2e-15       1      53 []     620     670 ..     620     670 .. 0.96
+
+  Alignments for each domain:
+  == domain 1  score: 43.4 bits;  conditional E-value: 1.2e-15
+           HHHHHHHHHHHHHHHHHHHHHHHHHHSTCSTTSSECSHHHHHHHHHHHHHHHH CS
+   HLH   1 rreahnerERrRrdriNdafdeLrellPtlppdkKlsKaeiLrlAieYIkqLq 53 
+           +r++h  +E+ Rr+riN+a++ L +ll   p+++ +sKa +++ Ai+YI++L+
+  Ylip 620 KRTSHKLAEQGRRNRINNALADLGKLLV--PESASTSKANTVENAIDYIRKLK 670
+           79************************77..7*******************995 PP
+
+
+
+Internal pipeline statistics summary:
+-------------------------------------
+Query sequence(s):                         1  (716 residues searched)
+Target model(s):                           1  (53 nodes)
+Passed MSV filter:                         1  (1); expected 0.0 (0.02)
+Passed bias filter:                        1  (1); expected 0.0 (0.02)
+Passed Vit filter:                         1  (1); expected 0.0 (0.001)
+Passed Fwd filter:                         1  (1); expected 0.0 (1e-05)
+Initial search space (Z):                  1  [actual number of targets]
+Domain search space  (domZ):               1  [number of targets reported over threshold]
+# CPU time: 0.00u 0.00s 00:00:00.00 Elapsed: 00:00:00.00
+# Mc/sec: 45.16
+//
+[ok]
