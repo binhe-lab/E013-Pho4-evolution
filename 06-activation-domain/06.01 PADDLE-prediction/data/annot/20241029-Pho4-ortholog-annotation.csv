@@ -1,4 +1,9 @@
-Pho4, feature, start, end,
+# 2024-11-02
+# bHLH boundaries were based on PROSITE PS50888. it differs from the Pfam00010
+# by 1 residue (for ScPho4 Pfam00010 defines the bHLH as 251-307)
+# non ScPho4 orthologs were based on `hmmscan` result but shifted one residue
+# to be compatible with the PROSITE definition
+Pho4, feature, start, end
 "ScerPho4", "bHLH", 250, 306
 "SmikPho4", "bHLH", 249, 305
 "SparPho4", "bHLH", 252, 308
