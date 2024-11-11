@@ -1,0 +1,124 @@
+---
+title: "Plot Y1H for activation potential results testing Pho2 dependence"
+author: Bin He
+date: "2024-11-06 (updated `r Sys.Date()`)"
+output:
+  html_notebook:
+    theme: cerulean
+    toc: true
+    toc_float: true
+    toc_depth: 4
+    code_folding: hide
+---
+
+```{r setup, message=FALSE}
+require(tidyverse)
+require(cowplot)
+require(broom)
+set.seed(12345)
+old <- theme_set(theme_cowplot())
+```
+
+# Goal
+
+Plotting Y1H data for testing the activation potential of PADDLE predicted regions in both ScPho4 and CgPho4. One specific goal in this study is to determine whether any of their effect is Pho2-dependent.
+
+# Data
+
+flow cytometry experiments were performed by Lindsey on 2024/10/30. gating was done on the Attune software and the stats were exported and organized
+
+Note that in this dataset, R2 and R1 represent the cell and singlet gates, while R3 is the histogram gate to deal with some samples showing a bimodal distribution. In the analysis, Emily opted to use the singlet gate rather than the histogram gate. We can test both
+```{r}
+# read in sample information
+sample <- read_tsv("20241030-EO-Y1H-dep-Pho2-sample.tsv",
+                   # this tells the function that it should expect two character columns
+                   col_types = "cc", 
+                   # this is to ensure if there are no values in some cell in the 
+                   # spreadsheet file, they will be translated to NA 
+                   na = character()) %>% 
+  # this is to change the name and group into vectors. optional
+  mutate(name = fct_inorder(name), group = fct_inorder(group))
+# read in the raw data
+raw <- read_tsv("20241030-EO-Y1H-dep-Pho2-export.tsv", 
+                na = c("N/A", ""))
+
+# transform the raw data
+dat <- raw %>% 
+  # retain only the columns we need, and rename them for easy manipulation
+  select(sample = Sample, gate = Gate, par = `X Parameter`,
+         count = Count, median = `X Median`) %>% 
+  # filter by X Parameter and gates
+  # we will retain both R1 and R3 gated cells for later experimenting
+  filter(gate %in% c("R1", "R3"), par == "PHO5pr-mCherry - YL2-H") %>% 
+  # here, we separate the sample name into its constituent parts by "-":
+  # 1. plasmid name; 2: host name; 3: replicate name
+  separate(sample, into = c("plasmid", "host", "rep"), sep = "-") %>% 
+  # rename the host levels
+  mutate(host = fct_recode(host,
+                           PHO2 = "696", pho2 = "1009", 'pho2*' = "1009a")) %>% 
+  # here, we annotate the raw data by merging it with the sample information
+  # sheet, joining on the common column, i.e., plasmid
+  left_join(sample, by = "plasmid")
+```
+
+Some data quality check
+```{r}
+# any sample with fewer than 3000 events?
+dat %>% filter(count < 3000, gate == "R1")
+dat %>% filter(count < 3000, gate == "R3")
+```
+Many samples seem to have few events in the histogram gate - this is understandable as the gate was created to isolate the "high expression" population from bimodally distributed samples. The R3 gate would include few events for samples where the reporter is not "on".
+
+Are negative controls negative?
+```{r}
+# blank wells
+dat %>% filter(host == "blank") %>% arrange(gate)
+# no plasmid host background
+dat %>% filter(plasmid == "NA", gate == "R1") %>% arrange(host)
+```
+All seems good. Can proceed with plotting. Blank wells will be omitted from plotting.
+
+# Analysis
+
+## Plot all data
+set some plotting variables
+```{r}
+# set the host levels for renaming them later
+host.levels <- c("696" = "PHO2", "1009" = "pho2", "1009a" = "pho2*")
+
+# set host colors
+host.colors <- c("PHO2" = "gray50", "pho2" = "orange", "pho2*" = "orange3", 
+                 "blank" = "gray90")
+
+# set group colors
+grp.colors <- c("control" = "gray50", 
+                "ScPho4" = rgb(56, 118, 29, maxColorValue = 255), 
+                "CgPho4" = rgb(40, 130, 200, maxColorValue = 255),
+                "Combo" = rgb(142, 120, 200, maxColorValue = 255))
+
+# set position for bar plots
+pd <- position_dodge(0.75)
+
+# plot
+p0 <- dat %>% 
+  # use R1 gate, and remove the blank wells
+  filter(host != "blank", gate == "R1") %>% 
+  filter(name != "Gal4") %>% 
+  # reorder the levels of the host for plotting
+  mutate(host = fct_relevel(host, "pho2", "pho2*", "PHO2")) %>% 
+  ggplot(aes(x = name, y = median, group = host)) +
+  geom_bar(aes(fill = host), width = 0.75,
+           stat = "summary", fun = "mean", position = pd) +
+  stat_summary(fun.data = "mean_sdl", fun.args = list(mult = 1), 
+              geom = "linerange", color = "gray30", linewidth = 0.5,
+              position = pd) +
+  geom_point(position = pd, size = 0.75) +
+  scale_x_discrete(limits = rev) +
+  coord_flip() + 
+  scale_fill_manual(values = host.colors) +
+  ylab("MFI (a.u.)") + xlab(NULL) +
+  theme_minimal(base_size = 16)
+p0
+ggsave("20241107-EO-Y1H-Pho2-dep-plot.png", width = 6, height = 7)
+```
+
