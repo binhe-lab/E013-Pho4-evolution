@@ -9,4 +9,12 @@ to make predictions, I copied the fasta file to the `s4pred` folder and used the
 python run_model.py -s --save-files --outdir ./tmp/ ./20201121-merge-pho4-orthologs-aa.fa
 ```
 
-The result files were saved in the `tmp` folder
+The result files were saved in the `s4pred` folder under the `tmp` subfolder
+
+## 2024-11-11, AED constructs
+
+```unix
+python run_model.py --save-files --outdir ./20241111-AED-constructs --save-by-idx ./20241104-AED-test-Y1H-constructs.fa
+```
+
+The result files were saved in the `s4pred` folder under the `20241111-AED-constructs` folder
