@@ -53,32 +53,42 @@ grp.colors <- c("control" = "gray50",
                 "Combo" = rgb(142, 120, 200, maxColorValue = 255))
 pd <- position_dodge(0.9)
 p0 <- dat %>% 
-  filter(name != "Gal4") %>% 
+  #filter(name != "Gal4") %>% 
   ggplot(aes(x = name, y = median, group = date)) +
   geom_bar(aes(fill = group, alpha = date), stat = "summary", fun = "mean",
            position = pd) +
-  stat_summary(fun.data = "mean_sdl", fun.args = list(mult = 1), 
-               geom = "errorbar", width = 0.5, position = pd) +
-  coord_flip() + 
-  scale_x_discrete(limits = rev) +
+  geom_point(aes(alpha = date),
+             shape = 3, size = 1, stroke = 0.7, color = "gray20", 
+             position = pd) +
+  #stat_summary(fun.data = "mean_sdl", fun.args = list(mult = 1), 
+  #             geom = "errorbar", width = 0.5, position = pd) +
+  coord_flip() + ylab("GAL1pr-mCherry (a.u.)") +
+  scale_x_discrete(limits = rev, name = NULL) +
   scale_alpha_manual(values = c(1, 0.5)) +
   scale_fill_manual(values = grp.colors)
 p0
+ggsave("../output/20241118-all-data-plot.png", width = 7, height = 5)
 ```
 
 ## Individual region tests
 ```{r}
 base <- dat1 %>% filter(name %in% c("host", "Gal4DBD")) %>% pull(median) %>% mean()
-tmp <- dat1 %>% filter(name != "Gal4", group != "Combo")
+tmp <- dat1 %>% filter(name != "ScPho2AD", name != "Gal4", group != "Combo")
+tmp.summary <- tmp %>% 
+  group_by(name) %>% 
+  summarize(n = n(), mean = mean(median))
 p1 <- tmp %>% 
   ggplot(aes(x = name, y = median)) +
-  stat_summary(fun.data = "mean_sdl", fun.args = list(mult = 1), 
-               geom = "errorbar", width = 0.5) +
-  geom_bar(aes(fill = group), stat = "summary", fun = "mean") +
+  #stat_summary(fun.data = "mean_sdl", fun.args = list(mult = 1), 
+  #             geom = "errorbar", width = 0.5) +
+  geom_bar(aes(fill = group), stat = "summary", fun = "mean", width = 0.8) +
+  geom_point(shape = 3, size = 1, stroke = 0.7, color = "gray20", 
+             position = position_jitter(0.2)) +
   geom_hline(yintercept = base, linetype = 2) +
   coord_flip() + 
   scale_x_discrete(limits = rev) +
-  scale_y_continuous(expand = expansion(mult = c(0.02, 0.15))) +
+  scale_y_continuous(breaks = c(0, 2000, 4000), limits = c(0, 4400),
+                     expand = expansion(mult = c(0.02, 0.15))) +
   scale_fill_manual(values = grp.colors, guide = "none") +
   panel_border(color = "gray20", size = 1.2) + 
   background_grid(major = "x", minor = "x") + 
@@ -89,7 +99,7 @@ p1 <- tmp %>%
   )
   
 p1
-ggsave("../output/20240402-single-region-Gal4DBD.png", width = 4, height = 3.8)
+#ggsave("../output/20240402-single-region-Gal4DBD.png", width = 4, height = 3.8)
 ```
 Statistical tests
 ```{r}
@@ -118,17 +128,22 @@ select <- c("host", "Gal4_DBD", "ScAD", "ScE1:ScAD", "CgAD", "CgE1:CgAD",
             )
 tmp <- dat1 %>% filter(name %in% select) %>% droplevels() %>% 
   mutate(name = factor(name, levels = select))
+tmp.summary <- tmp %>% 
+  group_by(name) %>% 
+  summarize(n = n(), mean = mean(median))
 p2 <- tmp %>% 
   ggplot(aes(x = name, y = median)) +
-  stat_summary(fun.data = "mean_sdl", fun.args = list(mult = 1), 
-               geom = "errorbar", width = 0.5) +
+  #stat_summary(fun.data = "mean_sdl", fun.args = list(mult = 1), 
+  #             geom = "errorbar", width = 0.5) +
   geom_bar(aes(fill = group), stat = "summary", fun = "mean", width = 0.8) +
-  #geom_hline(yintercept = base, linetype = 2) +
+  geom_point(shape = 3, size = 1, stroke = 0.7, color = "gray20", 
+             position = position_jitter(0.2)) +
+  geom_hline(yintercept = base, linetype = 2) +
   geom_vline(xintercept = c(5.5, 7.5, 9.5),
              linetype = 3, linewidth = 0.7, color = "gray20") +
   coord_flip() + 
   scale_x_discrete(limits = rev) +
-  scale_y_continuous(breaks = c(0, 2000, 4000),
+  scale_y_continuous(breaks = c(0, 2000, 4000), limits = c(0, 4400),
                      expand = expansion(mult = c(0.02, 0.15))) +
   scale_fill_manual(values = grp.colors, guide = "none") +
   panel_border(color = "gray20", size = 1.2) + 
@@ -140,7 +155,7 @@ p2 <- tmp %>%
   )
   
 #p2
-p <- plot_grid(p1, NULL, p2, nrow = 1, rel_widths = c(1, 0.1, 1.2))
+p <- plot_grid(p1, NULL, p2, nrow = 1, rel_widths = c(1, 0.1, 1.1))
 p
 ggsave("../output/20240402-booster-region-Gal4DBD.png", width = 7, height = 3.6)
 
