@@ -230,7 +230,7 @@ Here, I'll replot the $K_d$ estimates for just the consensus oligo.
 datS %>% 
   ggplot(aes(x = Protein, y = Kd, group = Protein)) +
   geom_bar(aes(fill = Protein), stat = "summary", fun = "mean", alpha = 0.9) +
-  geom_point(position = position_jitter(0.1), color = "gray10", size = 2) +
+  geom_point(position = position_jitter(0.2), color = "gray10", size = 2) +
   stat_summary(fun.data = "mean_cl_boot", geom = "pointrange",
                color = "red", size = 0.6) +
   scale_fill_manual(values = c("yellowgreen", "royalblue1"), guide = "none") + 
