@@ -31,16 +31,20 @@ old <- theme_set(theme_bw(base_size = 16))
 This is the second part of the analysis. In the first part (see `../input/PHO5-data/20231019-pool-qc-PHO5.Rmd`), I did QC and exported the filtered dataset. Here, I will continue working with that dataset and answer our biological questions.
 
 # Goal
-- Analyze the full chimera set flow results for _PHO5pr_-mCherry reporter.
-- Develop an analysis pipeline to perform QC, correction (if needed) and plotting the results.
+
+-   Analyze the full chimera set flow results for *PHO5pr*-mCherry reporter.
+-   Develop an analysis pipeline to perform QC, correction (if needed) and plotting the results.
 
 # Data
+
 Import the background subtracted data
+
 ```{r}
 dat0 <- read_tsv("../input/20231023-PHO5-bg-subtracted-data.tsv", col_types = "ccccdddddc")
 ```
 
 Filter the data
+
 ```{r}
 dat <- filter(dat0, host != "PHO84", flag == "pass", date != "02/10") %>% 
   # based on previous QC, the following sample (both replicates) have high
@@ -52,6 +56,7 @@ dat <- filter(dat0, host != "PHO84", flag == "pass", date != "02/10") %>%
 ```
 
 Number of replicates left for each sample
+
 ```{r}
 expt <- dat %>% 
   filter(host %in% c("PHO2", "pho2"), !plasmid %in% c("188", "194")) %>% 
@@ -71,6 +76,7 @@ expt %>%
 ```
 
 Chimera makeup information
+
 ```{r}
 meta <- read_tsv("../input/20230208-chimera-Pho4-makeup.txt", col_types = "ccccc")
 ```
@@ -79,8 +85,7 @@ meta <- read_tsv("../input/20230208-chimera-Pho4-makeup.txt", col_types = "ccccc
 
 Here we would like calculate the ratio of RFP/GFP for each chimera (plasmid) across all replicates, including from different days. Note that the parameter of interest is a ratio, which can be estimated using either "means of ratios" or "ratios of means". These are just two specific instances of a more general estimator, representing two choices of the weights. The "means of ratios" first calculates the ratios for each replicate within a plasmid, then average them. In this calculation, each replicate is given the weight of 1/n (equal). The "ratios of means" first sum up the GFP and RFP values separately across the replicates for each plasmid, then take the ratio between them. In this estimator, the weight for each replicate is x / sum(x), where x is the denominator in the ratio, i.e., GFP. In other words, this estimator will give more weights to the replicates where the chimera had a higher expression level.
 
-Both estimators are known to be biased. We will ignore that for the moment. In terms of a choice between the two, it seems that there is no reason to give more weights to the experiments with a higher GFP signal. So, the "means of ratios" seems a more natural choice. However, we will calcultae both and dedice later.
-
+Both estimators are known to be biased. We will ignore that for the moment. In terms of a choice between the two, it seems that there is no reason to give more weights to the experiments with a higher GFP signal. So, the "means of ratios" seems a more natural choice. However, we will calcultae both and decide later.
 
 A final question is how to calculate the variance of the ratio estimate. According to the `survey` package [manual](https://rstudio-pubs-static.s3.amazonaws.com/178965_fb60a0f7bbb44a6ea219713fb1a89a22.html), an approximate estimator for the variance is
 
@@ -89,7 +94,7 @@ r = \frac{\bar{y}}{\bar{x}}, \text{where}\ \bar{y}=\frac{1}{n}\sum_{i=1}^{n}y_i\
 \hat{V}(r) = (1-\frac{n}{N})(\frac{1}{\bar{x}^2})\frac{s_r^2}{n}\ \text{where}\ s_r^2=\frac{1}{n-1}\sum_{i=1}^{n}(y_i-rx_i)^2
 $$
 
-Assuming that N>>n, we can ignore the first term in the variance estimator. The rest can be calculated from the data
+Assuming that N\>\>n, we can ignore the first term in the variance estimator. The rest can be calculated from the data
 
 ```{r}
 datsum <- dat %>%
@@ -114,9 +119,9 @@ datsum <- dat %>%
 
 For each chimera, we would also like to calculate **three values**:
 
-1. A in _pho2∆_: this is its base activity without Pho2
-1. A in _PHO2_: this is its full activity with Pho2
-1. A_PHO2 / A_pho2∆: this is the Pho2 enhancement of activity
+1.  A in *pho2∆*: this is its base activity without Pho2
+2.  A in *PHO2*: this is its full activity with Pho2
+3.  A_PHO2 / A_pho2∆: this is the Pho2 enhancement of activity
 
 We assign the chimeras into several groups, based on their A_PHO2 and A_PHO2/A_pho2∆
 
@@ -141,12 +146,26 @@ ximera <- datsum %>%
 ```
 
 Export the summarized data
+
 ```{r}
 write_tsv(ximera, file = "../output/20231125-PHO5pr-chimera-summarized.tsv")
 ```
 
+To be able to plot all the data points, let's generate another data frame with the individual ratios.
+
+```{r}
+dat_sep <- dat %>%
+  filter(!is.na(plasmid)) %>% 
+  mutate(A = YL2.H/BL1.H) %>% 
+  select(plasmid, host, BL1.H, YL2.H, A, flag) %>% 
+  left_join(select(meta, plasmid, set, symbol), by = "plasmid")# %>% 
+  #mutate(symbol = fct_reorder(symbol, rA_PHO2, .desc = TRUE))# %>% 
+```
+
 # Analysis
+
 ## Plotting functions
+
 <!---
 Set up common parameters for thresholding and plotting
 ```{r}
@@ -161,12 +180,13 @@ point.colors = c("PHO2" = "forestgreen", "pho2" = "purple4")
 --->
 
 Source the scripts
+
 ```{r}
 source("../script/20240211-chimera-data-plotting-functions.R")
 ```
 
-
 Modify the component plotting function for special purposes
+
 ```{r}
 my_plot_ratio <- function(selection){
   # custom colors for this function
@@ -207,44 +227,12 @@ my_plot_ratio <- function(selection){
 }
 ```
 
-
-<!--- replace with script file
-```{r}
-my_plot_boost <- function(selection){
-  # given a selection of chimera IDs, plot their functionality w/PHO2
-  # relative to ScPho4, and their boost
-  # dat
-  tmp <- filter(ximera, plasmid %in% c(refs, selection)) %>% 
-    mutate(perc_pho2 = A_pho2/A_PHO2) %>% 
-    pivot_longer(cols = c(s_PHO2, boost, perc_pho2), 
-                 names_to = "parameter", values_to = "ratio")
-  # labeller
-  par.explain <- c(
-    s_PHO2 = "Rel. A<sub>PHO2</sub>",
-    boost = "Boost",
-    perc_pho2 = "%A<sub>pho2</sub>"
-  )
-  p <- ggplot(tmp, aes(x = symbol, y = ratio)) +
-    geom_col(width = 0.3, color = "black", fill = "gray80") +
-    geom_hline(yintercept = 1, linetype = 2, color = "gray30") +
-    facet_grid(parameter~group, scales = "free", space = "free_x",
-              labeller = labeller(parameter = par.explain)) +
-    theme_bw(base_size = 18) +
-    background_grid(minor = "none") +
-    theme(axis.text.x = element_text(angle = 30, hjust = 1, family = "mono"),
-          axis.title.x = element_blank(),
-          strip.text.y = element_markdown(size = rel(0.9))
-          #plot.title = element_text(hjust = 0.5)
-    )
-  return(p)
-}
-```
---->
- 
 ## Pho4 chimera protein level variation
+
 What is the distribution of Pho4 chimera protein levels? Is the mCherry/mNeon ratio a faithful measure of the chimera's activities?
 
 Distribution of Pho4-mNeon levels grouped by plasmid and host.
+
 ```{r}
 host.labels = c("PHO2", "pho2∆")
 point.colors = c("PHO2" = "forestgreen", "pho2" = "purple4")
@@ -268,10 +256,12 @@ p1 <- dat %>%
         legend.direction = "horizontal",
         legend.text = element_text(face = 3))
 p1
-ggsave("../img/20240307-Pho4-chimera-protein-level-variation.png", 
-       width = 6, height = 3)
+#ggsave("../img/20240307-Pho4-chimera-protein-level-variation.png", 
+#       width = 6, height = 3)
 ```
+
 All chimera (ScPho4 and CgPho4 removed) protein levels by host
+
 ```{r}
 tmp <- dat %>% 
   filter(plasmid == "194", host == "PHO2")
@@ -294,15 +284,17 @@ p2
 ggsave("../img/20240307-ScPho4-mCherry-vs-mNeon-consistent.png", 
        width = 4, height = 3.5)
 ```
+
 ```{r}
 host.colors =  c("PHO2" = "gray60", "pho2" = "orange")
 
-p3 <- dat %>% 
+tmp <- dat %>% 
   filter(plasmid %in% c("188", "194"), 
          date %in% c("02/08", "02/11", "02/18", "02/21", "02/23", "03/31")) %>% 
   mutate(A = YL2.H/BL1.H,
          Pho4 = factor(plasmid, levels = c("194", "188"), 
-                       labels = c("ScPho4", "CgPho4"))) %>% 
+                       labels = c("ScPho4", "CgPho4"))) 
+p3 <- tmp %>% 
   ggplot(aes(x = date, y = A)) + 
   geom_bar(aes(fill = host), stat = "summary", fun = "mean", 
            position = position_dodge(0.9), alpha = 0.9) +
@@ -322,12 +314,18 @@ p3 <- dat %>%
         legend.title = element_text(size = rel(0.9)),
         legend.text = element_text(size = rel(0.8), face = 3))
 p3
-ggsave("../img/20240307-CgPho4-mCherry-vs-mNeon-consistent.png", 
-       width = 4, height = 3.2)
+#ggsave("../img/20240307-CgPho4-mCherry-vs-mNeon-consistent.png", 
+#       width = 4, height = 3.2)
+
+# sample size per day of experiment
+tmp %>% count(date, Pho4, host) %>% 
+  pivot_wider(names_from = host, values_from = n)
 ```
+
 ## High variance samples
 
 Summarize the background subtracted data by calculating the means and cv for each strain.
+
 ```{r}
 cv <- dat %>% 
   select(-nGFP, -nRFP) %>%
@@ -343,6 +341,7 @@ cv <- dat %>%
 ```
 
 Use the control strain (pH194 with PHO2) to identify and correct for systematic biases
+
 ```{r}
 control <- filter(dat, plasmid == "194", host == "PHO2") %>% 
   separate(well, into = c("row", "col"), sep = 1) %>% 
@@ -350,6 +349,7 @@ control <- filter(dat, plasmid == "194", host == "PHO2") %>%
 ```
 
 Model for mNeon
+
 ```{r}
 gfp.model.0 <- lm(BL1.H ~ log10(events) + date + row*col, data = control)
 step(gfp.model.0)
@@ -357,15 +357,17 @@ gfp.model.1 <- lm(BL1.H ~ date + col, data = control)
 ```
 
 Model for PHO5pr::RFP
+
 ```{r}
 rfp.model.0 <- lm(YL2.H ~ log10(events) + date + row*col, data = control)
 step(rfp.model.0)
 rfp.model.1 <- lm(YL2.H ~ log10(events) + date + row + col, data = control)
 ```
-> there are more systematic shifts in the RFP, significant for row, col, date and also # of events
-> however, I won't be removing these effects yet, because I've found that RFP/GFP ratios are pretty consistent across days. In other words, the variation in GFP and RFP may be cancelled out.
+
+> there are more systematic shifts in the RFP, significant for row, col, date and also \# of events however, I won't be removing these effects yet, because I've found that RFP/GFP ratios are pretty consistent across days. In other words, the variation in GFP and RFP may be cancelled out.
 
 Check for each plasmid how consistent are the measurements between days
+
 ```{r}
 tmp <- dat %>% 
   # remove one sample with only one valid day of experiment
@@ -401,25 +403,29 @@ day.var.gfp.list <- unique(day.var.gfp$plasmid)
 day.var.rfp.list <- unique(day.var.rfp$plasmid)
 ```
 
-High day-to-day GFP variance: `r day.var.gfp.list`
-High day-to-day RFP variance: `r day.var.rfp.list`
+High day-to-day GFP variance: `r day.var.gfp.list` High day-to-day RFP variance: `r day.var.rfp.list`
 
 Plotting components for chimeras with high day-to-day variance in Pho4-mNeon
+
 ```{r}
 p <- my_plot_ratio(c(refs,day.var.gfp.list))# + 
 p
 ```
+
 > Watch out for CSCscC, SCCsS, SCCsS
 
-Plotting components for chimeras with high day-to-day variance in _PHO5pr_-mCherry
+Plotting components for chimeras with high day-to-day variance in *PHO5pr*-mCherry
+
 ```{r}
 p <- my_plot_ratio(c(refs,day.var.rfp.list))
 p
 ```
+
 > most of the day-to-day variance are canceled out after RFP/GFP normalization
 
 ## All chimera, scatter plot
 
+Plot all chimeras, coloring based on P2ID source
 ```{r}
 my_scatter_plot_fix <- function(){
   # this function is the same as the one in the script file, but is used to 
@@ -469,19 +475,72 @@ my_scatter_plot_fix <- function(){
 ```{r}
 p <- my_scatter_plot_fix()
 ggsave(filename = "../img/20240308-all-chimera-scatter-color-by-P2ID.png",
-       plot = p, width = 5, height = 4, dpi = 300)
+       plot = p, width = 4.5, height = 4, dpi = 300)
+ggplotly(p + labs(x = "A<sub>PHO2</sub>", y = "A<sub>pho2</sub>") +
+           theme_gray(base_size = 16) +
+           theme(legend.text = element_markdown()), 
+         tooltip = c("label", "x", "y"))
+```
+
+this function is the same as my_scatter_plot_fix except that it plots all the chimeras without coloring them differently. for figure 5
+```{r}
+my_scatter_plot_all <- function(){
+  # this function is the same as my_scatter_plot_fix except that it plots all the chimeras
+  # without coloring them differently. for figure 5
+  s1 = my_data_select(pattern = "XXXCCX")
+  s2 = my_data_select(pattern = "XXXSSX")
+  scatter.colors = c("ScPho4" = "forestgreen", "CgPho4" = "blue3", 
+                     "P2ID:Cg" = "gray20", "P2ID:Sc" = "gray20",
+                     "P2ID:mixed" = "gray20")
+  scatter.size = c("ScPho4" = 3.5, "CgPho4" = 3.5,
+                   "P2ID:Cg" = 2.5, "P2ID:Sc" = 2.5, "P2ID:mixed" = 2.5)
+  p <- ximera %>% 
+    filter(set %in% c("M", "S")) %>% 
+    mutate(A_PHO2 = signif(A_PHO2, digits = 2),
+           A_pho2 = signif(A_pho2, digits = 2),
+           group = case_when(
+             symbol == "CCCCC" ~ "CgPho4",
+             symbol == "SSSSS" ~ "ScPho4",
+             plasmid %in% s1 ~ "P2ID:Cg",
+             plasmid %in% s2 ~ "P2ID:Sc",
+             .default = "P2ID:mixed"
+           ),
+           group = fct_relevel(group, names(scatter.colors))) %>% 
+    ggplot(aes(x = A_PHO2, y = A_pho2, label = symbol)) + 
+    geom_abline(slope = 1) +
+    geom_point(aes(color = group, size = group)) + 
+    scale_color_manual(NULL, values = scatter.colors) +
+    scale_size_manual(values = scatter.size, guide = "none") +
+    labs(x = bquote(A[PHO2]), y = bquote(A[pho2])) +
+    theme_cowplot() + panel_border(color = "gray30", size = 1.2) +
+    theme(legend.text = element_text(size = rel(0.8)),
+          legend.position = "none",
+          axis.title = element_text(face = 2, size = rel(1.2)),
+          axis.line = element_blank())
+
+  return(p)
+}
+```
+
+Plot all chimeras, for Fig. 5
+```{r}
+p <- my_scatter_plot_all()
+ggsave(filename = "../img/20241121-all-chimera-scatter.png",
+       plot = p, width = 4.5, height = 4, dpi = 300)
 ggplotly(p + labs(x = "A<sub>PHO2</sub>", y = "A<sub>pho2</sub>") +
            theme_gray(base_size = 16) +
            theme(legend.text = element_markdown()), 
          tooltip = c("label", "x", "y"))
 ```
 ## Spotlight individual chimeras
+
 The goal here is to plot individual chimeras in order to test specific hypotheses and make certain points.
 
-1. We separately tested and found that CgPho4 DBD binds the consensus DNA more strongly than ScPho4 does, and it also has two additional activation booster regions, which enhance the activity of the main AD. We therefore hypothesize that by replacing the corresponding regions in ScPho4 with the parts from CgPho4, we would create a chimeric TF that is not or far less dependent on Pho2.
-1. We also expect that those regions additively contribute to the reduced Pho2-dependence, shown as increased TF activity of the chimera in the _pho2∆_ background.
+1.  We separately tested and found that CgPho4 DBD binds the consensus DNA more strongly than ScPho4 does, and it also has two additional activation booster regions, which enhance the activity of the main AD. We therefore hypothesize that by replacing the corresponding regions in ScPho4 with the parts from CgPho4, we would create a chimeric TF that is not or far less dependent on Pho2.
+2.  We also expect that those regions additively contribute to the reduced Pho2-dependence, shown as increased TF activity of the chimera in the *pho2∆* background.
 
 Design plot
+
 ```{r}
 my_plot_subset_ximera <- function(symbols){
   # this function plots a subset of the chimeras as horizontal bar plots
@@ -499,13 +558,14 @@ my_plot_subset_ximera <- function(symbols){
       rSE_pho2 = se_pho2 / A_pho2[symbol == "SSSSS"]
     ) %>% 
     pivot_longer(cols = c(rA_PHO2, rA_pho2, rSE_PHO2, rSE_pho2), 
+                 #pivot_longer(cols = c(A_PHO2, A_pho2, se_PHO2, se_pho2), 
                  names_to = c(".value", "parameter"), names_sep = "_",
                  values_to = "value") %>% 
     mutate(parameter = fct_relevel(parameter, "PHO2"),
            symbol = factor(symbol, levels = 
                              unique(c("SSSSS", "CCCCC", symbols)))) %>% 
-  select(-c(A_PHO2:boost))
-    
+    select(-c(A_PHO2:boost))
+  
   # labeller
   par.explain <- c(
     PHO2 = "Rel. A<sub>PHO2</sub>",
@@ -533,10 +593,62 @@ my_plot_subset_ximera <- function(symbols){
 }
 ```
 
+<font color="red">Update 2024-11-22</font>
+
+Alternative design, with individual points and not relative to ScPho4. Also, individual datapoints were plotted for samples with \<10 replicates
+
+```{r}
+my_plot_subset_ximera_alt <- function(symbols){
+  # this function plots a subset of the chimeras as horizontal bar plots
+  # showing the Rel. A_PHO2 and %A_pho2∆ values
+  # it takes as input a vector containing the symbols for the chimeras for 
+  # plotting. the order in the vector determines the plot order
+  # the endogenous ScPho4 and CgPho4 are implied
+  missing <- setdiff(symbols, ximera$symbol)
+  if(length(missing) != 0)
+    stop(paste(missing, "are not found", sep = " "))
+  
+  tmp <- filter(dat_sep, symbol %in% c("SSSSS", "CCCCC", symbols)) %>% 
+    mutate(host = fct_relevel(host, "PHO2"),
+           symbol = factor(symbol, levels = 
+                             unique(c("SSSSS", "CCCCC", symbols))))
+
+  tmp %>% count(symbol, host) %>% print()
+  # labeller
+  par.explain <- c(
+    PHO2 = "A<sub>PHO2</sub>",
+    #boost = "Boost",
+    pho2 = "A<sub>pho2∆</sub>"
+  )
+  
+  p <- ggplot(tmp, aes(y = symbol, x = A)) +
+    geom_bar(stat = "summary", fun = "mean", 
+             width = 0.5, color = "black", fill = "gray80") +
+    stat_summary(fun.data = "mean_cl_boot", geom = "linerange",
+                 color = "steelblue4") +
+    geom_point(data = filter(tmp, !symbol %in% c("CCCCC", "SSSSS")), 
+               size = 0.6, shape = 3, color = "gray30") +
+    #geom_vline(xintercept = 1, linetype = 2, color = "gray30") +
+    #geom_errorbar(aes(xmin = rA - rSE, xmax = rA + rSE), width = 0.2) +
+    facet_wrap(~host, scales = "free_x",# switch = "x",
+              labeller = labeller(host = par.explain)) +
+    scale_y_discrete(limits = rev) + 
+    scale_x_continuous(expand = expansion(mult = c(0.02, 0.05))) +
+    theme_cowplot() + panel_border(color = "gray30") +
+    background_grid(major = "y", minor = "none") +
+    theme(axis.text.y = element_text(family = "courier"),
+          axis.title = element_blank(),
+          axis.line = element_blank(),
+          strip.placement = "outside",
+          strip.background = element_blank(),
+          strip.text = element_markdown())
+  return(p)
+}
+```
 
 ### Minimal CgPho4 parts for A_pho2
-The chimera with the least amount of CgPho4 and yet have appreciable activity in the absence of Pho2 is 
-These include SSSSS, CCCCC, SSSSC, CSSSS, SSCSS, CSCSS, CSSSC, CSCSC
+
+The chimera with the least amount of CgPho4 and yet have appreciable activity in the absence of Pho2 is These include SSSSS, CCCCC, SSSSC, CSSSS, SSCSS, CSCSS, CSSSC, CSCSC
 
 ```{r}
 selected <- as.character(
@@ -544,6 +656,9 @@ selected <- as.character(
 #selected <- filter(meta, symbol %in% selected) %>% pull(plasmid)
 my_plot_subset_ximera(selected)
 ggsave("../img/20240308-selected-chimera-rel-activity.png", width = 4, height = 4)
+# plot with absolute A not relative, and plot individual data points
+my_plot_subset_ximera_alt(selected)
+ggsave("../img/20241122-selected-chimera-rel-activity.png", width = 4, height = 4)
 ```
 
 ### Region 1-3 main effects and interactions
@@ -605,7 +720,9 @@ test.res <- bind_rows(
   "A_PHO2" = res.PHO2, "A_pho2" = res.pho2, .id = "parameter"
 )
 ```
+
 Plot the result
+
 ```{r}
 par.explain <- c(
   A_PHO2 = "A<sub>PHO2</sub>",
@@ -643,19 +760,23 @@ ggsave("../img/20240404-region1-3-epistasis-plot.png", width = 3.5, height = 4.5
 ```
 
 ### Region 4 splits
+
 We have so far focused on the main set with the 5 region design. In the scatter plot below, we see that there is a subset of chimeras in between the P2ID:Sc and P2ID:Cg ones. They are interesting in that their A_pho2∆/A_PHO2 ratios are intermediate.
 
 ![scatter](../img/20231220-all-chimera-scatter-color-by-P2ID.png)
+
 ```{r}
 selected <- as.character(
   expression(CCCSC, CCCcsC, CCCscC,
     CSSCC, CSSSC, CSScsC, CSSscC
              ))
 #selected <- filter(meta, symbol %in% selected) %>% pull(plasmid)
-my_plot_subset_ximera(selected) + scale_x_continuous(expand = expansion(mult = c(0.02, 0.15)))
-ggsave("../img/20240310-P2ID-split-rel-activity.png", width = 3.5, height = 3.5)
+my_plot_subset_ximera_alt(selected) + scale_x_continuous(expand = expansion(mult = c(0.02, 0.15)))
+ggsave("../img/20241122-P2ID-split-rel-activity.png", width = 3.5, height = 3.5)
 ```
+
 Statistical tests for group 1
+
 ```{r}
 # select the chimeras
 selected <- as.character(
@@ -702,6 +823,7 @@ print(lm.res)
 ```
 
 Statistical tests for group 2
+
 ```{r}
 # select the chimeras
 selected <- as.character(
@@ -746,7 +868,9 @@ lm.res$coefficients <- cbind(
 )
 print(lm.res)
 ```
+
 ## Region main effect
+
 ```{r}
 split <- c(1,1,1,1,1); names(split) <- paste0("P", 1:5)
 tmp <- ximera %>% 
@@ -756,10 +880,11 @@ tmp <- ximera %>%
 lm <- lm(A_pho2 ~ (P1+P2+P3+P4+P5), data = tmp)
 summary(lm)
 ```
+
 The main effects were calculated by averaging over all chimeras with CgPho4 region at the respective position. I'd like to break them down by backgrounds. For example, for region 3, I'd like to see the pairwise comparisons between CCCSS and CCSSS, where only region 3 differs. The steps are
 
-1. select the region to be compared. split the symbol into two parts - the genotype of the focal region and the rest
-2. group by the second part (rest) and calculate the differential
+1.  select the region to be compared. split the symbol into two parts - the genotype of the focal region and the rest
+2.  group by the second part (rest) and calculate the differential
 
 ```{r}
 my_calc_region_effect <- function(region, variable){
@@ -796,7 +921,7 @@ my_calc_region_effect <- function(region, variable){
 }
 ```
 
-```
+```         
 x = 5
 p1 <- my_plot_region_effect_onevar(x, "A_PHO2")
 p2 <- my_plot_region_effect_onevar(x, "A_pho2")
@@ -808,9 +933,9 @@ subplot(p1, p2, margin = 0.05) %>%
 
 Here, I'd like to take what I build above and create a new tibble, in which each row is a different background (makeup of the chimera except for the focal region). The value columns are:
 
-1. dA_PHO2 = A_PHO2_Cg - A_PHO2_Sc
-2. dA_pho2 = A_pho2_Cg - A_pho2_Sc
-3. A_PHO2_Sc = A_PHO2_Sc
+1.  dA_PHO2 = A_PHO2_Cg - A_PHO2_Sc
+2.  dA_pho2 = A_pho2_Cg - A_pho2_Sc
+3.  A_PHO2_Sc = A_PHO2_Sc
 
 The goal is to plot dA_PHO2 and dA_pho2 side-by-side for each background.
 
@@ -849,7 +974,7 @@ ggsave("../img/20240310-region-swap-effect-3-on-4.png", width = 6, height = 4)
 
 ```
 
-```
+```         
 my_plot_region_effect_twovar_line("4", "5")# %>% ggplotly()
 ggsave("../img/20231221-region-swap-effect-4-on-5.png", width = 6, height = 4, dpi = 150)
 my_plot_region_effect_twovar_line("5", "4")# %>% ggplotly()
@@ -857,6 +982,7 @@ ggsave("../img/20231224-region-swap-effect-5-on-4.png", width = 6, height = 4, d
 ```
 
 The main plotting functions are now in a separate script file in `../script`. The plotting function below is to adapt the plot for a figure in the paper, simultaneously showing regions 1-3.
+
 ```{r}
 my_plot_region_effect_twovar_line_par <- function(regions){
   # this function uses my_comp_region_effect to generate the data
@@ -936,7 +1062,9 @@ my_plot_region_effect_twovar_side <- function(region){
 ```
 
 ## P2ID:Cg_DBD:Sc fail
+
 Highlight the subset of the chimeras with P2ID:Cg + DBD:Sc, most of which are non functional
+
 ```{r}
 my_scatter_plot("XXXXCS") +
     labs(x = bquote(A[PHO2]), y = bquote(A[pho2]))
@@ -953,17 +1081,19 @@ ggsave("../img/20240213-P2ID_Cg-DBD_Sc-components.png", width = 8, height = 5)
 ```
 
 ## Triangle heatmap
+
 First, write a function to generate the data for plotting. If we are going to use ggplot, we need a tibble to store the data, something in the following form
 
 | plasmid | symbol | RegionA | RegionB | A_PHO2 | A_pho2 | rA_PHO2 | boost | perc_pho2 |
-|:------- |:------ |:------- |:------- |:------ |:------ |:------ |:----- |:--------- |
-| 209     | CCSCC  | 3       | 3       | 8.25   | 7.82   | 0.468  | 1.06  | 0.94      |
+|:--------|:-------|:--------|:--------|:-------|:-------|:--------|:------|:----------|
+| 209     | CCSCC  | 3       | 3       | 8.25   | 7.82   | 0.468   | 1.06  | 0.94      |
 
 If we are ok with using non ggplot - heatmaps are not ggplot's strength anyways - we can just build a matrix.
 
 Note that this way of summarizing the data has many limitaitons: 1) it requires specifying the reference, either CCCCC or SSSSS. Everything is measured against that; 2) it only shows pairwise (two region) interactions. This turns out to be fine with five regions, since every chimera can be expressed as either a 0, 1 or 2 region swap from one of the two reference genotypes. With 6 or more regions, higher level (3 or more region) interactions cannot be visualized this way. Because of this, we will focus on just the main set for this analysis.
 
 To build the matrix, we need to first identify the chimeras that belong to the set. For that, we will use the "main" set, with the five region split, for the moment at least. The function will first determine which reference to use. If we use SSSSS as the reference, for example, we will assign 0 to the reference. All other chimeras with 1 or 2 regions from Cg will be used to fill an upper triangular matrix, using one of the values of interest, e.g., A_PHO2.
+
 ```{r}
 my_upper_triangular_mat <- function(alt = "C", var = "A_PHO2", nf.as.na = F){
   # given the alternative allele (C/S) and a variable of interest, e.g., A_PHO2,
@@ -1001,6 +1131,7 @@ my_upper_triangular_mat <- function(alt = "C", var = "A_PHO2", nf.as.na = F){
   return(out_mat)
 }
 ```
+
 ```{r}
 my_combined_triangular_mat <- function(alt = "C"){
   # given the alternative allele (C/S), output a matrix containing the values
@@ -1052,6 +1183,7 @@ my_plot_triangle_heatmap <- function(alt, var){
   return(p)
 }
 ```
+
 ```{r}
 my_plot_combined_triangle_heatmap <- function(alt){
   # this function takes the output of the function my_combined_triangular_mat()
@@ -1096,4 +1228,3 @@ png("../img/20240115-triangle-heatmap-ScPho4-ref.png", width = 7, height = 5, un
 p2 <- my_plot_combined_triangle_heatmap("S")
 dev.off()
 ```
-
