@@ -1,5 +1,5 @@
 ---
-title: "E013 Pho4 chimera activity analysis using PHO5 reporter, analysis"
+title: "E013 Pho4 chimera activity, compare new break points" 
 author: "Bin He"
 date: "2024-01-03 updated `r Sys.Date()`"
 output:
@@ -28,11 +28,9 @@ require(ggtext)
 old <- theme_set(theme_bw(base_size = 16))
 ```
 
-This is the second part of the analysis. In the first part (see `20231229-pool-qc-PHO5.Rmd`), I did QC and exported the filtered dataset. Here, I will continue working with that dataset and answer our biological questions. This notebook is an updated copy of `20240103-PHO5-analysis.Rmd`. The main update is to compare the new 4/5 break point chimeras to the old ones.
+This notebook is an updated copy of `20240103-PHO5-analysis.Rmd`. The main update is to compare the new 4/5 break point chimeras to the old ones.
 
 # Goal
-- Analyze the full chimera set flow results for _PHO5pr_-mCherry reporter.
-- Develop an analysis pipeline to perform QC, correction (if needed) and plotting the results.
 - Compare the new 4/5 breakpoint chimeras to the old set.
 
 | Symbol | Old | New | Comment |
@@ -156,8 +154,8 @@ Did the new break points rescue?
 ximera %>% 
   filter(set %in% c("N", "A", "SA", "SN")) %>% 
   arrange(symbol) %>% 
-  mutate(across(where(is.numeric), ~ round(.x, 2))) %>% 
-  write_tsv("../output/20240103-compare-old-new-4-5-breakpoints.tsv")
+  mutate(across(where(is.numeric), ~ round(.x, 2)))# %>% 
+  #write_tsv("../output/20240103-compare-old-new-4-5-breakpoints.tsv")
 ```
 
 Export the summarized data
@@ -542,16 +540,6 @@ my_scatter_plot_all <- function(){
 }
 ```
 
-Plot all chimeras, for Fig. 5
-```{r}
-p <- my_scatter_plot_all()
-ggsave(filename = "../img/20241121-all-chimera-scatter.png",
-       plot = p, width = 4.5, height = 4, dpi = 300)
-ggplotly(p + labs(x = "A<sub>PHO2</sub>", y = "A<sub>pho2</sub>") +
-           theme_gray(base_size = 16) +
-           theme(legend.text = element_markdown()), 
-         tooltip = c("label", "x", "y"))
-```
 ```{r}
 p <- my_scatter_plot_fix()
 ggsave(filename = "../img/20231220-all-chimera-scatter-color-by-P2ID.png",
@@ -725,7 +713,9 @@ my_plot_region_effect_twovar_line <- function(region, highlight = "none"){
     )
   return(p)
 }
+```
 
+```{r}
 my_plot_region_effect_twovar_line("4", "5")# %>% ggplotly()
 ggsave("../img/20231221-region-swap-effect-4-on-5.png", width = 6, height = 4, dpi = 150)
 ```
