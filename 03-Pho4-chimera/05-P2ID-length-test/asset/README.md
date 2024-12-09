@@ -1,0 +1,1 @@
+annotation files and illustrative images. the CgPho4 insertion region and the insertion site are annotated in the alignment and the gff file. the labeled insertion region (CgPho4 aa 392-451) was inserted into ScPho4 between aa 235 and 236.

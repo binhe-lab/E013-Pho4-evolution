@@ -1,0 +1,12 @@
+##gff-version 2
+Scer	Phosphorylation	SP2	114	114	0.0	.	.
+Scer	Uniprot	Transcription activation domain	75	99	0.0	.	.
+Scer	Phosphorylation	SP1	100	100	0.0	.	.
+Scer	Uniprot	Nuclear localization signal	140	166	0.0	.	.
+Scer	Uniprot	bHLH	250	306	0.0	.	.
+Scer	Phosphorylation	SP6	223	223	0.0	.	.
+Scer	Phosphorylation	SP5	204	204	0.0	.	.
+Scer	Phosphorylation	SP4	152	152	0.0	.	.
+Scer	Phosphorylation	SP3	128	128	0.0	.	.
+Cgla	Phosphorylation	S/T-P-X-[LMIF]	135	138	0.0	.	.
+Cgla	Jalview	CgPho4 P2ID insertion swap into ScPho4	392	451	0.0	.	.

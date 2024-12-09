@@ -1,0 +1,5 @@
+plasmid	name	makeup
+188	CgPho4	Cg(1-533)
+194	ScPho4	Sc(1-312)
+481	ScPho4+Cg_insert	Sc(1-235) Cg(392-451) Sc(236-312)
+482	ScPho4+GS_linker	Sc(1-235) (GS)x30 Sc(236-312)
