@@ -12,3 +12,5 @@ plsmid | makeup
 -------|-------
  pH481 | Sc(1-235) Cg(392-451) Sc(236-312)
  pH482 | Sc(1-235) (GS)x30 Sc(236-312)
+
+**Note**: there is another analysis also focusing on the P2ID, where we tested whether P2ID:Sc is required for the function of DBD:Sc. That analysis is together with the main chimera set analysis. Link: [Sc45ext analysis](../03-flow-full-data-lfs/analysis/20240208-Sc45-Cg4ext-pool-n-analyze.Rmd)
