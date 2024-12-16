@@ -1,0 +1,8 @@
+Saccharomyces_cerevisiae
+Saccharomyces_mikatae
+Candida_glabrata
+Nakaseomyces_bracarensis
+Nakaseomyces_bacillisporus
+Nakaseomyces_castellii
+Lachancea_kluyveri
+Candida_albicans

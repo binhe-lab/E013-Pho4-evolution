@@ -1,5 +1,5 @@
 ---
-title: "Plot PADDLE predictions"
+title: "Plot PADDLE predictions for diverse Pho4 orthologs"
 date: 2024-10-29, updated `r Sys.Date()`
 author: Bin He
 format: html
@@ -12,10 +12,31 @@ require(tidyverse)
 require(cowplot)
 ```
 
-## Goal
+# Goal
 
-Plot PADDLE predicted activation potentials for multiple Pho4 orthologs
+- Plot PADDLE predicted activation potentials for multiple Pho4 orthologs.
+- Also generate some accompanying figures like the gene/species tree.
 
+# Pho4 annotation
+In this analysis, we included 14 Pho4 orthologs. It would be useful to have a common set of annotations for them in BED format, including the location of the bHLH domain and coordinates and lengths of the P2ID.
+
+```{r}
+anno <- read_csv("../data/annot/20241029-Pho4-ortholog-annotation.csv", 
+                 comment = "#") %>% 
+  mutate(len = end - start + 1)
+```
+
+## Phylogeny
+We also need the phylogeny for the species to organize the plots. The species tree was generated from Shen et al. 2018 data. The code and trees generated are documented in `../phylogeny`. Plot is linked here
+![](../data/phylogeny/20241212-species-tree-time-calibrated.png)
+
+Set the species order to match the tree tip order
+```{r}
+sps.order <- c("L. kluyveri", "S. cerevisiae", "S. mikatae", "C. bracarensis",
+               "C. glabrata", "N. bacillisporus", "N. castellii", "C. albicans")
+```
+
+# PADDLE prediction
 ## Import data
 
 ```{r}
@@ -32,28 +53,28 @@ names(files) <- str_split(files, pattern = "-", simplify = TRUE)[,2]
 dat <- map_dfr(files, \(f) my_read_paddle(paste0("../output/", f)), .id = "Pho4")
 ```
 
-## Pho4 annotation and phylogeny
-In this analysis, we included 14 Pho4 orthologs. It would be useful to have a common set of annotations for them in BED format, including the location of the bHLH domain and coordinates and lengths of the P2ID. We would also want to have the phylogeny for the species from which the Pho4 orthologs come.
-
-```{r}
-anno <- read_csv("../data/annot/20241029-Pho4-ortholog-annotation.csv", 
-                 comment = "#") %>% 
-  mutate(len = end - start + 1)
-```
 ## Plotting
 ```{r}
-act.colors <- c("gray80", "royalblue", "royalblue3")
+#act.colors <- c("gray80", "royalblue1", "darkblue")
+act.colors <- RColorBrewer::brewer.pal(n = 3, name = "Blues")
+act.colors[1] = "gray80"
 names(act.colors) <- c("no act", "medium", "strong")
-#select.sps <- c("ScerPho4", "SmikPho4", "CglaPho4", "CbraPho4", "LkluPho4", "CalbPho4")
-p3 <- dat %>% 
-  #filter(Pho4 %in% select.sps) %>% 
+tile_height = 0.5
+```
+
+```{r}
+select.sps <- c("LkluPho4", "ScerPho4", "SmikPho4", "CbraPho4",
+                "CglaPho4", "NbacPho4", "NcasPho4", "CalbPho4")
+p1 <- dat %>% 
+  filter(Pho4 %in% select.sps) %>% 
   mutate(Pho4 = factor(Pho4, levels = rev(select.sps)),
          paddle = cut(Z_score, breaks = c(-0.5, 4, 6, 12), 
                       labels = c("no act", "medium", "strong"))) %>% 
-  ggplot(aes(x = Pos, y = Pho4, height = h)) +
+  ggplot(aes(x = Pos, y = Pho4, height = tile_height)) +
   geom_tile(aes(fill = paddle), width = 2, linewidth = 0.5) +
-  geom_tile(aes(x = (Begin + End)/2, y = Pho4, width = (End - Begin + 1)), 
-            data = bHLH, height = h, fill = "yellowgreen") +
+  geom_tile(aes(x = (start + end)/2, y = Pho4, width = len), 
+            data = filter(anno, feature == "bHLH", Pho4 %in% select.sps), 
+            height = tile_height, fill = "yellowgreen") +
   scale_fill_manual("Activation", values = act.colors) +
   theme_cowplot() +
   theme(
@@ -61,7 +82,27 @@ p3 <- dat %>%
     axis.title = element_blank(),
     legend.position = "none"
   )
-ggsave("../output/img/20240324-diverse-Pho4-PADDLE-for-R35.png", p3, width = 4, height = 3)  
+ggsave("../output/img/20241210-diverse-Pho4-PADDLE-prediction-with-DBD.png",
+       p1, width = 4, height = 3.5)  
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+P2ID length
+```{r}
+p2 <- anno %>% 
+  filter(Pho4 %in% select.sps, feature == "P2ID") %>% 
+  mutate(Pho4 = factor(Pho4, levels = rev(select.sps))) %>% 
+  ggplot(aes(x = len, y = Pho4)) +
+  geom_col(fill = rgb(182, 215, 168, maxColorValue = 255), 
+           width = tile_height) +
+  geom_text(aes(x = 20, label = len)) +
+  theme_cowplot() +
+  theme(
+    axis.line = element_blank(),
+    axis.title = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    legend.position = "none"
+  )
+ggsave("../output/img/20241210-diverse-Pho4-P2ID-length.png",
+       p2, width = 2, height = 3.5)  
+```

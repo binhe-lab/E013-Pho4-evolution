@@ -222,6 +222,22 @@ p0
 ggsave("../output/20241202-EO-Y1H-Pho2-dep-plot-controls.png", width = 6, height = 3)
 ```
 
+Plot data without full length Gal4 and also without ScE2 constructs, which we didn't test in our first submission. This figure is used in the response to the reviewers' comments.
+```{r}
+p0 <- dat1 %>% 
+  # exclude pho2 alternative transformant from the plot
+  filter(host != "pho2*") %>% 
+  # exclude Gal4 full length from the plot
+  filter(name != "Gal4") %>% 
+  # exclude ScE2 plasmid
+  filter(!grepl("ScE2", name)) %>% 
+  # reorder the levels of the host for plotting
+  mutate(host = fct_relevel(host, "pho2", "pho2*", "PHO2")) %>% 
+  ggplot(aes(x = name, y = median, group = host)) + my_plot_design +
+  geom_point(position = pd, size = 0.5, color = "gray70")
+p0
+ggsave("../output/20241215-EO-Y1H-Pho2-dep-plot-noScE2.png", width = 6, height = 7.5)
+```
 # Statistical analyses
 ## Pho2-dependence
 For each of the tested constructs, test for Pho2-dependence
@@ -239,6 +255,20 @@ dat1 %>%
 ```
 > Only the ScE2 tested significant at a 0.05 level after Bonferronni-Holm correction for a Pho2 dependent effect.
 
+If leaving out ScE2 constructs
+```{r}
+dat1 %>% 
+  filter(host != "pho2*") %>% 
+  filter(!grepl("ScE2", name)) %>% 
+  select(name, host, median) %>% 
+  nest(data = -name) %>% 
+  mutate(test = map(data, \(x) t.test(median ~ host, data = x)),
+         tidied = map(test, tidy)) %>% 
+  unnest(tidied) %>%
+  select(sample = name, dA = estimate, statistic, p.value) %>% 
+  mutate(P.adj = p.adjust(p.value, method = "holm")) %>% 
+  arrange(P.adj)
+```
 ## CgE1
 Constructs containing CgE1 showed a consistent pattern of a higher activity with than without Pho2. Different from ScE2, we still see a boosting effect from CgE1 without Pho2. We will be testing this formally here. The goal is to compare the CgE1-containing constructs to the paired AD-only ones.
 ```{r}
