@@ -87,6 +87,10 @@ dat <- map_dfr(files,
 # all sample names match?
 all(!is.na(dat$Pho4))
 ```
+Export the combined data
+```{r}
+write_tsv(dat, file = "../output/20250213-NLS-nuc-frac-data.tsv")
+```
 
 ## Plot
 ```{r}
