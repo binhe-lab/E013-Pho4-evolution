@@ -1,0 +1,25 @@
+Date,Strain_Genotype,Host,Group,Pho4
+20240130,pho4::NAT; his3::pRS303-HIS3; pho80::TRP1; pho5::mCherry,PHO2,Cg,CCCCC
+20240130,pho4::NAT; his3::pRS303-HIS3; pho80::TRP1; pho5::mCherry,PHO2,Sc,SSSSS
+20240130,pho4::NAT; his3::pRS303-HIS3; pho80::TRP1; pho5::mCherry,PHO2,A2,SSCSS
+20240130,pho4::NAT; his3::pRS303-HIS3; pho80::TRP1; pho5::mCherry,PHO2,C2,CCSCC
+20240130,pho4::NAT; his3::pRS303-HIS3; pho80::TRP1; pho5::mCherry,PHO2,E8,SSCCS
+20240130,pho4::NAT; his3::pRS303-HIS3; pho80::TRP1; pho5::mCherry,PHO2,G8,SSSCC
+20240206,pho4::NAT; his3::pRS303-HIS3; pho80::TRP1; pho5::mCherry,PHO2,Cg,CCCCC
+20240206,pho4::NAT; his3::pRS303-HIS3; pho80::TRP1; pho5::mCherry,PHO2,Sc,SSSSS
+20240206,pho4::NAT; his3::pRS303-HIS3; pho80::TRP1; pho5::mCherry,PHO2,A12,SSCSS
+20240206,pho4::NAT; his3::pRS303-HIS3; pho80::TRP1; pho5::mCherry,PHO2,C3,CCSCC
+20240206,pho4::NAT; his3::pRS303-HIS3; pho80::TRP1; pho5::mCherry,PHO2,E9,SSCCS
+20240206,pho4::NAT; his3::pRS303-HIS3; pho80::TRP1; pho5::mCherry,PHO2,G9,SSSCC
+20240214, pho4::NAT; pho2::HIS3; pho80::TRP1; pho5::mCherry,pho2,Cg,CCCCC
+20240214, pho4::NAT; pho2::HIS3; pho80::TRP1; pho5::mCherry,pho2,Sc,SSSSS
+20240214, pho4::NAT; pho2::HIS3; pho80::TRP1; pho5::mCherry,pho2,B10,SSCSS
+20240214, pho4::NAT; pho2::HIS3; pho80::TRP1; pho5::mCherry,pho2,D1,CCSCC
+20240214, pho4::NAT; pho2::HIS3; pho80::TRP1; pho5::mCherry,pho2,F7,SSCCS
+20240214, pho4::NAT; pho2::HIS3; pho80::TRP1; pho5::mCherry,pho2,H7,SSSCC
+20240216, pho4::NAT; pho2::HIS3; pho80::TRP1; pho5::mCherry,pho2,Cg,CCCCC
+20240216, pho4::NAT; pho2::HIS3; pho80::TRP1; pho5::mCherry,pho2,Sc,SSSSS
+20240216, pho4::NAT; pho2::HIS3; pho80::TRP1; pho5::mCherry,pho2,B11,SSCSS
+20240216, pho4::NAT; pho2::HIS3; pho80::TRP1; pho5::mCherry,pho2,D2,CCSCC
+20240216, pho4::NAT; pho2::HIS3; pho80::TRP1; pho5::mCherry,pho2,F8,SSCCS
+20240216, pho4::NAT; pho2::HIS3; pho80::TRP1; pho5::mCherry,pho2,H8,SSSCC
