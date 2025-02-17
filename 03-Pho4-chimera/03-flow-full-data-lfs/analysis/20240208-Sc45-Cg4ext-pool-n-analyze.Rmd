@@ -610,7 +610,7 @@ my_plot_subset_ximera_alt <- function(symbols){
           strip.placement = "outside",
           strip.background = element_blank(),
           strip.text = element_markdown())
-  return(p)
+  return(list(data = tmp, plot = p))
 }
 ```
 
@@ -619,9 +619,13 @@ selected <- as.character(
   expression(SCCCS, CSCCS, CCSCS, SSCCS, SSSCS, 
              SCCCW, CSCCW, CCSCW, SSCCW, SSSCW))
 #selected <- filter(meta, symbol %in% selected) %>% pull(plasmid)
-my_plot_subset_ximera_alt(selected) +
+plot.ext45 <- my_plot_subset_ximera_alt(selected)
+plot.ext45$plot +
   scale_y_discrete(limits = rev, labels = my_symbol_colors) +
   theme(axis.text.y = element_markdown())
 ggsave("../img/20241130-Sc45ext-compare-rel-activity.png", width = 4, height = 4)
+plot.ext45$data %>% 
+  select(plasmid_id = plasmid, chimera_makeup = symbol, host, A) %>% 
+  write_tsv("../output/20250213-Fig-6C-data.tsv")
 ```
 ```
