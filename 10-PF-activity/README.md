@@ -1,0 +1,1 @@
+Based on _PHO5_ mutant reporter result, we speculate that CgPho4 has Pioneer Factor (PF) activity while ScPho4 doesn't. Here, we establish this result and test with ChIP and in vitro binding assays. Finally, we will try and determine the biophysical mechanism.
