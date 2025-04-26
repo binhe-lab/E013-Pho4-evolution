@@ -1,0 +1,57 @@
+---
+title: "PHO5 mutant promoter reporter assay"
+date: 2025-04-26, updated `r Sys.Date()`
+author: "Bin He"
+format: html
+---
+
+```{r}
+require(tidyverse)
+require(cowplot)
+require(ggtext)
+```
+
+```{r}
+old <- theme_set(theme_cowplot())
+```
+
+## Goal
+
+Plot flow cytometry result for _PHO5_ wild type (WT) and mutant reporter data.
+
+## Data
+
+The "quick" analysis uses data pre-processed by Kelsey. She exported the MFI from the Attune software, then did background subtraction for both Pho4-mNeon and _PHO5pr_-mCherry, then calculated the ratio between the two, which was used to describe the activity of the TF.
+
+```{r}
+dat <- read_tsv("../input/20250425-PHO5-mutant-reporter-KM-excel-export.tsv", 
+                na = "NA") |>
+  pivot_longer(cols = X1:X6, names_to = "Rep", values_to = "Activity") |>
+  mutate(PHO5pr = factor(PHO5pr, c("WT", "M1", "M2")))
+```
+
+## Plot
+
+```{r}
+p <- dat %>% 
+  filter(Host == "PHO2") %>%
+  ggplot(aes(x = PHO5pr, y = Activity)) +
+  geom_bar(stat = "summary", fun = "mean", 
+           fill = "gray80", color = "gray20") +
+  geom_point(shape = 3) +
+  facet_wrap(~Pho4) +
+  xlab("_PHO5_ promoter variant") + ylab("Normalized TF activity") +
+  theme(strip.background = element_blank(),
+        strip.text = element_text(size = rel(1)),
+        axis.title = element_markdown())
+p
+ggsave("../output/20250426-PHO5-mutant-promoter-induction-both-Pho4.png",
+       width = 5, height = 2.5)
+```
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
