@@ -108,6 +108,28 @@ medJoin$group = factor(medJoin$group,
 table(medJoin$group)
 ```
 
+## For GEO deposit
+Here we pool the data specifically for depositing the data into GEO. The processing steps are largely the same as above, but we will retain all probes.
+
+Read the platform design file to get the ID_REF column
+```{r}
+array_gpl <- read_delim("../input/20250325-Agilent-SureDesign-GEO-format-087176_D_GEO_20221111.txt.gz", col_select = ID:NAME, skip = 43, comment = "!")
+```
+
+
+```{r}
+geo_data <- full_join(
+  rawSc %>% filter(grepl("Pho4ortho", ID)) |> # remove control probles
+    select(ID, Sequence, `ScPho4_2uM` = Alexa488Adjusted),
+  rawCg %>% filter(grepl("Pho4ortho", ID)) |> # remove control probles
+    select(ID, Sequence, `CgPho4_2uM` = Alexa488Adjusted),
+  by = c("ID", "Sequence")
+) %>% left_join(select(array_gpl, ID_REF = ID, ID = NAME), by = "ID") %>% 
+  relocate(ID_REF, .before = everything())
+
+write_tsv(geo_data, file = "../output/20250326-normalized-intensity-for-GEO.txt.gz")
+```
+
 # Plot
 Scatter plot for both consensus and nonconsensus sequences
 ```{r}
